@@ -4,7 +4,7 @@ This is a very simple compiler for Dual Universe scripts, specially larger proje
 
 It does some pre-processing on your scripts, such as embedding `require` statements and code minification.
 
-As an bonus, it also has some very basic project management through a `project.json` file (check below)
+As an bonus, it also has some very basic project management through a `build.json` file (check below)
 
 ## Installation
 
@@ -12,9 +12,9 @@ To install this compiler, just run `npm install -g @wolfe-labs/du-luac` and it w
 
 ## Usage
 
-To compile your projects, use the following syntax: `du-luac [path-to/project.json]`
+To compile your projects, use the following syntax: `du-luac [path-to/build.json]`
 
-You might need to generate a `project.json` file first, it must have the following syntax:
+You might need to generate a `build.json` file first, it must have the following syntax:
 
 ```json
 {

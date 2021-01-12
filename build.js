@@ -12,20 +12,21 @@ const { spawnSync } = require('child_process')
 
 const srcpath = []
 const requires = []
+const currentFiles = []
 
 function handleRequire (file) {
-  // Process the file name
-  const filename = handleFilename(file)
+  // Process the file name)
+  const filename = handleFilename(path.join(srcpath[0], file))
 
   // File not found?
   if (!filename) {
-    console.error(`File not found: ${file}`)
+    console.error(`Required file not found: "${file}" on file "${currentFiles[0]}"`)
     process.exit(1)
   }
 
   // Check if this file was not already included
   if (~requires.indexOf(filename)) {
-    console.info(`File already included, skipping: ${filename}`)
+    console.info(`File already included, skipping: "${filename}"`)
     return ''
   }
 
@@ -33,13 +34,19 @@ function handleRequire (file) {
   requires.push(filename)
 
   // Setup current path
-  srcpath.unshift(path.dirname(file))
+  srcpath.unshift(path.dirname(filename))
 
   // Gets the file contents
   const source = fs.readFileSync(filename).toString()
 
+  // Sets as active file
+  currentFiles.unshift(filename)
+
   // Process the file source and return it
   const result = handleSource(source)
+
+  // Removes current file to move on to next one
+  currentFiles.shift()
 
   // Removes from path to keep working
   srcpath.shift()
@@ -50,7 +57,9 @@ function handleRequire (file) {
 
 function handleFilename (file) {
   // Get absolute path
-  file = path.join(srcpath[0], file)
+  if (!path.isAbsolute(file)) {
+    file = path.join(srcpath[0], file)
+  }
 
   // Works on file
   if (fs.existsSync(file)) return file
@@ -59,6 +68,13 @@ function handleFilename (file) {
 }
 
 function handleSource (source) {
+  // Validate source AST
+  try {
+    luaparse.parse(source)
+  } catch (err) {
+    handleParseError(err)
+  }
+
   // All regexes go here
   const regex = {
     require: {
@@ -79,6 +95,11 @@ function handleSource (source) {
 
   // Returns processed source
   return source
+}
+
+function handleParseError (err) {
+  console.error(`Error parsing file "${currentFiles[0]}" at line ${err.line}, column ${err.column}, index: ${err.index}:\n${err.message}`)
+  process.exit(1)
 }
 
 // Push CWD into the compile directory
@@ -170,7 +191,7 @@ if (project.output.complete) {
   
   // Shows any outputs
   if (outputAutoconf.length > 0) {
-    console.log(outputAutoconf)
+    console.info(outputAutoconf)
   }
 }
 
@@ -193,7 +214,7 @@ if (project.output.minify) {
   
   // Shows any outputs
   if (outputAutoconf.length > 0) {
-    console.log(outputAutoconf)
+    console.info(outputAutoconf)
   }
 }
 
