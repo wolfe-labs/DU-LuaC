@@ -1,0 +1,22 @@
+{
+  "name": "@wolfe-labs/du-luac",
+  "version": "0.1.0",
+  "description": "Wolfe Labs Lua Compiler for Dual Universe",
+  "main": "build.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wolfe-labs/DU-LuaC.git"
+  },
+  "author": "",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/wolfe-labs/DU-LuaC/issues"
+  },
+  "bin": {
+    "du-luac": "build.js"
+  },
+  "homepage": "https://github.com/wolfe-labs/DU-LuaC#readme",
+  "dependencies": {
+    "luamin": "^1.0.4"
+  }
+}
