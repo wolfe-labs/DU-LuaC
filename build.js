@@ -11,6 +11,7 @@ const luaparse = require('luaparse')
 const { spawnSync } = require('child_process')
 
 const srcpath = []
+const requires = []
 
 function handleRequire (file) {
   // Process the file name
@@ -20,6 +21,12 @@ function handleRequire (file) {
   if (!filename) {
     console.error(`File not found: ${file}`)
     process.exit(1)
+  }
+
+  // Check if this file was not already included
+  if (~requires.indexOf(filename)) {
+    console.info(`File already included, skipping: ${filename}`)
+    return ''
   }
 
   // Setup current path
