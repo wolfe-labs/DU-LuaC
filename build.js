@@ -29,6 +29,9 @@ function handleRequire (file) {
     return ''
   }
 
+  // Prevents file from being included twice
+  requires.push(filename)
+
   // Setup current path
   srcpath.unshift(path.dirname(file))
 
