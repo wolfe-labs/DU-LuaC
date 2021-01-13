@@ -14,14 +14,20 @@ const srcpath = []
 const requires = []
 const currentFiles = []
 
+// Load package info
+const cPackage = require(path.join(__dirname, 'package.json'))
+
+// Welcome msg :)
+console.info(`DU-LuaC compiler v${cPackage.version}`)
+
 function handleRequire (file) {
   // Process the file name)
   const filename = handleFilename(path.join(srcpath[0], file))
 
   // File not found?
   if (!filename) {
-    console.error(`Required file not found: "${file}" on file "${currentFiles[0]}"`)
-    process.exit(1)
+    console.warn(`Required library not found: "${file}" on file "${currentFiles[0]}", leaving statement alone...`)
+    return null
   }
 
   // Check if this file was not already included
@@ -80,7 +86,8 @@ function handleSource (source) {
     require: {
       expression: /require[\s]+[\'\"](.+?)[\'\"]/gi,
       handle: function (match, file) {
-        return handleRequire(file)
+        const output = handleRequire(file)
+        return (output == null) ? match : output
       },
     },
   }
