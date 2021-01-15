@@ -211,8 +211,16 @@ function handleSource (source) {
     require: {
       expression: /require[\s\()]*[\'\"](.+?)[\'\"][\s]*[\)]*/gi,
       handle: function (match, file) {
-        const fqn = handleRequire(file).fqn
-        return `require('${fqn}')`
+        // Does the require, should return null if not found
+        const req = handleRequire(file)
+
+        if (req) {
+          // If the require worked, use the FQN as the module name
+          return `require('${req.fqn}')`
+        } else {
+          // If nothing was found, keep it the way it was
+          return match
+        }
       },
     },
   }
