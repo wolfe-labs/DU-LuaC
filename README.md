@@ -76,7 +76,7 @@ For example, if you have a construct with two different Programming Boards, each
   "builds": [
     {
       "name": "control_panel",
-      "slots": [
+      "slots": {
         "screen_main": {
           "type": "screen"
         },
@@ -87,7 +87,7 @@ For example, if you have a construct with two different Programming Boards, each
         "fuel_tank": {
           "type": "fuelContainer"
         }
-      ]
+      }
     },
     {
       "name": "storage",
