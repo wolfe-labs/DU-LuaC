@@ -91,10 +91,10 @@ For example, if you have a construct with two different Programming Boards, each
     },
     {
       "name": "storage",
-      "slots": [
+      "slots": {
         "door_storage": {},
         "container_hub": {}
-      ]
+      }
     }
   ]
 }
