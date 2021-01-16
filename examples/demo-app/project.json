@@ -1,0 +1,34 @@
+{
+  "name": "@your-github/Your-Repo-Name-App",
+  "sourcePath": "src",
+  "outputPath": "out",
+  "libs": [
+    { "id": "@my-user/my-library", "path": "../demo-library" }
+  ],
+  "targets": [
+    {
+      "name": "development",
+      "minify": false,
+      "handleErrors": true
+    },
+    {
+      "name": "production",
+      "minify": true,
+      "handleErrors": false
+    }
+  ],
+  "builds": [
+    {
+      "name": "application",
+      "slots": {
+        "screen_1": {
+          "type": "screen"
+        },
+        "databank": {
+          "type": "databank"
+        },
+        "some_door": {}
+      }
+    }
+  ]
+}
