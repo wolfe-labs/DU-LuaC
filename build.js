@@ -155,7 +155,8 @@ if (project.libs) {
     console.info(`Generating autoconf file with following flags: ${buildArgs.join(' ')}`)
 
     // Generate autoconf
-    const outputAutoconf = spawnSync('lua', [buildProg, `${file}.lua`, `${file}.json`, ...buildArgs]).output.join('\n').trim()
+    const procAutoconf = spawnSync('lua', [buildProg, `${file}.lua`, `${file}.json`, ...buildArgs])
+    const outputAutoconf = (procAutoconf.output || []).join('\n').trim()
     
     // Shows any outputs
     if (outputAutoconf.length > 0) {
