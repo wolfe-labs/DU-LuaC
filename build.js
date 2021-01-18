@@ -25,6 +25,16 @@ const defaultBuildFile = 'project.json'
 // Our wrap.lua file
 const buildProg = path.join(__dirname, 'wrap.lua')
 
+// Gets current Lua version
+function getLuaVersion () {
+  const luaVersion = spawnSync('lua', ['-v'])
+  if (luaVersion && luaVersion.stdout) {
+    return luaVersion.stdout.toString()
+  } else {
+    return null
+  }
+}
+
 // Load library
 function loadLibrary (library) {
   // Checks if the "id" field is present
@@ -55,7 +65,7 @@ function loadLibrary (library) {
   }
 
   // Log
-  console.info(`Loading project: "${library.id}"`)
+  console.info(`Loading project library: "${library.id}"`)
 
   // Fetch the library project
   library.project = JSON.parse(fs.readFileSync(libProject).toString())
@@ -71,7 +81,19 @@ function loadLibrary (library) {
 const cPackage = require(path.join(__dirname, 'package.json'))
 
 // Welcome msg :)
-console.info(`DU-LuaC compiler v${cPackage.version}`)
+console.info(`DU-LuaC compiler v${cPackage.version} @ env. ${process.version}`)
+
+// Lua info
+const luaVersion = getLuaVersion()
+if (luaVersion) {
+  console.info(luaVersion)
+} else {
+  console.warn('No Lua tools found on your system. Autoconfig might not be generated.')
+  console.warn('You can download the binaries at: http://luabinaries.sourceforge.net/')
+}
+
+// Skip line
+console.info('')
 
 // The project JSON file
 const projectSource = process.argv[2] || path.join(process.cwd(), defaultBuildFile)
@@ -96,8 +118,11 @@ if (project.libs) {
   project.libs.map(loadLibrary)
 }
 
+// Skip line
+console.info('')
+
 // Runs builds
-(project.builds || []).map(buildSpec => {
+;(project.builds || []).map(buildSpec => {
   // Info
   console.info(`Compiling build "${buildSpec.name}"...`)
 
@@ -117,10 +142,10 @@ if (project.libs) {
 
     // Done, returns the slot string
     return slotString
-  });
+  })
 
   // Runs the build targets
-  (project.targets || []).map(buildTarget => {
+  ;(project.targets || []).map(buildTarget => {
     // Info
     console.info(`Generating build files for target "${buildTarget.name}"...`)
 
@@ -151,16 +176,20 @@ if (project.libs) {
     // Write Lua files
     fs.writeFileSync(`${file}.lua`, output)
 
-    // More logs
-    console.info(`Generating autoconf file with following flags: ${buildArgs.join(' ')}`)
+    if (luaVersion) {
+      // More logs
+      console.info(`Generating autoconf file with following flags: ${buildArgs.join(' ')}`)
 
-    // Generate autoconf
-    const procAutoconf = spawnSync('lua', [buildProg, `${file}.lua`, `${file}.json`, ...buildArgs])
-    const outputAutoconf = (procAutoconf.output || []).join('\n').trim()
-    
-    // Shows any outputs
-    if (outputAutoconf.length > 0) {
-      console.info(outputAutoconf)
+      // Generate autoconf
+      const procAutoconf = spawnSync('lua', [buildProg, `${file}.lua`, `${file}.json`, ...buildArgs])
+      const outputAutoconf = (procAutoconf.output || []).join('\n').trim()
+      
+      // Shows any outputs
+      if (outputAutoconf.length > 0) {
+        console.info(outputAutoconf)
+      }
+    } else {
+      console.info('Skipping autoconf file generation as no Lua tools were found')
     }
   })
 })

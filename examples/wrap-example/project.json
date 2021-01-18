@@ -1,0 +1,27 @@
+{
+  "name": "@example/wrap.lua",
+  "sourcePath": "src",
+  "outputPath": "out",
+  "targets": [
+    {
+      "name": "development",
+      "minify": false,
+      "handleErrors": true
+    },
+    {
+      "name": "production",
+      "minify": true,
+      "handleErrors": false
+    }
+  ],
+  "builds": [
+    {
+      "name": "application",
+      "slots": {
+        "screen": {
+          "type": "screen"
+        }
+      }
+    }
+  ]
+}
