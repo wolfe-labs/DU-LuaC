@@ -312,13 +312,28 @@
       // Checks if the specified path exists
       if (exists(importLibRaw)) {
         // Imports found library
-        importLib = library.getProjectInfo(importLibRaw)
+        importLib = await library.getProjectInfo(importLibRaw)
+
+        // Checks if valid project
+        if (!importLib) {
+          console.error(`No valid library found at path: ${importLibRaw}`)
+          process.exit(1)
+        }
+
+        // Checks if project already has it
+        if (library.projectHasLibrary(project, importLib.name)) {
+          console.error(`The specified library was already in the project. Exiting...`)
+          process.exit(1)
+        }
 
         // Generates project info
         project.libs.push({
           id: importLib.name,
           path: importLibRaw,
         })
+
+        // Saves
+        await library.saveProject(project)
 
         // Informs user
         console.info(`The library "${importLib.name}" was successfully imported into your project!`)
