@@ -28,7 +28,7 @@ After installed, go into your projects directory and run `du-lua create my-first
 
 After done with that, run `du-lua -h` to view a list of available commands.
 
-You can build your project by running either `du-lua build` or `du-luac`, both will do the exact same thing.
+You can build your project by running either `du-lua build`, both will do the exact same thing.
 
 ### Adding a new Script/Build Entrypoint
 

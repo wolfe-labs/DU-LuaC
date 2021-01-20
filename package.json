@@ -13,8 +13,7 @@
     "url": "https://github.com/wolfe-labs/DU-LuaC/issues"
   },
   "bin": {
-    "du-lua": "main.js",
-    "du-luac": "main.js build"
+    "du-lua": "main.js"
   },
   "homepage": "https://github.com/wolfe-labs/DU-LuaC#readme",
   "dependencies": {
