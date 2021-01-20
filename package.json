@@ -1,6 +1,6 @@
 {
   "name": "@wolfe-labs/du-luac",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Wolfe Labs Lua Compiler for Dual Universe",
   "main": "main.js",
   "repository": {

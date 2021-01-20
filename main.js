@@ -130,6 +130,12 @@
       buildName = args[0]
       buildFile = path.join(project.sourcePath, `${buildName}.lua`)
 
+      // If the build is not valid, errors
+      if (!buildName) {
+        console.error(`Invalid build name`)
+        process.exit(1)
+      }
+
       // If that already exists, notify user and exit
       if (library.projectHasBuild(project, buildName)) {
         console.info(`The build "${buildName}" already exists at current project. Exiting...`)
@@ -159,6 +165,12 @@
 
       // The build name
       buildName = args[0]
+
+      // If the build is not valid, errors
+      if (!buildName) {
+        console.error(`Invalid build name`)
+        process.exit(1)
+      }
       
       // If build is not found, warn user
       if (!library.projectHasBuild(project, buildName)) {
