@@ -191,6 +191,7 @@ Right now, these are features being planned/implemented:
 - [ ] Command to update libraries in a project
 - [ ] Version control, maybe using Git branches/tags?
 - [ ] Proper autoconf generator written in JS so we don't need to use any Lua binary
+- [ ] Automated tests
 
 ## About, Contact, Support, etc.
 

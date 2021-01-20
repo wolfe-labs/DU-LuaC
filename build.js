@@ -77,6 +77,13 @@ module.exports = async function (argv) {
     // Fetch the library project
     library.project = JSON.parse(fs.readFileSync(libProject).toString())
 
+    // Checks for any missing dependencies from the library
+    if (library.project.libs) {
+      for (let k in library.project.libs) {
+        await loadLibrary(library.project.libs[k])
+      }
+    }
+
     // Resolve the library root
     library.root = path.dirname(path.join(library.path, library.project.sourcePath || 'src'))
 

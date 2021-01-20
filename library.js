@@ -86,6 +86,10 @@ module.exports = class Library {
         await fs.rmdir(destination, { recursive: true })
       }
       await fs.mkdir(destination, { recursive: true })
+    } else {
+      if (!exists(path.dirname(destination))) {
+        await fs.mkdir(path.dirname(destination), { recursive: true })
+      }
     }
 
     // Validates, protocol MUST NOT be 'file' as it may point to an invalid local path
