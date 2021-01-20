@@ -35,9 +35,9 @@ module.exports = class Library {
     const pathKPublic = path.join(pathKeys, 'id.pub')
     const pathKPrivate = path.join(pathKeys, 'id')
 
-    // Checksi f key directory exits
+    // Checks if key directory exits
     if (!exists(pathKeys)) {
-      fs.mkdir(pathKeys, { recursive: true })
+      await fs.mkdir(pathKeys, { recursive: true })
     }
 
     // Checks if keys exist, if not then generates them
@@ -55,8 +55,8 @@ module.exports = class Library {
       })
 
       // Writes them to disk
-      fs.writeFile(pathKPublic, keysGen.publicKey)
-      fs.writeFile(pathKPrivate, keysGen.privateKey)
+      await fs.writeFile(pathKPublic, keysGen.publicKey)
+      await fs.writeFile(pathKPrivate, keysGen.privateKey)
     }
 
     // Fetches both keys in original format
@@ -80,9 +80,12 @@ module.exports = class Library {
     // Destination or default to temp
     const destination = destDir || path.join(__dirname, 'temp/' + sha1(gitUrl))
 
-    // If no destination set and temp exists, remove it
-    if (!destDir && exists(destination)) {
-      await fs.rmdir(destination, { recursive: true })
+    // If no destination set and temp exists, recreate it
+    if (!destDir) {
+      if (exists(destination)) {
+        await fs.rmdir(destination, { recursive: true })
+      }
+      await fs.mkdir(destination, { recursive: true })
     }
 
     // Validates, protocol MUST NOT be 'file' as it may point to an invalid local path
@@ -144,9 +147,9 @@ module.exports = class Library {
           await fs.rmdir(destName, { recursive: true })
         }
 
-        // Creates destination dir if not existing
+        // Creates destination parent dir if not existing
         if (!exists(destName)) {
-          await fs.mkdir(destName, { recursive: true })
+          await fs.mkdir(path.dirname(destName), { recursive: true })
         }
 
         // Does the move
