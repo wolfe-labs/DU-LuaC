@@ -1,5 +1,5 @@
 module.exports = function (project, buildName, libraries) {
-  const fs = require('fs')
+  const fs = require('fs-extra')
   const path = require('path')
   const luaparse = require('luaparse')
 

@@ -1,4 +1,4 @@
-const fs = require('fs').promises
+const fs = require('fs-extra')
 const path = require('path')  
 const exists = require('fs').existsSync
 
@@ -157,7 +157,7 @@ module.exports = class Library {
         }
 
         // Does the move
-        await fs.rename(destination, destName)
+        await fs.move(destination, destName)
 
         // Adds a proper path to it
         libInfo.path = destName

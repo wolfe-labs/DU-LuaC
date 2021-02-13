@@ -6,7 +6,7 @@
 
 (async function main () {
 
-  const fs = require('fs').promises
+  const fs = require('fs-extra')
   const path = require('path')
   const exists = require('fs').existsSync
 
@@ -24,6 +24,9 @@
 
   // Gets the current command
   const command = args.shift()
+
+  // Stores the possible new directory we'll be working on
+  let newDir = null
 
   // Handles commands
   switch (command) {
