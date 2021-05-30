@@ -12,12 +12,13 @@
 
   const prompts = require('prompts')
   const library = require('./library')
+  const elementTypes = require('./elementTypes')
 
   // Load package info
   const cPackage = require(path.join(__dirname, 'package.json'))
 
   // Welcome msg :)
-  console.info(`DU-LuaC CLI Utility v${cPackage.version} @ env. ${process.version}`)
+  console.info(`Lua CLI Utility for Dual Universe v${cPackage.version} by Wolfe Labs @ Node ${process.version}`)
 
   // Gets actual args, not the process name or "node"
   const args = process.argv.slice(2)
@@ -82,6 +83,12 @@
           initial: 'out',
         }
       ])
+
+      // Sanity check
+      if (!(project.name && project.description && project.sourcePath && project.outputPath)) {
+        console.warn('Cancelled by the user!')
+        process.exit()
+      }
 
       // Makes the project.json file
       console.info(`Generating "project.json" file...`)
@@ -205,30 +212,15 @@
           type: 'select',
           name: 'type',
           message: 'Select your element type, it will be used to filter events from this element',
-          choices: [
-            { title: 'Generic/Other', value: null, description: 'Select this option if you will not use any events from that element, it will still be available in Lua' },
-            { title: '- Elements -', disabled: true },
-            { title: 'Button', value: 'pressable' },
-            { title: 'Databank', value: 'databank' },
-            { title: 'Anti-Gravity Generator (AGG)', value: 'antigravityGenerator' },
-            { title: 'Core Unit', value: 'core' },
-            { title: 'Fuel Container', value: 'fuelContainer' },
-            { title: 'Gyroscope', value: 'gyro' },
-            { title: 'Industry Unit', value: 'industry' },
-            { title: 'Laser Detector', value: 'laserDetector' },
-            { title: 'Radar', value: 'radar' },
-            { title: 'Radar (PVP)', value: 'pvpRadar' },
-            { title: 'Receiver', value: 'receiver' },
-            { title: 'Screen', value: 'screen' },
-            { title: 'Warp Drive', value: 'warpDrive' },
-            { title: 'Weapon', value: 'weapon' },
-            { title: 'Zone Detector', value: 'enterable' },
-            { title: '- Abstract -', disabled: true },
-            { title: 'Enterable', value: 'enterable', description: 'Adds the events "enter(id)" and "exit(id)"' },
-            { title: 'Pressable', value: 'pressable', description: 'Adds the events "pressed()" and "released()"' },
-          ],
+          choices: Object.values(elementTypes),
         }
       ])
+
+      // Sanity check
+      if (!(linkInfo.name && linkInfo.type)) {
+        console.warn('Cancelled by the user!')
+        process.exit()
+      }
 
       // Adds to list
       project.builds[buildName].slots[linkInfo.name] = linkInfo
@@ -278,6 +270,12 @@
           inactive: 'no',
         },
       ])
+
+      // Sanity check
+      if (!(targetInfo.name)) {
+        console.warn('Cancelled by the user!')
+        process.exit()
+      }
 
       // Adds the new build definition
       project.targets[targetInfo.name] = targetInfo

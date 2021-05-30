@@ -42,7 +42,7 @@ module.exports = function (project, buildName, libraries) {
     srcpath.unshift(path.dirname(file))
 
     // Info
-    console.info(`Building file: ${file}`)
+    console.info(`-> Building file: ${file}`)
 
     // Gets the file contents
     const source = fs.readFileSync(file).toString()
@@ -169,14 +169,16 @@ module.exports = function (project, buildName, libraries) {
   // Combine preloads
   const outputPreloads = []
   for (let file in preloads) {
-    outputPreloads.push(`package.preload['${file}'] = (function (...) ${preloads[file]}; end)`)
+    outputPreloads.push({
+      path: file,
+      source: `package.preload['${file}'] = (function (...) ${preloads[file]}; end)`,
+    })
   }
 
   // Combine all outputs
-  const output = outputPreloads.join('\n') + '\n' + outputSource
+  const output = outputPreloads.map(preload => preload.source).join('\n') + '\n' + outputSource
 
   // Logs
-  console.info('Main script compilation done!')
   console.info(`Building LUA AST and checking for syntax errors...`)
 
   // Generate the AST for error checking
@@ -188,11 +190,15 @@ module.exports = function (project, buildName, libraries) {
   }
 
   // Info
-  console.info('AST generated!')
+  console.info('-> No syntax errors found!')
 
   // Next step is for the main compiler
   return {
     output,
     outputAST,
+    resources: {
+      main: outputSource,
+      libs: outputPreloads,
+    }
   }
 }
