@@ -39,7 +39,7 @@ function makeSlotHandler(autoconf, slot, signature, code) {
 
   if (!code) {
     const slotName = autoconf.slots[slot].name
-    code = `${ slotName }.triggerEvent(${ [`"${ call }"`, ...args].join(',') })`
+    code = `${ slotName }.triggerEvent("${ call }", ${ [slotName, ...args].join(',') })`
   }
 
   return {

@@ -172,7 +172,7 @@ module.exports = async function (argv) {
       const file = path.join(process.cwd(), project.outputPath, buildTarget.name, buildSpec.name)
 
       // The autoconfig file
-      const autoconf = autoconfig(project, buildSpec, result.resources.main, result.resources.libs, true)
+      const autoconf = autoconfig(project, buildSpec, result.resources.main, result.resources.libs, buildTarget.minify)
 
       // Write files
 
