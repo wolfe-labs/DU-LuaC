@@ -6,6 +6,31 @@ const fs = require('fs')
 const minifier = require('luamin').minify
 const elementTypes = require('./elementTypes')
 const helperEvents = fs.readFileSync(`${ __dirname }/lua/Events.lua`).toString()
+const internalTypes = {
+  library: {
+    slotId: -3,
+    events: [],
+  },
+  system: {
+    slotId: -2,
+    events: [
+      { signature: 'actionStart(action)' },
+      { signature: 'actionLoop(action)' },
+      { signature: 'actionEnd(action)' },
+      { signature: 'update()' },
+      { signature: 'flush()' },
+      { signature: 'inputText(text)' },
+    ]
+  },
+  control: {
+    slotId: -1,
+    events: [
+      { signature: 'start()' },
+      { signature: 'stop()' },
+      { signature: 'tick(timerId)' },
+    ],
+  },
+}
 
 function makeEmptySlotList() {
   const slots = []
@@ -39,7 +64,11 @@ function makeSlotHandler(autoconf, slot, signature, code) {
 
   if (!code) {
     const slotName = autoconf.slots[slot].name
-    code = `${ slotName }.triggerEvent("${ call }", ${ [slotName, ...args].join(',') })`
+    const callArgs = [
+      `"${ call }"`,
+      ...args
+    ]
+    code = `${ slotName }:triggerEvent(${ callArgs.map(arg => arg.trim()).filter(arg => arg.length > 0).join(',') })`
   }
 
   return {
@@ -64,15 +93,16 @@ function makeSlotHandlerArgs(argsN) {
 module.exports = function (project, build, source, preloads, minify) {
   // Base structure
   const autoconf = {
-    slots: {
-      '-3': makeSlotDefinition('library', 'library'),
-      '-2': makeSlotDefinition('system', 'system'),
-      '-1': makeSlotDefinition('unit', 'control'),
-    },
+    slots: {},
     handlers: [],
     methods: [],
     events: [],
   }
+
+  // Setup slots
+  autoconf.slots[internalTypes.library.slotId] = makeSlotDefinition('library', 'library')
+  autoconf.slots[internalTypes.system.slotId] = makeSlotDefinition('system', 'system')
+  autoconf.slots[internalTypes.control.slotId] = makeSlotDefinition('unit', 'control')
 
   // How many slots to offset
   const slotOffset = Object.keys(autoconf.slots).length
@@ -113,6 +143,19 @@ module.exports = function (project, build, source, preloads, minify) {
     return _
   })
 
+  // Adds internal events
+  Object.keys(internalTypes).forEach((type) => {
+    const typeInfo = internalTypes[type]
+    if (typeInfo.events) {
+      slotEvents.push(autoconf.slots[typeInfo.slotId].name)
+      typeInfo.events.forEach((event) => {
+        autoconf.handlers.push(
+          makeSlotHandler(autoconf, typeInfo.slotId, event.signature)
+        )
+      })
+    }
+  })
+
   // Setup slots and event handlers
   baseSlots.forEach((slot) => {
     // Computes the new slot ID
@@ -129,7 +172,7 @@ module.exports = function (project, build, source, preloads, minify) {
       // Optionally creates events
       if (slotType.events) {
         // Enables event handling automatically for that slot
-        slotEvents.push(`library.addEventHandlers(${ slot.name })`)
+        slotEvents.push(slot.name)
           
         // Processes each available event
         slotType.events.forEach((event) => {
@@ -147,7 +190,7 @@ module.exports = function (project, build, source, preloads, minify) {
   // Adds event handler set-up code
   if (slotEvents.length > 0) {
     autoconf.handlers.push(
-      makeSlotHandler(autoconf, -3, 'start()', `-- Setup improved event handlers\n${ slotEvents.join('\n') }`)
+      makeSlotHandler(autoconf, -3, 'start()', `-- Setup improved event handlers\n${ slotEvents.map(slot => `library.addEventHandlers(${ slot })`).join('\n') }`)
     )
   }
 
