@@ -1,8 +1,8 @@
 module.exports = {
   other: {
-    title: 'Generic/Other',
+    title: 'Generic Element or Other',
     value: null,
-    description: 'Select this option if you will not use any events from that element, it will still be available in Lua',
+    description: 'Select this option if you will not use any events from that element, it will still be available in Lua but without any event handlers',
   },
   __elements: {
     title: '- Elements -',
@@ -79,12 +79,12 @@ module.exports = {
     title: 'Weapon',
     value: 'weapon',
   },
-  enterable: {
+  zoneDetector: {
     title: 'Zone Detector',
     value: 'enterable',
   },
   __abstract: {
-    title: '- Abstract/Interfaces -',
+    title: '- Interfaces -',
     disabled: true,
   },
   enterable: {
