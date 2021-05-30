@@ -7,11 +7,17 @@ module.exports = async function (argv) {
   const fs = require('fs-extra')
   const path = require('path')
 
+  // The YAML utility
+  const YAML = require('yaml')
+
   // The compiler
   const compile = require('./compiler')
 
   // The minifier
   const minify = require('luamin').minify
+
+  // The autoconf generator
+  const autoconfig = require('./autoconf')
 
   // The currently loaded libs
   const libraries = {}
@@ -21,9 +27,6 @@ module.exports = async function (argv) {
 
   // The default project file
   const defaultBuildFile = 'project.json'
-      
-  // Our wrap.lua file
-  const buildProg = path.join(__dirname, 'wrap.lua')
 
   // Gets current Lua version
   function getLuaVersion () {
@@ -94,9 +97,9 @@ module.exports = async function (argv) {
   // Lua info
   const luaVersion = getLuaVersion()
   if (luaVersion) {
-    console.info(luaVersion)
+    console.info('Lua CLI tools found: ' + luaVersion.trim())
   } else {
-    console.warn('No Lua tools found on your system. Autoconfig might not be generated.')
+    console.warn('No Lua tools found on your system. This will not affect builds.')
     console.warn('You can download the binaries at: http://luabinaries.sourceforge.net/')
   }
 
@@ -168,39 +171,22 @@ module.exports = async function (argv) {
       // The base filename
       const file = path.join(process.cwd(), project.outputPath, buildTarget.name, buildSpec.name)
 
-      // Generate build arguments
-      const buildArgs = [
-        // Add error-handling code?
-        (buildTarget.handleErrors) ? '--handle-errors' : null,
+      // The autoconfig file
+      const autoconf = autoconfig(project, buildSpec, result.resources.main, result.resources.libs, true)
 
-        // Add slots for auto-mapping
-        (slots.length > 0) ? '--slots' : null,
-        ...slots,
-      ].filter(arg => !!arg)
+      // Write files
 
-      // Create output dirs if needed
-      if (!fs.existsSync(path.dirname(file))) {
-        fs.mkdirSync(path.dirname(file), { recursive: true })
-      }
+      // Lua
+      console.info('-> Writing Lua output...')
+      fs.writeFileSync(`${ file }.lua`, output)
 
-      // Write Lua files
-      fs.writeFileSync(`${file}.lua`, output)
+      // JSON
+      console.info('-> Writing JSON autoconfig...')
+      fs.writeFileSync(`${ file }.json`, JSON.stringify(autoconf))
 
-      if (luaVersion) {
-        // More logs
-        console.info(`Generating autoconf file with following flags: ${buildArgs.join(' ')}`)
-
-        // Generate autoconf
-        const procAutoconf = spawnSync('lua', [buildProg, `${file}.lua`, `${file}.json`, ...buildArgs])
-        const outputAutoconf = (procAutoconf.output || []).join('\n').trim()
-        
-        // Shows any outputs
-        if (outputAutoconf.length > 0) {
-          console.info(outputAutoconf)
-        }
-      } else {
-        console.info('Skipping autoconf file generation as no Lua tools were found')
-      }
+      // JSON
+      console.info('-> Writing YAML autoconfig...')
+      fs.writeFileSync(`${ file }.yaml`, YAML.stringify(autoconf))
     })
   })
 

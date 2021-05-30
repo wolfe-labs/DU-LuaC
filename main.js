@@ -17,7 +17,7 @@
   const cPackage = require(path.join(__dirname, 'package.json'))
 
   // Welcome msg :)
-  console.info(`DU-LuaC CLI Utility v${cPackage.version} @ env. ${process.version}`)
+  console.info(`Lua CLI Utility for Dual Universe v${cPackage.version} by Wolfe Labs @ Node ${process.version}`)
 
   // Gets actual args, not the process name or "node"
   const args = process.argv.slice(2)
