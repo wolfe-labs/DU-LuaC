@@ -46,6 +46,16 @@ Using a directory path is not recommended as it will require everyone working on
 
 You can use either the web URL of the repository or go for the recommended way and use the clone URL. For public repositories you can use the HTTPS clone URL and it will work without issues, though with private repositories you will need to use the SSH clone URL and configure the compiler's own SSH key in your Git account, under SSH Keys. To get this key, just run `du-lua git-key` and it will print it for you on your command-line. This key is automatically generated on your computer and never leaves it, nor should be used for anything else.
 
+### Using the event handlers
+
+This library also includes built-in support for multiple event handlers, which should help your scripts growing in a more modular way. To enable events for an instance of object of yours, use the `library.addEventHandlers(yourInstance)` function, it will add three new functions to your instance:
+
+- `yourInstance:onEvent(eventName, eventHandler)` will call `eventHandler` every time that instance emits an `eventName` event. The return value is an identifier that can be used to remove that event handler too.
+- `yourInstance:clearEvent(eventName, handlerId)` will remove the handler with identifier `handlerId` from the `eventName` event for that instance.
+- `yourInstance:triggerEvent(eventName, arg1, arg2, arg3, ...)` will trigger an `eventName` event for that instance and pass all following arguments to it.
+
+Please note that, for any event handlers, the first argument **will always be the instance itself**, so for example, the `mouseDown` event for a Screen Unit is triggered as `screen:triggerEvent('mouseDown', x, y)`, but the event handler will have the following signature: `onScreenMouseDown(screen, x, y)`, the same also works for internals such as timers with `onTick(unit, timer)`, etc.
+
 ## Inner Workings
 
 There's a bunch of stuff here explaining how the compiler works and what every field in the `project.json` file does. You don't need to read this or understand how it works, since all configuration is now done via interactive CLI.
