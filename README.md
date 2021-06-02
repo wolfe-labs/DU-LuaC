@@ -10,6 +10,22 @@ The compiler works by scanning and parsing `require` statements. It follows the 
 
 To install the compiler, run `npm i -g @wolfe-labs/du-luac` and it will be installed to your CLI. Make sure you have at least Node v.12 installed as some required features may not be present below that. You can also run this command to update the compiler.
 
+### Development Versions/Branches
+
+If you're feeling adventurous and want to try out a development version of the CLI, you can install it using NPM: `npm i -g git://git@github.com:wolfe-labs/DU-LuaC.git#wip`
+
+Specific feature branches are also available by changing the `#wip` to the branch name, for example: `#feature/autoconf`
+
+**Please be conscious that by using those versions things are subject to changes and bugs!**
+
+### Setting-up GitHub Actions
+
+By default when your project is created it comes with just an `.gitignore` file, so you aren't forced to use Git by default. In case you do, though, you can setup GitHub Actions so that your creations are automatically built and made available as JSON/YAML config files for your users.
+
+To do this, copy over the [github-actions.yaml](templates/github-actions.yaml) template to your project's `.github/workflows` directory. Inside the file, copy and adjust the appropriate JSON/YAML artifact processing tasks so that your files are made available under the `Actions` tab.
+
+You can also setup different builds for different branches too, just duplicate your file and edit the branches on the top of the file.
+
 ## Usage
 
 After installed, go into your projects directory and run `du-lua create my-first-project` and the interactive CLI will guide you with configuring your `project.json` file. You don't need to change any of the settings on this step.

@@ -1,0 +1,42 @@
+name: DU-Lua Automated Build
+
+# Defines the branches which will trigger this build script
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+# Defines the actual build job
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+        NPM_CONFIG_PREFIX: "~/.npm-global"
+    steps:
+      - uses: actions/checkout@v2
+
+      # Installs a Node.js in our build environment
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      # Installs and runs DU-Lua's build procedure
+      - run: npm i -g @wolfe-labs/du-luac
+      - run: mkdir -p out/development out/production
+      - run: ~/.npm-global/bin/du-lua build
+
+      # JSON autoconf file, replace the file names to suit your needs!
+      - name: 'Latest Build (JSON)'
+        uses: actions/upload-artifact@v2
+        with:
+          name: your-project.json
+          path: out/development/main.json
+
+      # YAML autoconf file, replace the file names to suit your needs!
+      - name: 'Latest Build (YAML)'
+        uses: actions/upload-artifact@v2
+        with:
+          name: your-project.yaml
+          path: out/development/main.yaml
