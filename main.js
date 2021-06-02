@@ -85,7 +85,7 @@
       ])
 
       // Sanity check
-      if (!(project.name && project.description && project.sourcePath && project.outputPath)) {
+      if (!(project.name && project.sourcePath && project.outputPath)) {
         console.warn('Cancelled by the user!')
         process.exit()
       }
