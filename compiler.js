@@ -175,27 +175,8 @@ module.exports = function (project, buildName, libraries) {
     })
   }
 
-  // Combine all outputs
-  const output = outputPreloads.map(preload => preload.source).join('\n') + '\n' + outputSource
-
-  // Logs
-  console.info(`Building LUA AST and checking for syntax errors...`)
-
-  // Generate the AST for error checking
-  let outputAST
-  try {
-    outputAST = luaparse.parse(output)
-  } catch (e) {
-    handleParseError(e, output)
-  }
-
-  // Info
-  console.info('-> No syntax errors found!')
-
   // Next step is for the main compiler
   return {
-    output,
-    outputAST,
     resources: {
       main: outputSource,
       libs: outputPreloads,

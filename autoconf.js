@@ -6,6 +6,7 @@ const fs = require('fs')
 const minifier = require('luamin').minify
 const elementTypes = require('./elementTypes')
 const helperEvents = fs.readFileSync(`${ __dirname }/lua/Events.lua`).toString()
+const helperLinking = fs.readFileSync(`${ __dirname }/lua/AutoConfig.lua`).toString()
 const internalTypes = {
   library: {
     slotId: -3,
@@ -54,6 +55,10 @@ function makeSlotDefinition(name, type) {
   return def
 }
 
+function makeRunOnce(name, code) {
+  return `if not __${ name } then\n${ code }\n__${ name }=true\nend`
+}
+
 let slotHandlerCount = 0
 function makeSlotHandler(autoconf, slot, signature, code) {
   const regexArgs = /(.*?)\((.*?)\)/g
@@ -62,6 +67,7 @@ function makeSlotHandler(autoconf, slot, signature, code) {
   const args = (regexMatches[2] || '').split(',')
   const argsN = args.length
 
+  // If no code is found, generate the trigger event one
   if (!code) {
     const slotName = autoconf.slots[slot].name
     const callArgs = [
@@ -71,6 +77,11 @@ function makeSlotHandler(autoconf, slot, signature, code) {
     code = `${ slotName }:triggerEvent(${ callArgs.map(arg => arg.trim()).filter(arg => arg.length > 0).join(',') })`
   }
 
+  // Cleanup code
+  const cleanCode = code
+    .replace(/\r/g, '') // Remove carriage returns
+
+  // The proper event handler
   return {
     key: parseInt(slotHandlerCount++),
     filter: {
@@ -78,7 +89,7 @@ function makeSlotHandler(autoconf, slot, signature, code) {
       signature,
       args: makeSlotHandlerArgs(argsN),
     },
-    code,
+    code: cleanCode,
   }
 }
 
@@ -107,17 +118,25 @@ module.exports = function (project, build, source, preloads, minify) {
   // How many slots to offset
   const slotOffset = Object.keys(autoconf.slots).length
 
+  // Makes internals always be minified (disable for compiler debugging!)
+  const minifyCompilerInternals = true
+
+  // Injects event-handling helper
+  autoconf.handlers.push(
+    makeSlotHandler(autoconf, -3, 'start()', minifyCompilerInternals ? minifier(helperEvents) : helperEvents)
+  )
+
+  // Injects autoconfig helper
+  autoconf.handlers.push(
+    makeSlotHandler(autoconf, -3, 'start()', minifyCompilerInternals ? minifier(helperLinking) : helperLinking)
+  )
+
   // External libraries go directly to the library slot
   preloads.forEach((preload) => {
     autoconf.handlers.push(
       makeSlotHandler(autoconf, -3, 'start()', minify ? minifier(preload.source) : preload.source)
     )
   })
-
-  // Injects event-handling helper
-  autoconf.handlers.push(
-    makeSlotHandler(autoconf, -3, 'start()', minify ? minifier(helperEvents) : helperEvents)
-  )
 
   // Slot event handlers
   const slotEvents = []
@@ -190,7 +209,7 @@ module.exports = function (project, build, source, preloads, minify) {
   // Adds event handler set-up code
   if (slotEvents.length > 0) {
     autoconf.handlers.push(
-      makeSlotHandler(autoconf, -3, 'start()', `-- Setup improved event handlers\n${ slotEvents.map(slot => `library.addEventHandlers(${ slot })`).join('\n') }`)
+      makeSlotHandler(autoconf, -3, 'start()', `-- Setup improved event handlers\n${ makeRunOnce('EVENTS', slotEvents.map(slot => `library.addEventHandlers(${ slot })`).join('\n')) }`)
     )
   }
 
