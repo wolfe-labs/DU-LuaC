@@ -168,13 +168,19 @@ module.exports = async function (argv) {
       // Minify?
       if (buildTarget.minify) output = minify(result.outputAST)
 
+      // The build directory
+      const dir = path.join(process.cwd(), project.outputPath, buildTarget.name)
+
       // The base filename
-      const file = path.join(process.cwd(), project.outputPath, buildTarget.name, buildSpec.name)
+      const file = path.join(dir, buildSpec.name)
 
       // The autoconfig file
       const autoconf = autoconfig(project, buildSpec, result.resources.main, result.resources.libs, buildTarget.minify)
 
       // Write files
+
+      // Makes sure the directory exists first
+      fs.ensureDirSync(dir)
 
       // Lua
       console.info('-> Writing Lua output...')
