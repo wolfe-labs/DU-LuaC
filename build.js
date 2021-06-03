@@ -165,6 +165,9 @@ module.exports = async function (argv) {
       // Info
       console.info(`Generating build files for target "${buildTarget.name}"...`)
 
+      // The build directory
+      const dir = path.join(process.cwd(), project.outputPath, buildTarget.name)
+
       // The base filename
       const file = path.join(dir, buildSpec.name)
 
