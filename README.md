@@ -62,15 +62,33 @@ Using a directory path is not recommended as it will require everyone working on
 
 You can use either the web URL of the repository or go for the recommended way and use the clone URL. For public repositories you can use the HTTPS clone URL and it will work without issues, though with private repositories you will need to use the SSH clone URL and configure the compiler's own SSH key in your Git account, under SSH Keys. To get this key, just run `du-lua git-key` and it will print it for you on your command-line. This key is automatically generated on your computer and never leaves it, nor should be used for anything else.
 
-### Using the event handlers
+## Extra Goodies
 
-This library also includes built-in support for multiple event handlers, which should help your scripts growing in a more modular way. To enable events for an instance of object of yours, use the `library.addEventHandlers(yourInstance)` function, it will add three new functions to your instance:
+Here you'll find some extra features that you gain by using DU-LuaC:
+
+### Improved Event Handlers
+
+DU-LuaC has built-in support for multiple event handlers, which makes it easier to write modular scripts as you never override another script's event handler. They are automatically added to any liked component which has in-game events.
+
+In case you want to add event support for your own objects and instances, use the `library.addEventHandlers(yourInstance)` function, which will add three new functions to your object:
 
 - `yourInstance:onEvent(eventName, eventHandler)` will call `eventHandler` every time that instance emits an `eventName` event. The return value is an identifier that can be used to remove that event handler too.
 - `yourInstance:clearEvent(eventName, handlerId)` will remove the handler with identifier `handlerId` from the `eventName` event for that instance.
 - `yourInstance:triggerEvent(eventName, arg1, arg2, arg3, ...)` will trigger an `eventName` event for that instance and pass all following arguments to it.
 
 Please note that, for any event handlers, the first argument **will always be the instance itself**, so for example, the `mouseDown` event for a Screen Unit is triggered as `screen:triggerEvent('mouseDown', x, y)`, but the event handler will have the following signature: `onScreenMouseDown(screen, x, y)`, the same also works for internals such as timers with `onTick(unit, timer)`, etc.
+
+### Automatic Linking Detection
+
+Allows you to get lists of elements linked on your Control Unit, optionally filtering them by element class and name!
+
+For example, if you want to get a listing of everything currently linked to your Control Unit, calling `library.getLinks()` will provide you that.
+
+By itself it might not be that useful, but let's say you want to get a list of all Screen Unit elements linked to your Control Unit, by calling `library.getLinksByClass('ScreenUnit')` you will have it!
+
+Finally, let's say that from all those linked Screen Unit elements you want to get one by its element name. This can be done by calling `library.getLinkByName('myScreen')`, with `myScreen` being the element name of your Screen Unit.
+
+**Please note that:** to be able to get elements by their name, you will need to link your Core Unit to your Control Unit, thus losing one link. In case you don't want to go that route, you can still hard link your slot via the CLI. The disavantage of this is that you will have to remember the linking order for these elements.
 
 ## Inner Workings
 

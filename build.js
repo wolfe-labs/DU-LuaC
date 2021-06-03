@@ -28,6 +28,9 @@ module.exports = async function (argv) {
   // The default project file
   const defaultBuildFile = 'project.json'
 
+  // This validates the builds
+  const luaparse = require('luaparse')
+
   // Gets current Lua version
   function getLuaVersion () {
     const luaVersion = spawnSync('lua', ['-v'])
@@ -162,31 +165,53 @@ module.exports = async function (argv) {
       // Info
       console.info(`Generating build files for target "${buildTarget.name}"...`)
 
-      // Get a clean copy of the compile output
-      let output = result.output
-
-      // Minify?
-      if (buildTarget.minify) output = minify(result.outputAST)
-
       // The base filename
       const file = path.join(process.cwd(), project.outputPath, buildTarget.name, buildSpec.name)
 
       // The autoconfig file
       const autoconf = autoconfig(project, buildSpec, result.resources.main, result.resources.libs, buildTarget.minify)
 
-      // Write files
+      // Verifies output of everything but events for syntax errors, generates Lua output too
+      console.info(`Building LUA AST and checking for syntax errors...`)
+      const output = autoconf.handlers.filter(handler => handler.filter.signature == 'start()').sort((a, b) => {
+        // Different slots, priority by slot position
+        if (a.filter.slotKey < b.filter.slotKey) return -1
+        if (a.filter.slotKey > b.filter.slotKey) return 1
 
-      // Lua
-      console.info('-> Writing Lua output...')
-      fs.writeFileSync(`${ file }.lua`, output)
+        // Same slot, priority of which handler is first
+        if (a.key < b.key) return -1
+        if (a.key > b.key) return 1
 
-      // JSON
-      console.info('-> Writing JSON autoconfig...')
-      fs.writeFileSync(`${ file }.json`, JSON.stringify(autoconf))
+        // This should not happen but anyways...
+        return 0
+      }).map(handler => handler.code).join('\n\n')
 
-      // JSON
-      console.info('-> Writing YAML autoconfig...')
-      fs.writeFileSync(`${ file }.yaml`, YAML.stringify(autoconf))
+      try {
+        // Generate the AST for error checking
+        const outputAST = luaparse.parse(output)
+
+        // Info
+        console.info('-> No syntax errors found!')
+
+        // Write files
+
+        // Lua
+        console.info('-> Writing Lua output...')
+        fs.writeFileSync(`${ file }.lua`, output)
+
+        // JSON
+        console.info('-> Writing JSON autoconfig...')
+        fs.writeFileSync(`${ file }.json`, JSON.stringify(autoconf))
+
+        // JSON
+        console.info('-> Writing YAML autoconfig...')
+        fs.writeFileSync(`${ file }.yaml`, YAML.stringify(autoconf))
+      } catch (err) {
+        console.error(`Error parsing output at line ${err.line}, column ${err.column}, index: ${err.index}:\n${err.message}`)
+        console.error(`Problematic code line:`)
+        console.error(output.split('\n')[err.line - 1])
+        process.exit(1)
+      }
     })
   })
 
