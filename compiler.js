@@ -22,7 +22,7 @@ module.exports = function (project, buildName, libraries) {
 
     // File not found?
     if (!required) {
-      CLI.warn(`Required library/file not found: "${filename}" on file "${currentFiles[0]}", leaving statement alone...`)
+      CLI.warn(`Required library/file not found: "${ filename.magenta }" on file "${ currentFiles[0].yellow }", leaving statement alone...`)
       return null
     }
 
@@ -44,7 +44,7 @@ module.exports = function (project, buildName, libraries) {
     srcpath.unshift(path.dirname(file))
 
     // Info
-    CLI.status(CLITag, `Building file: ${file}`)
+    CLI.status(CLITag, `Compiling file: ${file}`)
 
     // Gets the file contents
     const source = fs.readFileSync(file).toString()

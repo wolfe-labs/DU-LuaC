@@ -157,7 +157,7 @@ module.exports = function (project, build, source, preloads, minify) {
       }
       
       // Warns and ignores invalid slots
-      CLI.warn(`Invalid slot (missing 'name' attribute) for build '${ build.name }'`)
+      CLI.warn(`Invalid slot: missing attribute "${ 'name'.magenta }"`)
     }
 
     // Keeps base slot if nothing happens

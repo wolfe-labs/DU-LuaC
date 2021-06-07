@@ -6,6 +6,9 @@
 
 (async function main () {
 
+  // Injects color-coding everywhere
+  require('colors')
+
   const fs = require('fs-extra')
   const path = require('path')
   const exists = require('fs').existsSync

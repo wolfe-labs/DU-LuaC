@@ -142,8 +142,11 @@ module.exports = async function (argv) {
 
   // Runs builds
   ;('object' == typeof project.builds ? Object.values(project.builds) : project.builds || []).map(buildSpec => {
+    // Skips line to keep things organized
+    CLI.skip()
+
     // Info
-    CLI.info(CLITag, `Compiling build "${buildSpec.name}"...`)
+    CLI.info(CLITag, `Compiling build "${ buildSpec.name.blue }"...`)
 
     // Does the compile step
     const result = compile(project, buildSpec.name, libraries)
@@ -165,11 +168,14 @@ module.exports = async function (argv) {
 
     // Runs the build targets
     ;('object' == typeof project.targets ? Object.values(project.targets) : project.targets || []).map(buildTarget => {
+      // The build target identifier
+      const buildTargetIdentifier = `"${ buildSpec.name.blue }/${ buildTarget.name.cyan }"`
+
       // Skips line to keep things organized
       CLI.skip()
 
       // Info
-      CLI.info(CLITag, `Generating build files for target "${buildTarget.name}"...`)
+      CLI.info(CLITag, `Generating build files for target ${ buildTargetIdentifier }...`)
 
       // The build directory
       const dir = path.join(process.cwd(), project.outputPath, buildTarget.name)
@@ -220,7 +226,7 @@ module.exports = async function (argv) {
         fs.writeFileSync(`${ file }.yaml`, YAML.stringify(autoconf))
 
         // Done
-        CLI.success(`Done writing files for build "${ buildTarget.name }!`)
+        CLI.success(`Done writing files for build ${ buildTargetIdentifier }!`)
       } catch (err) {
         CLI.error(`Error parsing output at line ${err.line}, column ${err.column}, index: ${err.index}: ${err.message}`)
         CLI.error(`Problematic code line:`)

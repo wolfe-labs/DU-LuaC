@@ -1,4 +1,3 @@
-const colors = require('colors')
 module.exports = {
   text: console.log,
   print() {
@@ -20,26 +19,24 @@ module.exports = {
   },
   code() {
     console.error.apply(console, [
-      colors.magenta(
-        ...Array.from(arguments).slice(0),
-      ),
+      ...Array.from(arguments).slice(0).join('\n').magenta,
     ])
   },
   info(title) {
     console.info.apply(console, [
-      colors.blue(`[${ title }]`),
+      `[${ title }]`.bold.blue,
       ...Array.from(arguments).slice(1),
     ])
   },
   status(title) {
     console.info.apply(console, [
-      colors.gray(`[${ title }]`),
+      `[${ title }]`.bold.gray,
       ...Array.from(arguments).slice(1),
     ])
   },
   success() {
     console.info.apply(console, [
-      colors.green('[SUCCESS]'),
+      '[SUCCESS]'.bold.green,
       ...Array.from(arguments).slice(0),
     ])
   },
