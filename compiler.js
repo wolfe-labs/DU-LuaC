@@ -10,6 +10,11 @@ module.exports = function (project, buildName, libraries) {
 
   const preloads = []
 
+  function getCodeAround(index, code) {
+    return code
+      .substr(Math.max(0, index - 10), 20)
+  }
+
   function handleRequire (filename) {
     // Is this the root file
     const isRoot = !currentFiles[0]
@@ -128,6 +133,20 @@ module.exports = function (project, buildName, libraries) {
           }
         },
       },
+      undefinedBehaviorPeriodNewlineNumeric: {
+        expression: /([0-9])\.\r?\n/g,
+        handle: function (match, number) {
+          console.warn(`WARNING: Undefined Behavior: Period character detected directly before line break on numeric value. Completing decimal with zero.`)
+          return `${ number }.0\n`
+        }
+      },
+      undefinedBehaviorPeriodNewline: {
+        expression: /([0-9])\.\r?\n/g,
+        handle: function (match, number) {
+          console.warn(`WARNING: Undefined Behavior: Period character detected directly before line break, may misbehave when minified or in different runtime implementations.`)
+          return `${ number }.0\n`
+        }
+      }
     }
 
     // Executes each regex
