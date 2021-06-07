@@ -2,6 +2,7 @@
  * This is the script that generates JSON and YAML files
  */
 
+const CLI = require('./cli')
 const fs = require('fs')
 const minifier = require('luamin').minify
 const elementTypes = require('./elementTypes')
@@ -156,7 +157,7 @@ module.exports = function (project, build, source, preloads, minify) {
       }
       
       // Warns and ignores invalid slots
-      console.warn(`WARNING: Invalid slot (missing 'name' attribute) for build '${ build.name }'`)
+      CLI.warn(`Invalid slot (missing 'name' attribute) for build '${ build.name }'`)
     }
 
     // Keeps base slot if nothing happens
