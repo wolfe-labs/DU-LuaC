@@ -10,6 +10,8 @@ module.exports = function (project, buildName, libraries) {
 
   const preloads = []
 
+  const replaces = {}
+
   function handleRequire (filename) {
     // Is this the root file
     const isRoot = !currentFiles[0]
@@ -115,7 +117,7 @@ module.exports = function (project, buildName, libraries) {
     const regex = {
       require: {
         expression: /require[\s\()]*[\'\"](.+?)[\'\"][\s]*[\)]*/gi,
-        handle: function (match, file) {
+        handle (match, file) {
           // Does the require, should return null if not found
           const req = handleRequire(file)
 
@@ -126,6 +128,12 @@ module.exports = function (project, buildName, libraries) {
             // If nothing was found, keep it the way it was
             return match
           }
+        },
+      },
+      luaParam: {
+        expression: /--[ ]*export:?(.*)\n?/g,
+        handle (match, description) {
+          return `;__EXPORT_VARIABLE=[[${ (description || '').trim() }]]`
         },
       },
     }

@@ -80,6 +80,7 @@ function makeSlotHandler(autoconf, slot, signature, code) {
   // Cleanup code
   const cleanCode = code
     .replace(/\r/g, '') // Remove carriage returns
+    .replace(/;__EXPORT_VARIABLE.*?=.*?\[\[(.*?)\]\]/g, (match, comment) => `--export${ comment.length > 1 ? `: ${ comment }` : '' }\n`)
 
   // The proper event handler
   return {
