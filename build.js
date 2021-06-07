@@ -7,6 +7,9 @@ module.exports = async function (argv) {
   const fs = require('fs-extra')
   const path = require('path')
 
+  const CLI = require('./cli')
+  const CLITag = 'BUILDER'
+
   // The YAML utility
   const YAML = require('yaml')
 
@@ -45,7 +48,7 @@ module.exports = async function (argv) {
   async function loadLibrary (library) {
     // Checks if the "id" field is present
     if (!library.id) {
-      console.error('Invalid library entry, missing "id" field:', library)
+      CLI.error('Invalid library entry, missing "id" field:', library)
       process.exit(1)
     }
 
@@ -55,7 +58,7 @@ module.exports = async function (argv) {
     // Check if the library is still pending download
     if (library.remote && library.remote.git && !fs.existsSync(library.path)) {
       // Tell user
-      console.info(`Fetching remote library "${library.id}"...`)
+      CLI.status(CLITag, `Fetching remote library "${library.id}"...`)
 
       // Fetches library
       await require('./library').loadExternalLibrary(library.remote.git, 'libs', library.path)
@@ -66,19 +69,19 @@ module.exports = async function (argv) {
 
     // Check if it exists
     if (!fs.existsSync(library.path)) {
-      console.error(`Library path not found for library "${library.id}": ${library.path}`)
+      CLI.error(`Library path not found for library "${library.id}": ${library.path}`)
       process.exit(1)
     }
 
     // Check if the project file also exists
     const libProject = path.join(library.path, defaultBuildFile)
     if (!fs.existsSync(libProject)) {
-      console.error(`Project file missing for library "${library.id}": ${libProject}`)
+      CLI.error(`Project file missing for library "${library.id}": ${libProject}`)
       process.exit(1)
     }
 
     // Log
-    console.info(`Loading project library: "${library.id}"`)
+    CLI.status(CLITag, `Loading project library: "${library.id}"`)
 
     // Fetch the library project
     library.project = JSON.parse(fs.readFileSync(libProject).toString())
@@ -100,24 +103,24 @@ module.exports = async function (argv) {
   // Lua info
   const luaVersion = getLuaVersion()
   if (luaVersion) {
-    console.info('Lua CLI tools found: ' + luaVersion.trim())
+    CLI.print('Lua CLI tools found: ' + luaVersion.trim())
   } else {
-    console.warn('No Lua tools found on your system. This will not affect builds.')
-    console.warn('You can download the binaries at: http://luabinaries.sourceforge.net/')
+    CLI.print('No Lua tools found on your system. This will not affect builds.')
+    CLI.print('You can download the binaries at: http://luabinaries.sourceforge.net/')
   }
 
   // Skip line
-  console.info('')
+  CLI.skip()
 
   // The project JSON file
   const projectSource = argv[0] || path.join(process.cwd(), defaultBuildFile)
 
   // Logs
-  console.info(`Loading project file: ${projectSource}`)
+  CLI.info('PROJECT', `Loading project file: ${projectSource}`)
 
   // Check if project exists
   if (!fs.existsSync(projectSource)) {
-    console.error(`Project file [${projectSource}] was not found.`)
+    CLI.error(`Project file [${projectSource}] was not found.`)
     process.exit(1)
   }
 
@@ -135,12 +138,12 @@ module.exports = async function (argv) {
   }
 
   // Skip line
-  console.info('')
+  CLI.skip()
 
   // Runs builds
   ;('object' == typeof project.builds ? Object.values(project.builds) : project.builds || []).map(buildSpec => {
     // Info
-    console.info(`Compiling build "${buildSpec.name}"...`)
+    CLI.info(CLITag, `Compiling build "${buildSpec.name}"...`)
 
     // Does the compile step
     const result = compile(project, buildSpec.name, libraries)
@@ -162,8 +165,11 @@ module.exports = async function (argv) {
 
     // Runs the build targets
     ;('object' == typeof project.targets ? Object.values(project.targets) : project.targets || []).map(buildTarget => {
+      // Skips line to keep things organized
+      CLI.skip()
+
       // Info
-      console.info(`Generating build files for target "${buildTarget.name}"...`)
+      CLI.info(CLITag, `Generating build files for target "${buildTarget.name}"...`)
 
       // The build directory
       const dir = path.join(process.cwd(), project.outputPath, buildTarget.name)
@@ -175,7 +181,7 @@ module.exports = async function (argv) {
       const autoconf = autoconfig(project, buildSpec, result.resources.main, result.resources.libs, buildTarget.minify)
 
       // Verifies output of everything but events for syntax errors, generates Lua output too
-      console.info(`Building LUA AST and checking for syntax errors...`)
+      CLI.info(CLITag, `Generating LUA AST and checking for syntax errors...`)
       const output = autoconf.handlers.filter(handler => handler.filter.signature == 'start()').sort((a, b) => {
         // Different slots, priority by slot position
         if (a.filter.slotKey < b.filter.slotKey) return -1
@@ -194,7 +200,7 @@ module.exports = async function (argv) {
         const outputAST = luaparse.parse(output)
 
         // Info
-        console.info('-> No syntax errors found!')
+        CLI.success('No syntax errors found! Writing output files.')
 
         // Makes sure the directory exists first
         fs.ensureDirSync(dir)
@@ -202,20 +208,23 @@ module.exports = async function (argv) {
         // Write files
 
         // Lua
-        console.info('-> Writing Lua output...')
+        CLI.status(CLITag, 'Writing Lua output...')
         fs.writeFileSync(`${ file }.lua`, output)
 
         // JSON
-        console.info('-> Writing JSON autoconfig...')
+        CLI.status(CLITag, 'Writing JSON autoconfig...')
         fs.writeFileSync(`${ file }.json`, JSON.stringify(autoconf))
 
         // JSON
-        console.info('-> Writing YAML autoconfig...')
+        CLI.status(CLITag, 'Writing YAML autoconfig...')
         fs.writeFileSync(`${ file }.yaml`, YAML.stringify(autoconf))
+
+        // Done
+        CLI.success(`Done writing files for build "${ buildTarget.name }!`)
       } catch (err) {
-        console.error(`Error parsing output at line ${err.line}, column ${err.column}, index: ${err.index}:\n${err.message}`)
-        console.error(`Problematic code line:`)
-        console.error(output.split('\n')[err.line - 1])
+        CLI.error(`Error parsing output at line ${err.line}, column ${err.column}, index: ${err.index}: ${err.message}`)
+        CLI.error(`Problematic code line:`)
+        CLI.code(output.split('\n')[err.line - 1])
         process.exit(1)
       }
     })
