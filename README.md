@@ -227,6 +227,12 @@ Right now, these are features being planned/implemented:
 
 ## About, Contact, Support, etc.
 
-If you have any questions, feel free to [ping me over on Discord](https://discord.gg/egQaE2U) and I'll be glad to help!
+If you have any questions, feel free to ping me in [Wolfe Labs' Discord server](https://discord.gg/YerENgKDre) and I'll be glad to help!
 
 I don't usually respond to friend requests, sometimes don't even notice them, so if you need to contact me **please** use the Discord server.
+
+### Donations
+
+In-game donations are more than welcome! Feel free to send any amounts to the **Wolfe Labs** in-game organization.
+
+You can also buy me an IRL coffee too via both [PayPal](https://www.paypal.com/donate?hosted_button_id=YYVSTZ8EN3JSC) and [Pix](https://nubank.com.br/pagar/4rs96/YNDgXVKPoV)
