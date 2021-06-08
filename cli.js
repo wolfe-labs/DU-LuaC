@@ -17,9 +17,9 @@ module.exports = {
       ...Array.from(arguments).slice(0),
     ])
   },
-  code() {
+  code(code) {
     console.error.apply(console, [
-      ...Array.from(arguments).slice(0).join('\n').magenta,
+      code.trim().magenta,
     ])
   },
   info(title) {
