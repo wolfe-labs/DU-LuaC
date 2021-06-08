@@ -169,7 +169,7 @@ module.exports = async function (argv) {
     // Runs the build targets
     ;('object' == typeof project.targets ? Object.values(project.targets) : project.targets || []).map(buildTarget => {
       // The build target identifier
-      const buildTargetIdentifier = `"${ buildSpec.name.blue }/${ buildTarget.name.cyan }"`
+      const buildTargetIdentifier = `"${ buildTarget.name.cyan }/${ buildSpec.name.blue }"`
 
       // Skips line to keep things organized
       CLI.skip()
@@ -209,7 +209,7 @@ module.exports = async function (argv) {
         CLI.success('No syntax errors found! Writing output files.')
 
         // Makes sure the directory exists first
-        fs.ensureDirSync(dir)
+        fs.ensureDirSync(path.dirname(file))
 
         // Write files
 
