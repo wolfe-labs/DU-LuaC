@@ -157,7 +157,11 @@
 
       // Adds file if not already existing
       if (!exists(buildFile)) {
+        console.info(`Created new source file: ${buildFile}`)
+        fs.ensureDirSync(path.dirname(buildFile))
         fs.writeFile(buildFile, `-- Here's to the crazy ones. The misfits. The rebels. The troublemakers.`)
+      } else {
+        console.info(`Add existing source file: ${buildFile}`)
       }
 
       // Adds the new build definition
