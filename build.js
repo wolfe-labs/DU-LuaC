@@ -34,6 +34,9 @@ module.exports = async function (argv) {
   // This validates the builds
   const luaparse = require('luaparse')
 
+  // Stubs to run DU Lua scripts in CLI
+  const stubs = minify(fs.readFileSync(`${ __dirname }/lua/Stubs.lua`).toString())
+
   // Gets current Lua version
   function getLuaVersion () {
     const luaVersion = spawnSync('lua', ['-v'])
@@ -216,6 +219,10 @@ module.exports = async function (argv) {
         // Lua
         CLI.status(CLITag, 'Writing Lua output...')
         fs.writeFileSync(`${ file }.lua`, output)
+
+        // Lua + Stubs
+        CLI.status(CLITag, 'Writing Lua output (with stubs)...')
+        fs.writeFileSync(`${ file }.stubs.lua`, `${ stubs }\n${ output }`)
 
         // JSON
         CLI.status(CLITag, 'Writing JSON autoconfig...')
