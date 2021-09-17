@@ -30,7 +30,7 @@ function library.addEventHandlers(obj)
 
   -- Removes event handler
   obj.clearEvent = (function (self, event, handlerId)
-    if seld.__eventHandlers and self.__eventHandlers[event] and self.__eventHandlers[event][handlerId] then
+    if self.__eventHandlers and self.__eventHandlers[event] and self.__eventHandlers[event][handlerId] then
       table.remove(self.__eventHandlers[event], handlerId)
     end
   end)
