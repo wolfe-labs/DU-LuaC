@@ -224,7 +224,7 @@
       ])
 
       // Sanity check
-      if (!(linkInfo.name && linkInfo.type)) {
+      if (!(linkInfo.name && linkInfo.type !== undefined)) {
         console.warn('Cancelled by the user!')
         process.exit()
       }
