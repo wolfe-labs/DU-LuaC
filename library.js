@@ -175,7 +175,7 @@ module.exports = class Library {
   static async getProjectInfo (directory) {
     // Checks for existing project file
     if (!exists(path.join(directory, 'project.json'))) {
-      console.error(`Project file not found "${path.join(directory, project.json)}"! Please, run "du-lua init" first!`)
+      console.error(`Project file not found "${path.join(directory, 'project.json')}"! Please, run "du-lua init" first!`)
       process.exit(1)
     }
 

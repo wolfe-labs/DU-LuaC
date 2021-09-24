@@ -2,6 +2,7 @@
  * This is the script that generates JSON and YAML files
  */
 
+const CLI = require('./cli')
 const fs = require('fs')
 const minifier = require('luamin').minify
 const elementTypes = require('./elementTypes')
@@ -80,6 +81,7 @@ function makeSlotHandler(autoconf, slot, signature, code) {
   // Cleanup code
   const cleanCode = code
     .replace(/\r/g, '') // Remove carriage returns
+    .replace(/;__EXPORT_VARIABLE.*?=.*?\[\[(.*?)\]\]/g, (match, comment) => `--export${ comment.length > 1 ? `: ${ comment }` : '' }\n`)
 
   // The proper event handler
   return {
@@ -155,7 +157,7 @@ module.exports = function (project, build, source, preloads, minify) {
       }
       
       // Warns and ignores invalid slots
-      console.warn(`WARNING: Invalid slot (missing 'name' attribute) for build '${ build.name }'`)
+      CLI.warn(`Invalid slot: missing attribute "${ 'name'.magenta }"`)
     }
 
     // Keeps base slot if nothing happens

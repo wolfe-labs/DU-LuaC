@@ -6,6 +6,9 @@
 
 (async function main () {
 
+  // Injects color-coding everywhere
+  require('colors')
+
   const fs = require('fs-extra')
   const path = require('path')
   const exists = require('fs').existsSync
@@ -85,7 +88,7 @@
       ])
 
       // Sanity check
-      if (!(project.name && project.description && project.sourcePath && project.outputPath)) {
+      if (!(project.name && project.sourcePath && project.outputPath)) {
         console.warn('Cancelled by the user!')
         process.exit()
       }
@@ -154,7 +157,11 @@
 
       // Adds file if not already existing
       if (!exists(buildFile)) {
+        console.info(`Created new source file: ${buildFile}`)
+        fs.ensureDirSync(path.dirname(buildFile))
         fs.writeFile(buildFile, `-- Here's to the crazy ones. The misfits. The rebels. The troublemakers.`)
+      } else {
+        console.info(`Add existing source file: ${buildFile}`)
       }
 
       // Adds the new build definition
@@ -217,7 +224,7 @@
       ])
 
       // Sanity check
-      if (!(linkInfo.name && linkInfo.type)) {
+      if (!(linkInfo.name && linkInfo.type !== undefined)) {
         console.warn('Cancelled by the user!')
         process.exit()
       }
@@ -383,11 +390,11 @@
         `  import [library-git-repo]          : Clones the specified repository and includes it as library`,
         ``,
         `Script Commands:`,
-        `  script-add [build-name]            : Creates a new build entry and creates the corresponding .lua script file`,
-        `  script-link [build-name]           : Modified a build entry and adds a new autoconfig slot`,
+        `  script-add [script-name]           : Creates a new entry-point and creates the corresponding .lua script file`,
+        `  script-link [script-name]          : Assigns an event filter and Lua variable to a script`,
         ``,
         `Target Commands:`,
-        `  target-add                         : Creates a new build target entry`,
+        `  target-add                         : Creates a new build target entry (development/production)`,
         ``,
         `Utility Commands`,
         `  git-key                            : Retrieves and prints the SSH public key used by the application when accessing Git`,

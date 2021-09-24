@@ -2,6 +2,9 @@ module.exports = function (project, buildName, libraries) {
   const fs = require('fs-extra')
   const path = require('path')
   const luaparse = require('luaparse')
+  
+  const CLI = require('./cli')
+  const CLITag = 'COMPILE'
 
   const srcpath = []
   const requires = []
@@ -19,7 +22,7 @@ module.exports = function (project, buildName, libraries) {
 
     // File not found?
     if (!required) {
-      console.warn(`Required library/file not found: "${filename}" on file "${currentFiles[0]}", leaving statement alone...`)
+      CLI.warn(`Required library/file not found: "${ filename.magenta }" on file "${ currentFiles[0].yellow }", leaving statement alone...`)
       return null
     }
 
@@ -31,7 +34,6 @@ module.exports = function (project, buildName, libraries) {
 
     // Check if this file was not already included
     if (~requires.indexOf(file)) {
-      // console.info(`File already included, skipping: "${filename}"`)
       return { fqn: requireString, output: '' }
     }
 
@@ -42,7 +44,7 @@ module.exports = function (project, buildName, libraries) {
     srcpath.unshift(path.dirname(file))
 
     // Info
-    console.info(`-> Building file: ${file}`)
+    CLI.status(CLITag, `Compiling file: ${file}`)
 
     // Gets the file contents
     const source = fs.readFileSync(file).toString()
@@ -115,7 +117,7 @@ module.exports = function (project, buildName, libraries) {
     const regex = {
       require: {
         expression: /require[\s\()]*[\'\"](.+?)[\'\"][\s]*[\)]*/gi,
-        handle: function (match, file) {
+        handle (match, file) {
           // Does the require, should return null if not found
           const req = handleRequire(file)
 
@@ -128,6 +130,26 @@ module.exports = function (project, buildName, libraries) {
           }
         },
       },
+      luaParam: {
+        expression: /--[ ]*export:?(.*)\n?/g,
+        handle (match, description) {
+          return `;__EXPORT_VARIABLE=[[${ (description || '').trim() }]]`
+        },
+      },
+      undefinedBehaviorPeriodNewlineNumeric: {
+        expression: /([0-9])\.\r?\n/g,
+        handle: function (match, number) {
+          CLI.warn(`Undefined Behavior: Period character detected directly before line break on numeric value. Completing decimal with zero.`)
+          return `${ number }.0\n`
+        }
+      },
+      undefinedBehaviorPeriodNewline: {
+        expression: /([0-9])\.\r?\n/g,
+        handle: function (match, number) {
+          CLI.warn(`Undefined Behavior: Period character detected directly before line break, may misbehave when minified or in different runtime implementations.`)
+          return `${ number }.0\n`
+        }
+      }
     }
 
     // Executes each regex
@@ -143,11 +165,9 @@ module.exports = function (project, buildName, libraries) {
   }
 
   function handleParseError (err, code) {
-    console.error(`Error parsing ${currentFiles[0] ? `file "${currentFiles[0]}"` : `output`} at line ${err.line}, column ${err.column}, index: ${err.index}:\n${err.message}`)
-    console.error(`Problematic code line:`)
-    console.error(code.split('\n')[err.line - 1])
-    // console.error('----------------------------')
-    // console.error(code)
+    CLI.error(`Error parsing ${currentFiles[0] ? `file "${currentFiles[0]}"` : `output`} at line ${err.line}, column ${err.column}, index: ${err.index}: ${err.message}`)
+    CLI.error(`Problematic code line:`)
+    CLI.code(code.split('\n')[err.line - 1])
     process.exit(1)
   }
 
@@ -161,7 +181,7 @@ module.exports = function (project, buildName, libraries) {
   const entryPoint = path.join(buildName)
 
   // Logs
-  console.info(`Fetching project entry point: ${entryPoint}`)
+  CLI.status(CLITag, `Fetching project entry point: ${entryPoint}`)
 
   // Load first file and process it
   const outputSource = handleRequire(entryPoint).output

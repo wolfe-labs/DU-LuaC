@@ -32,27 +32,25 @@ After installed, go into your projects directory and run `du-lua create my-first
 
 After done with that, run `du-lua -h` to view a list of available commands.
 
-You can build your project by running either `du-lua build`, both will do the exact same thing.
-
 ### Adding a new Script/Build Entrypoint
 
-You may want to create a new build entry for your main Lua file, so run `du-lua script-add main`. This will create a new entry on the `builds` field and also create a new file called `main.lua`, which will be your first entrypoint.
+In DU-Lua, scripts or "build entry-points" are meant to represent individual Control Unit elements on your project. For example, if you create a project for a new ship, you can have a script that will be used on the main flight seat, another for the cargo bay screens, etc.
 
-Due to the way DU works in that you can have multiple Programming Boards, you can keep running the command above and create new entrypoints in your project. Each of these entrypoints will have its own code and can be inserted on its own Programming Board.
+To add a new script, run `du-lua script-add your-script-name-here`. This will create a new entry on the `builds` field and also create a new file called `your-script-name-here.lua`, which will also generate corresponding Lua, YAML and JSON files at build-time.
 
 ### Adding a new Build Target/Output
 
-You will also need to add a Build Target in your project, which will define how you want your output to behave. This is specially useful so that you can have separate versions of your scripts for development (with error logging/tracing) and production (with minified output).
+Before compiling, you also need to specify a Build Target for your project. It is used to define any optimizations that are done, such as minification, error logging and tracing, etc.
 
-To do that, run `du-lua target-add` and follow the interactive CLI, selecting the options that best fit for you.
+To access the interactive configuration tool, just run `du-lua target-add` and follow the instruction, selecting the options that best fit for your use case.
 
-### Configuring Slots
+### Listening to Events with Slots
 
-Slots are ways to link different elements of a construct into your ship. You can do that by going into Build Mode, selecting the linking tool and clicking your Programming Board and your desired element.
+Slots allow you to listen for events on linked elements. For that, you **must** define the events in the same order the elements will be linked to your Control Unit.
 
-To add a new link to your script `main`, run `du-lua script-link main` and follow the interactive CLI. You will be asked to select an element type at one point, this is only needed if you want to be able to receive events from that element.
+For elements that you only want to interact with via Lua, without any events, you can use the Automatic Linking Detection feature to find links by element class or name.
 
-**IMPORTANT:** The order you have your elements on your `project.json` file must match the order you linked your elements, otherwise the autoconfig script will not work as intended. If you don't feel like relinking all your entries in-game, you can edit the `project.json` file to match your linking order manually.
+To add a new link to your script `your-script-name-here`, run `du-lua script-link your-script-name-here` and follow the interactive CLI. You will be asked to select an element type at one point, this is only needed if you want to be able to receive events from that element, otherwise select "Generic Element".
 
 ### Using external Libraries
 
@@ -227,6 +225,12 @@ Right now, these are features being planned/implemented:
 
 ## About, Contact, Support, etc.
 
-If you have any questions, feel free to [ping me over on Discord](https://discord.gg/egQaE2U) and I'll be glad to help!
+If you have any questions, feel free to ping me in [Wolfe Labs' Discord server](https://discord.gg/YerENgKDre) and I'll be glad to help!
 
-I don't usually respond to friend requests, sometimes don't even notice them, so if you need to contact me **please** use the Discord server.
+I don't usually respond to friend requests, sometimes don't even notice them, so if you need to contact me **please** use the Discord server. Ping me, it won't hurt :)
+
+### Donations
+
+In-game donations are more than welcome! Feel free to send any amounts to the **Wolfe Labs** in-game organization.
+
+You can also buy me an IRL coffee too via both [PayPal](https://www.paypal.com/donate?hosted_button_id=YYVSTZ8EN3JSC) and [Pix](https://nubank.com.br/pagar/4rs96/YNDgXVKPoV)
