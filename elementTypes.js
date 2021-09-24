@@ -15,14 +15,17 @@ module.exports = {
   databank: {
     title: 'Databank',
     value: 'databank',
+    class: 'DataBankUnit'
   },
   antigravityGenerator: {
     title: 'Anti-Gravity Generator (AGG)',
     value: 'antigravityGenerator',
+    class: 'AntiGravityGeneratorUnit',
   },
   core: {
     title: 'Core Unit',
     value: 'core',
+    class: 'CoreUnit',
   },
   fuelContainer: {
     title: 'Fuel Container',
@@ -35,6 +38,7 @@ module.exports = {
   industry: {
     title: 'Industry Unit',
     value: 'industry',
+    class: 'IndustryUnit',
     events: [
       { signature: 'completed()' },
       { signature: 'statusChanged(status)' },
@@ -51,10 +55,12 @@ module.exports = {
   radar: {
     title: 'Radar',
     value: 'radar',
+    class: 'RadarPVPUnit',
   },
   pvpRadar: {
     title: 'Radar (PVP)',
     value: 'pvpRadar',
+    class: 'RadarPVPUnit',
   },
   receiver: {
     title: 'Receiver',
@@ -66,6 +72,7 @@ module.exports = {
   screen: {
     title: 'Screen',
     value: 'screen',
+    class: 'ScreenUnit',
     events: [
       { signature: 'mouseDown(x,y)' },
       { signature: 'mouseUp(x,y)' },
@@ -74,10 +81,17 @@ module.exports = {
   warpDrive: {
     title: 'Warp Drive',
     value: 'warpDrive',
+    class: 'WarpDriveUnit',
   },
   weapon: {
     title: 'Weapon',
     value: 'weapon',
+    class: 'WeaponUnit',
+  },
+  shield: {
+    title: 'Shield',
+    value: 'shield',
+    class: 'ShieldGeneratorUnit',
   },
   zoneDetector: {
     title: 'Zone Detector',
