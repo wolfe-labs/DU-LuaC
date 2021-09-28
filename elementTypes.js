@@ -23,6 +23,14 @@ module.exports = {
   core: {
     title: 'Core Unit',
     value: 'core',
+    events: [
+      { signature: 'pvpTimer(active)' },
+      { signature: 'stressChanged(stress)'},
+      { signature: 'playerBoarded(pid)' },
+      { signature: 'constructDocked(cid)'},
+      { signature: 'docked(cid)'},
+      { signature: 'undocked(cid)'},
+    ],
   },
   fuelContainer: {
     title: 'Fuel Container',
