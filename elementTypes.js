@@ -11,6 +11,10 @@ module.exports = {
   button: {
     title: 'Button',
     value: 'pressable',
+    events: [
+      { signature: 'pressed()' },
+      { signature: 'released()' },
+    ],
   },
   databank: {
     title: 'Databank',
@@ -23,6 +27,14 @@ module.exports = {
   core: {
     title: 'Core Unit',
     value: 'core',
+    events: [
+      { signature: 'pvpTimer(active)' },
+      { signature: 'stressChanged(stress)' },
+      { signature: 'playerBoarded(pid)' },
+      { signature: 'constructDocked(cid)' },
+      { signature: 'docked(cid)' },
+      { signature: 'undocked(cid)' },
+    ],
   },
   fuelContainer: {
     title: 'Fuel Container',
@@ -51,10 +63,18 @@ module.exports = {
   radar: {
     title: 'Radar',
     value: 'radar',
+    events: [
+      { signature: 'enter(id)' },
+      { signature: 'leave(id)' },
+    ],
   },
   pvpRadar: {
     title: 'Radar (PVP)',
     value: 'pvpRadar',
+    events: [
+      { signature: 'enter(id)' },
+      { signature: 'leave(id)' },
+    ],
   },
   receiver: {
     title: 'Receiver',
@@ -82,6 +102,10 @@ module.exports = {
   zoneDetector: {
     title: 'Zone Detector',
     value: 'enterable',
+    events: [
+      { signature: 'enter(id)' },
+      { signature: 'leave(id)' },
+    ],
   },
   __abstract: {
     title: '- Interfaces -',
@@ -90,10 +114,10 @@ module.exports = {
   enterable: {
     title: 'Enterable',
     value: 'enterable',
-    description: 'Adds the events "enter(id)" and "exit(id)"',
+    description: 'Adds the events "enter(id)" and "leave(id)"',
     events: [
       { signature: 'enter(id)' },
-      { signature: 'exit(id)' },
+      { signature: 'leave(id)' },
     ],
   },
   pressable: {
