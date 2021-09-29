@@ -19,8 +19,9 @@ module.exports = async function (argv) {
   // The minifier
   const minify = require('luamin').minify
 
-  // The autoconf generator
-  const autoconfig = require('./autoconf')
+  // The autoconf generators
+  const buildJsonOrYaml = require('./buildJsonConf')
+  const buildAutoconfig = require('./buildAutoConf')
 
   // The currently loaded libs
   const libraries = {}
@@ -186,12 +187,36 @@ module.exports = async function (argv) {
       // The base filename
       const file = path.join(dir, buildSpec.name)
 
-      // The autoconfig file
-      const autoconf = autoconfig(project, buildSpec, result.resources.main, result.resources.libs, buildTarget.minify)
+      // The autoconfig file (YAML, JSON)
+      const autoconfBase = buildJsonOrYaml(project, buildSpec, result.resources.main, result.resources.libs, buildTarget.minify)
+
+      // Estimates final Lua file size
+      const prettyPrintSize = function prettyPrintSize (size) {
+        // kB
+        if (size > 1024)
+          return `${ (size / 1024).toFixed(2) } kB`
+
+        // bytes
+        return `${ size } bytes`
+      }
+      const limitLuaSize = 150 * 1024 // 150kb. TODO: This value needs some fixing, but considering there are scripts around 180kb working this should leave some headroom available
+      const finalLuaSize = Buffer.byteLength(
+        autoconfBase.handlers
+          .map((handler) => handler.code)
+          .join('\n'),
+        'utf8'
+      )
+
+      // Checks if over the limit
+      if (limitLuaSize > finalLuaSize) {
+        CLI.info(CLITag, `Estimated Lua size: ${ prettyPrintSize(finalLuaSize) } (${ (100 * finalLuaSize / limitLuaSize).toFixed(2) }% out of ${ prettyPrintSize(limitLuaSize) })`)
+      } else {
+        CLI.warn(`Estimated Lua size over known limit: ${ prettyPrintSize(finalLuaSize) } (${ (100 * finalLuaSize / limitLuaSize).toFixed(2) }% out of ${ prettyPrintSize(limitLuaSize) })`)
+      }
 
       // Verifies output of everything but events for syntax errors, generates Lua output too
       CLI.info(CLITag, `Generating LUA AST and checking for syntax errors...`)
-      const output = autoconf.handlers.filter(handler => handler.filter.signature == 'start()').sort((a, b) => {
+      const output = autoconfBase.handlers.filter(handler => handler.filter.signature == 'start()').sort((a, b) => {
         // Different slots, priority by slot position
         if (a.filter.slotKey < b.filter.slotKey) return -1
         if (a.filter.slotKey > b.filter.slotKey) return 1
@@ -226,11 +251,16 @@ module.exports = async function (argv) {
 
         // JSON
         CLI.status(CLITag, 'Writing JSON autoconfig...')
-        fs.writeFileSync(`${ file }.json`, JSON.stringify(autoconf))
+        fs.writeFileSync(`${ file }.json`, JSON.stringify(autoconfBase))
 
-        // JSON
+        // YAML
         CLI.status(CLITag, 'Writing YAML autoconfig...')
-        fs.writeFileSync(`${ file }.yaml`, YAML.stringify(autoconf))
+        fs.writeFileSync(`${ file }.yaml`, YAML.stringify(autoconfBase))
+
+        // CONF
+        CLI.status(CLITag, 'Writing CONF autoconfig...')
+        const autoconfConf = buildAutoconfig(project, autoconfBase)
+        fs.writeFileSync(`${ file }.conf`, YAML.stringify(autoconfConf))
 
         // Done
         CLI.success(`Done writing files for build ${ buildTargetIdentifier }!`)

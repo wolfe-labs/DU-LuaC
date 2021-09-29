@@ -34,6 +34,12 @@ const internalTypes = {
   },
 }
 
+function runMinifier(source) {
+  minifier(source)
+    .replace(/\r/gi, '')
+    .replace(/[\n\s]{2,}/gi, ' ')
+}
+
 function makeEmptySlotList() {
   const slots = []
   for (let i = 0; i < 10; i++) {
@@ -103,7 +109,7 @@ function makeSlotHandlerArgs(argsN) {
   return args
 }
 
-module.exports = function (project, build, source, preloads, minify) {
+module.exports = function buildJsonOrYaml (project, build, source, preloads, minify) {
   // Base structure
   const autoconf = {
     slots: {},
@@ -125,12 +131,12 @@ module.exports = function (project, build, source, preloads, minify) {
 
   // Injects event-handling helper
   autoconf.handlers.push(
-    makeSlotHandler(autoconf, -3, 'start()', minifyCompilerInternals ? minifier(helperEvents) : helperEvents)
+    makeSlotHandler(autoconf, -3, 'start()', minifyCompilerInternals ? runMinifier(helperEvents) : helperEvents)
   )
 
   // Injects autoconfig helper
   autoconf.handlers.push(
-    makeSlotHandler(autoconf, -3, 'start()', minifyCompilerInternals ? minifier(helperLinking) : helperLinking)
+    makeSlotHandler(autoconf, -3, 'start()', minifyCompilerInternals ? runMinifier(helperLinking) : helperLinking)
   )
 
   // External libraries go directly to the library slot
@@ -190,6 +196,13 @@ module.exports = function (project, build, source, preloads, minify) {
       // Creates the slot
       autoconf.slots[slotId] = makeSlotDefinition(slot.name, slotType.value)
 
+      // Sets autoconfig slot class whenever select ("all" or "manual") is set
+      const slotClass = elementTypes[slot.type] && elementTypes[slot.type].class;
+      if (slot.select && slotClass) {
+        autoconf.slots[slotId].class = slotClass;
+        autoconf.slots[slotId].select = slot.select;
+      }
+
       // Optionally creates events
       if (slotType.events) {
         // Enables event handling automatically for that slot
@@ -217,7 +230,7 @@ module.exports = function (project, build, source, preloads, minify) {
 
   // Adds the main code to the unit's start
   autoconf.handlers.push(
-    makeSlotHandler(autoconf, -1, 'start()', minify ? minifier(source) : source)
+    makeSlotHandler(autoconf, -1, 'start()', minify ? runMinifier(source) : source)
   )
 
   return autoconf

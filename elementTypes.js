@@ -11,18 +11,33 @@ module.exports = {
   button: {
     title: 'Button',
     value: 'pressable',
+    events: [
+      { signature: 'pressed()' },
+      { signature: 'released()' },
+    ],
   },
   databank: {
     title: 'Databank',
     value: 'databank',
+    class: 'DataBankUnit'
   },
   antigravityGenerator: {
     title: 'Anti-Gravity Generator (AGG)',
     value: 'antigravityGenerator',
+    class: 'AntiGravityGeneratorUnit',
   },
   core: {
     title: 'Core Unit',
     value: 'core',
+    class: 'CoreUnit',
+    events: [
+      { signature: 'pvpTimer(active)' },
+      { signature: 'stressChanged(stress)' },
+      { signature: 'playerBoarded(pid)' },
+      { signature: 'constructDocked(cid)' },
+      { signature: 'docked(cid)' },
+      { signature: 'undocked(cid)' },
+    ],
   },
   fuelContainer: {
     title: 'Fuel Container',
@@ -35,6 +50,7 @@ module.exports = {
   industry: {
     title: 'Industry Unit',
     value: 'industry',
+    class: 'IndustryUnit',
     events: [
       { signature: 'completed()' },
       { signature: 'statusChanged(status)' },
@@ -51,10 +67,20 @@ module.exports = {
   radar: {
     title: 'Radar',
     value: 'radar',
+    class: 'RadarPVPUnit',
+    events: [
+      { signature: 'enter(id)' },
+      { signature: 'leave(id)' },
+    ],
   },
   pvpRadar: {
     title: 'Radar (PVP)',
     value: 'pvpRadar',
+    class: 'RadarPVPUnit',
+    events: [
+      { signature: 'enter(id)' },
+      { signature: 'leave(id)' },
+    ],
   },
   receiver: {
     title: 'Receiver',
@@ -66,6 +92,7 @@ module.exports = {
   screen: {
     title: 'Screen',
     value: 'screen',
+    class: 'ScreenUnit',
     events: [
       { signature: 'mouseDown(x,y)' },
       { signature: 'mouseUp(x,y)' },
@@ -74,14 +101,25 @@ module.exports = {
   warpDrive: {
     title: 'Warp Drive',
     value: 'warpDrive',
+    class: 'WarpDriveUnit',
   },
   weapon: {
     title: 'Weapon',
     value: 'weapon',
+    class: 'WeaponUnit',
+  },
+  shield: {
+    title: 'Shield',
+    value: 'shield',
+    class: 'ShieldGeneratorUnit',
   },
   zoneDetector: {
     title: 'Zone Detector',
     value: 'enterable',
+    events: [
+      { signature: 'enter(id)' },
+      { signature: 'leave(id)' },
+    ],
   },
   __abstract: {
     title: '- Interfaces -',
@@ -90,10 +128,10 @@ module.exports = {
   enterable: {
     title: 'Enterable',
     value: 'enterable',
-    description: 'Adds the events "enter(id)" and "exit(id)"',
+    description: 'Adds the events "enter(id)" and "leave(id)"',
     events: [
       { signature: 'enter(id)' },
-      { signature: 'exit(id)' },
+      { signature: 'leave(id)' },
     ],
   },
   pressable: {
