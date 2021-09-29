@@ -190,6 +190,30 @@ module.exports = async function (argv) {
       // The autoconfig file (YAML, JSON)
       const autoconfBase = buildJsonOrYaml(project, buildSpec, result.resources.main, result.resources.libs, buildTarget.minify)
 
+      // Estimates final Lua file size
+      const prettyPrintSize = function prettyPrintSize (size) {
+        // kB
+        if (size > 1024)
+          return `${ (size / 1024).toFixed(2) } kB`
+
+        // bytes
+        return `${ size } bytes`
+      }
+      const limitLuaSize = 150 * 1024 // 150kb. TODO: This value needs some fixing, but considering there are scripts around 180kb working this should leave some headroom available
+      const finalLuaSize = Buffer.byteLength(
+        autoconfBase.handlers
+          .map((handler) => handler.code)
+          .join('\n'),
+        'utf8'
+      )
+
+      // Checks if over the limit
+      if (limitLuaSize > finalLuaSize) {
+        CLI.info(CLITag, `Estimated Lua size: ${ prettyPrintSize(finalLuaSize) } (${ (100 * finalLuaSize / limitLuaSize).toFixed(2) }% out of ${ prettyPrintSize(limitLuaSize) })`)
+      } else {
+        CLI.warn(`Estimated Lua size over known limit: ${ prettyPrintSize(finalLuaSize) } (${ (100 * finalLuaSize / limitLuaSize).toFixed(2) }% out of ${ prettyPrintSize(limitLuaSize) })`)
+      }
+
       // Verifies output of everything but events for syntax errors, generates Lua output too
       CLI.info(CLITag, `Generating LUA AST and checking for syntax errors...`)
       const output = autoconfBase.handlers.filter(handler => handler.filter.signature == 'start()').sort((a, b) => {
