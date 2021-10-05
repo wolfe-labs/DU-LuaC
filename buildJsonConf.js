@@ -35,7 +35,7 @@ const internalTypes = {
 }
 
 function runMinifier(source) {
-  minifier(source)
+  return minifier(source)
     .replace(/\r/gi, '')
     .replace(/[\n\s]{2,}/gi, ' ')
 }
@@ -129,14 +129,15 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   // Makes internals always be minified (disable for compiler debugging!)
   const minifyCompilerInternals = true
 
-  // Injects event-handling helper
+  // Compiler internals
   autoconf.handlers.push(
-    makeSlotHandler(autoconf, -3, 'start()', minifyCompilerInternals ? runMinifier(helperEvents) : helperEvents)
-  )
+    makeSlotHandler(autoconf, -3, 'start()', [
+      // Injects event-handling helper
+      minifyCompilerInternals ? runMinifier(helperEvents) : helperEvents,
 
-  // Injects autoconfig helper
-  autoconf.handlers.push(
-    makeSlotHandler(autoconf, -3, 'start()', minifyCompilerInternals ? runMinifier(helperLinking) : helperLinking)
+      // Injects autoconfig helper
+      minifyCompilerInternals ? runMinifier(helperLinking) : helperLinking,
+    ].join('\n'))
   )
 
   // External libraries go directly to the library slot
@@ -145,6 +146,8 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
       makeSlotHandler(autoconf, -3, 'start()', minify ? minifier(preload.source) : preload.source)
     )
   })
+
+  console.log(autoconf.handlers)
 
   // Slot event handlers
   const slotEvents = []
