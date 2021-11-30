@@ -147,7 +147,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
     )
   })
 
-  console.log(autoconf.handlers)
+  // console.log(autoconf.handlers)
 
   // Slot event handlers
   const slotEvents = []
