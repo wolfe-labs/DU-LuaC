@@ -60,6 +60,8 @@ Using a directory path is not recommended as it will require everyone working on
 
 You can use either the web URL of the repository or go for the recommended way and use the clone URL. For public repositories you can use the HTTPS clone URL and it will work without issues, though with private repositories you will need to use the SSH clone URL and configure the compiler's own SSH key in your Git account, under SSH Keys. To get this key, just run `du-lua git-key` and it will print it for you on your command-line. This key is automatically generated on your computer and never leaves it, nor should be used for anything else.
 
+**Note:** As of v0.8, libraries that were not created on DU-LuaC (such as repositories containing only "pure" source files) are supported.
+
 ## Extra Goodies
 
 Here you'll find some extra features that you gain by using DU-LuaC:

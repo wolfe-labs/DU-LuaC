@@ -360,6 +360,7 @@
             // Saves the new library
             project.libs.push({
               id: importLib.name,
+              type: importLib.type,
               path: importLib.path,
               remote: {
                 git: importLibRaw,
@@ -369,7 +370,8 @@
 
             // Finishes with some log
             console.info(`The library "${importLib.name}" was successfully imported into your project!`)
-          }          
+            console.info(`Usage: require("${importLib.name}:FileName")`)
+          }
         } else {
           // Errors
           console.error(`Could not resolve library: "${importLibRaw}"`)

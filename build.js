@@ -77,18 +77,30 @@ module.exports = async function (argv) {
       process.exit(1)
     }
 
-    // Check if the project file also exists
-    const libProject = path.join(library.path, defaultBuildFile)
-    if (!fs.existsSync(libProject)) {
-      CLI.error(`Project file missing for library "${library.id}": ${libProject}`)
-      process.exit(1)
+    // Checks if we're dealing with a "raw" library
+    const isRawLibrary = (library.type && 'raw' == library.type);
+    if (isRawLibrary) {
+      CLI.status(CLITag, `Loading RAW library: "${library.id}"`)
+      library.project = {
+        name: library.name,
+        libs: [],
+        sourcePath: '/',
+        outputPath: '/',
+      };
+    } else {
+      // Check if the project file also exists
+      const libProject = path.join(library.path, defaultBuildFile)
+      if (!fs.existsSync(libProject)) {
+        CLI.error(`Project file missing for library "${library.id}": ${libProject}`)
+        process.exit(1)
+      }
+
+      // Log
+      CLI.status(CLITag, `Loading project library: "${library.id}"`)
+
+      // Fetch the library project
+      library.project = JSON.parse(fs.readFileSync(libProject).toString())
     }
-
-    // Log
-    CLI.status(CLITag, `Loading project library: "${library.id}"`)
-
-    // Fetch the library project
-    library.project = JSON.parse(fs.readFileSync(libProject).toString())
 
     // Checks for any missing dependencies from the library
     if (library.project.libs) {
@@ -98,7 +110,7 @@ module.exports = async function (argv) {
     }
 
     // Resolve the library root
-    library.root = path.dirname(path.join(library.path, library.project.sourcePath || 'src'))
+    library.root = isRawLibrary ? library.path : path.dirname(path.join(library.path, library.project.sourcePath || 'src'))
 
     // Add to libraries
     libraries[library.id] = library

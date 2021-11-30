@@ -138,8 +138,21 @@ module.exports = class Library {
       // If no results are found, fail
       if (!cloneResult) return null
 
-      // Parses the library info!
-      const libInfo = await Library.getProjectInfo(destination)
+      // Checks if project exists
+      let libInfo = null;
+      if (Library.checkProjectFileExists(destination)) {
+        // Parses the library info!
+        libInfo = { type: 'project', ...(await Library.getProjectInfo(destination)) }
+        console.info(`Loaded library: ${libInfo.name}`);
+      } else {
+        // Handles raw libraries (when we have Lua code but not a DU-Lua project)
+        const projectName = `@${gitInfo.full_name}`;
+        console.info(`No project.json file found, loading library as raw source instead`);
+        libInfo = {
+          type: 'raw',
+          name: projectName,
+        }
+      }
 
       // Only moves if no destination is provided!
       if (!destDir) {
@@ -171,10 +184,15 @@ module.exports = class Library {
     }
   }
 
+  // Checks if project exists on path
+  static checkProjectFileExists (directory) {
+    return exists(path.join(directory, 'project.json'));
+  }
+
   // Helper to get current project
   static async getProjectInfo (directory) {
     // Checks for existing project file
-    if (!exists(path.join(directory, 'project.json'))) {
+    if (!Library.checkProjectFileExists(directory)) {
       console.error(`Project file not found "${path.join(directory, 'project.json')}"! Please, run "du-lua init" first!`)
       process.exit(1)
     }
