@@ -172,6 +172,15 @@ For example, if you have a construct with two different Programming Boards, each
 
 The `name` field for each of your `build` entries map directly to the files on your source directory, so if you have a file called `controller.lua`, then your build must be named `controller`.
 
+#### Extra Build Options
+
+These values may be set to `true` in your project file to have extra customization on how the code is output:
+
+- `noEvents` will disable the generation of event handling helpers
+- `noHelpers` will disable the generation of internal compiler helpers such as tools to find links
+
+Enabling the options above is recommended when dealing with Lua render scripts.
+
 ### Targets
 
 A target, in other hand, defines how to output your code after it has been compiled. For example, you might want to have a minified version of your code for deployment in production, while also having a complete version for development or debugging purposes. This is possible by defining targets in your project file:

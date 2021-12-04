@@ -129,16 +129,22 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   // Makes internals always be minified (disable for compiler debugging!)
   const minifyCompilerInternals = true
 
-  // Compiler internals
-  autoconf.handlers.push(
-    makeSlotHandler(autoconf, -3, 'start()', [
-      // Injects event-handling helper
-      minifyCompilerInternals ? runMinifier(helperEvents) : helperEvents,
+  // Informative lines
+  if (build.noHelpers) CLI.info('BUILDER', `Build '${build.name}' will not include compiler internals.`)
+  if (build.noEvents) CLI.info('BUILDER', `Build '${build.name}' will not include event handlers.`)
 
-      // Injects autoconfig helper
-      minifyCompilerInternals ? runMinifier(helperLinking) : helperLinking,
-    ].join('\n'))
-  )
+  // Compiler internals
+  if (!build.noHelpers) {
+    autoconf.handlers.push(
+      makeSlotHandler(autoconf, -3, 'start()', [
+        // Injects event-handling helper
+        minifyCompilerInternals ? runMinifier(helperEvents) : helperEvents,
+
+        // Injects autoconfig helper
+        minifyCompilerInternals ? runMinifier(helperLinking) : helperLinking,
+      ].join('\n'))
+    )
+  }
 
   // External libraries go directly to the library slot
   preloads.forEach((preload) => {
@@ -174,17 +180,19 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   })
 
   // Adds internal events
-  Object.keys(internalTypes).forEach((type) => {
-    const typeInfo = internalTypes[type]
-    if (typeInfo.events) {
-      slotEvents.push(autoconf.slots[typeInfo.slotId].name)
-      typeInfo.events.forEach((event) => {
-        autoconf.handlers.push(
-          makeSlotHandler(autoconf, typeInfo.slotId, event.signature)
-        )
-      })
-    }
-  })
+  if (!build.noEvents) {
+    Object.keys(internalTypes).forEach((type) => {
+      const typeInfo = internalTypes[type]
+      if (typeInfo.events) {
+        slotEvents.push(autoconf.slots[typeInfo.slotId].name)
+        typeInfo.events.forEach((event) => {
+          autoconf.handlers.push(
+            makeSlotHandler(autoconf, typeInfo.slotId, event.signature)
+          )
+        })
+      }
+    })
+  }
 
   // Setup slots and event handlers
   baseSlots.forEach((slot) => {
@@ -207,7 +215,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
       }
 
       // Optionally creates events
-      if (slotType.events) {
+      if (!build.noEvents && slotType.events) {
         // Enables event handling automatically for that slot
         slotEvents.push(slot.name)
           
@@ -225,7 +233,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   })
 
   // Adds event handler set-up code
-  if (slotEvents.length > 0) {
+  if (!build.noEvents && slotEvents.length > 0) {
     autoconf.handlers.push(
       makeSlotHandler(autoconf, -3, 'start()', `-- Setup improved event handlers\n${ makeRunOnce('EVENTS', slotEvents.map(slot => `library.addEventHandlers(${ slot })`).join('\n')) }`)
     )
