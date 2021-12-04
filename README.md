@@ -178,6 +178,7 @@ These values may be set to `true` in your project file to have extra customizati
 
 - `noEvents` will disable the generation of event handling helpers
 - `noHelpers` will disable the generation of internal compiler helpers such as tools to find links
+- `noPreload` will disable the generation of `package.preload` when a valid require is found, inlines code instead
 
 Enabling the options above is recommended when dealing with Lua render scripts.
 

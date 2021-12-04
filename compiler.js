@@ -13,6 +13,10 @@ module.exports = function (project, buildName, libraries) {
 
   const preloads = []
 
+  const inlineRequires = !!project.builds[buildName].noPreload
+
+  if (inlineRequires) CLI.info('COMPILE', `Build '${buildName}' will not include package.preload statements.`)
+
   function handleRequire (filename) {
     // Is this the root file
     const isRoot = !currentFiles[0]
@@ -122,6 +126,11 @@ module.exports = function (project, buildName, libraries) {
           const req = handleRequire(file)
 
           if (req) {
+            // If we're inlining requires, inlines it now
+            if (inlineRequires) {
+              return `(function()\n${req.output}\nend)()`
+            }
+
             // If the require worked, use the FQN as the module name
             return `require('${req.fqn}')`
           } else {
@@ -188,11 +197,13 @@ module.exports = function (project, buildName, libraries) {
 
   // Combine preloads
   const outputPreloads = []
-  for (let file in preloads) {
-    outputPreloads.push({
-      path: file,
-      source: `package.preload['${file}'] = (function (...) ${preloads[file]}; end)`,
-    })
+  if (!inlineRequires) {
+    for (let file in preloads) {
+      outputPreloads.push({
+        path: file,
+        source: `package.preload['${file}'] = (function (...) ${preloads[file]}; end)`,
+      })
+    }
   }
 
   // Next step is for the main compiler
