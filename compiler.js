@@ -26,7 +26,7 @@ module.exports = function (project, buildName, libraries) {
 
     // File not found?
     if (!required) {
-      CLI.warn(`Required library/file not found: "${ filename.magenta }" on file "${ currentFiles[0].yellow }", leaving statement alone...`)
+      CLI.warn(`Required library/file not found: "${ filename.magenta }" on file "${ (currentFiles[0] || filename).yellow }", leaving statement alone...`)
       return null
     }
 
