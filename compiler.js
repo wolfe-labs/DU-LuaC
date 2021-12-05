@@ -26,7 +26,14 @@ module.exports = function (project, buildName, libraries) {
 
     // File not found?
     if (!required) {
-      CLI.warn(`Required library/file not found: "${ filename.magenta }" on file "${ (currentFiles[0] || filename).yellow }", leaving statement alone...`)
+      // A root file is missing, stop compiler
+      if (isRoot) {
+        CLI.error(`Project file not found: "${ filename.magenta }", exiting...`)
+        return process.exit(1);
+      }
+
+      // Normal missing files
+      CLI.warn(`Required library/file not found: "${ filename.magenta }" on file "${ currentFiles[0].yellow }", leaving statement alone...`)
       return null
     }
 
