@@ -18,7 +18,7 @@ const internalTypes = {
     events: [
       { signature: 'actionStart(action)' },
       { signature: 'actionLoop(action)' },
-      { signature: 'actionEnd(action)' },
+      { signature: 'actionStop(action)' },
       { signature: 'update()' },
       { signature: 'flush()' },
       { signature: 'inputText(text)' },
