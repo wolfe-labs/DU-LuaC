@@ -42,7 +42,7 @@ function runMinifier(source) {
 
 function makeEmptySlotList() {
   const slots = []
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 21; i++) {
     slots.push({ name: `slot${ i }` })
   }
   return slots
@@ -194,10 +194,37 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
     })
   }
 
+  // Support different types of slots
+  const slotIndexes = {
+    general: 0,
+    weapon: 10,
+    pvpRadar: 20,
+  }
+
   // Setup slots and event handlers
   baseSlots.forEach((slot) => {
     // Computes the new slot ID
-    const slotId = Object.keys(autoconf.slots).length - slotOffset
+    let slotId = (() => {
+      switch (slot.type) {
+        case 'weapon':
+          return slotIndexes.weapon++
+        case 'pvpRadar':
+          return slotIndexes.pvpRadar
+        default:
+          return slotIndexes.general++
+      }
+      Object.keys(autoconf.slots).length - slotOffset
+    })()
+
+    // If slot is already filled, skips to next
+    let existingData = autoconf.slots[slotId]
+    while (existingData && existingData.type) {
+      slotId++
+      existingData = autoconf.slots[slotId]
+    }
+
+    // Skips slots past limit
+    if (slotId > baseSlots.length) return
 
     // For proper slots with types
     if (slot.type && elementTypes[slot.type]) {
