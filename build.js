@@ -9,6 +9,8 @@ module.exports = async function (argv) {
 
   const CLI = require('./cli')
   const CLITag = 'BUILDER'
+  
+  const prettyPrintSize = require('./prettyPrintSize')
 
   // The YAML utility
   const YAML = require('yaml')
@@ -203,14 +205,6 @@ module.exports = async function (argv) {
       const autoconfBase = buildJsonOrYaml(project, buildSpec, result.resources.main, result.resources.libs, buildTarget.minify)
 
       // Estimates final Lua file size
-      const prettyPrintSize = function prettyPrintSize (size) {
-        // kB
-        if (size > 1024)
-          return `${ (size / 1024).toFixed(2) } kB`
-
-        // bytes
-        return `${ size } bytes`
-      }
       const limitLuaSize = 150 * 1024 // 150kb. TODO: This value needs some fixing, but considering there are scripts around 180kb working this should leave some headroom available
       const finalLuaSize = Buffer.byteLength(
         autoconfBase.handlers

@@ -146,12 +146,6 @@ module.exports = function (project, buildName, libraries) {
           }
         },
       },
-      luaParam: {
-        expression: /--[ ]*export:?(.*)\n?/g,
-        handle (match, description) {
-          return `;__EXPORT_VARIABLE=[[${ (description || '').trim() }]]`
-        },
-      },
       undefinedBehaviorPeriodNewlineNumeric: {
         expression: /([0-9])\.\r?\n/g,
         handle: function (match, number) {
@@ -167,6 +161,17 @@ module.exports = function (project, buildName, libraries) {
         }
       }
     }
+
+    // Handles exports first
+    source = source
+      .split('\n')
+      .map((line) => ~line.indexOf('--export') ? line.replace(
+        /(.*?)=(.*?)--[ ]*export:?(.*)?/g,
+        function (match, varName, varDefault, varComment) {
+          return `;__EXPORT_VARIABLE=[[{${ varName.trim() }}{${ varDefault.trim() }}{${ (varComment || '').trim() }}]];`
+        }
+      ) : line)
+      .join('\n')
 
     // Executes each regex
     for (let key in regex) {

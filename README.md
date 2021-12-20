@@ -179,6 +179,7 @@ These values may be set to `true` in your project file to have extra customizati
 - `noEvents` will disable the generation of event handling helpers
 - `noHelpers` will disable the generation of internal compiler helpers such as tools to find links
 - `noPreload` will disable the generation of `package.preload` when a valid require is found, inlines code instead
+- `compress` will enable the compression of your script's main output, which may help for larger scripts but makes them take a few instants to start
 
 Enabling the options above is recommended when dealing with Lua render scripts.
 
