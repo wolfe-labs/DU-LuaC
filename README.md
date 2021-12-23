@@ -58,7 +58,9 @@ One of the coolest features of the compiler is allowing you to use external libr
 
 Using a directory path is not recommended as it will require everyone working on your code to have the exact same directory structure around, which can be a little cumbersome. Going for the Git alternative is much easier, as your `project.json` file will keep track of the Git repository of that specific library and any files will be automatically downloaded whenever you build a project with missing libraries.
 
-You can use either the web URL of the repository or go for the recommended way and use the clone URL. For public repositories you can use the HTTPS clone URL and it will work without issues, though with private repositories you will need to use the SSH clone URL and configure the compiler's own SSH key in your Git account, under SSH Keys. To get this key, just run `du-lua git-key` and it will print it for you on your command-line. This key is automatically generated on your computer and never leaves it, nor should be used for anything else.
+You can use either the web URL of the repository or go for the recommended way and use the clone URL. For public repositories you can use the HTTPS clone URL and it will work without issues, though with private repositories you will need to have a proper public and private key pair set on your system. You can refer to [this guide from GitHub](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) on how to do it.
+
+Please note you are required to have Git installed to be able to download Git repositories. You can download it [here](https://git-scm.com/download).
 
 **Note:** As of v0.8, libraries that were not created on DU-LuaC (such as repositories containing only "pure" source files) are supported.
 
