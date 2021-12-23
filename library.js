@@ -2,7 +2,7 @@ const fs = require('fs-extra')
 const path = require('path')  
 const exists = require('fs').existsSync
 
-const Git = require('nodegit')
+const Git = require('./GitClient')
 const GitUrlParse = require('git-url-parse')
 
 const crypto = require('crypto')
