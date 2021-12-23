@@ -17,11 +17,18 @@
   const library = require('./library')
   const elementTypes = require('./elementTypes')
 
+  const Git = require('./GitClient')
+
   // Load package info
   const cPackage = require(path.join(__dirname, 'package.json'))
 
   // Welcome msg :)
   console.info(`Lua CLI Utility for Dual Universe v${cPackage.version} by Wolfe Labs @ Node ${process.version}`)
+
+  // Notifies user if Git is missing
+  if (!Git.isGitInstalled()) {
+    console.info(`WARNING: No Git version detected! Install from https://git-scm.com/download`.yellow)
+  }
 
   // Gets actual args, not the process name or "node"
   const args = process.argv.slice(2)
@@ -298,14 +305,6 @@
       require('./build')(args)
       break
 
-    // Retrieves Git public key
-    case 'git-key':
-      console.info('Retrieving Git SSH public key...')
-      library.getKeys().then(pair => {
-        console.info(pair.public_ssh)
-      })
-      break
-
     // Imports a library
     case 'import':
       // Gets current project
@@ -397,9 +396,6 @@
         ``,
         `Target Commands:`,
         `  target-add                         : Creates a new build target entry (development/production)`,
-        ``,
-        `Utility Commands`,
-        `  git-key                            : Retrieves and prints the SSH public key used by the application when accessing Git`,
       ].join('\r\n').trim())
   }
 
