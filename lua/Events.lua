@@ -1,7 +1,15 @@
 -- Extension to make event handlers more friendly
 function library.addEventHandlers(obj)
+  -- Does nothing when obj is null or already has events
+  if (not obj) or (obj.onEvent and obj.triggerEvent) then
+    return false
+  end
+
   -- Adds a event handler counter
   local eventHandlerIds = 0
+
+  -- This will store the event handlers
+  local eventHandlers = {}
 
   -- Adds event handler
   obj.onEvent = (function (self, event, handler)
@@ -10,19 +18,14 @@ function library.addEventHandlers(obj)
       error('Event handler must be a function!')
     end
 
-    -- Adds event handlers if needed
-    if not self.__eventHandlers then
-      self.__eventHandlers = {}
-    end
-
     -- Adds event handler array if missing
-    if not self.__eventHandlers[event] then
-      self.__eventHandlers[event] = {}
+    if not eventHandlers[event] then
+      eventHandlers[event] = {}
     end
 
     -- Adds the actual handler and returns a number identifying it (for removal)
     eventHandlerIds = eventHandlerIds + 1
-    self.__eventHandlers[event][eventHandlerIds] = handler
+    eventHandlers[event][eventHandlerIds] = handler
 
     -- Returns the ID for later removal
     return eventHandlerIds
@@ -30,21 +33,19 @@ function library.addEventHandlers(obj)
 
   -- Removes event handler
   obj.clearEvent = (function (self, event, handlerId)
-    if self.__eventHandlers and self.__eventHandlers[event] and self.__eventHandlers[event][handlerId] then
-      table.remove(self.__eventHandlers[event], handlerId)
+    if eventHandlers[event] and eventHandlers[event][handlerId] then
+      table.remove(eventHandlers[event], handlerId)
     end
   end)
 
   -- Triggers event
   obj.triggerEvent = (function (self, event, ...)
-    -- Skip if the obj doesn't have event handlers
-    if not self.__eventHandlers then return end
-    
     -- Processes each of the handlers
-    if self.__eventHandlers[event] then
-      for _, handler in pairs(self.__eventHandlers[event]) do
-        handler(self, ...)
-      end
+    for _, handler in pairs(eventHandlers[event] or {}) do
+      handler(self, ...)
     end
   end)
+
+  -- Returns true to indicate success
+  return true
 end
