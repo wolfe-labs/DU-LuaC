@@ -39,10 +39,8 @@ local env = { system = system, library = library, unit = unit }
 for k, v in pairs(_G) do
   env[k] = v
 end
-for k, v in pairs(unit) do
-  if 'table' == type(v) and 'function' == type(v.getElementClass) then
-    env[k] = v
-  end
+for k, v in pairs(library.getLinks()) do
+  env[k] = v
 end
 
 -- Runs the Lua code

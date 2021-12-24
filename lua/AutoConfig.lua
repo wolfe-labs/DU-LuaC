@@ -9,8 +9,8 @@ function library.getLinks(filters)
   end
 
   -- Maps the found elements into the links list
-  for linkName, element in pairs(_G) do
-    if 'table' == type(element) and element.getElementClass then
+  for linkName, element in pairs(unit) do
+    if 'table' == type(element) and 'function' == type(element.getElementClass) then
       local passed = true
 
       -- Runs filters of whether this slot is valid
@@ -22,13 +22,18 @@ function library.getLinks(filters)
 
       -- If okay then add to results
       if passed then
-        table.insert(links, element)
+        links[linkName] = element
       end
     end
   end
 
   -- Done
   return links
+end
+
+-- Returns the linked Core Unit
+function library.getCoreUnit()
+  return library.getLinksByClass('CoreUnit')[1]
 end
 
 -- Returns a list of links of current unit by class
@@ -41,11 +46,11 @@ end
 -- Returns a list of links with matching type and name
 function library.getLinkByName(elementName)
   -- Gets the Core Unit
-  local coreUnit = library.getLinksByClass('CoreUnit')[1]
+  local coreUnit = library.getCoreUnit()
 
   -- If no Core Unit found, returns nil
   if not coreUnit then
-    error('This function requires a linked CoreUnit to work')
+    error('getLinkByName requires a linked CoreUnit to work')
   end
 
   -- Gets a list of links
