@@ -43,6 +43,14 @@ module.exports = {
     title: 'Fuel Container',
     value: 'fuelContainer',
   },
+  itemContainer: {
+    title: 'Item Container',
+    value: 'itemContainer',
+    class: 'ItemContainer',
+    events: [
+      { signature: 'storageAcquired()' },
+    ],
+  },
   gyro: {
     title: 'Gyroscope',
     value: 'gyro',
