@@ -39,6 +39,61 @@
   // Stores the possible new directory we'll be working on
   let newDir = null
 
+  // Adds a new script
+  async function scriptAdd (project, buildName) {
+    // Gets the project builds
+    project.builds = project.builds || {}
+
+    // Generates the build path
+    buildFile = path.join(project.sourcePath, `${buildName}.lua`)
+
+    // If the build is not valid, errors
+    if (!buildName) {
+      console.error(`Invalid build name`)
+      process.exit(1)
+    }
+
+    // If that already exists, notify user and exit
+    if (library.projectHasBuild(project, buildName)) {
+      console.info(`The build "${buildName}" already exists at current project. Exiting...`)
+      process.exit(1)
+    }
+
+    // Adds file if not already existing
+    if (!exists(buildFile)) {
+      console.info(`Created new source file: ${buildFile}`)
+      fs.ensureDirSync(path.dirname(buildFile))
+      fs.writeFileSync(buildFile, fs.readFileSync(path.join(__dirname, 'lua', 'Initial.lua')))
+    } else {
+      console.info(`Add existing source file: ${buildFile}`)
+    }
+
+    // Adds the new build definition
+    project.builds[buildName] = { name: buildName, slots: {} }
+
+    // Saves project and shows confirmation
+    await library.saveProject(project)
+  }
+
+  // Addsa a new build target
+  async function targetAdd (project, targetName, options) {
+    // Options and defaults
+    options = Object.assign({
+      name: targetName,
+      handleErrors: true,
+      minify: false,
+    }, options)
+
+    // Gets the project builds
+    project.targets = project.targets || {}
+
+    // Adds the new build definition
+    project.targets[targetName] = options
+
+    // Saves project and shows confirmation
+    await library.saveProject(project)
+  }
+
   // Handles commands
   switch (command) {
     // Creates a new project, will chain down into 'init'
@@ -91,8 +146,20 @@
           name: 'outputPath',
           message: `Enter your project's output directory`,
           initial: 'out',
-        }
+        },
+        {
+          type: 'toggle',
+          name: 'scaffolding',
+          message: 'Do you want to initialize your project with a pre-set script and build target?',
+          initial: true,
+          active: 'yes',
+          inactive: 'no',
+        },
       ])
+
+      // Gets and clears scaffolding option
+      const doScaffolding = !!project.scaffolding
+      delete project.scaffolding
 
       // Sanity check
       if (!(project.name && project.sourcePath && project.outputPath)) {
@@ -125,9 +192,22 @@
       // Makes the source directory
       console.info(`Generating source directory...`)
       await fs.mkdir(project.sourcePath)
+    
+      // Adds default files and settings
+      if (doScaffolding) {
+        console.info(`Generating default build file and target...`)
+        await scriptAdd(project, 'main')
+        await targetAdd(project, 'development', {
+          // Uses in-game error handling as it highlights the error on source
+          handleErrors: false,
+
+          // Disables minification
+          minify: false,
+        })
+      }
 
       // Shows finished message
-        console.info(`Project "${project.name}" created successfully!`)
+      console.info(`Project "${project.name}" created successfully!`)
     
       // For anyone using the "create" command, instruct them to "cd" into the directory
       if (newDir) {
@@ -143,39 +223,10 @@
       // Gets current project
       project = await library.getProjectInfo(process.cwd())
 
-      // Gets the project builds
-      project.builds = project.builds || {}
+      // Adds the build
+      await scriptAdd(project, args[0])
 
-      // The build name
-      buildName = args[0]
-      buildFile = path.join(project.sourcePath, `${buildName}.lua`)
-
-      // If the build is not valid, errors
-      if (!buildName) {
-        console.error(`Invalid build name`)
-        process.exit(1)
-      }
-
-      // If that already exists, notify user and exit
-      if (library.projectHasBuild(project, buildName)) {
-        console.info(`The build "${buildName}" already exists at current project. Exiting...`)
-        process.exit(1)
-      }
-
-      // Adds file if not already existing
-      if (!exists(buildFile)) {
-        console.info(`Created new source file: ${buildFile}`)
-        fs.ensureDirSync(path.dirname(buildFile))
-        fs.writeFile(buildFile, `-- Here's to the crazy ones. The misfits. The rebels. The troublemakers.`)
-      } else {
-        console.info(`Add existing source file: ${buildFile}`)
-      }
-
-      // Adds the new build definition
-      project.builds[buildName] = { name: buildName, slots: {} }
-
-      // Saves project and shows confirmation
-      await library.saveProject(project)
+      // Informs the user
       console.info(`The build "${buildName}" was successfully added to your project!`)
       
       break
@@ -249,9 +300,6 @@
       // Gets current project
       project = await library.getProjectInfo(process.cwd())
 
-      // Gets the project builds
-      project.targets = project.targets || {}
-
       // Prompts options
       targetInfo = await prompts([
         {
@@ -270,8 +318,8 @@
         {
           type: 'toggle',
           name: 'handleErrors',
-          message: 'Do you want to enable verbose error messages for this target? Recommended for development',
-          initial: true,
+          message: 'Do you want to enable verbose error messages for this target? It will skip errors in the game Lua editor. Recommended for production',
+          initial: false,
           active: 'yes',
           inactive: 'no',
         },
@@ -291,11 +339,10 @@
         process.exit()
       }
 
-      // Adds the new build definition
-      project.targets[targetInfo.name] = targetInfo
+      // Creates the build target
+      targetAdd(project, targetInfo.name, targetInfo)
 
-      // Saves project and shows confirmation
-      await library.saveProject(project)
+      // Informs user
       console.info(`The build target "${targetInfo.name}" was successfully added to your project!`)
       
       break

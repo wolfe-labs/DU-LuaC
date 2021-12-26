@@ -84,13 +84,15 @@ Please note that, for any event handlers, the first argument **will always be th
 
 Allows you to get lists of elements linked on your Control Unit, optionally filtering them by element class and name!
 
-For example, if you want to get a listing of everything currently linked to your Control Unit, calling `library.getLinks()` will provide you that, with both link names and elements.
+Below you have a list of functions and how to use them:
 
-By itself it might not be that useful, but let's say you want to get a list of all Screen Unit elements linked to your Control Unit, by calling `library.getLinksByClass('ScreenUnit')` you will have it!
-
-Finally, let's say that from all those linked Screen Unit elements you want to get one by its element name. This can be done by calling `library.getLinkByName('myScreen')`, with `myScreen` being the element name of your Screen Unit.
-
-You can also get the link to the construct's Core Unit by using `library.getCoreUnit()`
+| Signature | Description | Sample |
+| --- | --- | --- |
+| `library.getCoreUnit()` | Returns the connection to the Core Unit, if it's connected | `local core = library.getCoreUnit()` |
+| `library.getLinks(filter, noLinkNames)` | Gets a list of linked elements, optionally filtering based on the element's function stated in `filter` (you can supply `nil` to ignore filtering). When `noLinkNames` is `true`, you get indexes instead of link names as the keys | `local screens = library.getLinks({ getElementClass: 'ScreenUnit' })` |
+| `library.getLinksByClass(elementClass, noLinkNames)` | Gets a list of linked elements matching the selected class. When `noLinkNames` is `true`, you get indexes instead of link names as the keys | `local screens = library.getLinksByClass('ScreenUnit')` |
+| `library.getLinkByClass(elementClass)` | Same as the previous function, but returns the first matching element | `local screen = library.getLinkByClass('ScreenUnit')` |
+| `library.getLinkByName(elementName)` | Gets an element's link based on the element name (not the link name!) | `local screen = library.getLinkByName('Main Screen')` |
 
 **Please note that:** to be able to get elements by their name, you will need to link your Core Unit to your Control Unit, thus losing one link. In case you don't want to go that route, you can still hard link your slot via the CLI. The disavantage of this is that you will have to remember the linking order for these elements.
 

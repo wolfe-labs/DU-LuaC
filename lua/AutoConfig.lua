@@ -1,5 +1,5 @@
 -- Returns a list of links of current unit
-function library.getLinks(filters)
+function library.getLinks(filters, noLinkNames)
   -- List of links found
   local links = {}
 
@@ -7,6 +7,9 @@ function library.getLinks(filters)
   if not filters then
     filters = {}
   end
+
+  -- Current link number
+  local linkCount = 0
 
   -- Maps the found elements into the links list
   for linkName, element in pairs(unit) do
@@ -22,6 +25,13 @@ function library.getLinks(filters)
 
       -- If okay then add to results
       if passed then
+        -- Skips link names?
+        linkCount = linkCount + 1
+        if noLinkNames then
+          linkName = linkCount
+        end
+
+        -- Sets actual value
         links[linkName] = element
       end
     end
@@ -31,16 +41,21 @@ function library.getLinks(filters)
   return links
 end
 
--- Returns the linked Core Unit
-function library.getCoreUnit()
-  return library.getLinksByClass('CoreUnit')[1]
+-- Returns a list of links of current unit by class
+function library.getLinksByClass(className, noLinkNames)
+  return library.getLinks({
+    getElementClass = className,
+  }, noLinkNames)
 end
 
 -- Returns a list of links of current unit by class
-function library.getLinksByClass(className)
-  return library.getLinks({
-    getElementClass = className,
-  })
+function library.getLinkByClass(className)
+  return library.getLinksByClass(className, true)[1]
+end
+
+-- Returns the linked Core Unit
+function library.getCoreUnit()
+  return library.getLinkByClass('CoreUnit')
 end
 
 -- Returns a list of links with matching type and name
