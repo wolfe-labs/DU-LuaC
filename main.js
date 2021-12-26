@@ -227,7 +227,7 @@
       await scriptAdd(project, args[0])
 
       // Informs the user
-      console.info(`The build "${buildName}" was successfully added to your project!`)
+      console.info(`The build "${args[0]}" was successfully added to your project!`)
       
       break
 
