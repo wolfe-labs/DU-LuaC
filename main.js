@@ -4,8 +4,6 @@
  * CLI utility to work with DU-LuaC projects
  */
 
-const file = require('fs-extra/lib/ensure/file')
-
 (async function main () {
 
   // Injects color-coding everywhere
