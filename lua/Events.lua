@@ -25,7 +25,7 @@ function library.addEventHandlers(obj)
 
     -- Self reference passed to the event
     selfRef = selfRef or self
-    if 'table' ~= type(handler) then
+    if 'table' ~= type(selfRef) then
       error('The value of self must be a table!')
     end
 
