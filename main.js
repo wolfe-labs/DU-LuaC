@@ -4,6 +4,8 @@
  * CLI utility to work with DU-LuaC projects
  */
 
+const file = require('fs-extra/lib/ensure/file')
+
 (async function main () {
 
   // Injects color-coding everywhere
@@ -190,8 +192,10 @@
       ].join('\r\n'))
 
       // Makes the source directory
-      console.info(`Generating source directory...`)
-      await fs.mkdir(project.sourcePath)
+      if (!fs.existsSync(project.sourcePath)) {
+        console.info(`Generating source directory...`)
+        await fs.mkdir(project.sourcePath)
+      }
     
       // Adds default files and settings
       if (doScaffolding) {

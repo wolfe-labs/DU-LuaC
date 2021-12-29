@@ -74,11 +74,13 @@ DU-LuaC has built-in support for multiple event handlers, which makes it easier 
 
 In case you want to add event support for your own objects and instances, use the `library.addEventHandlers(yourInstance)` function, which will add three new functions to your object:
 
-- `yourInstance:onEvent(eventName, eventHandler)` will call `eventHandler` every time that instance emits an `eventName` event. The return value is an identifier that can be used to remove that event handler too.
-- `yourInstance:clearEvent(eventName, handlerId)` will remove the handler with identifier `handlerId` from the `eventName` event for that instance.
-- `yourInstance:triggerEvent(eventName, arg1, arg2, arg3, ...)` will trigger an `eventName` event for that instance and pass all following arguments to it.
+| Signature | Description |
+| --- | --- |
+| `handlerId = obj:onEvent(event, handler, ref)` | Calls `handler` whenever `obj` emits an event of type `event`, optionally replacing the value of `self` with `ref` and optionally saving the handler ID in `handlerId` |
+| `obj:clearEvent(event, handlerId)` | Clears the handle with identifier `handlerId` from the event of type `event` on `obj` |
+| `obj:triggerEvent(event, arg1, arg2, ...)` | Triggers the event of type `event` on `obj`, passing all following arguments (such as `arg1` and `arg2`) |
 
-Please note that, for any event handlers, the first argument **will always be the instance itself**, so for example, the `mouseDown` event for a Screen Unit is triggered as `screen:triggerEvent('mouseDown', x, y)`, but the event handler will have the following signature: `onScreenMouseDown(screen, x, y)`, the same also works for internals such as timers with `onTick(unit, timer)`, etc.
+Please note that the first argument when calling `handler` **will always be the either the instance itself or the value defined in `ref`**, so for example, the `mouseDown` event for a Screen Unit is triggered as `screen:triggerEvent('mouseDown', x, y)`, but the event handler will have the following signature: `onScreenMouseDown(screen, x, y)`, the same also works for internals such as timers with `onTick(unit, timer)`, etc. If you want to pass down your own `self` to be used inside `handler`, you must pass it as the `ref` argument to `:onEvent`
 
 ### Automatic Linking Detection
 
