@@ -120,6 +120,13 @@ module.exports = {
     title: 'Shield',
     value: 'shield',
     class: 'ShieldGeneratorUnit',
+    events: [
+      { signature: 'toggled(active)' },
+      { signature: 'absorbed(hitpoints,rawHitpoints)' },
+      { signature: 'venting(active,restoredHitpoints)' },
+      { signature: 'down()' },
+      { signature: 'restored()' },
+    ],
   },
   zoneDetector: {
     title: 'Zone Detector',
