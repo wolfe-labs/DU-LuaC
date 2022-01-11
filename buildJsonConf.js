@@ -430,10 +430,14 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
       // Creates the slot
       autoconf.slots[slotId] = makeSlotDefinition(slot.name, slotType.value)
 
-      // Sets autoconfig slot class whenever select ("all" or "manual") is set
+      // Sets autoconfig slot class
       const slotClass = elementTypes[slot.type] && elementTypes[slot.type].class;
-      if (slot.select && slotClass) {
+      if (slotClass) {
         autoconf.slots[slotId].class = slotClass;
+      }
+
+      // Custom autoconfig select type ("all" or "manual")
+      if (slotClass && slot.select) {
         autoconf.slots[slotId].select = slot.select;
       }
 
@@ -469,6 +473,14 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   autoconf.handlers.push(
     makeSlotHandler(autoconf, -1, 'start()', resultMain)
   )
+
+  // Cleanup
+  Object.keys(autoconf.slots).forEach((slotId) => {
+    delete autoconf.slots[slotId].type
+    delete autoconf.slots[slotId]._elementType
+  })
+
+  console.log(autoconf)
 
   return autoconf
 }
