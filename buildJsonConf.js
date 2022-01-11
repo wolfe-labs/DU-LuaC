@@ -12,6 +12,7 @@ const { match } = require('assert')
 const helperEvents = fs.readFileSync(`${ __dirname }/lua/Events.lua`).toString()
 const helperLinking = fs.readFileSync(`${ __dirname }/lua/AutoConfig.lua`).toString()
 const helperCompressed = fs.readFileSync(`${ __dirname }/lua/Compressed.lua`).toString()
+const helperDecompression = fs.readFileSync(`${ __dirname }/lua/Decompression.lua`).toString()
 const regexMinifiedExportComment = /;?__EXPORT_VARIABLE=\[\[{(.*?)}{(.*?)}{(.*?)}\]\];?/g
 const regexPlainExportCommentWithVariable = /(.*?)\s*?=\s*?(.*?)\s*?\-\-export\:?(.*)?/g
 const internalTypes = {
@@ -40,6 +41,13 @@ const internalTypes = {
   },
 }
 
+const HandlerType = {
+  INTERNAL: 'internal',
+  GENERAL: 'general',
+  FILTER: 'filter',
+  IMPORT: 'import',
+}
+
 function deMinifyExport (line) {
   return ~line.indexOf('__EXPORT_VARIABLE=')
     ? line.replace(regexMinifiedExportComment, (match, varName, varDefault, varComment) => `\n${ varName }=${ varDefault } --export${ (varComment || '').length > 1 ? `: ${ varComment }` : '' }\n`)
@@ -55,10 +63,13 @@ function runMinifier(source) {
 function runCompression(source) {
   // The initial version
   const initialLua = source
+    .split('\n')
+    .map(deMinifyExport)
+    .join('\n')
 
   // Extracts any exports
   const params = []
-  source = source
+  source = initialLua
     .split('\n')
     .map(deMinifyExport)
     .join('\n')
@@ -226,7 +237,7 @@ function runCompression(source) {
   }
 }
 
-function makeMain(source, minify, compress) {
+function makeCodeBlock(source, minify, compress) {
   // Minification
   source = minify ? runMinifier(source) : source
 
@@ -264,7 +275,7 @@ function makeRunOnce(name, code) {
 }
 
 let slotHandlerCount = 0
-function makeSlotHandler(autoconf, slot, signature, code) {
+function makeSlotHandler(autoconf, slot, signature, code, type, metadata) {
   const regexArgs = /(.*?)\((.*?)\)/g
   const regexMatches = regexArgs.exec(signature)
   const call = (regexMatches[1] || '').split(',')
@@ -294,6 +305,8 @@ function makeSlotHandler(autoconf, slot, signature, code) {
       args: makeSlotHandlerArgs(argsN),
     },
     code: cleanCode,
+    type: type || HandlerType.GENERAL,
+    metadata: metadata || {},
   }
 }
 
@@ -338,14 +351,19 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
 
         // Injects autoconfig helper
         minifyCompilerInternals ? runMinifier(helperLinking) : helperLinking,
-      ].join('\n'))
+
+        // Injects decompression helper
+        build.compress ? (
+          minifyCompilerInternals ? runMinifier(helperDecompression) : helperDecompression
+        ) : '',
+      ].join('\n'), HandlerType.INTERNAL)
     )
   }
 
   // External libraries go directly to the library slot
   preloads.forEach((preload) => {
     autoconf.handlers.push(
-      makeSlotHandler(autoconf, -3, 'start()', minify ? minifier(preload.source) : preload.source)
+      makeSlotHandler(autoconf, -3, 'start()', minify ? minifier(preload.source) : preload.source, HandlerType.IMPORT, preload)
     )
   })
 
@@ -383,7 +401,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
         slotEvents.push(autoconf.slots[typeInfo.slotId].name)
         typeInfo.events.forEach((event) => {
           autoconf.handlers.push(
-            makeSlotHandler(autoconf, typeInfo.slotId, event.signature)
+            makeSlotHandler(autoconf, typeInfo.slotId, event.signature, null, HandlerType.FILTER)
           )
         })
       }
@@ -449,7 +467,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
         // Processes each available event
         slotType.events.forEach((event) => {
           autoconf.handlers.push(
-            makeSlotHandler(autoconf, slotId, event.signature)
+            makeSlotHandler(autoconf, slotId, event.signature, null, HandlerType.FILTER)
           )
         })
       }
@@ -462,25 +480,57 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   // Adds event handler set-up code
   if (!build.noEvents && slotEvents.length > 0) {
     autoconf.handlers.push(
-      makeSlotHandler(autoconf, -3, 'start()', `-- Setup improved event handlers\n${ makeRunOnce('EVENTS', slotEvents.map(slot => `library.addEventHandlers(${ slot })`).join('\n')) }`)
+      makeSlotHandler(autoconf, -3, 'start()', `-- Setup improved event handlers\n${ makeRunOnce('EVENTS', slotEvents.map(slot => `library.addEventHandlers(${ slot })`).join('\n')) }`, HandlerType.INTERNAL)
     )
   }
 
   // Runs minification
-  const resultMain = makeMain(source, minify, !!build.compress)
+  const resultMain = makeCodeBlock(source, minify)
 
   // Adds the main code to the unit's start
   autoconf.handlers.push(
     makeSlotHandler(autoconf, -1, 'start()', resultMain)
   )
 
+  // Compression happens here
+  if (!!build.compress) {
+    // Compresses all handlers
+    autoconf.handlers = autoconf.handlers.map((handler) => {
+      // Skip internals and filters
+      if (~[HandlerType.INTERNAL, HandlerType.FILTER].indexOf(handler.type))
+        return handler
+
+      // Handles libraries
+      if (HandlerType.IMPORT == handler.type) {
+        // Informs user
+        CLI.info('BUILDER', `Compressing external code: '${ handler.metadata.path }'`)
+
+        // Compress
+        const compressedLua = makeCodeBlock(handler.metadata.raw, minify, true)
+
+        // Updates
+        handler.code = `if not package.preload['${ handler.metadata.path }'] then package.preload['${ handler.metadata.path }'] = (function (...) ${ compressedLua } end) end`
+        return handler
+      }
+
+      // General code compression
+      CLI.info('BUILDER', `Compressing code block...`)
+      handler.code = makeCodeBlock(handler.code, minify, true)
+      
+      return handler
+    })
+  }
+
   // Cleanup
+  autoconf.handlers = autoconf.handlers.map((handler) => Object.assign({
+    key: handler.key,
+    filter: handler.filter,
+    code: handler.code,
+  }))
   Object.keys(autoconf.slots).forEach((slotId) => {
-    delete autoconf.slots[slotId].type
+    // delete autoconf.slots[slotId].type
     delete autoconf.slots[slotId]._elementType
   })
-
-  console.log(autoconf)
 
   return autoconf
 }

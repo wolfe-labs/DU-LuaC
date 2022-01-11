@@ -214,6 +214,7 @@ module.exports = function (project, buildName, libraries) {
       outputPreloads.push({
         path: file,
         source: `package.preload['${file}'] = (function (...) ${preloads[file]}; end)`,
+        raw: preloads[file],
       })
     }
   }
