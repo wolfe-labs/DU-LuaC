@@ -112,7 +112,9 @@ module.exports = async function (argv) {
     }
 
     // Resolve the library root
-    library.root = isRawLibrary ? library.path : path.dirname(path.join(library.path, library.project.sourcePath || 'src'))
+    library.root = isRawLibrary 
+      ? library.path 
+      : path.dirname(path.join(library.path, defaultBuildFile))
 
     // Add to libraries
     libraries[library.id] = library
