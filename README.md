@@ -32,6 +32,13 @@ After installed, go into your projects directory and run `du-lua create my-first
 
 After done with that, run `du-lua -h` to view a list of available commands.
 
+You can compile your code using `du-lua build`, optionally passing one of the following parameters:
+
+| Parameter | Description |
+| --- | --- |
+| `--project=path/to/project.json` | Provides a custom project file to the compiler |
+| `--copy=target-name/build-name` | Automatically copies the specified build's JSON to the clipboard after compiling. If no `target-name` is provided, the first one is used, usually `development` |
+
 ### Adding a new Script/Build Entrypoint
 
 In DU-Lua, scripts or "build entry-points" are meant to represent individual Control Unit elements on your project. For example, if you create a project for a new ship, you can have a script that will be used on the main flight seat, another for the cargo bay screens, etc.
