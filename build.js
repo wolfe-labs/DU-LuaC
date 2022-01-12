@@ -9,6 +9,8 @@ module.exports = async function (argv) {
 
   const CLI = require('./cli')
   const CLITag = 'BUILDER'
+
+  const clipboardy = (await import('clipboardy')).default
   
   const prettyPrintSize = require('./prettyPrintSize')
 
@@ -39,6 +41,18 @@ module.exports = async function (argv) {
 
   // Stubs to run DU Lua scripts in CLI
   const stubs = minify(fs.readFileSync(`${ __dirname }/lua/Stubs.lua`).toString())
+
+  // Parses arg options
+  const options = {}
+  argv.forEach((arg) => {
+    // Is that an option?
+    if ('--' == arg.substr(0, 2)) {
+      const raw = arg.substr(2).split('=')
+      const name = raw.shift()
+      const value = raw.join('=')
+      options[name] = value
+    }
+  })
 
   // Gets current Lua version
   function getLuaVersion () {
@@ -133,7 +147,9 @@ module.exports = async function (argv) {
   CLI.skip()
 
   // The project JSON file
-  const projectSource = argv[0] || path.join(process.cwd(), defaultBuildFile)
+  const projectSource = options.project
+    ? path.resolve(options.project)
+    : path.join(process.cwd(), defaultBuildFile)
 
   // Logs
   CLI.info('PROJECT', `Loading project file: ${projectSource}`)
@@ -186,10 +202,14 @@ module.exports = async function (argv) {
       return slotString
     })
 
+    // This will be true when clipboard has been used
+    let hasUsedClipboard = false
+
     // Runs the build targets
     ;('object' == typeof project.targets ? Object.values(project.targets) : project.targets || []).map(buildTarget => {
       // The build target identifier
       const buildTargetIdentifier = `"${ buildTarget.name.cyan }/${ buildSpec.name.blue }"`
+      const buildTargetIdentifierRaw = `"${ buildTarget.name }/${ buildSpec.name }"`
 
       // Skips line to keep things organized
       CLI.skip()
@@ -270,6 +290,19 @@ module.exports = async function (argv) {
         const autoconfConf = buildAutoconfig(project, autoconfBase)
         fs.writeFileSync(`${ file }.conf`, YAML.stringify(autoconfConf))
 
+        // Clipboard
+        if (!hasUsedClipboard && options.copy) {
+          const clipboardCopyName = ~options.copy.indexOf('/')
+            ? options.copy
+            : `"${ buildTarget.name }/${ options.copy }"`
+
+          if (clipboardCopyName == buildTargetIdentifierRaw) {
+            hasUsedClipboard = true
+            clipboardy.writeSync(JSON.stringify(autoconfBase))
+            CLI.status(CLITag, `Copied JSON contents into clipboard!`)
+          }
+        }
+
         // Done
         CLI.success(`Done writing files for build ${ buildTargetIdentifier }!`)
       } catch (err) {
@@ -279,6 +312,10 @@ module.exports = async function (argv) {
         process.exit(1)
       }
     })
+
+    // Warns user if copy failed
+    if (!!options.copy && !hasUsedClipboard)
+      CLI.warn(`No build found matching '${ options.copy }' - didn't copy anything to clipboard!`)
   })
 
 }

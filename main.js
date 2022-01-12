@@ -436,6 +436,8 @@
         `  create project-name                : Creates a new project on the "project-name" directory`,
         `  init                               : Creates a new project on current directory`,
         `  build                              : Builds the project on current directory`,
+        `    --project=project-file.json      : Provides a custom path to a project file`,
+        `    --copy=target-name/build-name    : Copies the specified build's JSON into your clipboard, the first available is selected`,
         `  import [library-path]              : Adds the library specified at that directory`,
         `  import [library-git-repo]          : Clones the specified repository and includes it as library`,
         ``,

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/wolfe-labs/DU-LuaC#readme",
   "dependencies": {
+    "clipboardy": "^3.0.0",
     "colors": "^1.4.0",
     "fs-extra": "^9.1.0",
     "git-url-parse": "^11.6.0",
