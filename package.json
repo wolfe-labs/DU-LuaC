@@ -1,6 +1,6 @@
 {
   "name": "@wolfe-labs/du-luac",
-  "version": "0.9.10",
+  "version": "0.10.0",
   "description": "Lua CLI Utility for Dual Universe",
   "main": "main.js",
   "repository": {
@@ -17,12 +17,16 @@
   },
   "homepage": "https://github.com/wolfe-labs/DU-LuaC#readme",
   "dependencies": {
+    "axios": "^0.24.0",
     "clipboardy": "^3.0.0",
     "colors": "^1.4.0",
     "fs-extra": "^9.1.0",
     "git-url-parse": "^11.6.0",
+    "install": "^0.13.0",
     "luamin": "^1.0.4",
+    "npm": "^8.3.1",
     "prompts": "^2.4.2",
+    "semver": "^7.3.5",
     "sha1": "^1.1.1",
     "yaml": "^1.10.2"
   }

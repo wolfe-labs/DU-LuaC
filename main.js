@@ -18,12 +18,26 @@
   const elementTypes = require('./elementTypes')
 
   const Git = require('./GitClient')
+  const semver = require('semver')
+  const axios = require('axios')
 
   // Load package info
   const cPackage = require(path.join(__dirname, 'package.json'))
 
   // Welcome msg :)
-  console.info(`Lua CLI Utility for Dual Universe v${cPackage.version} by Wolfe Labs @ Node ${process.version}`)
+  console.info(`Lua CLI Utility for Dual Universe v${ cPackage.version } by Wolfe Labs @ Node ${ process.version }`)
+  
+
+  // Update checks
+  try {
+    const rPackage = (await axios.get(`https://registry.npmjs.org/${ cPackage.name }`)).data
+    const rPackageLatest = rPackage['dist-tags'].latest
+    if (semver.lt(cPackage.version, rPackageLatest)) {
+      console.info(`New version ${ `v${ rPackageLatest }`.blue } available, run ${ `npm i -g ${ cPackage.name }`.cyan } to update`)
+    }
+  } catch (e) {
+    console.info('Could not check for package updates!')
+  }
 
   // Notifies user if Git is missing
   if (!Git.isGitInstalled()) {
@@ -431,23 +445,60 @@
     // By default shows help
     case '-h':
     default:
-      console.info([`Usage: du-lua (command) [args]`,
-        `Project Commands:`,
-        `  create project-name                : Creates a new project on the "project-name" directory`,
-        `  init                               : Creates a new project on current directory`,
-        `  build                              : Builds the project on current directory`,
-        `    --project=project-file.json      : Provides a custom path to a project file`,
-        `    --copy=target-name/build-name    : Copies the specified build's JSON into your clipboard, the first available is selected`,
-        `  import [library-path]              : Adds the library specified at that directory`,
-        `  import [library-git-repo]          : Clones the specified repository and includes it as library`,
-        ``,
-        `Script Commands:`,
-        `  script-add [script-name]           : Creates a new entry-point and creates the corresponding .lua script file`,
-        `  script-link [script-name]          : Assigns an event filter and Lua variable to a script`,
-        ``,
-        `Target Commands:`,
-        `  target-add                         : Creates a new build target entry (development/production)`,
-      ].join('\r\n').trim())
+      const commands = [
+        { command: 'init',
+          text: `Creates a new project on current directory` },
+        { command: 'create', args: ['project-name'],
+          text: `Creates a new project on the '${ `project-name`.cyan }' directory` },
+        { command: 'import', args: ['library-path'],
+          text: `Adds the library specified at that directory` },
+        { command: 'import', args: ['library-git-repo'],
+          text: `Clones the specified repository and includes it as library` },
+        { command: 'script-add', args: ['script-name'],
+          text: `Creates a new entry-point and creates the corresponding .lua script file` },
+        { command: 'script-link', args: ['script-name'],
+          text: `Assigns an event filter and Lua variable to a script` },
+        { command: 'target-add',
+          text: `Creates a new build target entry (development/production)` },
+        { command: 'build', opts: [
+          [`--project=${ `project-file.json`.cyan }`, `Provides a custom path to a project file`],
+          [`--copy=${ `target-name/`.brightCyan }${ `build-name`.cyan }`, `Copies the specified build's JSON into your clipboard. If no target is provided, the first is selected`],
+        ],
+          text: `Builds the project on current directory` },
+      ]
+
+      console.info(`Usage: du-lua (command) [args]`)
+      console.info(`du-lua`.gray)
+      
+      // Creates list of command lines
+      const commandLines = []
+      commands.forEach((cmd) => {
+        // Main command
+        commandLines.push({
+          left: `${ cmd.command.blue } ${ (cmd.args || []).join(' ').gray }`,
+          right: cmd.text.trim(),
+        })
+
+        // Command options
+        if (cmd.opts) {
+          cmd.opts.forEach((opt) => {
+            commandLines.push({
+              left: `  ${ opt[0].gray }`,
+              right: opt[1],
+            })
+          })
+        }
+      })
+
+      // Displays the commands
+      const regexCleanup = /\u001b\[.*?m/g
+      const maxLeftSize = commandLines
+        .map((line) => line.left.replace(regexCleanup, '').length)
+        .reduce((acc, line) => Math.max(line, acc), 0)
+      commandLines.forEach((commandLine) => {
+        const padding = ' '.repeat(Math.max(0, maxLeftSize - commandLine.left.replace(regexCleanup, '').length))
+        console.info(`  ${ commandLine.left }${ padding } : ${ commandLine.right }`)
+      })
   }
 
 }).call()
