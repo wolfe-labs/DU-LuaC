@@ -151,6 +151,9 @@ module.exports = async function (argv) {
     ? path.resolve(options.project)
     : path.join(process.cwd(), defaultBuildFile)
 
+  // The project working directory
+  const projectWorkingDirectory = path.dirname(projectSource)
+
   // Logs
   CLI.info('PROJECT', `Loading project file: ${projectSource}`)
 
@@ -164,7 +167,7 @@ module.exports = async function (argv) {
   const project = JSON.parse(fs.readFileSync(projectSource).toString())
 
   // Load current project as library
-  await loadLibrary({ id: project.name, path: process.cwd() })
+  await loadLibrary({ id: project.name, path: projectWorkingDirectory })
 
   // Read libraries
   if (project.libs) {
@@ -218,7 +221,7 @@ module.exports = async function (argv) {
       CLI.info(CLITag, `Generating build files for target ${ buildTargetIdentifier }...`)
 
       // The build directory
-      const dir = path.join(process.cwd(), project.outputPath, buildTarget.name)
+      const dir = path.join(projectWorkingDirectory, project.outputPath, buildTarget.name)
 
       // The base filename
       const file = path.join(dir, buildSpec.name)
