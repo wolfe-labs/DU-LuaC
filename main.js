@@ -24,25 +24,42 @@
   // Load package info
   const cPackage = require(path.join(__dirname, 'package.json'))
 
+  // Cached data
+  const cacheLocation = path.join(__dirname, 'cache.json')
+  if (!fs.existsSync(cacheLocation))
+    fs.writeFileSync(cacheLocation, '{}')
+  const cache = require(cacheLocation)
+
   // Welcome msg :)
-  console.info(`Lua CLI Utility for Dual Universe v${ cPackage.version } by Wolfe Labs @ Node ${ process.version }`)
-  
+  console.info(`Lua CLI Utility for Dual Universe v${ cPackage.version } by Wolfe Labs @ Node ${ process.version }`)  
 
   // Update checks
-  try {
-    const rPackage = (await axios.get(`https://registry.npmjs.org/${ cPackage.name }`)).data
-    const rPackageLatest = rPackage['dist-tags'].latest
-    if (semver.lt(cPackage.version, rPackageLatest)) {
-      console.info(`New version ${ `v${ rPackageLatest }`.blue } available, run ${ `npm i -g ${ cPackage.name }`.cyan } to update`)
+  const timeBetweenChecks = 3 * 3600 * 1000 // 3 hours delay between update checks
+  if (!cache.lastUpdateCheck || Date.now() >= cache.lastUpdateCheck + timeBetweenChecks) {
+    // Runs update check
+    try {
+      const rPackage = (await axios.get(`https://registry.npmjs.org/${ cPackage.name }`)).data
+      cache.lastUpdateAvailable = rPackage['dist-tags'].latest
+    } catch (e) {
+      console.info('Could not check for package updates!')
     }
-  } catch (e) {
-    console.info('Could not check for package updates!')
+
+    // Saves current update check time
+    cache.lastUpdateCheck = Date.now()
+  }
+
+  // Update available message
+  if (cache.lastUpdateAvailable && semver.lt(cPackage.version, cache.lastUpdateAvailable)) {
+    console.info(`New version ${ `v${ cache.lastUpdateAvailable }`.blue } available, run ${ `npm i -g ${ cPackage.name }`.cyan } to update`)
   }
 
   // Notifies user if Git is missing
   if (!Git.isGitInstalled()) {
     console.info(`WARNING: No Git version detected! Install from https://git-scm.com/download`.yellow)
   }
+
+  // Saves cache
+  fs.writeFileSync(cacheLocation, JSON.stringify(cache))
 
   // Gets actual args, not the process name or "node"
   const args = process.argv.slice(2)
