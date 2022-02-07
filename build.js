@@ -296,7 +296,7 @@ module.exports = async function (argv) {
         // Clipboard
         if (!hasUsedClipboard && options.copy) {
           const clipboardCopyName = ~options.copy.indexOf('/')
-            ? options.copy
+            ? `"${ options.copy }"`
             : `"${ buildTarget.name }/${ options.copy }"`
 
           if (clipboardCopyName == buildTargetIdentifierRaw) {
