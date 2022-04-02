@@ -117,7 +117,7 @@ module.exports = {
     class: 'WeaponUnit',
   },
   shield: {
-    title: 'Shield',
+    title: 'Ship Shield Generator',
     value: 'shield',
     class: 'ShieldGeneratorUnit',
     events: [
@@ -128,12 +128,35 @@ module.exports = {
       { signature: 'restored()' },
     ],
   },
+  baseShield: {
+    title: 'Base Shield Generator',
+    value: 'baseShield',
+    class: 'BaseShieldGeneratorUnit',
+    events: [
+      { signature: 'toggled(active)' },
+      { signature: 'absorbed(hitpoints,rawHitpoints)' },
+      { signature: 'down()' },
+      { signature: 'restored()' },
+      { signature: 'enterLockdown()' },
+      { signature: 'leaveLockdown()' },
+    ],
+  },
   zoneDetector: {
     title: 'Zone Detector',
     value: 'enterable',
     events: [
       { signature: 'enter(id)' },
       { signature: 'leave(id)' },
+    ],
+  },
+  miningUnit: {
+    title: 'Mining Unit',
+    value: 'miningUnit',
+    class: 'MiningUnit',
+    events: [
+      { signature: 'statusChanged(status)' },
+      { signature: 'completed(oreId,amount)' },
+      { signature: 'calibrated(oreId,amount,rate)' },
     ],
   },
   __abstract: {
