@@ -179,146 +179,189 @@ module.exports = async function (argv) {
   // Skip line
   CLI.skip()
 
+  // This will be true when clipboard has been used
+  let hasUsedClipboard = false
+
   // Runs builds
-  ;('object' == typeof project.builds ? Object.values(project.builds) : project.builds || []).map(buildSpec => {
-    // Skips line to keep things organized
-    CLI.skip()
-
-    // Info
-    CLI.info(CLITag, `Compiling build "${ buildSpec.name.blue }"...`)
-
-    // Does the compile step
-    const result = compile(project, buildSpec.name, libraries)
-
-    // Gets the slots for autoconf
-    const slots = Object.keys(buildSpec.slots || {}).map(slot => {
-      // Get slot metadata
-      const meta = buildSpec.slots[slot]
-
-      // Generate string
-      let slotString = slot
-
-      // Include type, if possible
-      if (meta.type) slotString += `:type=${meta.type}`
-
-      // Done, returns the slot string
-      return slotString
-    })
-
-    // This will be true when clipboard has been used
-    let hasUsedClipboard = false
-
-    // Runs the build targets
-    ;('object' == typeof project.targets ? Object.values(project.targets) : project.targets || []).map(buildTarget => {
-      // The build target identifier
-      const buildTargetIdentifier = `"${ buildTarget.name.cyan }/${ buildSpec.name.blue }"`
-      const buildTargetIdentifierRaw = `"${ buildTarget.name }/${ buildSpec.name }"`
-
+  ;('object' == typeof project.builds ? Object.keys(project.builds) : project.builds || [])
+    .map(buildName => Object.assign({ buildName, buildSpec: project.builds[buildName] }))
+    .map(({ buildName, buildSpec }) => {
       // Skips line to keep things organized
       CLI.skip()
 
       // Info
-      CLI.info(CLITag, `Generating build files for target ${ buildTargetIdentifier }...`)
+      CLI.info(CLITag, `Compiling build "${ buildName.blue }"...`)
 
-      // The build directory
-      const dir = path.join(projectWorkingDirectory, project.outputPath, buildTarget.name)
+      // Supported export formats
+      const exportFormats = []
+      
+      // Build type
+      const buildType = buildSpec.type || 'control'
+      switch (buildType) {
+        case 'control':
+          // Sets export formats
+          exportFormats['json'] = true
+          exportFormats['yaml'] = true
+          exportFormats['conf'] = true
+          exportFormats['lua'] = true
+          break;
+        case 'screen':
+          // Sets export formats
+          exportFormats['lua'] = true
 
-      // The base filename
-      const file = path.join(dir, buildSpec.name)
-
-      // The autoconfig file (YAML, JSON)
-      const autoconfBase = buildJsonOrYaml(project, buildSpec, result.resources.main, result.resources.libs, buildTarget.minify)
-
-      // Estimates final Lua file size
-      const limitLuaSize = 150 * 1024 // 150kb. TODO: This value needs some fixing, but considering there are scripts around 180kb working this should leave some headroom available
-      const finalLuaSize = Buffer.byteLength(
-        autoconfBase.handlers
-          .map((handler) => handler.code)
-          .join('\n'),
-        'utf8'
-      )
-
-      // Checks if over the limit
-      if (limitLuaSize > finalLuaSize) {
-        CLI.info(CLITag, `Estimated Lua size: ${ prettyPrintSize(finalLuaSize) } (${ (100 * finalLuaSize / limitLuaSize).toFixed(2) }% out of ${ prettyPrintSize(limitLuaSize) })`)
-      } else {
-        CLI.warn(`Estimated Lua size over known limit: ${ prettyPrintSize(finalLuaSize) } (${ (100 * finalLuaSize / limitLuaSize).toFixed(2) }% out of ${ prettyPrintSize(limitLuaSize) })`)
+          // Preset options
+          buildSpec.noEvents = (undefined === buildSpec.noEvents) ? true : buildSpec.noEvents
+          buildSpec.noEvents = (undefined === buildSpec.noPreload) ? true : buildSpec.noPreload
+          buildSpec.noEvents = (undefined === buildSpec.noHelpers) ? true : buildSpec.noHelpers
+          break;
       }
 
-      // Verifies output of everything but events for syntax errors, generates Lua output too
-      CLI.info(CLITag, `Generating LUA AST and checking for syntax errors...`)
-      const output = autoconfBase.handlers.filter(handler => handler.filter.signature == 'start()').sort((a, b) => {
-        // Different slots, priority by slot position
-        if (a.filter.slotKey < b.filter.slotKey) return -1
-        if (a.filter.slotKey > b.filter.slotKey) return 1
+      // Does the compile step
+      const result = compile(project, buildName, buildSpec.name, libraries)
 
-        // Same slot, priority of which handler is first
-        if (a.key < b.key) return -1
-        if (a.key > b.key) return 1
+      // Gets the slots for autoconf
+      const slots = Object.keys(buildSpec.slots || {}).map(slot => {
+        // Get slot metadata
+        const meta = buildSpec.slots[slot]
 
-        // This should not happen but anyways...
-        return 0
-      }).map(handler => handler.code).join('\n\n')
+        // Generate string
+        let slotString = slot
 
-      try {
-        // Generate the AST for error checking
-        const outputAST = luaparse.parse(output)
+        // Include type, if possible
+        if (meta.type) slotString += `:type=${meta.type}`
+
+        // Done, returns the slot string
+        return slotString
+      })
+
+      // Runs the build targets
+      ;('object' == typeof project.targets ? Object.values(project.targets) : project.targets || []).map(buildTarget => {
+        // The build target identifier
+        const buildTargetIdentifier = `"${ buildTarget.name.cyan }/${ buildName.blue }"`
+        const buildTargetIdentifierRaw = `"${ buildTarget.name }/${ buildName }"`
+
+        // Skips line to keep things organized
+        CLI.skip()
 
         // Info
-        CLI.success('No syntax errors found! Writing output files.')
+        CLI.info(CLITag, `Generating build files for target ${ buildTargetIdentifier }...`)
 
-        // Makes sure the directory exists first
-        fs.ensureDirSync(path.dirname(file))
+        // The build directory
+        const dir = path.join(projectWorkingDirectory, project.outputPath, buildTarget.name)
 
-        // Write files
+        // The base filename
+        const file = path.join(dir, buildSpec.name)
 
-        // Lua
-        CLI.status(CLITag, 'Writing Lua output...')
-        fs.writeFileSync(`${ file }.lua`, output)
+        // The autoconfig file (YAML, JSON)
+        const autoconfBase = buildJsonOrYaml(project, buildSpec, result.resources.main, result.resources.libs, buildTarget.minify)
 
-        // Lua + Stubs
-        CLI.status(CLITag, 'Writing Lua output (with stubs)...')
-        fs.writeFileSync(`${ file }.stubs.lua`, `${ stubs }\n${ output }`)
+        // Estimates final Lua file size
+        const limitLuaSize = 150 * 1024 // 150kb. TODO: This value needs some fixing, but considering there are scripts around 180kb working this should leave some headroom available
+        const finalLuaSize = Buffer.byteLength(
+          autoconfBase.handlers
+            .map((handler) => handler.code)
+            .join('\n'),
+          'utf8'
+        )
 
-        // JSON
-        CLI.status(CLITag, 'Writing JSON autoconfig...')
-        fs.writeFileSync(`${ file }.json`, JSON.stringify(autoconfBase))
-
-        // YAML
-        CLI.status(CLITag, 'Writing YAML autoconfig...')
-        fs.writeFileSync(`${ file }.yaml`, YAML.stringify(autoconfBase))
-
-        // CONF
-        CLI.status(CLITag, 'Writing CONF autoconfig...')
-        const autoconfConf = buildAutoconfig(project, autoconfBase)
-        fs.writeFileSync(`${ file }.conf`, YAML.stringify(autoconfConf))
-
-        // Clipboard
-        if (!hasUsedClipboard && options.copy) {
-          const clipboardCopyName = ~options.copy.indexOf('/')
-            ? `"${ options.copy }"`
-            : `"${ buildTarget.name }/${ options.copy }"`
-
-          if (clipboardCopyName == buildTargetIdentifierRaw) {
-            hasUsedClipboard = true
-            clipboardy.writeSync(JSON.stringify(autoconfBase))
-            CLI.status(CLITag, `Copied JSON contents into clipboard!`)
-          }
+        // Checks if over the limit
+        if (limitLuaSize > finalLuaSize) {
+          CLI.info(CLITag, `Estimated Lua size: ${ prettyPrintSize(finalLuaSize) } (${ (100 * finalLuaSize / limitLuaSize).toFixed(2) }% out of ${ prettyPrintSize(limitLuaSize) })`)
+        } else {
+          CLI.warn(`Estimated Lua size over known limit: ${ prettyPrintSize(finalLuaSize) } (${ (100 * finalLuaSize / limitLuaSize).toFixed(2) }% out of ${ prettyPrintSize(limitLuaSize) })`)
         }
 
-        // Done
-        CLI.success(`Done writing files for build ${ buildTargetIdentifier }!`)
-      } catch (err) {
-        CLI.error(`Error parsing output at line ${err.line}, column ${err.column}, index: ${err.index}: ${err.message}`)
-        CLI.error(`Problematic code line:`)
-        CLI.code(output.split('\n')[err.line - 1])
-        process.exit(1)
-      }
-    })
+        // Verifies output of everything but events for syntax errors, generates Lua output too
+        CLI.info(CLITag, `Generating LUA AST and checking for syntax errors...`)
+        const output = autoconfBase.handlers.filter(handler => handler.filter.signature == 'start()').sort((a, b) => {
+          // Different slots, priority by slot position
+          if (a.filter.slotKey < b.filter.slotKey) return -1
+          if (a.filter.slotKey > b.filter.slotKey) return 1
 
-    // Warns user if copy failed
-    if (!!options.copy && !hasUsedClipboard)
-      CLI.warn(`No build found matching '${ options.copy }' - didn't copy anything to clipboard!`)
-  })
+          // Same slot, priority of which handler is first
+          if (a.key < b.key) return -1
+          if (a.key > b.key) return 1
+
+          // This should not happen but anyways...
+          return 0
+        }).map(handler => handler.code).join('\n\n')
+
+        try {
+          // Generate the AST for error checking
+          const outputAST = luaparse.parse(output)
+
+          // Info
+          CLI.success('No syntax errors found! Writing output files.')
+
+          // Makes sure the directory exists first
+          fs.ensureDirSync(path.dirname(file))
+
+          // Write files
+
+          // Lua
+          if (exportFormats['lua']) {
+            CLI.status(CLITag, 'Writing Lua output...')
+            fs.writeFileSync(`${ file }.lua`, output)
+          }
+
+          // Lua + Stubs
+          if (exportFormats['lua']) {
+            CLI.status(CLITag, 'Writing Lua output (with stubs)...')
+            fs.writeFileSync(`${ file }.stubs.lua`, `${ stubs }\n${ output }`)
+          }
+
+          // JSON
+          if (exportFormats['json']) {
+            CLI.status(CLITag, 'Writing JSON autoconfig...')
+            fs.writeFileSync(`${ file }.json`, JSON.stringify(autoconfBase))
+          }
+
+          // YAML
+          if (exportFormats['yaml']) {
+            CLI.status(CLITag, 'Writing YAML autoconfig...')
+            fs.writeFileSync(`${ file }.yaml`, YAML.stringify(autoconfBase))
+          }
+
+          // CONF
+          if (exportFormats['conf']) {
+            CLI.status(CLITag, 'Writing CONF autoconfig...')
+            const autoconfConf = buildAutoconfig(project, autoconfBase)
+            fs.writeFileSync(`${ file }.conf`, YAML.stringify(autoconfConf))
+          }
+
+          // Clipboard
+          if (!hasUsedClipboard && options.copy) {
+            const clipboardCopyName = ~options.copy.indexOf('/')
+              ? `"${ options.copy }"`
+              : `"${ buildTarget.name }/${ options.copy }"`
+
+            if (clipboardCopyName == buildTargetIdentifierRaw) {
+              hasUsedClipboard = true
+
+              // Writes JSON (if format supports) or Lua to clipboard
+              if (exportFormats['json']) {
+                clipboardy.writeSync(JSON.stringify(autoconfBase))
+              } else {
+                clipboardy.writeSync(output)
+              }
+
+              CLI.status(CLITag, `Copied JSON contents into clipboard!`)
+            }
+          }
+
+          // Done
+          CLI.success(`Done writing files for build ${ buildTargetIdentifier }!`)
+        } catch (err) {
+          CLI.error(`Error parsing output at line ${err.line}, column ${err.column}, index: ${err.index}: ${err.message}`)
+          CLI.error(`Problematic code line:`)
+          CLI.code(output.split('\n')[err.line - 1])
+          process.exit(1)
+        }
+      })
+
+      // Warns user if copy failed
+      if (!!options.copy && !hasUsedClipboard)
+        CLI.warn(`No build found matching '${ options.copy }' - didn't copy anything to clipboard!`)
+    })
 
 }

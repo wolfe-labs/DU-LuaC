@@ -1,6 +1,6 @@
 {
   "name": "@wolfe-labs/du-luac",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "Lua CLI Utility for Dual Universe",
   "main": "main.js",
   "repository": {
