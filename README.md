@@ -45,6 +45,37 @@ In DU-Lua, scripts or "build entry-points" are meant to represent individual Con
 
 To add a new script, run `du-lua script-add your-script-name-here`. This will create a new entry on the `builds` field and also create a new file called `your-script-name-here.lua`, which will also generate corresponding Lua, YAML and JSON files at build-time.
 
+#### What about Render Scripts?
+
+You can easily add a render script to your project by running `du-lua script-add-screen`, followed by a name for your script. At build time it will generate only a single optimized .lua file with all required files built into it.
+
+Please keep in mind render script builds don't include any of the extra stuff such as event handlers or link detection.
+
+To make an existing build into a render script, simply add `"type": "screen"` to the build in the `project.json` file, like so:
+
+```json
+{
+  "name": "Example",
+  "description": "My example script",
+  "sourcePath": "src",
+  "outputPath": "out",
+  "builds": {
+    "MyRenderScript": {
+      "name": "path/to/script",
+      "type": "screen",
+      "slots": {}
+    }
+  },
+  "targets": {
+    "development": {
+      "name": "development",
+      "handleErrors": false,
+      "minify": false
+    }
+  }
+}
+```
+
 ### Adding a new Build Target/Output
 
 Before compiling, you also need to specify a Build Target for your project. It is used to define any optimizations that are done, such as minification, error logging and tracing, etc.

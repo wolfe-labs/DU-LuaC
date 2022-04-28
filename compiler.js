@@ -1,4 +1,4 @@
-module.exports = function (project, buildName, libraries) {
+module.exports = function (project, buildName, buildFile, libraries) {
   const fs = require('fs-extra')
   const path = require('path')
   const luaparse = require('luaparse')
@@ -199,7 +199,7 @@ module.exports = function (project, buildName, libraries) {
   currentLib.unshift(project.name)
 
   // Get entry point
-  const entryPoint = path.join(buildName)
+  const entryPoint = path.join(buildFile)
 
   // Logs
   CLI.status(CLITag, `Fetching project entry point: ${entryPoint}`)

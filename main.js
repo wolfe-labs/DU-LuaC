@@ -71,7 +71,7 @@
   let newDir = null
 
   // Adds a new script
-  async function scriptAdd (project, buildName) {
+  async function scriptAdd (project, buildName, buildType, options) {
     // Gets the project builds
     project.builds = project.builds || {}
 
@@ -94,13 +94,17 @@
     if (!exists(buildFile)) {
       console.info(`Created new source file: ${buildFile}`)
       fs.ensureDirSync(path.dirname(buildFile))
-      fs.writeFileSync(buildFile, fs.readFileSync(path.join(__dirname, 'lua', 'Initial.lua')))
+      fs.writeFileSync(buildFile, fs.readFileSync(path.join(__dirname, 'lua', 'templates', `${ buildType || 'control' }.lua`)))
     } else {
       console.info(`Add existing source file: ${buildFile}`)
     }
 
     // Adds the new build definition
-    project.builds[buildName] = { name: buildName, slots: {} }
+    project.builds[buildName] = Object.assign({
+      name: buildName,
+      type: buildType || 'control',
+      slots: {},
+    }, options || {})
 
     // Saves project and shows confirmation
     await library.saveProject(project)
@@ -257,10 +261,22 @@
       project = await library.getProjectInfo(process.cwd())
 
       // Adds the build
-      await scriptAdd(project, args[0])
+      await scriptAdd(project, args[0], 'control')
 
       // Informs the user
       console.info(`The build "${args[0]}" was successfully added to your project!`)
+      
+      break
+
+    case 'script-add-screen':
+      // Gets current project
+      project = await library.getProjectInfo(process.cwd())
+
+      // Adds the build
+      await scriptAdd(project, args[0], 'screen')
+
+      // Informs the user
+      console.info(`The render script "${args[0]}" was successfully added to your project!`)
       
       break
 
@@ -473,6 +489,8 @@
           text: `Clones the specified repository and includes it as library` },
         { command: 'script-add', args: ['script-name'],
           text: `Creates a new entry-point and creates the corresponding .lua script file` },
+        { command: 'script-add-screen', args: ['script-name'],
+          text: `Creates a new render script and its corresponding .lua script file` },
         { command: 'script-link', args: ['script-name'],
           text: `Assigns an event filter and Lua variable to a script` },
         { command: 'target-add',
