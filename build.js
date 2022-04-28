@@ -211,8 +211,8 @@ module.exports = async function (argv) {
 
           // Preset options
           buildSpec.noEvents = (undefined === buildSpec.noEvents) ? true : buildSpec.noEvents
-          buildSpec.noEvents = (undefined === buildSpec.noPreload) ? true : buildSpec.noPreload
-          buildSpec.noEvents = (undefined === buildSpec.noHelpers) ? true : buildSpec.noHelpers
+          buildSpec.noPreload = (undefined === buildSpec.noPreload) ? true : buildSpec.noPreload
+          buildSpec.noHelpers = (undefined === buildSpec.noHelpers) ? true : buildSpec.noHelpers
           break;
       }
 
