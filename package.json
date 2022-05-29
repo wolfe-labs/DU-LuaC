@@ -1,6 +1,6 @@
 {
   "name": "@wolfe-labs/du-luac",
-  "version": "0.11.1",
+  "version": "0.12.0",
   "description": "Lua CLI Utility for Dual Universe",
   "main": "main.js",
   "repository": {
@@ -23,7 +23,7 @@
     "fs-extra": "^9.1.0",
     "git-url-parse": "^11.6.0",
     "install": "^0.13.0",
-    "luamin": "^1.0.4",
+    "luamin": "github:wolfe-labs/luamin-5.4",
     "npm": "^8.3.1",
     "prompts": "^2.4.2",
     "semver": "^7.3.5",
