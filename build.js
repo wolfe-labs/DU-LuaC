@@ -214,6 +214,9 @@ module.exports = async function (argv) {
           buildSpec.noPreload = (undefined === buildSpec.noPreload) ? true : buildSpec.noPreload
           buildSpec.noHelpers = (undefined === buildSpec.noHelpers) ? true : buildSpec.noHelpers
           break;
+        default:
+          CLI.error(`Invalid build type: "${ buildType }". Valid options: control, screen`);
+          process.exit(1);
       }
 
       // Does the compile step
