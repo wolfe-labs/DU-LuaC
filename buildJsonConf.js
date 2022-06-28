@@ -35,7 +35,7 @@ const internalTypes = {
   player: {
     slotId: -3,
     events: [
-      { signature: 'onParentChanged(oldId, newId)' },
+      { signature: 'onParentChanged(oldId,newId)' },
     ],
   },
   construct: {
@@ -49,7 +49,7 @@ const internalTypes = {
       { signature: 'onPvPTimer(active)' },
     ],
   },
-  control: {
+  unit: {
     slotId: -1,
     events: [
       { signature: 'onStart()' },
@@ -57,6 +57,19 @@ const internalTypes = {
       { signature: 'onTick(timerId)' },
     ],
   },
+}
+
+// This will store the current project
+let currentProject = null;
+
+// Gets project version
+function getProjectFormatVersion () {
+  return currentProject.cli?.fmtVersion || 1
+}
+
+// Is old (pre-v2) project?
+function isOldProject () {
+  return getProjectFormatVersion() < 2
 }
 
 const HandlerType = {
@@ -302,12 +315,28 @@ function makeSlotHandler(autoconf, slot, signature, code, type, metadata) {
 
   // If no code is found, generate the trigger event one
   if (!code) {
+    const eventName = call[0];
+    const eventsToEmit = [];
+
+    // This will fire 'onEventName' format for new (v2) scripts and 'eventName' for old (v1) scripts, to keep compatibility with old scripts
+    if (isOldProject() && eventName.substring(0, 2) == 'on') {
+      let oldEventName = eventName.substring(2);
+      oldEventName = oldEventName[0].toLowerCase() + oldEventName.substring(1);
+      eventsToEmit.push(oldEventName);
+    } else {
+      eventsToEmit.push(eventName);
+    }
+
+    // Adds event triggers
     const slotName = autoconf.slots[slot].name
-    const callArgs = [
-      `"${ call }"`,
-      ...args
-    ]
-    code = `${ slotName }:triggerEvent(${ callArgs.map(arg => arg.trim()).filter(arg => arg.length > 0).join(',') })`
+    code = eventsToEmit.map(eventName => {
+      const callArgs = [
+        `"${ eventName }"`,
+        ...args
+      ]
+
+      return `${ slotName }:triggerEvent(${ callArgs.map(arg => arg.trim()).filter(arg => arg.length > 0).join(',') })`
+    }).join(';');
   }
 
   // Cleanup code
@@ -337,6 +366,9 @@ function makeSlotHandlerArgs(argsN) {
 }
 
 module.exports = function buildJsonOrYaml (project, build, source, preloads, minify) {
+  // Sets current project for the env
+  currentProject = project;
+
   // Base structure
   const autoconf = {
     slots: {},
@@ -346,9 +378,10 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   }
 
   // Setup slots
-  autoconf.slots[internalTypes.library.slotId] = makeSlotDefinition('library', 'library')
-  autoconf.slots[internalTypes.system.slotId] = makeSlotDefinition('system', 'system')
-  autoconf.slots[internalTypes.control.slotId] = makeSlotDefinition('unit', 'control')
+  Object.keys(internalTypes).forEach(slotName => {
+    const slotInfo = internalTypes[slotName];
+    autoconf.slots[slotInfo.slotId] = makeSlotDefinition(slotName, slotName);
+  });
 
   // How many slots to offset
   const slotOffset = Object.keys(autoconf.slots).length
@@ -507,7 +540,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
 
   // Adds the main code to the unit's start
   autoconf.handlers.push(
-    makeSlotHandler(autoconf, internalTypes.control.slotId, 'onStart()', resultMain)
+    makeSlotHandler(autoconf, internalTypes.unit.slotId, 'onStart()', resultMain)
   )
 
   // Compression happens here
@@ -549,6 +582,9 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
     // delete autoconf.slots[slotId].type
     delete autoconf.slots[slotId]._elementType
   })
+
+  // Clears current project from the env
+  currentProject = project;
 
   return autoconf
 }
