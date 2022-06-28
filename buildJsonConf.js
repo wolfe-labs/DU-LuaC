@@ -17,26 +17,44 @@ const regexMinifiedExportComment = /;?__EXPORT_VARIABLE=\[\[{(.*?)}{(.*?)}{(.*?)
 const regexPlainExportCommentWithVariable = /(.*?)\s*?=\s*?(.*?)\s*?\-\-export\:?(.*)?/g
 const internalTypes = {
   library: {
-    slotId: -3,
+    slotId: -5,
     events: [],
   },
   system: {
+    slotId: -4,
+    events: [
+      { signature: 'onActionStart(action)' },
+      { signature: 'onActionLoop(action)' },
+      { signature: 'onActionStop(action)' },
+      { signature: 'onUpdate()' },
+      { signature: 'onFlush()' },
+      { signature: 'onInputText(text)' },
+      { signature: 'onCameraChanged(mode)' },
+    ]
+  },
+  player: {
+    slotId: -3,
+    events: [
+      { signature: 'onParentChanged(oldId, newId)' },
+    ],
+  },
+  construct: {
     slotId: -2,
     events: [
-      { signature: 'actionStart(action)' },
-      { signature: 'actionLoop(action)' },
-      { signature: 'actionStop(action)' },
-      { signature: 'update()' },
-      { signature: 'flush()' },
-      { signature: 'inputText(text)' },
-    ]
+      { signature: 'onDocked(id)' },
+      { signature: 'onUndocked(id)' },
+      { signature: 'onPlayerBoarded(id)' },
+      { signature: 'onVRStationEntered(id)' },
+      { signature: 'onConstructDocked(id)' },
+      { signature: 'onPvPTimer(active)' },
+    ],
   },
   control: {
     slotId: -1,
     events: [
-      { signature: 'start()' },
-      { signature: 'stop()' },
-      { signature: 'tick(timerId)' },
+      { signature: 'onStart()' },
+      { signature: 'onStop()' },
+      { signature: 'onTick(timerId)' },
     ],
   },
 }
@@ -345,7 +363,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   // Compiler internals
   if (!build.noHelpers) {
     autoconf.handlers.push(
-      makeSlotHandler(autoconf, -3, 'start()', [
+      makeSlotHandler(autoconf, internalTypes.library.slotId, 'onStart()', [
         // Injects event-handling helper
         minifyCompilerInternals ? runMinifier(helperEvents) : helperEvents,
 
@@ -363,7 +381,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   // External libraries go directly to the library slot
   preloads.forEach((preload) => {
     autoconf.handlers.push(
-      makeSlotHandler(autoconf, -3, 'start()', minify ? minifier(preload.source) : preload.source, HandlerType.IMPORT, preload)
+      makeSlotHandler(autoconf, internalTypes.library.slotId, 'onStart()', minify ? minifier(preload.source) : preload.source, HandlerType.IMPORT, preload)
     )
   })
 
@@ -480,7 +498,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   // Adds event handler set-up code
   if (!build.noEvents && slotEvents.length > 0) {
     autoconf.handlers.push(
-      makeSlotHandler(autoconf, -3, 'start()', `-- Setup improved event handlers\n${ makeRunOnce('EVENTS', slotEvents.map(slot => `library.addEventHandlers(${ slot })`).join('\n')) }`, HandlerType.INTERNAL)
+      makeSlotHandler(autoconf, internalTypes.library.slotId, 'onStart()', `-- Setup improved event handlers\n${ makeRunOnce('EVENTS', slotEvents.map(slot => `library.addEventHandlers(${ slot })`).join('\n')) }`, HandlerType.INTERNAL)
     )
   }
 
@@ -489,7 +507,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
 
   // Adds the main code to the unit's start
   autoconf.handlers.push(
-    makeSlotHandler(autoconf, -1, 'start()', resultMain)
+    makeSlotHandler(autoconf, internalTypes.control.slotId, 'onStart()', resultMain)
   )
 
   // Compression happens here
