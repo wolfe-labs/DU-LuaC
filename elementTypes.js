@@ -12,8 +12,8 @@ module.exports = {
     title: 'Button',
     value: 'pressable',
     events: [
-      { signature: 'pressed()' },
-      { signature: 'released()' },
+      { signature: 'onPressed()' },
+      { signature: 'onReleased()' },
     ],
   },
   databank: {
@@ -31,12 +31,7 @@ module.exports = {
     value: 'core',
     class: 'CoreUnit',
     events: [
-      { signature: 'pvpTimer(active)' },
-      { signature: 'stressChanged(stress)' },
-      { signature: 'playerBoarded(pid)' },
-      { signature: 'constructDocked(cid)' },
-      { signature: 'docked(cid)' },
-      { signature: 'undocked(cid)' },
+      { signature: 'onStressChanged(stress)' },
     ],
   },
   fuelContainer: {
@@ -48,7 +43,7 @@ module.exports = {
     value: 'itemContainer',
     class: 'ItemContainer',
     events: [
-      { signature: 'storageAcquired()' },
+      { signature: 'onContentUpdate()' },
     ],
   },
   gyro: {
@@ -60,16 +55,40 @@ module.exports = {
     value: 'industry',
     class: 'IndustryUnit',
     events: [
-      { signature: 'completed()' },
-      { signature: 'statusChanged(status)' },
+      { signature: 'onStarted(id,quantity)' },
+      { signature: 'onCompleted(id,quantity)' },
+      { signature: 'onStatusChanged(status)' },
     ],
   },
   laserDetector: {
     title: 'Laser Detector',
     value: 'laserDetector',
     events: [
-      { signature: 'laserHit()' },
-      { signature: 'laserRelease()' },
+      { signature: 'onHit()' },
+      { signature: 'onLoss()' },
+    ],
+  },
+  miningUnit: {
+    title: 'Mining Unit',
+    value: 'miningUnit',
+    class: 'MiningUnit',
+    events: [
+      { signature: 'onCalibrated(oreId,rate,amount)' },
+      { signature: 'onCompleted(oreId,amount)' },
+      { signature: 'onStateChanged(status)' },
+      { signature: 'onStarted(id)' },
+      { signature: 'onStopped()' },
+    ],
+  },
+  plasmaExtractor: {
+    title: 'Plasma Extractor',
+    value: 'plasmaExtractor',
+    class: 'PlasmaExtractorUnit',
+    events: [
+      { signature: 'onStarted()' },
+      { signature: 'onCompleted()' },
+      { signature: 'onStateChanged(status)' },
+      { signature: 'onStopped()' },
     ],
   },
   radar: {
@@ -77,8 +96,9 @@ module.exports = {
     value: 'radar',
     class: 'RadarPVPUnit',
     events: [
-      { signature: 'enter(id)' },
-      { signature: 'leave(id)' },
+      { signature: 'onEnter(id)' },
+      { signature: 'onLeave(id)' },
+      { signature: 'onIdentified(id)' },
     ],
   },
   pvpRadar: {
@@ -86,15 +106,16 @@ module.exports = {
     value: 'pvpRadar',
     class: 'RadarPVPUnit',
     events: [
-      { signature: 'enter(id)' },
-      { signature: 'leave(id)' },
+      { signature: 'onEnter(id)' },
+      { signature: 'onLeave(id)' },
+      { signature: 'onIdentified(id)' },
     ],
   },
   receiver: {
     title: 'Receiver',
     value: 'receiver',
     events: [
-      { signature: 'receive(channel,message)' },
+      { signature: 'onReceived(channel,message)' },
     ],
   },
   screen: {
@@ -102,8 +123,42 @@ module.exports = {
     value: 'screen',
     class: 'ScreenUnit',
     events: [
-      { signature: 'mouseDown(x,y)' },
-      { signature: 'mouseUp(x,y)' },
+      { signature: 'onMouseDown(x,y)' },
+      { signature: 'onMouseUp(x,y)' },
+      { signature: 'onOutputChanged(output)' },
+    ],
+  },
+  shield: {
+    title: 'Shield Generator (Ship)',
+    value: 'shield',
+    class: 'ShieldGeneratorUnit',
+    events: [
+      { signature: 'onToggled(active)' },
+      { signature: 'onAbsorbed(hitpoints,rawHitpoints)' },
+      { signature: 'onVenting(active,restoredHitpoints)' },
+      { signature: 'onDown()' },
+      { signature: 'onRestored()' },
+    ],
+  },
+  baseShield: {
+    title: 'Shield Generator (Base)',
+    value: 'baseShield',
+    class: 'BaseShieldGeneratorUnit',
+    events: [
+      { signature: 'onToggled(active)' },
+      { signature: 'onAbsorbed(hitpoints,rawHitpoints)' },
+      { signature: 'onDown()' },
+      { signature: 'onRestored()' },
+      { signature: 'onEnterLockdown()' },
+      { signature: 'onLeaveLockdown()' },
+    ],
+  },
+  transponder: {
+    title: 'Transponder',
+    value: 'transponder',
+    class: 'TransponderUnit',
+    events: [
+      { signature: 'onToggled(active)' },
     ],
   },
   warpDrive: {
@@ -116,47 +171,12 @@ module.exports = {
     value: 'weapon',
     class: 'WeaponUnit',
   },
-  shield: {
-    title: 'Ship Shield Generator',
-    value: 'shield',
-    class: 'ShieldGeneratorUnit',
-    events: [
-      { signature: 'toggled(active)' },
-      { signature: 'absorbed(hitpoints,rawHitpoints)' },
-      { signature: 'venting(active,restoredHitpoints)' },
-      { signature: 'down()' },
-      { signature: 'restored()' },
-    ],
-  },
-  baseShield: {
-    title: 'Base Shield Generator',
-    value: 'baseShield',
-    class: 'BaseShieldGeneratorUnit',
-    events: [
-      { signature: 'toggled(active)' },
-      { signature: 'absorbed(hitpoints,rawHitpoints)' },
-      { signature: 'down()' },
-      { signature: 'restored()' },
-      { signature: 'enterLockdown()' },
-      { signature: 'leaveLockdown()' },
-    ],
-  },
   zoneDetector: {
     title: 'Zone Detector',
     value: 'enterable',
     events: [
-      { signature: 'enter(id)' },
-      { signature: 'leave(id)' },
-    ],
-  },
-  miningUnit: {
-    title: 'Mining Unit',
-    value: 'miningUnit',
-    class: 'MiningUnit',
-    events: [
-      { signature: 'statusChanged(status)' },
-      { signature: 'completed(oreId,amount)' },
-      { signature: 'calibrated(oreId,amount,rate)' },
+      { signature: 'onEnter(id)' },
+      { signature: 'onLeave(id)' },
     ],
   },
   __abstract: {
@@ -168,8 +188,8 @@ module.exports = {
     value: 'enterable',
     description: 'Adds the events "enter(id)" and "leave(id)"',
     events: [
-      { signature: 'enter(id)' },
-      { signature: 'leave(id)' },
+      { signature: 'onEnter(id)' },
+      { signature: 'onLeave(id)' },
     ],
   },
   pressable: {
@@ -177,8 +197,8 @@ module.exports = {
     value: 'pressable',
     description: 'Adds the events "pressed()" and "released()"',
     events: [
-      { signature: 'pressed()' },
-      { signature: 'released()' },
+      { signature: 'onPressed()' },
+      { signature: 'onReleased()' },
     ],
   },
 }

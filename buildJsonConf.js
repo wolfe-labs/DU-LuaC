@@ -316,15 +316,13 @@ function makeSlotHandler(autoconf, slot, signature, code, type, metadata) {
   // If no code is found, generate the trigger event one
   if (!code) {
     const eventName = call[0];
-    const eventsToEmit = [];
+    const eventsToEmit = [eventName];
 
-    // This will fire 'onEventName' format for new (v2) scripts and 'eventName' for old (v1) scripts, to keep compatibility with old scripts
+    // This will fire an extra event on old (v1) scripts, with the old (without 'on' prefixed) event names, to keep compatibility with old scripts
     if (isOldProject() && eventName.substring(0, 2) == 'on') {
       let oldEventName = eventName.substring(2);
       oldEventName = oldEventName[0].toLowerCase() + oldEventName.substring(1);
       eventsToEmit.push(oldEventName);
-    } else {
-      eventsToEmit.push(eventName);
     }
 
     // Adds event triggers
