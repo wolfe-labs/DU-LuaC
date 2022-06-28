@@ -13,7 +13,7 @@ function library.getLinks(filters, noLinkNames)
 
   -- Maps the found elements into the links list
   for linkName, element in pairs(unit) do
-    if 'table' == type(element) and 'function' == type(element.getElementClass) then
+    if 'table' == type(element) and 'function' == type(element.getClass) then
       local passed = true
 
       -- Runs filters of whether this slot is valid
@@ -44,7 +44,7 @@ end
 -- Returns a list of links of current unit by class
 function library.getLinksByClass(className, noLinkNames)
   return library.getLinks({
-    getElementClass = className,
+    getClass = className,
   }, noLinkNames)
 end
 

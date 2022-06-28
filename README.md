@@ -129,7 +129,7 @@ Below you have a list of functions and how to use them:
 | Signature | Description | Sample |
 | --- | --- | --- |
 | `library.getCoreUnit()` | Returns the connection to the Core Unit, if it's connected | `local core = library.getCoreUnit()` |
-| `library.getLinks(filter, noLinkNames)` | Gets a list of linked elements, optionally filtering based on the element's function stated in `filter` (you can supply `nil` to ignore filtering). When `noLinkNames` is `true`, you get indexes instead of link names as the keys | `local screens = library.getLinks({ getElementClass: 'ScreenUnit' })` |
+| `library.getLinks(filter, noLinkNames)` | Gets a list of linked elements, optionally filtering based on the element's function stated in `filter` (you can supply `nil` to ignore filtering). When `noLinkNames` is `true`, you get indexes instead of link names as the keys | `local screens = library.getLinks({ getClass: 'ScreenUnit' })` |
 | `library.getLinksByClass(elementClass, noLinkNames)` | Gets a list of linked elements matching the selected class. When `noLinkNames` is `true`, you get indexes instead of link names as the keys | `local screens = library.getLinksByClass('ScreenUnit')` |
 | `library.getLinkByClass(elementClass)` | Same as the previous function, but returns the first matching element | `local screen = library.getLinkByClass('ScreenUnit')` |
 | `library.getLinkByName(elementName)` | Gets an element's link based on the element name (not the link name!) | `local screen = library.getLinkByName('Main Screen')` |
@@ -267,6 +267,38 @@ To link a library to your project, you will need to give it an ID and then add i
 There's no package management or online listing available as of now, though.
 
 You can check the examples included in this repository to see how this can be implemented, the only requirement is that whenever you use `require` to load a file from another library, you add a `:` between the library ID and the file name. You don't need to include the `.lua` extension, but any file names must be valid files located under the library's corresponding `sourcePath` directory.
+
+## Post-Mercury (0.30) Support
+
+As of the Mercury (0.30) update, all events now start with the prefix `on`. So, for example, the old `update` event is now `onUpdate`.
+
+To keep transitions like this as easy as possible, the CLI has been versioned, with the Project Format v2 being introduced.
+
+Projects created with the new format should always use `:onEvent('onEventName')`, with the `on` prefix, while projects created previous to that may still use the old format (`:onEvent('eventName')`) and the CLI should automatically translate any calls.
+
+Please keep in mind that events that changed name (such as Laser Detectors now using `onHit`) will need to have their names renamed on code too. You don't need to prefix it with `on` though, just use `:onEvent('hit')` and it will be fine.
+
+### Upgrading to Project Format v2
+
+To upgrade your project to v2, make sure you have fixed all your event handlers to the new format, then add the following JSON to the top of your `project.json` file, right before `"name"`:
+
+```
+  "cli": {
+    "fmtVersion": 2
+  },
+```
+
+It should look like this:
+
+```
+{
+  "cli": {
+    "fmtVersion": 2
+  },
+  "name": "your-project-name",
+```
+
+After doing so the CLI **will not** do any translations anymore and your should be using NQ's event format.
 
 ## Ideas and Features
 

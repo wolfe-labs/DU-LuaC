@@ -158,7 +158,7 @@
       newProjectName = args[0] || path.basename(process.cwd())
 
       // Gets a project file prototype
-      project = await prompts([
+      project = Object.assign({ cli: { fmtVersion: 2 } }, await prompts([
         {
           type: 'text',
           name: 'name',
@@ -190,7 +190,7 @@
           active: 'yes',
           inactive: 'no',
         },
-      ])
+      ]))
 
       // Gets and clears scaffolding option
       const doScaffolding = !!project.scaffolding

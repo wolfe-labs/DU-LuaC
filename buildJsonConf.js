@@ -17,28 +17,59 @@ const regexMinifiedExportComment = /;?__EXPORT_VARIABLE=\[\[{(.*?)}{(.*?)}{(.*?)
 const regexPlainExportCommentWithVariable = /(.*?)\s*?=\s*?(.*?)\s*?\-\-export\:?(.*)?/g
 const internalTypes = {
   library: {
-    slotId: -3,
+    slotId: -5,
     events: [],
   },
   system: {
-    slotId: -2,
+    slotId: -4,
     events: [
-      { signature: 'actionStart(action)' },
-      { signature: 'actionLoop(action)' },
-      { signature: 'actionStop(action)' },
-      { signature: 'update()' },
-      { signature: 'flush()' },
-      { signature: 'inputText(text)' },
+      { signature: 'onActionStart(action)' },
+      { signature: 'onActionLoop(action)' },
+      { signature: 'onActionStop(action)' },
+      { signature: 'onUpdate()' },
+      { signature: 'onFlush()' },
+      { signature: 'onInputText(text)' },
+      { signature: 'onCameraChanged(mode)' },
     ]
   },
-  control: {
-    slotId: -1,
+  player: {
+    slotId: -3,
     events: [
-      { signature: 'start()' },
-      { signature: 'stop()' },
-      { signature: 'tick(timerId)' },
+      { signature: 'onParentChanged(oldId,newId)' },
     ],
   },
+  construct: {
+    slotId: -2,
+    events: [
+      { signature: 'onDocked(id)' },
+      { signature: 'onUndocked(id)' },
+      { signature: 'onPlayerBoarded(id)' },
+      { signature: 'onVRStationEntered(id)' },
+      { signature: 'onConstructDocked(id)' },
+      { signature: 'onPvPTimer(active)' },
+    ],
+  },
+  unit: {
+    slotId: -1,
+    events: [
+      { signature: 'onStart()' },
+      { signature: 'onStop()' },
+      { signature: 'onTick(timerId)' },
+    ],
+  },
+}
+
+// This will store the current project
+let currentProject = null;
+
+// Gets project version
+function getProjectFormatVersion () {
+  return currentProject.cli?.fmtVersion || 1
+}
+
+// Is old (pre-v2) project?
+function isOldProject () {
+  return getProjectFormatVersion() < 2
 }
 
 const HandlerType = {
@@ -284,12 +315,26 @@ function makeSlotHandler(autoconf, slot, signature, code, type, metadata) {
 
   // If no code is found, generate the trigger event one
   if (!code) {
+    const eventName = call[0];
+    const eventsToEmit = [eventName];
+
+    // This will fire an extra event on old (v1) scripts, with the old (without 'on' prefixed) event names, to keep compatibility with old scripts
+    if (isOldProject() && eventName.substring(0, 2) == 'on') {
+      let oldEventName = eventName.substring(2);
+      oldEventName = oldEventName[0].toLowerCase() + oldEventName.substring(1);
+      eventsToEmit.push(oldEventName);
+    }
+
+    // Adds event triggers
     const slotName = autoconf.slots[slot].name
-    const callArgs = [
-      `"${ call }"`,
-      ...args
-    ]
-    code = `${ slotName }:triggerEvent(${ callArgs.map(arg => arg.trim()).filter(arg => arg.length > 0).join(',') })`
+    code = eventsToEmit.map(eventName => {
+      const callArgs = [
+        `"${ eventName }"`,
+        ...args
+      ]
+
+      return `${ slotName }:triggerEvent(${ callArgs.map(arg => arg.trim()).filter(arg => arg.length > 0).join(',') })`
+    }).join(';');
   }
 
   // Cleanup code
@@ -319,6 +364,9 @@ function makeSlotHandlerArgs(argsN) {
 }
 
 module.exports = function buildJsonOrYaml (project, build, source, preloads, minify) {
+  // Sets current project for the env
+  currentProject = project;
+
   // Base structure
   const autoconf = {
     slots: {},
@@ -328,9 +376,10 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   }
 
   // Setup slots
-  autoconf.slots[internalTypes.library.slotId] = makeSlotDefinition('library', 'library')
-  autoconf.slots[internalTypes.system.slotId] = makeSlotDefinition('system', 'system')
-  autoconf.slots[internalTypes.control.slotId] = makeSlotDefinition('unit', 'control')
+  Object.keys(internalTypes).forEach(slotName => {
+    const slotInfo = internalTypes[slotName];
+    autoconf.slots[slotInfo.slotId] = makeSlotDefinition(slotName, slotName);
+  });
 
   // How many slots to offset
   const slotOffset = Object.keys(autoconf.slots).length
@@ -345,7 +394,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   // Compiler internals
   if (!build.noHelpers) {
     autoconf.handlers.push(
-      makeSlotHandler(autoconf, -3, 'start()', [
+      makeSlotHandler(autoconf, internalTypes.library.slotId, 'onStart()', [
         // Injects event-handling helper
         minifyCompilerInternals ? runMinifier(helperEvents) : helperEvents,
 
@@ -363,7 +412,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   // External libraries go directly to the library slot
   preloads.forEach((preload) => {
     autoconf.handlers.push(
-      makeSlotHandler(autoconf, -3, 'start()', minify ? minifier(preload.source) : preload.source, HandlerType.IMPORT, preload)
+      makeSlotHandler(autoconf, internalTypes.library.slotId, 'onStart()', minify ? minifier(preload.source) : preload.source, HandlerType.IMPORT, preload)
     )
   })
 
@@ -480,7 +529,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   // Adds event handler set-up code
   if (!build.noEvents && slotEvents.length > 0) {
     autoconf.handlers.push(
-      makeSlotHandler(autoconf, -3, 'start()', `-- Setup improved event handlers\n${ makeRunOnce('EVENTS', slotEvents.map(slot => `library.addEventHandlers(${ slot })`).join('\n')) }`, HandlerType.INTERNAL)
+      makeSlotHandler(autoconf, internalTypes.library.slotId, 'onStart()', `-- Setup improved event handlers\n${ makeRunOnce('EVENTS', slotEvents.map(slot => `library.addEventHandlers(${ slot })`).join('\n')) }`, HandlerType.INTERNAL)
     )
   }
 
@@ -489,7 +538,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
 
   // Adds the main code to the unit's start
   autoconf.handlers.push(
-    makeSlotHandler(autoconf, -1, 'start()', resultMain)
+    makeSlotHandler(autoconf, internalTypes.unit.slotId, 'onStart()', resultMain)
   )
 
   // Compression happens here
@@ -531,6 +580,9 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
     // delete autoconf.slots[slotId].type
     delete autoconf.slots[slotId]._elementType
   })
+
+  // Clears current project from the env
+  currentProject = project;
 
   return autoconf
 }
