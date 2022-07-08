@@ -5,7 +5,7 @@
 const CLI = require('./cli')
 const prettyPrintSize = require('./prettyPrintSize')
 const fs = require('fs')
-const minifier = require('luamin').minify
+const minifier = require('@wolfe-labs/luamin').minify
 const elementTypes = require('./elementTypes')
 const { inflate } = require('zlib')
 const { match } = require('assert')
