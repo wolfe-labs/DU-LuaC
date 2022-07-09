@@ -54,7 +54,7 @@ const internalTypes = {
     events: [
       { signature: 'onStart()' },
       { signature: 'onStop()' },
-      { signature: 'onTick(timerId)' },
+      { signature: 'onTimer(timerId)' },
     ],
   },
 }
