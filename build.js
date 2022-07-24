@@ -276,18 +276,18 @@ module.exports = async function (argv) {
 
         // Verifies output of everything but events for syntax errors, generates Lua output too
         CLI.info(CLITag, `Generating LUA AST and checking for syntax errors...`)
-        const output = autoconfBase.handlers.filter(handler => handler.filter.signature == 'start()').sort((a, b) => {
+        const output = autoconfBase.handlers.filter(handler => handler.filter.signature == 'onStart()').sort((a, b) => {
           // Different slots, priority by slot position
           if (a.filter.slotKey < b.filter.slotKey) return -1
           if (a.filter.slotKey > b.filter.slotKey) return 1
-
+          
           // Same slot, priority of which handler is first
           if (a.key < b.key) return -1
           if (a.key > b.key) return 1
-
+          
           // This should not happen but anyways...
           return 0
-        }).map(handler => handler.code).join('\n\n')
+        }).map(slot => `-- [${slot.filter.slotKey}]:${slot.filter.signature}\n${slot.code}`).join('\n\n')
 
         try {
           // Generate the AST for error checking

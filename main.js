@@ -432,7 +432,7 @@
         // Generates project info
         project.libs.push({
           id: importLib.name,
-          path: importLibRaw,
+          path: importLibRaw.replace(/\\/g, '/'),
         })
 
         // Saves
