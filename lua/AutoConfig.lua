@@ -73,7 +73,7 @@ function library.getLinkByName(elementName)
 
   -- Now filter those to find the proper element
   for _, element in pairs(links) do
-    if elementName == coreUnit.getElementNameById(element.getId()) then
+    if elementName == coreUnit.getElementNameById(element.getLocalId()) then
       return element
     end
   end

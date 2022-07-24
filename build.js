@@ -21,7 +21,7 @@ module.exports = async function (argv) {
   const compile = require('./compiler')
 
   // The minifier
-  const minify = require('luamin').minify
+  const minify = require('@wolfe-labs/luamin').minify
 
   // The autoconf generators
   const buildJsonOrYaml = require('./buildJsonConf')
