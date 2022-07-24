@@ -170,6 +170,14 @@ module.exports = {
     title: 'Weapon',
     value: 'weapon',
     class: 'WeaponUnit',
+    events: [
+      { signature: 'onReload(id)' },
+      { signature: 'onReloaded(id)' },
+      { signature: 'onMissed(targetId)' },
+      { signature: 'onDestroyed(targetId)' },
+      { signature: 'onElementDestroyed(targetId,itemId)' },
+      { signature: 'onHit(targetId,damage)' },
+    ]
   },
   zoneDetector: {
     title: 'Zone Detector',
