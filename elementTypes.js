@@ -58,6 +58,7 @@ module.exports = {
       { signature: 'onStarted(id,quantity)' },
       { signature: 'onCompleted(id,quantity)' },
       { signature: 'onStatusChanged(status)' },
+      { signature: 'onBankUpdate()' },
     ],
   },
   laserDetector: {
