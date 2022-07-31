@@ -45,7 +45,7 @@ function library.addEventHandlers(obj)
   -- Removes event handler
   obj.clearEvent = (function (self, event, handlerId)
     if eventHandlers[event] and eventHandlers[event][handlerId] then
-      table.remove(eventHandlers[event], handlerId)
+      eventHandlers[event][handlerId] = nil
     end
   end)
 
