@@ -14,6 +14,9 @@ module.exports = async function (argv) {
   
   const prettyPrintSize = require('./prettyPrintSize')
 
+  // Unified error handling
+  const BuildError = require('./BuildError')
+
   // The YAML utility
   const YAML = require('yaml')
 
@@ -290,8 +293,8 @@ module.exports = async function (argv) {
         }).map(handler => handler.code).join('\n\n')
 
         try {
-          // Generate the AST for error checking
-          const outputAST = luaparse.parse(output)
+          // Runs the Lua parsing library just to check for any errors
+          luaparse.parse(output)
 
           // Info
           CLI.success('No syntax errors found! Writing output files.')
@@ -355,10 +358,7 @@ module.exports = async function (argv) {
           // Done
           CLI.success(`Done writing files for build ${ buildTargetIdentifier }!`)
         } catch (err) {
-          CLI.error(`Error parsing output at line ${err.line}, column ${err.column}, index: ${err.index}: ${err.message}`)
-          CLI.error(`Problematic code line:`)
-          CLI.code(output.split('\n')[err.line - 1])
-          process.exit(1)
+          BuildError('Error parsing output', err, output)
         }
       })
 

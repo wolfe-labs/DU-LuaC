@@ -3,6 +3,7 @@ module.exports = function (project, buildName, buildFile, libraries) {
   const path = require('path')
   const luaparse = require('luaparse')
   
+  const BuildError = require('./BuildError')
   const CLI = require('./cli')
   const CLITag = 'COMPILE'
 
@@ -186,9 +187,7 @@ module.exports = function (project, buildName, buildFile, libraries) {
   }
 
   function handleParseError (err, code) {
-    CLI.error(`Error parsing ${currentFiles[0] ? `file "${currentFiles[0]}"` : `output`} at line ${err.line}, column ${err.column}, index: ${err.index}: ${err.message}`)
-    CLI.error(`Problematic code line:`)
-    CLI.code(code.split('\n')[err.line - 1])
+    BuildError(`Error parsing ${currentFiles[0] ? `file "${currentFiles[0]}"` : `output`}`, err, code)
     process.exit(1)
   }
 
