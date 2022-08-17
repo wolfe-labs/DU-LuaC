@@ -2,6 +2,7 @@
  * This is the script that generates JSON and YAML files
  */
 
+const BuildError = require('./BuildError')
 const CLI = require('./cli')
 const prettyPrintSize = require('./prettyPrintSize')
 const fs = require('fs')
@@ -86,9 +87,13 @@ function deMinifyExport (line) {
 }
 
 function runMinifier(source) {
-  return minifier(source)
-    .replace(/\r/gi, '')
-    .replace(/[\n\s]{2,}/gi, ' ')
+  try {
+    return minifier(source)
+      .replace(/\r/gi, '')
+      .replace(/[\n\s]{2,}/gi, ' ')
+  } catch (err) {
+    BuildError('Error minifying JSON config', err, code)
+  }
 }
 
 function runCompression(source) {
@@ -412,7 +417,7 @@ module.exports = function buildJsonOrYaml (project, build, source, preloads, min
   // External libraries go directly to the library slot
   preloads.forEach((preload) => {
     autoconf.handlers.push(
-      makeSlotHandler(autoconf, internalTypes.library.slotId, 'onStart()', minify ? minifier(preload.source) : preload.source, HandlerType.IMPORT, preload)
+      makeSlotHandler(autoconf, internalTypes.library.slotId, 'onStart()', minify ? runMinifier(preload.source) : preload.source, HandlerType.IMPORT, preload)
     )
   })
 

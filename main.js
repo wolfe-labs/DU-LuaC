@@ -341,6 +341,14 @@
 
       // Saves and notifies user
       library.saveProject(project)
+
+      // Updates Codex if needed
+      if (fs.existsSync(path.join(process.cwd(), 'util/Codex.lua'))) {
+        console.info('Updating code completion...');
+        require('./buildCodeCompletion')(process.cwd());
+      }
+
+      // Done
       console.info(`Your slot was added successfully!`)
       
       break
@@ -411,7 +419,7 @@
 
       // Gets the current path
       importLibRaw = args[0]
-
+      
       // Checks if the specified path exists
       if (exists(importLibRaw)) {
         // Imports found library
@@ -432,7 +440,7 @@
         // Generates project info
         project.libs.push({
           id: importLib.name,
-          path: importLibRaw.replace(/\\/g, '/'),
+          path: importLibRaw,
         })
 
         // Saves
@@ -475,6 +483,21 @@
       }
       break
 
+    // Builds the intellisense for the current project
+    case 'add-code-completion':
+      console.info('Preparing code completion support...');
+      await (require('./buildCodeCompletion')(process.cwd()));
+      console.info('Code completion support built!');
+      break
+
+    // Updates the built-in JSON Codex
+    case 'update-codex':
+      console.info('Updating JSON Codex from GitHub...');
+      const updatedCodex = (await axios.get('https://raw.githubusercontent.com/wolfe-labs/DU-OpenData/main/dist/Lua/Codex.json')).data;
+      fs.writeFileSync(path.join(__dirname, 'Codex/Codex.json'), JSON.stringify(updatedCodex));
+      console.info('JSON Codex updated!');
+      break
+
     // By default shows help
     case '-h':
     default:
@@ -500,6 +523,8 @@
           [`--copy=${ `target-name/`.brightCyan }${ `build-name`.cyan }`, `Copies the specified build's JSON into your clipboard. If no target is provided, the first is selected`],
         ],
           text: `Builds the project on current directory` },
+        { command: 'add-code-completion',
+          text: `Adds extra local files to aid with code completion` },
       ]
 
       console.info(`Usage: du-lua (command) [args]`)

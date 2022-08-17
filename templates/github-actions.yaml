@@ -20,7 +20,7 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
 
       # Installs and runs DU-Lua's build procedure
       - run: npm i -g @wolfe-labs/du-luac

@@ -1,7 +1,8 @@
 module.exports = {
   other: {
-    title: 'Generic Element or Other',
+    title: 'Generic Element',
     value: null,
+    luaClass: 'Element',
     description: 'Select this option if you will not use any events from that element, it will still be available in Lua but without any event handlers',
   },
   __elements: {
@@ -11,6 +12,7 @@ module.exports = {
   button: {
     title: 'Button',
     value: 'pressable',
+    luaClass: 'PressureTile', // TODO: Waiting on official Button class
     events: [
       { signature: 'onPressed()' },
       { signature: 'onReleased()' },
@@ -19,17 +21,20 @@ module.exports = {
   databank: {
     title: 'Databank',
     value: 'databank',
-    class: 'DataBankUnit'
+    class: 'DataBankUnit',
+    luaClass: 'Databank',
   },
   antigravityGenerator: {
     title: 'Anti-Gravity Generator (AGG)',
     value: 'antigravityGenerator',
     class: 'AntiGravityGeneratorUnit',
+    luaclass: 'AntiGravityGenerator',
   },
   core: {
     title: 'Core Unit',
     value: 'core',
     class: 'CoreUnit',
+    luaClass: 'CoreUnit',
     events: [
       { signature: 'onStressChanged(stress)' },
     ],
@@ -37,11 +42,13 @@ module.exports = {
   fuelContainer: {
     title: 'Fuel Container',
     value: 'fuelContainer',
+    luaClass: 'Element', // TODO: Waiting on official FuelContainer class
   },
   itemContainer: {
     title: 'Item Container',
     value: 'itemContainer',
     class: 'ItemContainer',
+    luaClass: 'Container',
     events: [
       { signature: 'onContentUpdate()' },
     ],
@@ -49,20 +56,24 @@ module.exports = {
   gyro: {
     title: 'Gyroscope',
     value: 'gyro',
+    luaClass: 'Gyro',
   },
   industry: {
     title: 'Industry Unit',
     value: 'industry',
     class: 'IndustryUnit',
+    luaClass: 'Industry',
     events: [
       { signature: 'onStarted(id,quantity)' },
       { signature: 'onCompleted(id,quantity)' },
       { signature: 'onStatusChanged(status)' },
+      { signature: 'onBankUpdate()' },
     ],
   },
   laserDetector: {
     title: 'Laser Detector',
     value: 'laserDetector',
+    luaClass: 'LaserDetector',
     events: [
       { signature: 'onHit()' },
       { signature: 'onLoss()' },
@@ -72,6 +83,7 @@ module.exports = {
     title: 'Mining Unit',
     value: 'miningUnit',
     class: 'MiningUnit',
+    luaClass: 'MiningUnit',
     events: [
       { signature: 'onCalibrated(oreId,rate,amount)' },
       { signature: 'onCompleted(oreId,amount)' },
@@ -84,6 +96,7 @@ module.exports = {
     title: 'Plasma Extractor',
     value: 'plasmaExtractor',
     class: 'PlasmaExtractorUnit',
+    luaClass: 'PlasmaExtractor',
     events: [
       { signature: 'onStarted()' },
       { signature: 'onCompleted()' },
@@ -95,6 +108,7 @@ module.exports = {
     title: 'Radar',
     value: 'radar',
     class: 'RadarPVPUnit',
+    luaClass: 'Radar',
     events: [
       { signature: 'onEnter(id)' },
       { signature: 'onLeave(id)' },
@@ -105,6 +119,7 @@ module.exports = {
     title: 'Radar (PVP)',
     value: 'pvpRadar',
     class: 'RadarPVPUnit',
+    luaClass: 'Radar',
     events: [
       { signature: 'onEnter(id)' },
       { signature: 'onLeave(id)' },
@@ -114,6 +129,7 @@ module.exports = {
   receiver: {
     title: 'Receiver',
     value: 'receiver',
+    luaClass: 'Receiver',
     events: [
       { signature: 'onReceived(channel,message)' },
     ],
@@ -122,6 +138,7 @@ module.exports = {
     title: 'Screen',
     value: 'screen',
     class: 'ScreenUnit',
+    luaClass: 'Screen',
     events: [
       { signature: 'onMouseDown(x,y)' },
       { signature: 'onMouseUp(x,y)' },
@@ -132,6 +149,7 @@ module.exports = {
     title: 'Shield Generator (Ship)',
     value: 'shield',
     class: 'ShieldGeneratorUnit',
+    luaClass: 'BaseShieldGenerator', // TODO: Waiting on official ShieldGenerator class
     events: [
       { signature: 'onToggled(active)' },
       { signature: 'onAbsorbed(hitpoints,rawHitpoints)' },
@@ -144,6 +162,7 @@ module.exports = {
     title: 'Shield Generator (Base)',
     value: 'baseShield',
     class: 'BaseShieldGeneratorUnit',
+    luaClass: 'BaseShieldGenerator',
     events: [
       { signature: 'onToggled(active)' },
       { signature: 'onAbsorbed(hitpoints,rawHitpoints)' },
@@ -157,6 +176,7 @@ module.exports = {
     title: 'Transponder',
     value: 'transponder',
     class: 'TransponderUnit',
+    luaClass: 'Transponder',
     events: [
       { signature: 'onToggled(active)' },
     ],
@@ -165,11 +185,13 @@ module.exports = {
     title: 'Warp Drive',
     value: 'warpDrive',
     class: 'WarpDriveUnit',
+    luaClass: 'WarpDrive',
   },
   weapon: {
     title: 'Weapon',
     value: 'weapon',
     class: 'WeaponUnit',
+    luaClass: 'Weapon',
     events: [
       { signature: 'onReload(id)' },
       { signature: 'onReloaded(id)' },
@@ -182,6 +204,7 @@ module.exports = {
   zoneDetector: {
     title: 'Zone Detector',
     value: 'enterable',
+    luaClass: 'DetectionZone',
     events: [
       { signature: 'onEnter(id)' },
       { signature: 'onLeave(id)' },
@@ -194,6 +217,7 @@ module.exports = {
   enterable: {
     title: 'Enterable',
     value: 'enterable',
+    luaClass: 'DetectionZone',
     description: 'Adds the events "enter(id)" and "leave(id)"',
     events: [
       { signature: 'onEnter(id)' },
@@ -203,6 +227,7 @@ module.exports = {
   pressable: {
     title: 'Pressable',
     value: 'pressable',
+    luaClass: 'PressureTile',
     description: 'Adds the events "pressed()" and "released()"',
     events: [
       { signature: 'onPressed()' },

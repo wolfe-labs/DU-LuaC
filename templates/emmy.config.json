@@ -1,0 +1,16 @@
+{
+  "source": [
+    {
+      "dir": "./${srcpath}",
+      "exclude": []
+    },
+    {
+      "dir": "./libs",
+      "exclude": []
+    },
+    {
+      "dir": "./util",
+      "exclude": []
+    }
+  ]
+}
