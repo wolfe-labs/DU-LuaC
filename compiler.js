@@ -1,4 +1,5 @@
 module.exports = function (project, buildName, buildFile, libraries) {
+  const _ = require('lodash');
   const fs = require('fs-extra')
   const path = require('path')
   const luaparse = require('luaparse')
@@ -106,18 +107,24 @@ module.exports = function (project, buildName, buildFile, libraries) {
       return null
     }
 
-    // List of possible file paths
+    // Gets our project's source path
     const projectSourcePath = path.join(lib.root, lib.project.sourcePath)
-    const possibleFileLocations = [
+
+    // Generates our own LUA_PATH
+    const internalLuaPath = _.flatten([
       ...(extraPaths || []),
       projectSourcePath,
-      ...LUA_PATH,
-    ]
-    const possibleFilePaths = []
-    possibleFileLocations.forEach(location => {
-      possibleFilePaths.push(path.join(location, parsedProjectFile[1]))
-      possibleFilePaths.push(path.join(location, parsedProjectFile[1] + '.lua'))
-    })
+    ].map((currentPath) => {
+      return [
+        path.join(currentPath, '?'),
+        path.join(currentPath, '?.lua'),
+      ]
+    })).concat(LUA_PATH || [])
+
+    // Generates list of possible file pathes
+    const possibleFilePaths = internalLuaPath.map(
+      (path) => path.replace('?', parsedProjectFile[1])
+    )
 
     // Figures out which file to use
     file = null;
