@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 const library = require('./library');
@@ -33,11 +34,27 @@ module.exports = async function buildCodeCompletion (dir) {
     fs.mkdirSync(path.join(dir, 'util'));
   }
 
-  // Copies the codex locally
-  fs.copyFileSync(
-    path.join(__dirname, 'Codex/Codex.lua'),
-    path.join(dir, 'util/Codex.lua')
+  // Gets list of element types
+  const elementTypes = require('./elementTypes');
+
+  // Processes slots
+  const slots = _.flatten(
+    Object.values(project.builds)
+      .map((build) => Object.values(build.slots))
   );
+
+  // Copies the codex locally, adding any links to the globals
+  const codex = [
+    fs.readFileSync(path.join(__dirname, 'Codex/Codex.lua')).toString(),
+    slots.map((slot) => {
+      const element = elementTypes[slot.type];
+      if (element && element.luaClass) {
+        return `${ slot.name } = ${ element.luaClass }()`
+      }
+      return false;
+    }).filter((slot) => !!slot).join('\n\n'),
+  ].join('\n\n');
+  fs.writeFileSync(path.join(dir, 'util/Codex.lua'), codex);
 
   // Builds the EmmyLua config file
   const configEmmyLua = fs.readFileSync(path.join(__dirname, 'templates/emmy.config.json')).toString()
