@@ -2,6 +2,7 @@ module.exports = function (project, buildName, buildFile, libraries) {
   const _ = require('lodash');
   const fs = require('fs-extra')
   const path = require('path')
+  const crypto = require('crypto')
   const luaparse = require('luaparse')
   
   const BuildError = require('./BuildError')
@@ -47,7 +48,7 @@ module.exports = function (project, buildName, buildFile, libraries) {
     const file = required.file
 
     // Generate the require string
-    const requireString = `${required.lib}:${required.filename}`
+    let requireString = `${required.lib}:${required.filename}`
 
     // Check if this file was not already included
     if (~requires.indexOf(file)) {
@@ -75,6 +76,19 @@ module.exports = function (project, buildName, buildFile, libraries) {
 
     // Adds to preload list if not root file
     if (!isRoot) {
+      const parsedRequire = requireString.split(':')
+      const parsedRequirePackage = parsedRequire[0]
+      const parsedRequirePath = parsedRequire.slice(1).join(':')
+      if (parsedRequirePath.startsWith('../')) {
+      // Rewrites the require statement if outside the project directory
+        const safePathHash = crypto.createHash('sha1')
+          .update(parsedRequirePath)
+          .digest('hex')
+          .slice(0, 10)
+        requireString = `:${safePathHash}:${path.basename(parsedRequirePath)}`
+      }
+
+      // Saves on preloads
       preloads[requireString] = result
     }
 
