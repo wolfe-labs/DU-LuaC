@@ -80,12 +80,14 @@ module.exports = function (project, buildName, buildFile, libraries) {
       const parsedRequirePackage = parsedRequire[0]
       const parsedRequirePath = parsedRequire.slice(1).join(':')
       if (parsedRequirePath.startsWith('../')) {
-      // Rewrites the require statement if outside the project directory
+        // Rewrites the require statement if outside the project directory
         const safePathHash = crypto.createHash('sha1')
           .update(parsedRequirePath)
           .digest('hex')
           .slice(0, 10)
-        requireString = `:${safePathHash}:${path.basename(parsedRequirePath)}`
+        const newRequireString = `:${ safePathHash }:${ path.basename(parsedRequirePath) }`
+        CLI.info('COMPILE', `Local path hashed [${ newRequireString }] -> ${ parsedRequirePath }`)
+        requireString = newRequireString
       }
 
       // Saves on preloads
