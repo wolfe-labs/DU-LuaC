@@ -341,6 +341,14 @@
 
       // Saves and notifies user
       library.saveProject(project)
+
+      // Updates Codex if needed
+      if (fs.existsSync(path.join(process.cwd(), 'util/Codex.lua'))) {
+        console.info('Updating code completion...');
+        require('./buildCodeCompletion')(process.cwd());
+      }
+
+      // Done
       console.info(`Your slot was added successfully!`)
       
       break
