@@ -59,7 +59,7 @@ To install the compiler, run `npm i -g @wolfe-labs/du-luac` and it will be insta
 
 ### Development Versions/Branches
 
-If you're feeling adventurous and want to try out a development version of the CLI, you can install it using NPM: `npm i -g git://git@github.com:wolfe-labs/DU-LuaC.git#wip`
+If you're feeling adventurous and want to try out a development version of the CLI, you can install it using NPM: `npm i -g https://github.com/wolfe-labs/DU-LuaC.git#wip`
 
 Specific feature branches are also available by changing the `#wip` to the branch name, for example: `#feature/autoconf`
 
