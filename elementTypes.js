@@ -12,7 +12,7 @@ module.exports = {
   button: {
     title: 'Button',
     value: 'pressable',
-    luaClass: 'PressureTile', // TODO: Waiting on official Button class
+    luaClass: 'ManualButton',
     events: [
       { signature: 'onPressed()' },
       { signature: 'onReleased()' },
@@ -42,7 +42,7 @@ module.exports = {
   fuelContainer: {
     title: 'Fuel Container',
     value: 'fuelContainer',
-    luaClass: 'Element', // TODO: Waiting on official FuelContainer class
+    luaClass: 'Container', // TODO: Waiting on official FuelContainer class, but it should share same API as Container
   },
   itemContainer: {
     title: 'Item Container',
