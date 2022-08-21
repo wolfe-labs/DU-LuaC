@@ -20,9 +20,26 @@ module.exports = function (project, buildName, buildFile, libraries) {
 
   if (inlineRequires) CLI.info('COMPILE', `Build '${buildName}' will not include package.preload statements.`)
 
+  // Builds project source Path
+  const currentProjectSourcePath = path.join(process.cwd(), project.sourcePath)
+
   // Parses LUA_PATH
   const LUA_PATH = (process.env.LUA_PATH ?? '').split(';').filter(entry => entry.length > 0);
   CLI.info('COMPILE', `Found ${LUA_PATH.length} locations on LUA_PATH.`);
+
+  // Is a certain path inside a certain directory?
+  function isPathInsideProject (target) {
+    // Converts the target path to absolute notation
+    if (!path.isAbsolute(target)) {
+      target = path.resolve(currentProjectSourcePath, target)
+    }
+
+    // Creates a relative path from current source directory and out absolute directory
+    const relativePath = path.relative(currentProjectSourcePath, target)
+
+    // If the relative path starts with '..' or is absolute (usually a different Windows disk), returns false
+    return relativePath && !relativePath.startsWith('..') && !path.isAbsolute(relativePath)
+  }
 
   function handleRequire (filename, sourceDirectory) {
     // Is this the root file
@@ -79,14 +96,15 @@ module.exports = function (project, buildName, buildFile, libraries) {
       const parsedRequire = requireString.split(':')
       const parsedRequirePackage = parsedRequire[0]
       const parsedRequirePath = parsedRequire.slice(1).join(':')
-      if (parsedRequirePath.startsWith('../')) {
+      if (!isPathInsideProject(parsedRequirePath)) {
         // Rewrites the require statement if outside the project directory
+        const absolutePath = path.resolve(currentProjectSourcePath, parsedRequirePath)
         const safePathHash = crypto.createHash('sha1')
-          .update(parsedRequirePath)
+          .update(absolutePath)
           .digest('hex')
           .slice(0, 10)
-        const newRequireString = `:${ safePathHash }:${ path.basename(parsedRequirePath) }`
-        CLI.info('COMPILE', `Local path hashed [${ newRequireString }] -> ${ parsedRequirePath }`)
+        const newRequireString = `:${ safePathHash }:${ path.basename(absolutePath) }`
+        CLI.info('COMPILE', `External path hashed [${ newRequireString }] -> ${ absolutePath }`)
         requireString = newRequireString
       }
 
