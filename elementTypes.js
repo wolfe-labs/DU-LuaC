@@ -42,7 +42,7 @@ module.exports = {
   fuelContainer: {
     title: 'Fuel Container',
     value: 'fuelContainer',
-    luaClass: 'Container', // TODO: Waiting on official FuelContainer class, but it should share same API as Container
+    luaClass: 'Container',
   },
   itemContainer: {
     title: 'Item Container',
