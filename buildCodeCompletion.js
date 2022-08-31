@@ -46,6 +46,7 @@ module.exports = async function buildCodeCompletion (dir) {
   // Copies the codex locally, adding any links to the globals
   const codex = [
     fs.readFileSync(path.join(__dirname, 'Codex/Codex.lua')).toString(),
+    fs.readFileSync(path.join(__dirname, 'Codex/CodexExtras.lua')).toString(),
     slots.map((slot) => {
       const element = elementTypes[slot.type];
       if (element && element.luaClass) {

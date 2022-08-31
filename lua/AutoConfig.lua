@@ -1,4 +1,10 @@
--- Returns a list of links of current unit
+---@class Library
+local library = DULibrary
+
+--- Returns a list of links of current unit
+---@param filters table A list of filters where each key is a element function and the value is the desired value
+---@param noLinkNames boolean When true the results will be keyed by the linking order instead of link name
+---@return table
 function library.getLinks(filters, noLinkNames)
   -- List of links found
   local links = {}
@@ -41,24 +47,32 @@ function library.getLinks(filters, noLinkNames)
   return links
 end
 
--- Returns a list of links of current unit by class
+--- Returns a list of links of current unit by class
+---@param className string The element class name you want to match against
+---@param noLinkNames boolean When true the results will be keyed by the linking order instead of link name
+---@return table
 function library.getLinksByClass(className, noLinkNames)
   return library.getLinks({
     getClass = className,
   }, noLinkNames)
 end
 
--- Returns a list of links of current unit by class
+--- Returns a list of links of current unit by class
+---@param className string The element class name you want to match against
+---@return table
 function library.getLinkByClass(className)
   return library.getLinksByClass(className, true)[1]
 end
 
--- Returns the linked Core Unit
+--- Returns the linked Core Unit
+---@return CoreUnit
 function library.getCoreUnit()
   return library.getLinkByClass('CoreUnit')
 end
 
--- Returns a list of links with matching type and name
+--- Returns a linked element with matching name
+---@param elementName string The element name to be matched against
+---@return Element
 function library.getLinkByName(elementName)
   -- Gets the Core Unit
   local coreUnit = library.getCoreUnit()
