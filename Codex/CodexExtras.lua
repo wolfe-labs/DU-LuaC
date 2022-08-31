@@ -23,3 +23,7 @@ function library.getCoreUnit() end
 ---@param elementName string The element name to be matched against
 ---@return Element
 function library.getLinkByName(elementName) end
+
+--- Adds event handling to an object's instance
+---@param obj table The object you are adding events to
+function library.addEventHandlers(obj) end

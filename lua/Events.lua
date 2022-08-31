@@ -1,4 +1,5 @@
--- Extension to make event handlers more friendly
+--- Adds event handling to an object's instance
+---@param obj T The object you are adding events to
 function library.addEventHandlers(obj)
   -- Does nothing when obj is null or already has events
   if (not obj) or (obj.onEvent and obj.triggerEvent) then
