@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const library = require('./library');
 
-function addToGitIgnore (src, entries) {  
+function addToGitIgnore (src, entries) {
   // Gets all entries
   const allEntries = [
     ...src.split('\n'),
@@ -49,11 +49,11 @@ module.exports = async function buildCodeCompletion (dir) {
     slots.map((slot) => {
       const element = elementTypes[slot.type];
       if (element && element.luaClass) {
-        return `${ slot.name } = ${ element.luaClass }()`
+        return `${ slot.name } = ${ element.luaClass }`
       }
       return false;
     }).filter((slot) => !!slot).join('\n\n'),
-  ].join('\n\n');
+  ].join('\n\n').replace(/[\n]+/g, '\n');
   fs.writeFileSync(path.join(dir, 'util/Codex.lua'), codex);
 
   // Builds the EmmyLua config file

@@ -1,118 +1,116 @@
 ---@class Adjustor
-function Adjustor()
-local self = {}
-
+Adjustor = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Adjustor.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Adjustor.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Adjustor.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Adjustor.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Adjustor.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Adjustor.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Adjustor.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Adjustor.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Adjustor.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Adjustor.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Adjustor.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Adjustor.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Adjustor.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Adjustor.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Adjustor.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Adjustor.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Adjustor.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Adjustor.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Adjustor.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Adjustor.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Adjustor.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Adjustor.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Adjustor.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Adjustor.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Adjustor.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Adjustor.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Adjustor.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Adjustor.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Adjustor.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Adjustor.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -121,7 +119,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Adjustor.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -130,7 +128,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Adjustor.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -139,218 +137,214 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Adjustor.getSignalOut(plug) end
 
 --- Returns the obstruction ratio of the engine exhaust by Elements and Voxels.
 --- The more obstructed the engine is, the less properly it will work. Try to fix your design if this is the case
 ---@return number 
-function self.getObstructionFactor() end
+function Adjustor.getObstructionFactor() end
 
 --- Returns the tags of the engine
 ---@return string 
-function self.getTags() end
+function Adjustor.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
 ---@param ignore boolean: True to ignore the default engine tags
-function self.setTags(tags, ignore) end
+function Adjustor.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
 ---@return integer 1 if the engine ignores default engine tags
-function self.isIgnoringTags() end
+function Adjustor.isIgnoringTags() end
 
 --- Start the adjustor at full power (works only when run inside a cockpit or under remote control)
-function self.activate() end
+function Adjustor.activate() end
 
 --- Stops the adjustor (works only when run inside a cockpit or under remote control)
-function self.deactivate() end
+function Adjustor.deactivate() end
 
 --- Checks if the adjustor is active
 ---@return integer 
-function self.isActive() end
+function Adjustor.isActive() end
 
 ---@deprecated Adjustor.getState() is deprecated, use Adjustor.isActive().
-function self.getState() end
+function Adjustor.getState() end
 
 --- Toggle the state of the adjustor
-function self.toggle() end
+function Adjustor.toggle() end
 
 --- Set the exhaust thrust of the adjustor
 ---@param thrust number The adjustor thrust in newtons (limited by the maximum thrust)
-function self.setThrust(thrust) end
+function Adjustor.setThrust(thrust) end
 
 --- Returns the current exhaust thrust of the adjustor
 ---@return number 
-function self.getThrust() end
+function Adjustor.getThrust() end
 
 --- Returns the maximal exhaust thrust the adjustor can deliver
 ---@return number 
-function self.getMaxThrust() end
+function Adjustor.getMaxThrust() end
 
 ---@deprecated Adjustor.getMaxThrustBase() is deprecated, use Adjustor.getMaxThrust().
-function self.getMaxThrustBase() end
+function Adjustor.getMaxThrustBase() end
 
 --- Returns the adjustor exhaust thrust direction in construct local coordinates
 ---@return table 
-function self.getThrustAxis() end
+function Adjustor.getThrustAxis() end
 
 --- Returns the adjustor torque axis in construct local coordinates
 ---@return table 
-function self.getTorqueAxis() end
+function Adjustor.getTorqueAxis() end
 
 --- Returns the adjustor exhaust thrust direction in world coordinates
 ---@return table 
-function self.getWorldThrustAxis() end
+function Adjustor.getWorldThrustAxis() end
 
 ---@deprecated Adjustor.thrustAxis() is deprecated, use Adjustor.getWorldThrustAxis().
-function self.thrustAxis() end
+function Adjustor.thrustAxis() end
 
 --- Returns the adjustor torque axis in world coordinates
 ---@return table 
-function self.getWorldTorqueAxis() end
+function Adjustor.getWorldTorqueAxis() end
 
 ---@deprecated Adjustor.torqueAxis() is deprecated, use Adjustor.getWorldTorqueAxis().
-function self.torqueAxis() end
+function Adjustor.torqueAxis() end
 
 ---@deprecated Adjustor.isOutOfFuel() is deprecated.
-function self.isOutOfFuel() end
+function Adjustor.isOutOfFuel() end
 
 ---@deprecated Adjustor.hasFunctionalFuelTank() is deprecated.
-function self.hasFunctionalFuelTank() end
+function Adjustor.hasFunctionalFuelTank() end
 
 ---@deprecated Adjustor.getCurrentFuelRate()
-function self.getCurrentFuelRate() end
+function Adjustor.getCurrentFuelRate() end
 
 ---@deprecated Adjustor.getFuelRateEfficiency()
-function self.getFuelRateEfficiency() end
+function Adjustor.getFuelRateEfficiency() end
 
 ---@deprecated Adjustor.getFuelConsumption()
-function self.getFuelConsumption() end
+function Adjustor.getFuelConsumption() end
 
 ---@deprecated Adjustor.getDistance()
-function self.getDistance() end
+function Adjustor.getDistance() end
 
 ---@deprecated Adjustor.getT50() is deprecated.
-function self.getT50() end
+function Adjustor.getT50() end
 
-return self
-end
 
 ---@class Airbrake
-function Airbrake()
-local self = {}
-
+Airbrake = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Airbrake.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Airbrake.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Airbrake.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Airbrake.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Airbrake.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Airbrake.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Airbrake.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Airbrake.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Airbrake.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Airbrake.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Airbrake.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Airbrake.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Airbrake.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Airbrake.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Airbrake.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Airbrake.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Airbrake.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Airbrake.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Airbrake.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Airbrake.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Airbrake.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Airbrake.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Airbrake.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Airbrake.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Airbrake.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Airbrake.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Airbrake.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Airbrake.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Airbrake.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Airbrake.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -359,7 +353,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Airbrake.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -368,7 +362,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Airbrake.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -377,230 +371,226 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Airbrake.getSignalOut(plug) end
 
 --- Returns the obstruction ratio of the engine exhaust by Elements and Voxels.
 --- The more obstructed the engine is, the less properly it will work. Try to fix your design if this is the case
 ---@return number 
-function self.getObstructionFactor() end
+function Airbrake.getObstructionFactor() end
 
 --- Returns the tags of the engine
 ---@return string 
-function self.getTags() end
+function Airbrake.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
 ---@param ignore boolean: True to ignore the default engine tags
-function self.setTags(tags, ignore) end
+function Airbrake.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
 ---@return integer 1 if the engine ignores default engine tags
-function self.isIgnoringTags() end
+function Airbrake.isIgnoringTags() end
 
 --- Start the brake at full power (works only when run inside a cockpit or under remote control)
-function self.activate() end
+function Airbrake.activate() end
 
 --- Stops the brake (works only when run inside a cockpit or under remote control)
-function self.deactivate() end
+function Airbrake.deactivate() end
 
 --- Checks if the brake is active
 ---@return integer 
-function self.isActive() end
+function Airbrake.isActive() end
 
 ---@deprecated BrakeEngine.getState() is deprecated, use BrakeEngine.isActive().
-function self.getState() end
+function Airbrake.getState() end
 
 --- Toggle the state of the brake
-function self.toggle() end
+function Airbrake.toggle() end
 
 --- Set the thrust of the brake. Note that brakes can generate a force only in the movement opposite direction
 ---@param thrust number The brake thrust in newtons (limited by the maximum thrust)
-function self.setThrust(thrust) end
+function Airbrake.setThrust(thrust) end
 
 --- Returns the current thrust of the brake
 ---@return number 
-function self.getThrust() end
+function Airbrake.getThrust() end
 
 ---@deprecated BrakeEngine.getMaxThrust() is deprecated, use BrakeEngine.getCurrentMaxThrust().
 ---@deprecated @diagnostic disable-next-line
-function self.getMaxThrust() end
+function Airbrake.getMaxThrust() end
 
 ---@deprecated BrakeEngine.getMaxThrustBase() is deprecated, use BrakeEngine.getMaxThrust().
-function self.getMaxThrustBase() end
+function Airbrake.getMaxThrustBase() end
 
 --- Returns the minimal thrust the brake can deliver at the moment (can be more than zero),
 --- which will depend on various conditions like atmospheric density, obstruction, orientation, etc
 --- Most of the time, this will be 0 but it can be greater than 0, particularly for Ailerons, in which case
 --- the actual thrust will be at least equal to minThrust
 ---@return number 
-function self.getCurrentMinThrust() end
+function Airbrake.getCurrentMinThrust() end
 
 ---@deprecated BrakeEngine.getMinThrust() is deprecated, use BrakeEngine.getCurrentMinThrust().
-function self.getMinThrust() end
+function Airbrake.getMinThrust() end
 
 --- Returns the maximal thrust the brake can deliver at the moment, which might depend on
 --- various conditions like atmospheric density, obstruction, orientation, etc. The actual thrust will be
 --- anything below this maxThrust, which defines the current max capability of the brake
 ---@return number 
-function self.getCurrentMaxThrust() end
+function Airbrake.getCurrentMaxThrust() end
 
 --- Returns the ratio between the current maximum thrust and the optimal maximum thrust
 ---@return number 
-function self.getMaxThrustEfficiency() end
+function Airbrake.getMaxThrustEfficiency() end
 
 --- Returns the brake thrust direction in construct local coordinates
 ---@return table 
-function self.getThrustAxis() end
+function Airbrake.getThrustAxis() end
 
 --- Returns the brake thrust direction in world coordinates
 ---@return table 
-function self.getWorldThrustAxis() end
+function Airbrake.getWorldThrustAxis() end
 
 ---@deprecated BrakeEngine.thrustAxis() is deprecated, use BrakeEngine.getWorldThrustAxis().
-function self.thrustAxis() end
+function Airbrake.thrustAxis() end
 
 ---@deprecated BrakeEngine.isOutOfFuel() is deprecated.
-function self.isOutOfFuel() end
+function Airbrake.isOutOfFuel() end
 
 ---@deprecated BrakeEngine.hasFunctionalFuelTank() is deprecated.
-function self.hasFunctionalFuelTank() end
+function Airbrake.hasFunctionalFuelTank() end
 
 ---@deprecated BrakeEngine.getCurrentFuelRate() is deprecated.
-function self.getCurrentFuelRate() end
+function Airbrake.getCurrentFuelRate() end
 
 ---@deprecated BrakeEngine.getFuelRateEfficiency() is deprecated.
-function self.getFuelRateEfficiency() end
+function Airbrake.getFuelRateEfficiency() end
 
 ---@deprecated BrakeEngine.getFuelConsumption() is deprecated.
-function self.getFuelConsumption() end
+function Airbrake.getFuelConsumption() end
 
 ---@deprecated BrakeEngine.getDistance() is deprecated.
-function self.getDistance() end
+function Airbrake.getDistance() end
 
 ---@deprecated BrakeEngine.getT50() is deprecated.
-function self.getT50() end
+function Airbrake.getT50() end
 
 ---@deprecated BrakeEngine.torqueAxis() is deprecated.
-function self.torqueAxis() end
+function Airbrake.torqueAxis() end
 
-return self
-end
 
 ---@class Airfoil
-function Airfoil()
-local self = {}
-
+Airfoil = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Airfoil.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Airfoil.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Airfoil.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Airfoil.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Airfoil.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Airfoil.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Airfoil.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Airfoil.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Airfoil.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Airfoil.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Airfoil.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Airfoil.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Airfoil.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Airfoil.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Airfoil.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Airfoil.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Airfoil.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Airfoil.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Airfoil.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Airfoil.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Airfoil.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Airfoil.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Airfoil.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Airfoil.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Airfoil.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Airfoil.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Airfoil.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Airfoil.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Airfoil.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Airfoil.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -609,7 +599,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Airfoil.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -618,7 +608,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Airfoil.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -627,267 +617,263 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Airfoil.getSignalOut(plug) end
 
 --- Returns the obstruction ratio of the engine exhaust by Elements and Voxels.
 --- The more obstructed the engine is, the less properly it will work. Try to fix your design if this is the case
 ---@return number 
-function self.getObstructionFactor() end
+function Airfoil.getObstructionFactor() end
 
 --- Returns the tags of the engine
 ---@return string 
-function self.getTags() end
+function Airfoil.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
 ---@param ignore boolean: True to ignore the default engine tags
-function self.setTags(tags, ignore) end
+function Airfoil.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
 ---@return integer 1 if the engine ignores default engine tags
-function self.isIgnoringTags() end
+function Airfoil.isIgnoringTags() end
 
 --- Returns the current lift of the airfoil
 ---@return number 
-function self.getLift() end
+function Airfoil.getLift() end
 
 ---@deprecated Airfoil.getThrust() is deprecated, use Airfoil.getLift().
-function self.getThrust() end
+function Airfoil.getThrust() end
 
 --- Gives the maximum lift that the airfoil can generate, under optimal conditions.
 --- Note that the actual maximum lift will most of the time be less than this value
 ---@return number 
-function self.getMaxLift() end
+function Airfoil.getMaxLift() end
 
 ---@deprecated Airfoil.getMaxThrustBase() is deprecated, use Airfoil.getMaxLift().
-function self.getMaxThrustBase() end
+function Airfoil.getMaxThrustBase() end
 
 --- Returns the current drag of the airfoil
 ---@return number 
-function self.getDrag() end
+function Airfoil.getDrag() end
 
 --- The ratio between lift and drag, depending of the aerodynamic profile of the airfoil
 ---@return number 
-function self.getDragRatio() end
+function Airfoil.getDragRatio() end
 
 --- Returns the minimal lift the airfoil can deliver at the moment (can be higher than zero),
 --- which will depend on various conditions like atmospheric density, obstruction, orientation, etc
 ---@return number 
-function self.getCurrentMinLift() end
+function Airfoil.getCurrentMinLift() end
 
 ---@deprecated Airfoil.getMinThrust() is deprecated, use Airfoil.getCurrentMinLift().
-function self.getMinThrust() end
+function Airfoil.getMinThrust() end
 
 --- Returns the maximal lift the aifoil can deliver at the moment, which might depend on
 --- various conditions like atmospheric density, obstruction, orientation, etc. The actual lift will be
 --- anything below this maximum lift, which defines the current max capability of the airfoil
 ---@return number 
-function self.getCurrentMaxLift() end
+function Airfoil.getCurrentMaxLift() end
 
 ---@deprecated Airfoil.getMaxThrust() is deprecated, use Airfoil.getCurrentMaxLift().
-function self.getMaxThrust() end
+function Airfoil.getMaxThrust() end
 
 --- Returns the ratio between the current maximum lift and the optimal maximum lift
 ---@return number 
-function self.getMaxLiftEfficiency() end
+function Airfoil.getMaxLiftEfficiency() end
 
 ---@deprecated Airfoil.getMaxThrustEfficiency() is deprecated, use Airfoil.getMaxLiftEfficiency().
-function self.getMaxThrustEfficiency() end
+function Airfoil.getMaxThrustEfficiency() end
 
 --- Returns the airfoil lift direction in construct local coordinates
 ---@return table 
-function self.getLiftAxis() end
+function Airfoil.getLiftAxis() end
 
 --- Returns the airfoil torque axis in construct local coordinates
 ---@return table 
-function self.getTorqueAxis() end
+function Airfoil.getTorqueAxis() end
 
 --- Returns the airfoil lift direction in world coordinates
 ---@return table 
-function self.getWorldLiftAxis() end
+function Airfoil.getWorldLiftAxis() end
 
 ---@deprecated Airfoil.thrustAxis() is deprecated, use Airfoil.getWorldLiftAxis().
-function self.thrustAxis() end
+function Airfoil.thrustAxis() end
 
 --- Returns the adjustor torque axis in world coordinates
 ---@return table 
-function self.getWorldTorqueAxis() end
+function Airfoil.getWorldTorqueAxis() end
 
 ---@deprecated Airfoil.torqueAxis() is deprecated, use Airfoil.getWorldTorqueAxis().
-function self.torqueAxis() end
+function Airfoil.torqueAxis() end
 
 --- Checks if the airfoil is stalled
 ---@return integer 
-function self.isStalled() end
+function Airfoil.isStalled() end
 
 --- Returns the airfoil stall angle
 ---@return number 
-function self.getStallAngle() end
+function Airfoil.getStallAngle() end
 
 --- Returns the minimum angle to produce the maximum lift of the airfoil
 --- Note that the airfoil will produce lift at a lower angle but not optimally
 ---@return number 
-function self.getMinAngle() end
+function Airfoil.getMinAngle() end
 
 --- Returns the maximum angle to produce the maximum lift of the airfoil
 --- Note that the airfoil will produce lift at a higher angle but not optimally
 ---@return number 
-function self.getMaxAngle() end
+function Airfoil.getMaxAngle() end
 
 ---@deprecated Airfoil.activate() is deprecated.
-function self.activate() end
+function Airfoil.activate() end
 
 ---@deprecated Airfoil.deactivate() is deprecated.
-function self.deactivate() end
+function Airfoil.deactivate() end
 
 ---@deprecated Airfoil.getState() is deprecated.
-function self.getState() end
+function Airfoil.getState() end
 
 ---@deprecated Airfoil.toggle() is deprecated.
-function self.toggle() end
+function Airfoil.toggle() end
 
 ---@deprecated Airfoil.setThrust(thrust) is deprecated.
-function self.setThrust() end
+function Airfoil.setThrust() end
 
 ---@deprecated Airfoil.isOutOfFuel() is deprecated.
-function self.isOutOfFuel() end
+function Airfoil.isOutOfFuel() end
 
 ---@deprecated Airfoil.hasFunctionalFuelTank() is deprecated.
-function self.hasFunctionalFuelTank() end
+function Airfoil.hasFunctionalFuelTank() end
 
 ---@deprecated Airfoil.getCurrentFuelRate() is deprecated.
-function self.getCurrentFuelRate() end
+function Airfoil.getCurrentFuelRate() end
 
 ---@deprecated Airfoil.getFuelRateEfficiency() is deprecated.
-function self.getFuelRateEfficiency() end
+function Airfoil.getFuelRateEfficiency() end
 
 ---@deprecated Airfoil.getFuelConsumption() is deprecated.
-function self.getFuelConsumption() end
+function Airfoil.getFuelConsumption() end
 
 ---@deprecated Airfoil.getDistance() is deprecated.
-function self.getDistance() end
+function Airfoil.getDistance() end
 
 ---@deprecated Airfoil.getT50() is deprecated.
-function self.getT50() end
+function Airfoil.getT50() end
 
-return self
-end
 
 ---@class AntiGravityGenerator
-function AntiGravityGenerator()
-local self = {}
-
+AntiGravityGenerator = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function AntiGravityGenerator.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function AntiGravityGenerator.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function AntiGravityGenerator.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function AntiGravityGenerator.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function AntiGravityGenerator.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function AntiGravityGenerator.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function AntiGravityGenerator.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function AntiGravityGenerator.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function AntiGravityGenerator.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function AntiGravityGenerator.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function AntiGravityGenerator.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function AntiGravityGenerator.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function AntiGravityGenerator.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function AntiGravityGenerator.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function AntiGravityGenerator.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function AntiGravityGenerator.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function AntiGravityGenerator.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function AntiGravityGenerator.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function AntiGravityGenerator.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function AntiGravityGenerator.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function AntiGravityGenerator.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function AntiGravityGenerator.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function AntiGravityGenerator.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function AntiGravityGenerator.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function AntiGravityGenerator.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function AntiGravityGenerator.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function AntiGravityGenerator.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function AntiGravityGenerator.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function AntiGravityGenerator.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function AntiGravityGenerator.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -896,7 +882,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function AntiGravityGenerator.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -905,7 +891,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function AntiGravityGenerator.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -914,173 +900,169 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function AntiGravityGenerator.getSignalOut(plug) end
 
 --- Activate the anti-gravity generator
-function self.activate() end
+function AntiGravityGenerator.activate() end
 
 --- Deactivate the anti-gravity generator
-function self.deactivate() end
+function AntiGravityGenerator.deactivate() end
 
 --- Returns the state of activation of the anti-gravity generator
 ---@return integer 
-function self.isActive() end
+function AntiGravityGenerator.isActive() end
 
 ---@deprecated AntiGravityGenerator.getState() is deprecated, use AntiGravityGenerator.isActive() instead.
-function self.getState() end
+function AntiGravityGenerator.getState() end
 
 --- Toggle the anti-gravity generator
-function self.toggle() end
+function AntiGravityGenerator.toggle() end
 
 --- Returns the strength of the anti-gravitational field
 ---@return number 
-function self.getFieldStrength() end
+function AntiGravityGenerator.getFieldStrength() end
 
 --- Returns the current rate of compensation of the gravitational field
 ---@return number 
-function self.getCompensationRate() end
+function AntiGravityGenerator.getCompensationRate() end
 
 --- Returns the current power of the gravitational field
 ---@return number 
-function self.getFieldPower() end
+function AntiGravityGenerator.getFieldPower() end
 
 --- Returns the number of pulsors linked to the anti-gravity generator
 ---@return integer 
-function self.getPulsorCount() end
+function AntiGravityGenerator.getPulsorCount() end
 
 --- Set the target altitude for the anti-gravity field. Cannot be called from onFlush
 ---@param altitude number The target altitude in meters. It will be reached with a slow acceleration (not instantaneous)
-function self.setTargetAltitude(altitude) end
+function AntiGravityGenerator.setTargetAltitude(altitude) end
 
 ---@deprecated AntiGravityGenerator.setBaseAltitude(altitude) is deprecated, use AntiGravityGenerator.setTargetAltitude(altitude) instead.
-function self.setBaseAltitude() end
+function AntiGravityGenerator.setBaseAltitude() end
 
 --- Returns the target altitude defined for the anti-gravitational field
 ---@return number 
-function self.getTargetAltitude() end
+function AntiGravityGenerator.getTargetAltitude() end
 
 --- Returns the current base altitude of the anti-gravitational field
 ---@return number 
-function self.getBaseAltitude() end
+function AntiGravityGenerator.getBaseAltitude() end
 
-return self
-end
 
 ---@class AtmosphericEngine
-function AtmosphericEngine()
-local self = {}
-
+AtmosphericEngine = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function AtmosphericEngine.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function AtmosphericEngine.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function AtmosphericEngine.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function AtmosphericEngine.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function AtmosphericEngine.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function AtmosphericEngine.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function AtmosphericEngine.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function AtmosphericEngine.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function AtmosphericEngine.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function AtmosphericEngine.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function AtmosphericEngine.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function AtmosphericEngine.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function AtmosphericEngine.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function AtmosphericEngine.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function AtmosphericEngine.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function AtmosphericEngine.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function AtmosphericEngine.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function AtmosphericEngine.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function AtmosphericEngine.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function AtmosphericEngine.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function AtmosphericEngine.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function AtmosphericEngine.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function AtmosphericEngine.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function AtmosphericEngine.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function AtmosphericEngine.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function AtmosphericEngine.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function AtmosphericEngine.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function AtmosphericEngine.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function AtmosphericEngine.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function AtmosphericEngine.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -1089,7 +1071,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function AtmosphericEngine.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -1098,7 +1080,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function AtmosphericEngine.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -1107,268 +1089,264 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function AtmosphericEngine.getSignalOut(plug) end
 
 --- Returns the obstruction ratio of the engine exhaust by Elements and Voxels.
 --- The more obstructed the engine is, the less properly it will work. Try to fix your design if this is the case
 ---@return number 
-function self.getObstructionFactor() end
+function AtmosphericEngine.getObstructionFactor() end
 
 --- Returns the tags of the engine
 ---@return string 
-function self.getTags() end
+function AtmosphericEngine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
 ---@param ignore boolean: True to ignore the default engine tags
-function self.setTags(tags, ignore) end
+function AtmosphericEngine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
 ---@return integer 1 if the engine ignores default engine tags
-function self.isIgnoringTags() end
+function AtmosphericEngine.isIgnoringTags() end
 
 --- Start the engine at full power (works only when run inside a cockpit or under remote control)
-function self.activate() end
+function AtmosphericEngine.activate() end
 
 --- Stops the engine (works only when run inside a cockpit or under remote control)
-function self.deactivate() end
+function AtmosphericEngine.deactivate() end
 
 --- Checks if the engine is active
 ---@return integer 
-function self.isActive() end
+function AtmosphericEngine.isActive() end
 
 ---@deprecated FueledEngine.getState() is deprecated, use FueledEngine.isActive().
-function self.getState() end
+function AtmosphericEngine.getState() end
 
 --- Toggle the state of the engine
-function self.toggle() end
+function AtmosphericEngine.toggle() end
 
 --- Set the thrust of the engine
 ---@param thrust number The engine thrust in newtons (limited by the maximum thrust)
-function self.setThrust(thrust) end
+function AtmosphericEngine.setThrust(thrust) end
 
 --- Returns the current thrust of the engine
 ---@return number 
-function self.getThrust() end
+function AtmosphericEngine.getThrust() end
 
 ---@deprecated FueledEngine.getMaxThrust() is deprecated, use FueledEngine.getCurrentMaxThrust().
 ---@deprecated @diagnostic disable-next-line
-function self.getMaxThrust() end
+function AtmosphericEngine.getMaxThrust() end
 
 ---@deprecated FueledEngine.getMaxThrustBase() is deprecated, use FueledEngine.getMaxThrust().
-function self.getMaxThrustBase() end
+function AtmosphericEngine.getMaxThrustBase() end
 
 --- Returns the minimal thrust the engine can deliver at the moment (can be more than zero),
 --- which will depend on various conditions like atmospheric density, obstruction, orientation, etc
 --- Most of the time, this will be 0 but it can be greater than 0, particularly for Ailerons, in which case
 --- the actual thrust will be at least equal to minThrust
 ---@return number 
-function self.getCurrentMinThrust() end
+function AtmosphericEngine.getCurrentMinThrust() end
 
 ---@deprecated FueledEngine.getMinThrust() is deprecated, use FueledEngine.getCurrentMinThrust().
-function self.getMinThrust() end
+function AtmosphericEngine.getMinThrust() end
 
 --- Returns the maximal thrust the engine can deliver at the moment, which might depend on
 --- various conditions like atmospheric density, obstruction, orientation, etc. The actual thrust will be
 --- anything below this maxThrust, which defines the current max capability of the engine
 ---@return number 
-function self.getCurrentMaxThrust() end
+function AtmosphericEngine.getCurrentMaxThrust() end
 
 --- Returns the ratio between the current maximum thrust and the optimal maximum thrust
 ---@return number 
-function self.getMaxThrustEfficiency() end
+function AtmosphericEngine.getMaxThrustEfficiency() end
 
 --- Checks if the torque generation is enabled on the engine
 ---@return integer 
-function self.isTorqueEnabled() end
+function AtmosphericEngine.isTorqueEnabled() end
 
 --- Sets the torque generation state on the engine
 ---@param state boolean 
-function self.enableTorque(state) end
+function AtmosphericEngine.enableTorque(state) end
 
 --- Returns the engine thrust direction in construct local coordinates
 ---@return table 
-function self.getThrustAxis() end
+function AtmosphericEngine.getThrustAxis() end
 
 --- Returns the engine torque axis in construct local coordinates
 ---@return table 
-function self.getTorqueAxis() end
+function AtmosphericEngine.getTorqueAxis() end
 
 --- Returns the engine exhaust thrust direction in world coordinates
 ---@return table 
-function self.getWorldThrustAxis() end
+function AtmosphericEngine.getWorldThrustAxis() end
 
 ---@deprecated FueledEngine.thrustAxis() is deprecated, use FueledEngine.getWorldThrustAxis().
-function self.thrustAxis() end
+function AtmosphericEngine.thrustAxis() end
 
 --- Returns the engine torque axis in world coordinates
 ---@return table 
-function self.getWorldTorqueAxis() end
+function AtmosphericEngine.getWorldTorqueAxis() end
 
 ---@deprecated FueledEngine.torqueAxis() is deprecated, use FueledEngine.getWorldTorqueAxis().
-function self.torqueAxis() end
+function AtmosphericEngine.torqueAxis() end
 
 --- Checks if the engine out of fuel
 ---@return integer 
-function self.isOutOfFuel() end
+function AtmosphericEngine.isOutOfFuel() end
 
 --- Returns the item ID of the fuel currently used by the engine
 ---@return integer 
-function self.getFuelId() end
+function AtmosphericEngine.getFuelId() end
 
 --- Returns the local ID of the fueltank linked to the engine
 ---@return integer 
-function self.getFuelTankId() end
+function AtmosphericEngine.getFuelTankId() end
 
 --- Checks if the engine linked to a functional Fuel Tank (not broken or colliding)?
 ---@return integer 
-function self.hasFunctionalFuelTank() end
+function AtmosphericEngine.hasFunctionalFuelTank() end
 
 ---@deprecated FueledEngine.hasBrokenFuelTank() is deprecated, use FueledEngine.hasFunctionalFuelTank().
-function self.hasBrokenFuelTank() end
+function AtmosphericEngine.hasBrokenFuelTank() end
 
 --- Returns the engine fuel consumption rate per newton of thrust delivered per second
 ---@return number 
-function self.getCurrentFuelRate() end
+function AtmosphericEngine.getCurrentFuelRate() end
 
 --- Returns the ratio between the current fuel rate and the theoretical nominal fuel rate
 ---@return number 
-function self.getFuelRateEfficiency() end
+function AtmosphericEngine.getFuelRateEfficiency() end
 
 --- Returns the current fuel consumption rate
 ---@return number 
-function self.getFuelConsumption() end
+function AtmosphericEngine.getFuelConsumption() end
 
 --- Returns the T50; the time needed for the engine to reach 50% of its maximal thrust (all engines
 --- do not instantly reach the thrust that is set for them, but they can take time to "warm up" to
 --- the final value)
 ---@return number 
-function self.getWarmupTime() end
+function AtmosphericEngine.getWarmupTime() end
 
 ---@deprecated FueledEngine.getT50() is deprecated, use FueledEngine.getWarmupTime().
-function self.getT50() end
+function AtmosphericEngine.getT50() end
 
 ---@deprecated AtmosphericEngine.getDistance() is deprecated.
-function self.getDistance() end
+function AtmosphericEngine.getDistance() end
 
-return self
-end
 
 ---@class BaseShieldGenerator
-function BaseShieldGenerator()
-local self = {}
-
+BaseShieldGenerator = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function BaseShieldGenerator.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function BaseShieldGenerator.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function BaseShieldGenerator.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function BaseShieldGenerator.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function BaseShieldGenerator.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function BaseShieldGenerator.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function BaseShieldGenerator.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function BaseShieldGenerator.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function BaseShieldGenerator.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function BaseShieldGenerator.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function BaseShieldGenerator.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function BaseShieldGenerator.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function BaseShieldGenerator.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function BaseShieldGenerator.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function BaseShieldGenerator.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function BaseShieldGenerator.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function BaseShieldGenerator.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function BaseShieldGenerator.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function BaseShieldGenerator.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function BaseShieldGenerator.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function BaseShieldGenerator.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function BaseShieldGenerator.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function BaseShieldGenerator.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function BaseShieldGenerator.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function BaseShieldGenerator.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function BaseShieldGenerator.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function BaseShieldGenerator.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function BaseShieldGenerator.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function BaseShieldGenerator.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function BaseShieldGenerator.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -1377,7 +1355,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function BaseShieldGenerator.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -1386,7 +1364,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function BaseShieldGenerator.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -1395,35 +1373,35 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function BaseShieldGenerator.getSignalOut(plug) end
 
 --- Activate the shield
-function self.activate() end
+function BaseShieldGenerator.activate() end
 
 --- Deactivate the shield
-function self.deactivate() end
+function BaseShieldGenerator.deactivate() end
 
 --- Toggle the state of the shield
-function self.toggle() end
+function BaseShieldGenerator.toggle() end
 
 --- Returns the activation state of the shield
 ---@return integer 
-function self.isActive() end
+function BaseShieldGenerator.isActive() end
 
 ---@deprecated BaseShieldGenerator.getState() is deprecated, use BaseShieldGenerator.isActive() instead.
-function self.getState() end
+function BaseShieldGenerator.getState() end
 
 --- Returns the current hit points of the shield
 ---@return number 
-function self.getShieldHitpoints() end
+function BaseShieldGenerator.getShieldHitpoints() end
 
 --- Returns the maximal hit points of the shield
 ---@return number 
-function self.getMaxShieldHitpoints() end
+function BaseShieldGenerator.getMaxShieldHitpoints() end
 
 --- Returns distribution of resistance pool over resistance types
 ---@return table resistances Resistance to damage type {antimatter, electromagnetic, kinetic, thermic}
-function self.getResistances() end
+function BaseShieldGenerator.getResistances() end
 
 --- Distribute the resistance pool according to damage type
 ---@param antimatter number Antimatter damage resistance
@@ -1431,220 +1409,216 @@ function self.getResistances() end
 ---@param kinetic number Kinetic damage resistance
 ---@param thermic number Thermic damage resistance
 ---@return integer 
-function self.setResistances(antimatter, electromagnetic, kinetic, thermic) end
+function BaseShieldGenerator.setResistances(antimatter, electromagnetic, kinetic, thermic) end
 
 --- Returns time after which adjusting resistances is possible again
 ---@return number 
-function self.getResistancesCooldown() end
+function BaseShieldGenerator.getResistancesCooldown() end
 
 --- Returns maximal cooldown between adjusting resistances
 ---@return number 
-function self.getResistancesMaxCooldown() end
+function BaseShieldGenerator.getResistancesMaxCooldown() end
 
 --- Returns total resistance pool that may be distributed
 ---@return number 
-function self.getResistancesPool() end
+function BaseShieldGenerator.getResistancesPool() end
 
 --- Returns the remaining amount of the resistance pool that can be distributed
 ---@return number 
-function self.getResistancesRemaining() end
+function BaseShieldGenerator.getResistancesRemaining() end
 
 --- Returns ratio per damage type of recent weapon impacts after applying resistance
 ---@return table stress Stress ratio due to damage type {antimatter, electromagnetic, kinetic, thermic}
-function self.getStressRatio() end
+function BaseShieldGenerator.getStressRatio() end
 
 --- Returns ratio per damage type of recent weapon impacts without resistance
 ---@return table stress Stress ratio due to damage type {antimatter, electromagnetic, kinetic, thermic}
-function self.getStressRatioRaw() end
+function BaseShieldGenerator.getStressRatioRaw() end
 
 --- Returns stress, that is the total hit points of recent weapon impacts after applying resistance
 ---@return number 
-function self.getStressHitpoints() end
+function BaseShieldGenerator.getStressHitpoints() end
 
 --- Returns stress, that is the total hit points of recent weapon impacts without resistance
 ---@return number 
-function self.getStressHitpointsRaw() end
+function BaseShieldGenerator.getStressHitpointsRaw() end
 
 --- Returns whether the base shield is currently in lockdown
 ---@return integer 
-function self.inLockdown() end
+function BaseShieldGenerator.inLockdown() end
 
 --- Returns the remaining time of the base shield lockdown
 ---@return number 
-function self.getLockdownRemaining() end
+function BaseShieldGenerator.getLockdownRemaining() end
 
 --- Returns the hour since midnight of the preferred lockdown exit
 ---@return integer 
-function self.getLockdownExitTime() end
+function BaseShieldGenerator.getLockdownExitTime() end
 
 --- Set hour since midnight for the preferred lockdown exit
 ---@param hour integer Preferred lockdown exit hour UTC
 ---@return integer 
-function self.setLockdownExitTime(hour) end
+function BaseShieldGenerator.setLockdownExitTime(hour) end
 
 --- Emitted when we started or stopped the shield generator
 ---@param active integer 1 if the element was activated, 0 otherwise
 ---@type Event
-self.onToggled = Event:new()
+BaseShieldGenerator.onToggled = Event:new()
 
 ---@type Event
-self.toggled = Event:new()
+BaseShieldGenerator.toggled = Event:new()
 
 --- Emitted when the shield absorbed incoming damage
 ---@param hitpoints number Damage the shield absorbed
 ---@param rawHitpoints number Total damage without taking resistances into account
 ---@type Event
-self.onAbsorbed = Event:new()
+BaseShieldGenerator.onAbsorbed = Event:new()
 
 ---@type Event
-self.absorbed = Event:new()
+BaseShieldGenerator.absorbed = Event:new()
 
 --- Emitted when the shield hit points reached 0 due to damage
 ---@type Event
-self.onDown = Event:new()
+BaseShieldGenerator.onDown = Event:new()
 
 ---@type Event
-self.down = Event:new()
+BaseShieldGenerator.down = Event:new()
 
 --- Emitted when the shield hit points were fully restored
 ---@type Event
-self.onRestored = Event:new()
+BaseShieldGenerator.onRestored = Event:new()
 
 ---@type Event
-self.restored = Event:new()
+BaseShieldGenerator.restored = Event:new()
 
 --- Emitted when the shield enters lockdown
 ---@type Event
-self.onEnterLockdown = Event:new()
+BaseShieldGenerator.onEnterLockdown = Event:new()
 
 ---@type Event
-self.enterLockdown = Event:new()
+BaseShieldGenerator.enterLockdown = Event:new()
 
 --- Emitted when the shield exits the lockdown
 ---@type Event
-self.onLeaveLockdown = Event:new()
+BaseShieldGenerator.onLeaveLockdown = Event:new()
 
 ---@type Event
-self.leaveLockdown = Event:new()
+BaseShieldGenerator.leaveLockdown = Event:new()
 
-return self
-end
 
 ---@class BrakeEngine
-function BrakeEngine()
-local self = {}
-
+BrakeEngine = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function BrakeEngine.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function BrakeEngine.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function BrakeEngine.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function BrakeEngine.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function BrakeEngine.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function BrakeEngine.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function BrakeEngine.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function BrakeEngine.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function BrakeEngine.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function BrakeEngine.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function BrakeEngine.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function BrakeEngine.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function BrakeEngine.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function BrakeEngine.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function BrakeEngine.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function BrakeEngine.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function BrakeEngine.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function BrakeEngine.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function BrakeEngine.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function BrakeEngine.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function BrakeEngine.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function BrakeEngine.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function BrakeEngine.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function BrakeEngine.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function BrakeEngine.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function BrakeEngine.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function BrakeEngine.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function BrakeEngine.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function BrakeEngine.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function BrakeEngine.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -1653,7 +1627,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function BrakeEngine.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -1662,7 +1636,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function BrakeEngine.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -1671,202 +1645,198 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function BrakeEngine.getSignalOut(plug) end
 
 --- Returns the obstruction ratio of the engine exhaust by Elements and Voxels.
 --- The more obstructed the engine is, the less properly it will work. Try to fix your design if this is the case
 ---@return number 
-function self.getObstructionFactor() end
+function BrakeEngine.getObstructionFactor() end
 
 --- Returns the tags of the engine
 ---@return string 
-function self.getTags() end
+function BrakeEngine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
 ---@param ignore boolean: True to ignore the default engine tags
-function self.setTags(tags, ignore) end
+function BrakeEngine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
 ---@return integer 1 if the engine ignores default engine tags
-function self.isIgnoringTags() end
+function BrakeEngine.isIgnoringTags() end
 
 --- Start the brake at full power (works only when run inside a cockpit or under remote control)
-function self.activate() end
+function BrakeEngine.activate() end
 
 --- Stops the brake (works only when run inside a cockpit or under remote control)
-function self.deactivate() end
+function BrakeEngine.deactivate() end
 
 --- Checks if the brake is active
 ---@return integer 
-function self.isActive() end
+function BrakeEngine.isActive() end
 
 ---@deprecated BrakeEngine.getState() is deprecated, use BrakeEngine.isActive().
-function self.getState() end
+function BrakeEngine.getState() end
 
 --- Toggle the state of the brake
-function self.toggle() end
+function BrakeEngine.toggle() end
 
 --- Set the thrust of the brake. Note that brakes can generate a force only in the movement opposite direction
 ---@param thrust number The brake thrust in newtons (limited by the maximum thrust)
-function self.setThrust(thrust) end
+function BrakeEngine.setThrust(thrust) end
 
 --- Returns the current thrust of the brake
 ---@return number 
-function self.getThrust() end
+function BrakeEngine.getThrust() end
 
 ---@deprecated BrakeEngine.getMaxThrust() is deprecated, use BrakeEngine.getCurrentMaxThrust().
 ---@deprecated @diagnostic disable-next-line
-function self.getMaxThrust() end
+function BrakeEngine.getMaxThrust() end
 
 ---@deprecated BrakeEngine.getMaxThrustBase() is deprecated, use BrakeEngine.getMaxThrust().
-function self.getMaxThrustBase() end
+function BrakeEngine.getMaxThrustBase() end
 
 --- Returns the minimal thrust the brake can deliver at the moment (can be more than zero),
 --- which will depend on various conditions like atmospheric density, obstruction, orientation, etc
 --- Most of the time, this will be 0 but it can be greater than 0, particularly for Ailerons, in which case
 --- the actual thrust will be at least equal to minThrust
 ---@return number 
-function self.getCurrentMinThrust() end
+function BrakeEngine.getCurrentMinThrust() end
 
 ---@deprecated BrakeEngine.getMinThrust() is deprecated, use BrakeEngine.getCurrentMinThrust().
-function self.getMinThrust() end
+function BrakeEngine.getMinThrust() end
 
 --- Returns the maximal thrust the brake can deliver at the moment, which might depend on
 --- various conditions like atmospheric density, obstruction, orientation, etc. The actual thrust will be
 --- anything below this maxThrust, which defines the current max capability of the brake
 ---@return number 
-function self.getCurrentMaxThrust() end
+function BrakeEngine.getCurrentMaxThrust() end
 
 --- Returns the ratio between the current maximum thrust and the optimal maximum thrust
 ---@return number 
-function self.getMaxThrustEfficiency() end
+function BrakeEngine.getMaxThrustEfficiency() end
 
 --- Returns the brake thrust direction in construct local coordinates
 ---@return table 
-function self.getThrustAxis() end
+function BrakeEngine.getThrustAxis() end
 
 --- Returns the brake thrust direction in world coordinates
 ---@return table 
-function self.getWorldThrustAxis() end
+function BrakeEngine.getWorldThrustAxis() end
 
 ---@deprecated BrakeEngine.thrustAxis() is deprecated, use BrakeEngine.getWorldThrustAxis().
-function self.thrustAxis() end
+function BrakeEngine.thrustAxis() end
 
 ---@deprecated BrakeEngine.isOutOfFuel() is deprecated.
-function self.isOutOfFuel() end
+function BrakeEngine.isOutOfFuel() end
 
 ---@deprecated BrakeEngine.hasFunctionalFuelTank() is deprecated.
-function self.hasFunctionalFuelTank() end
+function BrakeEngine.hasFunctionalFuelTank() end
 
 ---@deprecated BrakeEngine.getCurrentFuelRate() is deprecated.
-function self.getCurrentFuelRate() end
+function BrakeEngine.getCurrentFuelRate() end
 
 ---@deprecated BrakeEngine.getFuelRateEfficiency() is deprecated.
-function self.getFuelRateEfficiency() end
+function BrakeEngine.getFuelRateEfficiency() end
 
 ---@deprecated BrakeEngine.getFuelConsumption() is deprecated.
-function self.getFuelConsumption() end
+function BrakeEngine.getFuelConsumption() end
 
 ---@deprecated BrakeEngine.getDistance() is deprecated.
-function self.getDistance() end
+function BrakeEngine.getDistance() end
 
 ---@deprecated BrakeEngine.getT50() is deprecated.
-function self.getT50() end
+function BrakeEngine.getT50() end
 
 ---@deprecated BrakeEngine.torqueAxis() is deprecated.
-function self.torqueAxis() end
+function BrakeEngine.torqueAxis() end
 
-return self
-end
 
 ---@class Construct
-function Construct()
-local self = {}
-
+Construct = {}
 --- Returns the name of the construct
 ---@return string 
-function self.getName() end
+function Construct.getName() end
 
 --- Returns the construct unique ID
 ---@return integer 
-function self.getId() end
+function Construct.getId() end
 
 --- Returns the owner entity
 ---@return table entity The owner entity table with fields {[int] id, [bool] isOrganization} describing the owner. Use system.getPlayerName(id) and system.getOrganization(id) to retrieve info about it
-function self.getOwner() end
+function Construct.getOwner() end
 
 --- Returns the creator entity
 ---@return integer entity The owner entity table with fields {[int] id, [bool] isOrganization} describing the owner. Use system.getPlayerName(id) and system.getOrganization(id) to retrieve info about it
-function self.getCreator() end
+function Construct.getCreator() end
 
 --- Checks if the construct is currently warping
 ---@return integer 
-function self.isWarping() end
+function Construct.isWarping() end
 
 --- Returns the current warp state
 ---@return integer state The current warp state index (Idle = 1, Engage = 2, Align = 3, Spool = 4, Accelerate = 5, Cruise = 6, Decelerate = 7, Stopping = 8, Disengage = 9)
-function self.getWarpState() end
+function Construct.getWarpState() end
 
 --- Checks if the construct is in PvP zone
 ---@return integer 
-function self.isInPvPZone() end
+function Construct.isInPvPZone() end
 
 --- Returns the distance between the construct and the nearest safe zone
 ---@return number distance The distance to the nearest safe zone border in meters. Positive value if the construct is outside of any safe zone
-function self.getDistanceToSafeZone() end
+function Construct.getDistanceToSafeZone() end
 
 --- Returns the current construct PvP timer state
 ---@return number time The remaining time of the PvP timer, or 0.0 if elapsed
-function self.getPvPTimer() end
+function Construct.getPvPTimer() end
 
 --- Returns the mass of the construct
 ---@return number 
-function self.getMass() end
+function Construct.getMass() end
 
 --- Returns the inertial mass of the construct, calculated as 1/3 of the trace of the inertial tensor
 ---@return number 
-function self.getInertialMass() end
+function Construct.getInertialMass() end
 
 --- Returns the inertial tensor of the construct
 ---@return table 
-function self.getInertialTensor() end
+function Construct.getInertialTensor() end
 
 --- Returns the position of the center of mass of the construct, in local construct coordinates
 ---@return table 
-function self.getCenterOfMass() end
+function Construct.getCenterOfMass() end
 
 --- Returns the position of the center of mass of the construct, in world coordinates
 ---@return table 
-function self.getWorldCenterOfMass() end
+function Construct.getWorldCenterOfMass() end
 
 --- Returns the construct's cross sectional surface in the current direction of movement
 ---@return number value The construct's surface exposed in the current direction of movement in meters square
-function self.getCrossSection() end
+function Construct.getCrossSection() end
 
 --- Returns the size of the building zone of the construct
 ---@return table 
-function self.getSize() end
+function Construct.getSize() end
 
 --- Returns the size of the bounding box of the construct
 ---@return table 
-function self.getBoundingBoxSize() end
+function Construct.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the construct in local construct coordinates
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Construct.getBoundingBoxCenter() end
 
 --- Returns the max speed along current moving direction
 ---@return number value The max speed along current moving direction in m/s
-function self.getMaxSpeed() end
+function Construct.getMaxSpeed() end
 
 --- Returns the max angular speed
 ---@return number value The max angular speed in rad/s
-function self.getMaxAngularSpeed() end
+function Construct.getMaxAngularSpeed() end
 
 --- Returns the max speed per axis
 ---@return table value The max speed along axes {x, -x, y, -y, z, -z} in m/s
-function self.getMaxSpeedPerAxis() end
+function Construct.getMaxSpeedPerAxis() end
 
 --- Returns the construct max kinematics parameters in both atmo and space range, in newtons. Kinematics
 --- parameters designate here the maximal positive and negative base force the construct is capable of producing along the chosen
@@ -1879,391 +1849,387 @@ function self.getMaxSpeedPerAxis() end
 ---@param taglist string Comma (for union) or space (for intersection) separated list of tags. You can set tags directly on the engines in the right-click menu
 ---@param CRefAxis table Axis along which to compute the max force (in construct reference)
 ---@return table value The kinematics parameters in Newtons in the order: atmoRange.FMaxPlus, atmoRange.FMaxMinus, spaceRange.FMaxPlus, spaceRange.FMaxMinus
-function self.getMaxThrustAlongAxis(taglist, CRefAxis) end
+function Construct.getMaxThrustAlongAxis(taglist, CRefAxis) end
 
 --- Returns the current braking force generated by construct brakes
 ---@return number value The current braking force in Newtons
-function self.getCurrentBrake() end
+function Construct.getCurrentBrake() end
 
 --- Returns the maximum braking force that can currently be generated by the construct brakes
 ---@return number value The maximum braking force in Newtons
-function self.getMaxBrake() end
+function Construct.getMaxBrake() end
 
 --- Returns the world position of the construct
 ---@return table value The xyz world coordinates of the construct center position in meters
-function self.getWorldPosition() end
+function Construct.getWorldPosition() end
 
 --- The construct's linear velocity, relative to its parent, in construct local coordinates
 ---@return table value Relative linear velocity vector, in construct local coordinates in m/s
-function self.getVelocity() end
+function Construct.getVelocity() end
 
 --- The construct's linear velocity, relative to its parent, in world coordinates
 ---@return table value Relative linear velocity vector, in world coordinates in m/s
-function self.getWorldVelocity() end
+function Construct.getWorldVelocity() end
 
 --- The construct's absolute linear velocity, in construct local coordinates
 ---@return table value Absolute linear velocity vector, in construct local coordinates in m/s
-function self.getAbsoluteVelocity() end
+function Construct.getAbsoluteVelocity() end
 
 --- The construct's absolute linear velocity, in world coordinates
 ---@return table value Absolute linear velocity vector, in world coordinates in m/s
-function self.getWorldAbsoluteVelocity() end
+function Construct.getWorldAbsoluteVelocity() end
 
 --- The construct's linear acceleration, in construct local coordinates
 ---@return table value Linear acceleration vector, in construct local coordinates in m/s2
-function self.getAcceleration() end
+function Construct.getAcceleration() end
 
 --- The construct's linear acceleration, in world coordinates
 ---@return table value Linear acceleration vector, in world coordinates in m/s2
-function self.getWorldAcceleration() end
+function Construct.getWorldAcceleration() end
 
 --- The construct's angular velocity, in construct local coordinates
 ---@return table value Angular velocity vector, in construct local coordinates in rad/s
-function self.getAngularVelocity() end
+function Construct.getAngularVelocity() end
 
 --- The construct's angular velocity, in world coordinates
 ---@return table value Angular velocity vector, in world coordinates in rad/s
-function self.getWorldAngularVelocity() end
+function Construct.getWorldAngularVelocity() end
 
 --- The construct's angular acceleration, in construct local coordinates
 ---@return table value Angular acceleration vector, in construct local coordinates in rad/s2
-function self.getAngularAcceleration() end
+function Construct.getAngularAcceleration() end
 
 --- The construct's angular acceleration, in world coordinates
 ---@return table value Angular acceleration vector, in world coordinates in rad/s2
-function self.getWorldAngularAcceleration() end
+function Construct.getWorldAngularAcceleration() end
 
 --- Returns the acceleration generated by air resistance
 ---@return table value The xyz world acceleration generated by air resistance
-function self.getWorldAirFrictionAcceleration() end
+function Construct.getWorldAirFrictionAcceleration() end
 
 --- Returns the acceleration torque generated by air resistance
 ---@return table value The xyz world acceleration torque generated by air resistance
-function self.getWorldAirFrictionAngularAcceleration() end
+function Construct.getWorldAirFrictionAngularAcceleration() end
 
 --- Returns the speed at which your construct will suffer damage due to friction with the air
 ---@return number value The construct speed to get damages due to friction in m/s
-function self.getFrictionBurnSpeed() end
+function Construct.getFrictionBurnSpeed() end
 
 --- Returns the forward vector of the construct coordinates system
 ---@return table value The forward vector of the construct coordinates system. It's a static value equal to (0,1,0)
-function self.getForward() end
+function Construct.getForward() end
 
 --- Returns the right vector of the construct coordinates system
 ---@return table value The right vector of the construct coordinates system. It's a static value equal to (1,0,0)
-function self.getRight() end
+function Construct.getRight() end
 
 --- Returns the up direction vector of the construct coordinates system
 ---@return table value The up vector of the construct coordinates system.. It's a static value equal to (0,0,1)
-function self.getUp() end
+function Construct.getUp() end
 
 --- Returns the forward direction vector of the construct, in world coordinates
 ---@return table value The forward direction vector of the construct, in world coordinates
-function self.getWorldForward() end
+function Construct.getWorldForward() end
 
 --- Returns the right direction vector of the construct, in world coordinates
 ---@return table value The right direction vector of the construct, in world coordinates
-function self.getWorldRight() end
+function Construct.getWorldRight() end
 
 --- Returns the up direction vector of the construct, in world coordinates
 ---@return table value The up direction vector of the construct, in world coordinates
-function self.getWorldUp() end
+function Construct.getWorldUp() end
 
 --- Returns the local id of the current active orientation unit (core unit or gyro unit)
 ---@return integer value local id of the current active orientation unit (core unit or gyro unit)
-function self.getOrientationUnitId() end
+function Construct.getOrientationUnitId() end
 
 --- Returns the forward direction vector of the active orientation unit, in construct local coordinates
 ---@return table value Forward direction vector of the active orientation unit, in construct local coordinates
-function self.getOrientationForward() end
+function Construct.getOrientationForward() end
 
 --- Returns the right direction vector of the active orientation unit, in construct local coordinates
 ---@return table value Right direction vector of the active orientation unit, in construct local coordinates
-function self.getOrientationRight() end
+function Construct.getOrientationRight() end
 
 --- Returns the up direction vector of the active orientation unit, in construct local coordinates
 ---@return table value Up direction vector of the active orientation unit, in construct local coordinates
-function self.getOrientationUp() end
+function Construct.getOrientationUp() end
 
 --- Returns the forward direction vector of the active orientation unit, in world coordinates
 ---@return table value Forward direction vector of the active orientation unit, in world coordinates
-function self.getWorldOrientationForward() end
+function Construct.getWorldOrientationForward() end
 
 --- Returns the right direction vector of the active orientation unit, in world coordinates
 ---@return table value Right direction vector of the active orientation unit, in world coordinates
-function self.getWorldOrientationRight() end
+function Construct.getWorldOrientationRight() end
 
 --- Returns the up direction vector of the active orientation unit, in world coordinates
 ---@return table value Up direction vector of the active orientation unit, in world coordinates
-function self.getWorldOrientationUp() end
+function Construct.getWorldOrientationUp() end
 
 --- Returns the id of the parent construct of our active construct
 ---@return integer 
-function self.getParent() end
+function Construct.getParent() end
 
 --- Returns the id of the nearest constructs, on which the construct can dock
 ---@return integer 
-function self.getClosestParent() end
+function Construct.getClosestParent() end
 
 --- Returns the list of ids of nearby constructs, on which the construct can dock
 ---@return table 
-function self.getCloseParents() end
+function Construct.getCloseParents() end
 
 --- Returns the position of the construct's parent when docked in local coordinates
 ---@return table value The position of the construct's parent in local coordinates
-function self.getParentPosition() end
+function Construct.getParentPosition() end
 
 --- Returns the position of the construct's parent when docked in world coordinates
 ---@return table value The position of the construct's parent in world coordinates
-function self.getParentWorldPosition() end
+function Construct.getParentWorldPosition() end
 
 --- Returns the construct's parent forward direction vector, in local coordinates
 ---@return table value The construct's parent forward direction vector, in local coordinates
-function self.getParentForward() end
+function Construct.getParentForward() end
 
 --- Returns the construct's parent right direction vector, in construct local coordinates
 ---@return table value The construct's parent right direction vector, in construct local coordinates
-function self.getParentRight() end
+function Construct.getParentRight() end
 
 --- Returns the construct's parent up direction vector, in construct local coordinates
 ---@return table value The construct's parent up direction vector, in construct local coordinates
-function self.getParentUp() end
+function Construct.getParentUp() end
 
 --- Returns the construct's parent forward direction vector, in world coordinates
 ---@return table value The construct's parent forward direction vector, in world coordinates
-function self.getParentWorldForward() end
+function Construct.getParentWorldForward() end
 
 --- Returns the construct's parent right direction vector, in world coordinates
 ---@return table value The construct's parent right direction vector, in world coordinates
-function self.getParentWorldRight() end
+function Construct.getParentWorldRight() end
 
 --- Returns the construct's parent up direction vector, in world coordinates
 ---@return table value The construct's parent up direction vector, in world coordinates
-function self.getParentWorldUp() end
+function Construct.getParentWorldUp() end
 
 --- Returns the list of player IDs on board the construct
 ---@return table 
-function self.getPlayersOnBoard() end
+function Construct.getPlayersOnBoard() end
 
 --- Returns the list of player ids on board the construct inside a VR Station
 ---@return table 
-function self.getPlayersOnBoardInVRStation() end
+function Construct.getPlayersOnBoardInVRStation() end
 
 --- Checks if the given player is on board in the construct
 ---@param id integer The player id
 ---@return integer 
-function self.isPlayerBoarded(id) end
+function Construct.isPlayerBoarded(id) end
 
 --- Returns 1 if the given player is boarded to the construct inside a VR Station
 ---@param id integer The player id
 ---@return integer 
-function self.isPlayerBoardedInVRStation(id) end
+function Construct.isPlayerBoardedInVRStation(id) end
 
 --- Returns the mass of the given player or surrogate if it is on board the construct
 ---@param id integer The player id
 ---@return number 
-function self.getBoardedPlayerMass(id) end
+function Construct.getBoardedPlayerMass(id) end
 
 --- Returns the mass of the given player if in VR station on board the construct
 ---@param id integer The player id
 ---@return number 
-function self.getBoardedInVRStationAvatarMass(id) end
+function Construct.getBoardedInVRStationAvatarMass(id) end
 
 --- Returns the list of IDs of constructs docked to the construct
 ---@return table 
-function self.getDockedConstructs() end
+function Construct.getDockedConstructs() end
 
 --- Checks if the given construct is docked to the construct
 ---@param id integer The construct id
 ---@return integer 
-function self.isConstructDocked(id) end
+function Construct.isConstructDocked(id) end
 
 --- Returns the mass of the given construct if it is docked to the construct
 ---@param id integer The construct id
 ---@return number 
-function self.getDockedConstructMass(id) end
+function Construct.getDockedConstructMass(id) end
 
 --- Sets the docking mode
 ---@param mode integer The docking mode (Manual = 0, Automatic = 1, Semi-automatic = 2)
 ---@return integer 
-function self.setDockingMode(mode) end
+function Construct.setDockingMode(mode) end
 
 --- Returns the current docking mode
 ---@return integer mode The docking mode (Manual = 0, Automatic = 1, Semi-automatic = 2)
-function self.getDockingMode() end
+function Construct.getDockingMode() end
 
 --- Sends a request to dock to the given construct. Limited to piloting controllers
 ---@param id integer The parent construct id
 ---@return integer 
-function self.dock(id) end
+function Construct.dock(id) end
 
 --- Sends a request to undock the construct. Limited to piloting controllers
 ---@return integer 
-function self.undock() end
+function Construct.undock() end
 
 --- Sends a request to deboard a player or surrogate with the given id
 ---@param id integer The player id
 ---@return integer 
-function self.forceDeboard(id) end
+function Construct.forceDeboard(id) end
 
 --- Sends a request to undock a construct with the given id
 ---@param id integer The construct id
 ---@return integer 
-function self.forceUndock(id) end
+function Construct.forceUndock(id) end
 
 --- Sends a request to interrupt the surrogate session of a player with the given id
 ---@param id integer The player id
 ---@return integer 
-function self.forceInterruptVRSession(id) end
+function Construct.forceInterruptVRSession(id) end
 
 --- Emitted when the construct becomes docked
 ---@param id integer The parent id
 ---@type Event
-self.onDocked = Event:new()
+Construct.onDocked = Event:new()
 
 --- Emitted when the construct is undocked
 ---@param id integer The previous parent id
 ---@type Event
-self.onUndocked = Event:new()
+Construct.onUndocked = Event:new()
 
 --- Emitted when a player or surrogate boards the construct
 ---@param id integer The id of the boarding player
 ---@type Event
-self.onPlayerBoarded = Event:new()
+Construct.onPlayerBoarded = Event:new()
 
 --- Emitted when a player enters a VR Station
 ---@param id integer The id of the boarding player
 ---@type Event
-self.onVRStationEntered = Event:new()
+Construct.onVRStationEntered = Event:new()
 
 --- Emitted when another construct docks this construct
 ---@param id integer The id of the docking construct
 ---@type Event
-self.onConstructDocked = Event:new()
+Construct.onConstructDocked = Event:new()
 
 --- Emitted when the PvP timer started or elapsed
 ---@param active boolean 1 if the timer started, false when the timer elapsed
 ---@type Event
-self.onPvPTimer = Event:new()
+Construct.onPvPTimer = Event:new()
 
-return self
-end
 
 ---@class Container
-function Container()
-local self = {}
-
+Container = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Container.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Container.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Container.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Container.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Container.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Container.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Container.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Container.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Container.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Container.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Container.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Container.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Container.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Container.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Container.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Container.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Container.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Container.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Container.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Container.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Container.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Container.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Container.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Container.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Container.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Container.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Container.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Container.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Container.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Container.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -2272,7 +2238,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Container.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -2281,7 +2247,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Container.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -2290,164 +2256,160 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Container.getSignalOut(plug) end
 
 --- Returns the mass of the container element(as if it were empty).
 ---@return number 
-function self.getSelfMass() end
+function Container.getSelfMass() end
 
 --- Returns the container content mass(the sum of the mass of all items it contains).
 ---@return number 
-function self.getItemsMass() end
+function Container.getItemsMass() end
 
 --- Returns the container content volume(the sum of the volume of all items it contains).
 ---@return number 
-function self.getItemsVolume() end
+function Container.getItemsVolume() end
 
 --- Returns the maximum volume of the container.
 ---@return number 
-function self.getMaxVolume() end
+function Container.getMaxVolume() end
 
 --- Returns a table describing the contents of the container, as a pair itemId and quantity per slot.
 ---@return table content The content of the container as a table with fields {[int] id, [float] quantity} per slot
-function self.getContent() end
+function Container.getContent() end
 
 ---@deprecated Container.getItemsList() is deprecated, use Container.getContent() instead.
-function self.getItemsList() end
+function Container.getItemsList() end
 
 --- Send a request to get an update of the content of the container, limited to one call allowed per 30 seconds.
 --- The onContentUpdate event is emitted by the container when the content is updated.
 ---@return number time If the request is not yet possible, returns the remaining time to wait for.
-function self.updateContent() end
+function Container.updateContent() end
 
 ---@deprecated Container.acquireStorage() is deprecated, use Container.updateContent() instead.
-function self.acquireStorage() end
+function Container.acquireStorage() end
 
 --- Emitted when the container content is updated(storage update or after a manual request made with updateContent())
 ---@type Event
-self.onContentUpdate = Event:new()
+Container.onContentUpdate = Event:new()
 
 ---@type Event
-self.storageAcquired = Event:new()
+Container.storageAcquired = Event:new()
 
-return self
-end
 
 ---@class ControlUnit
-function ControlUnit()
-local self = {}
-
+ControlUnit = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function ControlUnit.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function ControlUnit.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function ControlUnit.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function ControlUnit.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function ControlUnit.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function ControlUnit.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function ControlUnit.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function ControlUnit.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function ControlUnit.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function ControlUnit.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function ControlUnit.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function ControlUnit.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function ControlUnit.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function ControlUnit.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function ControlUnit.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function ControlUnit.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function ControlUnit.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function ControlUnit.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function ControlUnit.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function ControlUnit.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function ControlUnit.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function ControlUnit.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function ControlUnit.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function ControlUnit.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function ControlUnit.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function ControlUnit.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function ControlUnit.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function ControlUnit.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function ControlUnit.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function ControlUnit.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -2456,7 +2418,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function ControlUnit.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -2465,7 +2427,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function ControlUnit.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -2474,80 +2436,80 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function ControlUnit.getSignalOut(plug) end
 
 --- Stops the Control Unit's Lua code and exits. Warning: calling this might cause your ship to fall from the sky,
 --- use it with care. It is typically used in the coding of emergency Control Unit scripts to stop control once the ECU
 --- thinks that the ship has safely landed.
-function self.exit() end
+function ControlUnit.exit() end
 
 ---@deprecated ControlUnit.getMasterPlayerId() is deprecated, use player.getId() instead.
-function self.getMasterPlayerId() end
+function ControlUnit.getMasterPlayerId() end
 
 ---@deprecated ControlUnit.getMasterPlayerOrgIds() is deprecated, use player.getOrgIds() instead.
-function self.getMasterPlayerOrgIds() end
+function ControlUnit.getMasterPlayerOrgIds() end
 
 ---@deprecated ControlUnit.getMasterPlayerPosition() is deprecated, use player.getPosition() instead.
-function self.getMasterPlayerPosition() end
+function ControlUnit.getMasterPlayerPosition() end
 
 ---@deprecated ControlUnit.getMasterPlayerWorldPosition() is deprecated, use player.getWorldPosition() instead.
-function self.getMasterPlayerWorldPosition() end
+function ControlUnit.getMasterPlayerWorldPosition() end
 
 ---@deprecated ControlUnit.getMasterPlayerForward() is deprecated, use player.getForward() instead.
-function self.getMasterPlayerForward() end
+function ControlUnit.getMasterPlayerForward() end
 
 ---@deprecated ControlUnit.getMasterPlayerUp() is deprecated, use player.getUp() instead.
-function self.getMasterPlayerUp() end
+function ControlUnit.getMasterPlayerUp() end
 
 ---@deprecated ControlUnit.getMasterPlayerRight() is deprecated, use player.getRight() instead.
-function self.getMasterPlayerRight() end
+function ControlUnit.getMasterPlayerRight() end
 
 ---@deprecated ControlUnit.getMasterPlayerWorldForward() is deprecated, use player.getWorldForward() instead.
-function self.getMasterPlayerWorldForward() end
+function ControlUnit.getMasterPlayerWorldForward() end
 
 ---@deprecated ControlUnit.getMasterPlayerWorldUp() is deprecated, use player.getWorldUp() instead.
-function self.getMasterPlayerWorldUp() end
+function ControlUnit.getMasterPlayerWorldUp() end
 
 ---@deprecated ControlUnit.getMasterPlayerWorldRight() is deprecated, use player.getWorldRight() instead.
-function self.getMasterPlayerWorldRight() end
+function ControlUnit.getMasterPlayerWorldRight() end
 
 ---@deprecated ControlUnit.isMasterPlayerSeated() is deprecated, use player.isSeated() instead.
-function self.isMasterPlayerSeated() end
+function ControlUnit.isMasterPlayerSeated() end
 
 ---@deprecated ControlUnit.getMasterPlayerSeatId() is deprecated, use player.getSeatId() instead.
-function self.getMasterPlayerSeatId() end
+function ControlUnit.getMasterPlayerSeatId() end
 
 ---@deprecated ControlUnit.getMasterPlayerParent() is deprecated, use player.getParent() instead.
-function self.getMasterPlayerParent() end
+function ControlUnit.getMasterPlayerParent() end
 
 ---@deprecated ControlUnit.getMasterPlayerMass() is deprecated, use player.getMass() instead.
-function self.getMasterPlayerMass() end
+function ControlUnit.getMasterPlayerMass() end
 
 --- Set up a timer with a given tag in a given period. This will start to trigger the 'onTimer' event with
 --- the corresponding tag as an argument, to help you identify what is ticking, and when.
 ---@param tag string The tag of the timer, as a string, which will be used in the 'onTimer' event to identify this particular timer
 ---@param period number The period of the timer, in seconds. The time resolution is limited by the framerate here, so you cannot set arbitrarily fast timers
-function self.setTimer(tag, period) end
+function ControlUnit.setTimer(tag, period) end
 
 --- Stop the timer with the given tag
 ---@param tag string The tag of the timer to stop, as a string
-function self.stopTimer(tag) end
+function ControlUnit.stopTimer(tag) end
 
 --- Returns the ambient atmospheric density
 ---@return number density The atmospheric density(between 0 and 1)
-function self.getAtmosphereDensity() end
+function ControlUnit.getAtmosphereDensity() end
 
 --- Returns the influence rate of the nearest planet
 ---@return number rate The planet influence rate(between 0 and 1)
-function self.getClosestPlanetInfluence() end
+function ControlUnit.getClosestPlanetInfluence() end
 
 --- Checks if the control unit is protected by DRM
 ---@return integer 
-function self.hasDRM() end
+function ControlUnit.hasDRM() end
 
 --- Check if the construct is remote controlled
 ---@return integer 
-function self.isRemoteControlled() end
+function ControlUnit.isRemoteControlled() end
 
 --- Automatically assign the engines within the taglist
 --- to result in the given acceleration and angular acceleration provided. Can only be called within the system.onFlush event
@@ -2564,31 +2526,31 @@ function self.isRemoteControlled() end
 ---@param priority2SubTags string Comma (for union) or space (for intersection) separated list of tags of included engines to use as priority 2
 ---@param priority3SubTags string Comma (for union) or space (for intersection) separated list of tags of included engines to use as priority 3
 ---@param toleranceRatioToStopCommand number When going through with priorities, if we reach a command that is achieved within this tolerance, we will stop there
-function self.setEngineCommand(taglist, acceleration, angularAcceleration, keepForceCollinearity, keepTorqueCollinearity, priority1SubTags, priority2SubTags, priority3SubTags, toleranceRatioToStopCommand) end
+function ControlUnit.setEngineCommand(taglist, acceleration, angularAcceleration, keepForceCollinearity, keepTorqueCollinearity, priority1SubTags, priority2SubTags, priority3SubTags, toleranceRatioToStopCommand) end
 
 --- Sets the thrust values for all engines in the tag list
 --- This function must be used on a piloting controller
 ---@param taglist string Comma separated list of tags. You can set tags directly on the engines in the right-click menu
 ---@param thrust number The desired thrust in newtons (note that for boosters, any non zero value here will set them to 100%)
-function self.setEngineThrust(taglist, thrust) end
+function ControlUnit.setEngineThrust(taglist, thrust) end
 
 --- Returns the total thrust values of all engines in the tag list
 --- This function must be used on a piloting controller
 ---@param taglist string Comma separated list of tags. You can set tags directly on the engines in the right-click menu
 ---@return table The total thrust in newtons
-function self.getEngineThrust(taglist) end
+function ControlUnit.getEngineThrust(taglist) end
 
 --- Set the value of throttle in the cockpit, which will be displayed in the cockpit widget when flying
 --- This function must be used on a piloting controller
 ---@param axis integer Longitudinal = 0, lateral = 1, vertical = 2
 ---@param commandValue number In 'by throttle', the value of the throttle position: -1 = full reverse, 1 = full forward. Or In 'By Target Speed', the value of the target speed in km/h
-function self.setAxisCommandValue(axis, commandValue) end
+function ControlUnit.setAxisCommandValue(axis, commandValue) end
 
 --- Get the value of throttle in the cockpit
 --- This function must be used on a piloting controller
 ---@param axis integer Longitudinal = 0, lateral = 1, vertical = 2
 ---@return number value In travel mode, return the value of the throttle position: -1 = full reverse, 1 = full forward or in cruise mode, return the value of the target speed
-function self.getAxisCommandValue(axis) end
+function ControlUnit.getAxisCommandValue(axis) end
 
 --- Set the properties of an axis command
 --- This function must be used on a piloting controller
@@ -2596,223 +2558,219 @@ function self.getAxisCommandValue(axis) end
 ---@param axis integer Longitudinal = 0, lateral = 1, vertical = 2
 ---@param commandType integer By throttle = 0, by target speed = 1, hidden = 2
 ---@param targetSpeedRanges table This is to specify the cruise control target speed ranges (for now, only for the longitudinal axis) in m/s
-function self.setupAxisCommandProperties(axis, commandType, targetSpeedRanges) end
+function ControlUnit.setupAxisCommandProperties(axis, commandType, targetSpeedRanges) end
 
 --- Returns the current control mode. The mode is set by clicking the UI button or using the associated keybinding
 --- This function must be used on a piloting controller
 ---@return integer The current control mode (for now, only 2 are available, 0 and 1)
-function self.getControlMode() end
+function ControlUnit.getControlMode() end
 
 ---@deprecated ControlUnit.getControlMasterModeId() is deprecated, use ControlUnit.getControlMode() instead.
-function self.getControlMasterModeId() end
+function ControlUnit.getControlMasterModeId() end
 
 --- Cancel the current master mode in use
 --- This function must be used on a piloting controller
-function self.cancelCurrentControlMasterMode() end
+function ControlUnit.cancelCurrentControlMasterMode() end
 
 --- Check if a mouse control scheme is selected
 --- This function must be used on a piloting controller
 ---@return integer 
-function self.isMouseControlActivated() end
+function ControlUnit.isMouseControlActivated() end
 
 --- Check if the mouse control direct scheme is selected
 --- This function must be used on a piloting controller
 ---@return integer 
-function self.isMouseDirectControlActivated() end
+function ControlUnit.isMouseDirectControlActivated() end
 
 --- Check if the mouse control virtual joystick scheme is selected
 --- This function must be used on a piloting controller
 ---@return integer 
-function self.isMouseVirtualJoystickActivated() end
+function ControlUnit.isMouseVirtualJoystickActivated() end
 
 --- The ground engines will stabilize to this altitude within their limits
 --- The stabilization will be done by adjusting thrust to never go over the target altitude
 --- This includes VerticalBooster and HoverEngine
 --- This function must be used on a piloting controller
 ---@param targetAltitude number The stabilization target altitude in m
-function self.activateGroundEngineAltitudeStabilization(targetAltitude) end
+function ControlUnit.activateGroundEngineAltitudeStabilization(targetAltitude) end
 
 --- Return the ground engines' stabilization altitude
 --- This function must be used on a piloting controller
 ---@return number Stab altitude in m or 0 if none is set
-function self.getSurfaceEngineAltitudeStabilization() end
+function ControlUnit.getSurfaceEngineAltitudeStabilization() end
 
 --- The ground engines will behave like regular engine
 --- This includes VerticalBooster and HoverEngine
 --- This function must be used on a piloting controller
-function self.deactivateGroundEngineAltitudeStabilization() end
+function ControlUnit.deactivateGroundEngineAltitudeStabilization() end
 
 --- Returns ground engine stabilization altitude capabilities (lower and upper ranges)
 --- This function must be used on a piloting controller
 ---@return table range Stabilization altitude capabilities for the least powerful engine and the most powerful engine
-function self.computeGroundEngineAltitudeStabilizationCapabilities() end
+function ControlUnit.computeGroundEngineAltitudeStabilizationCapabilities() end
 
 --- Return the current throttle value
 --- This function must be used on a piloting controller
 ---@return number value Throttle value between -100 and 100
-function self.getThrottle() end
+function ControlUnit.getThrottle() end
 
 --- Set the label of a control mode buttons shown in the control unit widget
 --- This function must be used on a piloting controller
 ---@param modeId integer The control mode: 0=Travel Mode, 1=Cruise Control by default
 ---@param label string The display name of the control mode, displayed on the widget button
-function self.setWidgetControlModeLabel(modeId, label) end
+function ControlUnit.setWidgetControlModeLabel(modeId, label) end
 
 ---@deprecated ControlUnit.setupControlMasterModeProperties() is deprecated, use ControlUnit.setWidgetControlModeLabel() instead.
-function self.setupControlMasterModeProperties() end
+function ControlUnit.setupControlMasterModeProperties() end
 
 --- Checks if any landing gear is deployed
 ---@return 0 or 1 1 if any landing gear is deployed
-function self.isAnyLandingGearDeployed() end
+function ControlUnit.isAnyLandingGearDeployed() end
 
 ---@deprecated ControlUnit.isAnyLandingGearDeployed() is deprecated, use ControlUnit.isAnyLandingGearExtended() instead.
-function self.isAnyLandingGearExtended() end
+function ControlUnit.isAnyLandingGearExtended() end
 
 --- Deploy a end
-function self.deployLandingGears() end
+function ControlUnit.deployLandingGears() end
 
 ---@deprecated ControlUnit.extendLandingGears() is deprecated, use ControlUnit.deployLandingGears() instead.
-function self.extendLandingGears() end
+function ControlUnit.extendLandingGears() end
 
 --- Retract all landing gears
-function self.retractLandingGears() end
+function ControlUnit.retractLandingGears() end
 
 --- Check construct lights status
 ---@return integer 
-function self.isAnyHeadlightSwitchedOn() end
+function ControlUnit.isAnyHeadlightSwitchedOn() end
 
 --- Turn on the construct headlights
-function self.switchOnHeadlights() end
+function ControlUnit.switchOnHeadlights() end
 
 --- Turn off the construct headlights
-function self.switchOffHeadlights() end
+function ControlUnit.switchOffHeadlights() end
 
 --- Emitted when the timer with the tag 'tag' is ticking
 ---@param tag string The tag of the timer that just ticked (see setTimer to set a timer with a given tag)
 ---@type Event
-self.onTimer = Event:new()
+ControlUnit.onTimer = Event:new()
 
 ---@type Event
-self.tick = Event:new()
+ControlUnit.tick = Event:new()
 
-return self
-end
 
 ---@class CoreUnit
-function CoreUnit()
-local self = {}
-
+CoreUnit = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function CoreUnit.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function CoreUnit.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function CoreUnit.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function CoreUnit.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function CoreUnit.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function CoreUnit.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function CoreUnit.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function CoreUnit.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function CoreUnit.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function CoreUnit.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function CoreUnit.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function CoreUnit.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function CoreUnit.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function CoreUnit.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function CoreUnit.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function CoreUnit.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function CoreUnit.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function CoreUnit.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function CoreUnit.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function CoreUnit.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function CoreUnit.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function CoreUnit.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function CoreUnit.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function CoreUnit.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function CoreUnit.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function CoreUnit.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function CoreUnit.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function CoreUnit.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function CoreUnit.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function CoreUnit.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -2821,7 +2779,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function CoreUnit.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -2830,7 +2788,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function CoreUnit.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -2839,300 +2797,300 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function CoreUnit.getSignalOut(plug) end
 
 ---@deprecated CoreUnit.getConstructId() is deprecated, use construct.getId() instead.
-function self.getConstructId() end
+function CoreUnit.getConstructId() end
 
 ---@deprecated CoreUnit.getConstructName() is deprecated, use construct.getName() instead.
-function self.getConstructName() end
+function CoreUnit.getConstructName() end
 
 ---@deprecated CoreUnit.getConstructWorldPos() is deprecated, use construct.getWorldPosition() instead.
-function self.getConstructWorldPos() end
+function CoreUnit.getConstructWorldPos() end
 
 ---@deprecated CoreUnit.getWorldAirFrictionAcceleration() is deprecated, use construct.getWorldAirFrictionAcceleration() instead.
-function self.getWorldAirFrictionAcceleration() end
+function CoreUnit.getWorldAirFrictionAcceleration() end
 
 ---@deprecated CoreUnit.getWorldAirFrictionAngularAcceleration() is deprecated, use construct.getWorldAirFrictionAngularAcceleration() instead.
-function self.getWorldAirFrictionAngularAcceleration() end
+function CoreUnit.getWorldAirFrictionAngularAcceleration() end
 
 ---@deprecated CoreUnit.getSchematicInfo(schematicId) is deprecated, use construct.getSchematic(id) instead.
-function self.getSchematicInfo() end
+function CoreUnit.getSchematicInfo() end
 
 ---@deprecated CoreUnit.getAngularVelocity() is deprecated, use construct.getAngularVelocity() instead.
-function self.getAngularVelocity() end
+function CoreUnit.getAngularVelocity() end
 
 ---@deprecated CoreUnit.getWorldAngularVelocity() is deprecated, use construct.getWorldAngularVelocity() instead.
-function self.getWorldAngularVelocity() end
+function CoreUnit.getWorldAngularVelocity() end
 
 ---@deprecated CoreUnit.getAngularAcceleration() is deprecated, use construct.getAngularAcceleration() instead.
-function self.getAngularAcceleration() end
+function CoreUnit.getAngularAcceleration() end
 
 ---@deprecated CoreUnit.getWorldAngularAcceleration() is deprecated, use construct.getWorldAngularAcceleration() instead.
-function self.getWorldAngularAcceleration() end
+function CoreUnit.getWorldAngularAcceleration() end
 
 ---@deprecated CoreUnit.getVelocity() is deprecated, use construct.getVelocity() instead.
-function self.getVelocity() end
+function CoreUnit.getVelocity() end
 
 ---@deprecated CoreUnit.getWorldVelocity() is deprecated, use construct.getWorldVelocity() instead.
-function self.getWorldVelocity() end
+function CoreUnit.getWorldVelocity() end
 
 ---@deprecated CoreUnit.getAbsoluteVelocity() is deprecated, use construct.getAbsoluteVelocity() instead.
-function self.getAbsoluteVelocity() end
+function CoreUnit.getAbsoluteVelocity() end
 
 ---@deprecated CoreUnit.getWorldAbsoluteVelocity() is deprecated, use construct.getWorldAbsoluteVelocity() instead.
-function self.getWorldAbsoluteVelocity() end
+function CoreUnit.getWorldAbsoluteVelocity() end
 
 ---@deprecated CoreUnit.getWorldAcceleration() is deprecated, use construct.getWorldAcceleration() instead.
-function self.getWorldAcceleration() end
+function CoreUnit.getWorldAcceleration() end
 
 ---@deprecated CoreUnit.getAcceleration() is deprecated, use construct.getAcceleration() instead.
-function self.getAcceleration() end
+function CoreUnit.getAcceleration() end
 
 ---@deprecated CoreUnit.getOrientationUnitId() is deprecated, use construct.getOrientationUnitId() instead.
-function self.getOrientationUnitId() end
+function CoreUnit.getOrientationUnitId() end
 
 ---@deprecated CoreUnit.getConstructOrientationUp() is deprecated, use construct.getOrientationUp() instead.
-function self.getConstructOrientationUp() end
+function CoreUnit.getConstructOrientationUp() end
 
 ---@deprecated CoreUnit.getConstructOrientationRight() is deprecated, use construct.getOrientationRight() instead.
-function self.getConstructOrientationRight() end
+function CoreUnit.getConstructOrientationRight() end
 
 ---@deprecated CoreUnit.getConstructOrientationForward() is deprecated, use construct.getOrientationForward() instead.
-function self.getConstructOrientationForward() end
+function CoreUnit.getConstructOrientationForward() end
 
 ---@deprecated CoreUnit.getConstructWorldOrientationUp() is deprecated, use construct.getWorldOrientationUp() instead.
-function self.getConstructWorldOrientationUp() end
+function CoreUnit.getConstructWorldOrientationUp() end
 
 ---@deprecated CoreUnit.getConstructWorldOrientationRight() is deprecated, use construct.getWorldOrientationRight() instead.
-function self.getConstructWorldOrientationRight() end
+function CoreUnit.getConstructWorldOrientationRight() end
 
 ---@deprecated CoreUnit.getConstructWorldOrientationForward() is deprecated, use construct.getWorldOrientationForward() instead.
-function self.getConstructWorldOrientationForward() end
+function CoreUnit.getConstructWorldOrientationForward() end
 
 ---@deprecated CoreUnit.getConstructWorldUp() is deprecated, use construct.getWorldUp() instead.
-function self.getConstructWorldUp() end
+function CoreUnit.getConstructWorldUp() end
 
 ---@deprecated CoreUnit.getConstructWorldRight() is deprecated, use construct.getWorldRight() instead.
-function self.getConstructWorldRight() end
+function CoreUnit.getConstructWorldRight() end
 
 ---@deprecated CoreUnit.getConstructWorldForward() is deprecated, use construct.getWorldForward() instead.
-function self.getConstructWorldForward() end
+function CoreUnit.getConstructWorldForward() end
 
 ---@deprecated CoreUnit.getPvPTimer() is deprecated, use construct.getPvPTimer() instead.
-function self.getPvPTimer() end
+function CoreUnit.getPvPTimer() end
 
 ---@deprecated CoreUnit.getPlayersOnBoard() is deprecated, use construct.getPlayersOnBoard() instead.
-function self.getPlayersOnBoard() end
+function CoreUnit.getPlayersOnBoard() end
 
 ---@deprecated CoreUnit.getPlayersOnBoardInVRStation() is deprecated, use construct.getPlayersOnBoardInVRStation() instead.
-function self.getPlayersOnBoardInVRStation() end
+function CoreUnit.getPlayersOnBoardInVRStation() end
 
 ---@deprecated CoreUnit.getDockedConstructs() is deprecated, use construct.getDockedConstructs() instead.
-function self.getDockedConstructs() end
+function CoreUnit.getDockedConstructs() end
 
 ---@deprecated CoreUnit.isPlayerBoarded(pid) is deprecated, use construct.isPlayerBoarded(id) instead.
-function self.isPlayerBoarded() end
+function CoreUnit.isPlayerBoarded() end
 
 ---@deprecated CoreUnit.isPlayerBoardedInVRStation(pid) is deprecated, use construct.isPlayerBoardedInVRStation(id) instead.
-function self.isPlayerBoardedInVRStation() end
+function CoreUnit.isPlayerBoardedInVRStation() end
 
 ---@deprecated CoreUnit.isConstructDocked(cid) is deprecated, use construct.isConstructDocked(id) instead.
-function self.isConstructDocked() end
+function CoreUnit.isConstructDocked() end
 
 ---@deprecated CoreUnit.forceDeboard(pid) is deprecated, use construct.forceDeboard(id) instead.
-function self.forceDeboard() end
+function CoreUnit.forceDeboard() end
 
 ---@deprecated CoreUnit.forceInterruptVRSession(pid) is deprecated, use construct.forceInterruptVRSession(id) instead.
-function self.forceInterruptVRSession() end
+function CoreUnit.forceInterruptVRSession() end
 
 ---@deprecated CoreUnit.forceUndock(cid) is deprecated, use construct.forceUndock(id) instead.
-function self.forceUndock() end
+function CoreUnit.forceUndock() end
 
 ---@deprecated CoreUnit.getBoardedPlayerMass(pid) is deprecated, use construct.getBoardedPlayerMass(id) instead.
-function self.getBoardedPlayerMass() end
+function CoreUnit.getBoardedPlayerMass() end
 
 ---@deprecated CoreUnit.getBoardedInVRStationAvatarMass(pid) is deprecated, use construct.getId() instead.
-function self.getBoardedInVRStationAvatarMass() end
+function CoreUnit.getBoardedInVRStationAvatarMass() end
 
 ---@deprecated CoreUnit.getDockedConstructMass(cid) is deprecated, use construct.getDockedConstructMass(id) instead.
-function self.getDockedConstructMass() end
+function CoreUnit.getDockedConstructMass() end
 
 ---@deprecated CoreUnit.getParent() is deprecated, use construct.getParent() instead.
-function self.getParent() end
+function CoreUnit.getParent() end
 
 ---@deprecated CoreUnit.getCloseParents() is deprecated, use construct.getCloseParents() instead.
-function self.getCloseParents() end
+function CoreUnit.getCloseParents() end
 
 ---@deprecated CoreUnit.getClosestParent() is deprecated, use construct.getClosestParent() instead.
-function self.getClosestParent() end
+function CoreUnit.getClosestParent() end
 
 ---@deprecated CoreUnit.dock(cid) is deprecated, use construct.dock(id) instead.
-function self.dock() end
+function CoreUnit.dock() end
 
 ---@deprecated CoreUnit.undock() is deprecated, use construct.undock() instead.
-function self.undock() end
+function CoreUnit.undock() end
 
 ---@deprecated CoreUnit.setDockingMode(mode) is deprecated, use construct.setDockingMode(mode) instead.
-function self.setDockingMode() end
+function CoreUnit.setDockingMode() end
 
 ---@deprecated CoreUnit.getDockingMode() is deprecated, use construct.getDockingMode() instead.
-function self.getDockingMode() end
+function CoreUnit.getDockingMode() end
 
 ---@deprecated CoreUnit.getParentPosition() is deprecated, use construct.getParentPosition() instead.
-function self.getParentPosition() end
+function CoreUnit.getParentPosition() end
 
 ---@deprecated CoreUnit.getParentWorldPosition() is deprecated, use construct.getParentWorldPosition() instead.
-function self.getParentWorldPosition() end
+function CoreUnit.getParentWorldPosition() end
 
 ---@deprecated CoreUnit.getParentForward() is deprecated, use construct.getParentForward() instead.
-function self.getParentForward() end
+function CoreUnit.getParentForward() end
 
 ---@deprecated CoreUnit.getParentUp() is deprecated, use construct.getParentUp() instead.
-function self.getParentUp() end
+function CoreUnit.getParentUp() end
 
 ---@deprecated CoreUnit.getParentRight() is deprecated, use construct.getParentRight() instead.
-function self.getParentRight() end
+function CoreUnit.getParentRight() end
 
 ---@deprecated CoreUnit.getParentWorldForward() is deprecated, use construct.getParentWorldForward() instead.
-function self.getParentWorldForward() end
+function CoreUnit.getParentWorldForward() end
 
 ---@deprecated CoreUnit.getParentWorldUp() is deprecated, use construct.getParentWorldUp() instead.
-function self.getParentWorldUp() end
+function CoreUnit.getParentWorldUp() end
 
 ---@deprecated CoreUnit.getParentWorldRight() is deprecated, use construct.getParentWorldRight() instead.
-function self.getParentWorldRight() end
+function CoreUnit.getParentWorldRight() end
 
 ---@deprecated CoreUnit.getMaxSpeed() is deprecated, use construct.getMaxSpeed() instead.
-function self.getMaxSpeed() end
+function CoreUnit.getMaxSpeed() end
 
 ---@deprecated CoreUnit.getMaxAngularSpeed() is deprecated, use construct.getMaxAngularSpeed() instead.
-function self.getMaxAngularSpeed() end
+function CoreUnit.getMaxAngularSpeed() end
 
 ---@deprecated CoreUnit.getMaxSpeedPerAxis() is deprecated, use construct.getMaxSpeedPerAxis() instead.
-function self.getMaxSpeedPerAxis() end
+function CoreUnit.getMaxSpeedPerAxis() end
 
 ---@deprecated CoreUnit.getConstructMass() is deprecated, use construct.getMass() instead.
-function self.getConstructMass() end
+function CoreUnit.getConstructMass() end
 
 ---@deprecated CoreUnit.getConstructIMass() is deprecated, use construct.getInertialMass() instead.
-function self.getConstructIMass() end
+function CoreUnit.getConstructIMass() end
 
 ---@deprecated CoreUnit.getConstructCrossSection() is deprecated, use construct.getCrossSection() instead.
-function self.getConstructCrossSection() end
+function CoreUnit.getConstructCrossSection() end
 
 ---@deprecated CoreUnit.getMaxKinematicsParametersAlongAxis(taglist, CRefAxis) is deprecated, use construct.getMaxThrustAlongAxis(taglist, CRefAxis) instead.
-function self.getMaxKinematicsParametersAlongAxis() end
+function CoreUnit.getMaxKinematicsParametersAlongAxis() end
 
 --- Returns the list of all the local IDs of the Elements of this construct
 ---@return table 
-function self.getElementIdList() end
+function CoreUnit.getElementIdList() end
 
 --- Returns the name of the Element, identified by its local ID
 ---@param localId integer The local ID of the Element
 ---@return string 
-function self.getElementNameById(localId) end
+function CoreUnit.getElementNameById(localId) end
 
 --- Returns the class of the Element, identified by its local ID
 ---@param localId integer The local ID of the Element
 ---@return string 
-function self.getElementClassById(localId) end
+function CoreUnit.getElementClassById(localId) end
 
 --- Returns the display name of the Element, identified by its local ID
 ---@param localId integer The local ID of the Element
 ---@return string 
-function self.getElementDisplayNameById(localId) end
+function CoreUnit.getElementDisplayNameById(localId) end
 
 ---@deprecated CoreUnit.getElementTypeById(localId) is deprecated, use CoreUnit.getElementDisplayNameById(localId) instead.
-function self.getElementTypeById() end
+function CoreUnit.getElementTypeById() end
 
 --- Returns the item ID of the Element, identified by its local ID
 ---@param localId integer The local ID of the Element
 ---@return integer 
-function self.getElementItemIdById(localId) end
+function CoreUnit.getElementItemIdById(localId) end
 
 --- Returns the current level of hit points of the Element, identified by its local ID
 ---@param localId integer The local ID of the Element
 ---@return number 
-function self.getElementHitPointsById(localId) end
+function CoreUnit.getElementHitPointsById(localId) end
 
 --- Returns the maximum level of hit points of the Element, identified by its local ID
 ---@param localId integer The local ID of the Element
 ---@return number 
-function self.getElementMaxHitPointsById(localId) end
+function CoreUnit.getElementMaxHitPointsById(localId) end
 
 --- Returns the mass of the Element, identified by its local ID
 ---@param localId integer The local ID of the Element
 ---@return number 
-function self.getElementMassById(localId) end
+function CoreUnit.getElementMassById(localId) end
 
 --- Returns the position of the Element, identified by its local ID, in construct local coordinates.
 ---@param localId integer The local ID of the Element
 ---@return table 
-function self.getElementPositionById(localId) end
+function CoreUnit.getElementPositionById(localId) end
 
 --- Returns the up direction vector of the Element, identified by its local ID, in construct local coordinates
 ---@param localId integer The local ID of the Element
 ---@return table 
-function self.getElementUpById(localId) end
+function CoreUnit.getElementUpById(localId) end
 
 --- Returns the right direction vector of the Element, identified by its local ID, in construct local coordinates
 ---@param localId integer The local ID of the Element
 ---@return table 
-function self.getElementRightById(localId) end
+function CoreUnit.getElementRightById(localId) end
 
 --- Returns the forward direction vector of the Element, identified by its local ID, in construct local coordinates
 ---@param localId integer The local ID of the Element
 ---@return table 
-function self.getElementForwardById(localId) end
+function CoreUnit.getElementForwardById(localId) end
 
 --- Returns the status of the Industry Unit Element, identified by its local ID
 ---@param localId integer The local ID of the Element
 ---@return table info If the Element is an Industry Unit, a table with fields {[int] state, [bool] stopRequested, [int] schematicId (deprecated = 0), [int] schematicsRemaining, [int] unitsProduced, [int] remainingTime, [int] batchesRequested, [int] batchesRemaining, [float] maintainProductAmount, [int] currentProductAmount, [table] currentProducts:{{[int] id, [double] quantity},...}}
-function self.getElementIndustryInfoById(localId) end
+function CoreUnit.getElementIndustryInfoById(localId) end
 
 ---@deprecated CoreUnit.getElementIndustryStatusById(localId) is deprecated, use CoreUnit.getElementIndustryInfoById(localId) instead.
-function self.getElementIndustryStatusById() end
+function CoreUnit.getElementIndustryStatusById() end
 
 --- Returns the list of tags associated to the Element, identified by its local ID
 ---@param localId integer The local ID of the Element
 ---@return string 
-function self.getElementTagsById(localId) end
+function CoreUnit.getElementTagsById(localId) end
 
 --- Returns the altitude above sea level, with respect to the closest planet (0 in space)
 ---@return number 
-function self.getAltitude() end
+function CoreUnit.getAltitude() end
 
 --- Returns the local gravity intensity
 ---@return number 
-function self.getGravityIntensity() end
+function CoreUnit.getGravityIntensity() end
 
 ---@deprecated CoreUnit.g() is deprecated, use CoreUnit.getGravityIntensity() instead.
-function self.g() end
+function CoreUnit.g() end
 
 --- Returns the local gravity vector in world coordinates
 ---@return table 
-function self.getWorldGravity() end
+function CoreUnit.getWorldGravity() end
 
 --- Returns the vertical unit vector along gravity, in world coordinates (0 in space)
 ---@return table 
-function self.getWorldVertical() end
+function CoreUnit.getWorldVertical() end
 
 --- Returns the id of the current close stellar body
 ---@return integer 
-function self.getCurrentPlanetId() end
+function CoreUnit.getCurrentPlanetId() end
 
 --- Returns the core's current stress, destroyed when reaching max stress
 ---@return number 
-function self.getCoreStress() end
+function CoreUnit.getCoreStress() end
 
 --- Returns the maximal stress the core can bear before it gets destroyed
 ---@return number 
-function self.getMaxCoreStress() end
+function CoreUnit.getMaxCoreStress() end
 
 --- Returns the core's current stress to max stress ratio
 ---@return number 
-function self.getCoreStressRatio() end
+function CoreUnit.getCoreStressRatio() end
 
 --- Spawns a number sticker in the 3D world, with coordinates relative to the construct
 ---@param nb integer The number to display 0 to 9
@@ -3141,7 +3099,7 @@ function self.getCoreStressRatio() end
 ---@param z number The z-coordinate in the construct in meters. 0 = center
 ---@param orientation string Orientation of the number. Possible values are "front", "side"
 ---@return integer 
-function self.spawnNumberSticker(nb, x, y, z, orientation) end
+function CoreUnit.spawnNumberSticker(nb, x, y, z, orientation) end
 
 --- Spawns an arrow sticker in the 3D world, with coordinates relative to the construct
 ---@param x number The x-coordinate in the construct in meters. 0 = center
@@ -3149,12 +3107,12 @@ function self.spawnNumberSticker(nb, x, y, z, orientation) end
 ---@param z number The z-coordinate in the construct in meters. 0 = center
 ---@param orientation string Orientation of the arrow. Possible values are "up", "down", "north", "south", "east", "west"
 ---@return integer 
-function self.spawnArrowSticker(x, y, z, orientation) end
+function CoreUnit.spawnArrowSticker(x, y, z, orientation) end
 
 --- Delete the referenced sticker
 ---@param index integer Index of the sticker to delete
 ---@return integer 
-function self.deleteSticker(index) end
+function CoreUnit.deleteSticker(index) end
 
 --- Move the referenced sticker
 ---@param index integer Index of the sticker to move
@@ -3162,7 +3120,7 @@ function self.deleteSticker(index) end
 ---@param y number The y-coordinate in the construct in meters. 0 = center
 ---@param z number The z-coordinate in the construct in meters. 0 = center
 ---@return integer 
-function self.moveSticker(index, x, y, z) end
+function CoreUnit.moveSticker(index, x, y, z) end
 
 --- Rotate the referenced sticker.
 ---@param index integer Index of the sticker to rotate
@@ -3170,152 +3128,148 @@ function self.moveSticker(index, x, y, z) end
 ---@param angle_y number Rotation along the y-axis in degrees
 ---@param angle_z number Rotation along the z-axis in degrees
 ---@return integer 
-function self.rotateSticker(index, angle_x, angle_y, angle_z) end
+function CoreUnit.rotateSticker(index, angle_x, angle_y, angle_z) end
 
 ---@type Event
-self.pvpTimer = Event:new()
+CoreUnit.pvpTimer = Event:new()
 
 ---@type Event
-self.playerBoarded = Event:new()
+CoreUnit.playerBoarded = Event:new()
 
 ---@type Event
-self.VRStationEntered = Event:new()
+CoreUnit.VRStationEntered = Event:new()
 
 ---@type Event
-self.constructDocked = Event:new()
+CoreUnit.constructDocked = Event:new()
 
 ---@type Event
-self.docked = Event:new()
+CoreUnit.docked = Event:new()
 
 ---@type Event
-self.undocked = Event:new()
+CoreUnit.undocked = Event:new()
 
 --- Emitted when core unit stress changed
 ---@param stress number Difference to previous stress value
 ---@type Event
-self.onStressChanged = Event:new()
+CoreUnit.onStressChanged = Event:new()
 
 ---@type Event
-self.stressChanged = Event:new()
+CoreUnit.stressChanged = Event:new()
 
-return self
-end
 
 ---@class Counter
-function Counter()
-local self = {}
-
+Counter = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Counter.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Counter.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Counter.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Counter.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Counter.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Counter.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Counter.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Counter.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Counter.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Counter.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Counter.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Counter.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Counter.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Counter.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Counter.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Counter.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Counter.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Counter.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Counter.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Counter.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Counter.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Counter.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Counter.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Counter.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Counter.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Counter.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Counter.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Counter.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Counter.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Counter.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -3324,7 +3278,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Counter.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -3333,7 +3287,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Counter.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -3342,147 +3296,143 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Counter.getSignalOut(plug) end
 
 --- Returns the index of the current active output plug
 ---@return integer 
-function self.getIndex() end
+function Counter.getIndex() end
 
 ---@deprecated Counter.getCounterState() is deprecated, use Counter.getIndex() instead.
-function self.getCounterState() end
+function Counter.getCounterState() end
 
 --- Returns the maximum index of the counter
 ---@return integer 
-function self.getMaxIndex() end
+function Counter.getMaxIndex() end
 
 --- Moves the next counter index
-function self.nextIndex() end
+function Counter.nextIndex() end
 
 ---@deprecated Counter.next() is deprecated, use Counter.nextIndex() instead.
-function self.next() end
+function Counter.next() end
 
 --- Sets the counter index
 ---@param index integer The index of the plug to activate
-function self.setIndex(index) end
+function Counter.setIndex(index) end
 
-return self
-end
 
 ---@class Databank
-function Databank()
-local self = {}
-
+Databank = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Databank.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Databank.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Databank.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Databank.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Databank.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Databank.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Databank.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Databank.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Databank.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Databank.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Databank.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Databank.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Databank.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Databank.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Databank.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Databank.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Databank.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Databank.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Databank.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Databank.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Databank.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Databank.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Databank.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Databank.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Databank.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Databank.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Databank.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Databank.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Databank.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Databank.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -3491,7 +3441,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Databank.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -3500,7 +3450,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Databank.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -3509,180 +3459,176 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Databank.getSignalOut(plug) end
 
 --- Clear the Databank
-function self.clear() end
+function Databank.clear() end
 
 --- Returns the number of keys that are stored inside the Databank
 ---@return integer 
-function self.getNbKeys() end
+function Databank.getNbKeys() end
 
 --- Returns all the keys in the Databank
 ---@return table value The key list, as a list of string
-function self.getKeyList() end
+function Databank.getKeyList() end
 
 ---@deprecated Databank.getKeys() is deprecated, use Databank.getKeyList().
-function self.getKeys() end
+function Databank.getKeys() end
 
 --- Returns 1 if the key is present in the Databank, 0 otherwise
 ---@param key string The key used to store a value
 ---@return integer value 1 if the key exists and 0 otherwise
-function self.hasKey(key) end
+function Databank.hasKey(key) end
 
 --- Remove the given key if the key is present in the Databank
 ---@param key string The key used to store a value
 ---@return integer value 1 if the key has been successfully removed, 0 otherwise
-function self.clearValue(key) end
+function Databank.clearValue(key) end
 
 --- Stores a string value at the given key
 ---@param key string The key used to store the value
 ---@param val string The value, as a string
-function self.setStringValue(key, val) end
+function Databank.setStringValue(key, val) end
 
 --- Returns value stored in the given key as a string
 ---@param key string The key used to retrieve the value
 ---@return string value The value as a string
-function self.getStringValue(key) end
+function Databank.getStringValue(key) end
 
 --- Stores an integer value at the given key
 ---@param key string The key used to store the value
 ---@param val integer The value, as an integer
-function self.setIntValue(key, val) end
+function Databank.setIntValue(key, val) end
 
 --- Returns value stored in the given key as an integer
 ---@param key string The key used to retrieve the value
 ---@return integer value The value as an integer
-function self.getIntValue(key) end
+function Databank.getIntValue(key) end
 
 --- Stores a floating number value at the given key
 ---@param key string The key used to store the value
 ---@param val number The value, as a floating number
-function self.setFloatValue(key, val) end
+function Databank.setFloatValue(key, val) end
 
 --- Returns value stored in the given key as a floating number
 ---@param key string The key used to retrieve the value
 ---@return number value The value as a floating number
-function self.getFloatValue(key) end
+function Databank.getFloatValue(key) end
 
-return self
-end
 
 ---@class DetectionZone
-function DetectionZone()
-local self = {}
-
+DetectionZone = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function DetectionZone.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function DetectionZone.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function DetectionZone.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function DetectionZone.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function DetectionZone.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function DetectionZone.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function DetectionZone.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function DetectionZone.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function DetectionZone.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function DetectionZone.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function DetectionZone.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function DetectionZone.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function DetectionZone.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function DetectionZone.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function DetectionZone.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function DetectionZone.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function DetectionZone.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function DetectionZone.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function DetectionZone.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function DetectionZone.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function DetectionZone.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function DetectionZone.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function DetectionZone.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function DetectionZone.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function DetectionZone.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function DetectionZone.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function DetectionZone.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function DetectionZone.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function DetectionZone.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function DetectionZone.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -3691,7 +3637,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function DetectionZone.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -3700,7 +3646,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function DetectionZone.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -3709,150 +3655,146 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function DetectionZone.getSignalOut(plug) end
 
 --- Returns the detection zone radius
 ---@return number 
-function self.getRadius() end
+function DetectionZone.getRadius() end
 
 --- Returns the list of ids of the players in the detection zone
 ---@return table 
-function self.getPlayers() end
+function DetectionZone.getPlayers() end
 
 --- Emitted when a player enters in the detection zone
 ---@param id integer The ID of the player. Use system.getPlayerName(id) to retrieve its name
 ---@type Event
-self.onEnter = Event:new()
+DetectionZone.onEnter = Event:new()
 
 ---@type Event
-self.enter = Event:new()
+DetectionZone.enter = Event:new()
 
 --- Emitted when a player leaves in the detection zone
 ---@param id integer The ID of the player. Use system.getPlayerName(id) to retrieve its name
 ---@type Event
-self.onLeave = Event:new()
+DetectionZone.onLeave = Event:new()
 
 ---@type Event
-self.leave = Event:new()
+DetectionZone.leave = Event:new()
 
-return self
-end
 
 ---@class Door
-function Door()
-local self = {}
-
+Door = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Door.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Door.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Door.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Door.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Door.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Door.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Door.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Door.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Door.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Door.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Door.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Door.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Door.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Door.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Door.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Door.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Door.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Door.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Door.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Door.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Door.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Door.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Door.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Door.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Door.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Door.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Door.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Door.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Door.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Door.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -3861,7 +3803,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Door.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -3870,7 +3812,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Door.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -3879,148 +3821,144 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Door.getSignalOut(plug) end
 
 --- Open the door
-function self.open() end
+function Door.open() end
 
 ---@deprecated Door.activate() is deprecated, use Door.open() instead.
-function self.activate() end
+function Door.activate() end
 
 --- Close the door
-function self.close() end
+function Door.close() end
 
 ---@deprecated Door.deactivate() is deprecated, use Door.close() instead.
-function self.deactivate() end
+function Door.deactivate() end
 
 --- Return the opening status of the door
 ---@return integer 
-function self.isOpen() end
+function Door.isOpen() end
 
 ---@deprecated Door.getState() is deprecated, use Door.isOpen() instead.
-function self.getState() end
+function Door.getState() end
 
 --- Toggle the door
-function self.toggle() end
+function Door.toggle() end
 
-return self
-end
 
 ---@class Element
-function Element()
-local self = {}
-
+Element = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Element.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Element.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Element.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Element.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Element.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Element.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Element.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Element.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Element.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Element.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Element.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Element.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Element.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Element.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Element.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Element.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Element.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Element.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Element.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Element.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Element.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Element.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Element.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Element.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Element.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Element.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Element.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Element.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Element.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Element.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4029,7 +3967,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Element.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4038,7 +3976,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Element.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4047,126 +3985,122 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Element.getSignalOut(plug) end
 
-return self
-end
 
 ---@class Emitter
-function Emitter()
-local self = {}
-
+Emitter = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Emitter.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Emitter.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Emitter.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Emitter.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Emitter.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Emitter.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Emitter.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Emitter.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Emitter.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Emitter.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Emitter.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Emitter.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Emitter.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Emitter.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Emitter.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Emitter.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Emitter.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Emitter.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Emitter.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Emitter.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Emitter.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Emitter.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Emitter.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Emitter.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Emitter.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Emitter.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Emitter.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Emitter.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Emitter.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Emitter.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4175,7 +4109,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Emitter.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4184,7 +4118,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Emitter.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4193,141 +4127,137 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Emitter.getSignalOut(plug) end
 
 --- Send a message on the given channel, limited to one transmission per frame and per channel
 ---@param channel string The channel name, limited to 64 characters. The message will not be sent if it exceeds this
 ---@param message string The message to be transmitted, truncated to 512 characters in case of overflow
-function self.send(channel, message) end
+function Emitter.send(channel, message) end
 
 --- Returns the emitter range
 ---@return number 
-function self.getRange() end
+function Emitter.getRange() end
 
 --- Emitted when the emitter successfully sent a message
 ---@param channel string The channel name
 ---@param message string The transmitted message
 ---@type Event
-self.onSent = Event:new()
+Emitter.onSent = Event:new()
 
-return self
-end
 
 ---@class Engine
-function Engine()
-local self = {}
-
+Engine = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Engine.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Engine.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Engine.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Engine.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Engine.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Engine.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Engine.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Engine.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Engine.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Engine.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Engine.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Engine.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Engine.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Engine.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Engine.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Engine.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Engine.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Engine.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Engine.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Engine.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Engine.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Engine.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Engine.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Engine.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Engine.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Engine.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Engine.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Engine.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Engine.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Engine.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4336,7 +4266,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Engine.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4345,7 +4275,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Engine.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4354,144 +4284,140 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Engine.getSignalOut(plug) end
 
 --- Returns the obstruction ratio of the engine exhaust by Elements and Voxels.
 --- The more obstructed the engine is, the less properly it will work. Try to fix your design if this is the case
 ---@return number 
-function self.getObstructionFactor() end
+function Engine.getObstructionFactor() end
 
 --- Returns the tags of the engine
 ---@return string 
-function self.getTags() end
+function Engine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
 ---@param ignore boolean: True to ignore the default engine tags
-function self.setTags(tags, ignore) end
+function Engine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
 ---@return integer 1 if the engine ignores default engine tags
-function self.isIgnoringTags() end
+function Engine.isIgnoringTags() end
 
-return self
-end
 
 ---@class Firework
-function Firework()
-local self = {}
-
+Firework = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Firework.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Firework.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Firework.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Firework.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Firework.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Firework.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Firework.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Firework.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Firework.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Firework.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Firework.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Firework.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Firework.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Firework.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Firework.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Firework.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Firework.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Firework.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Firework.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Firework.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Firework.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Firework.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Firework.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Firework.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Firework.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Firework.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Firework.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Firework.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Firework.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Firework.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4500,7 +4426,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Firework.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4509,7 +4435,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Firework.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4518,168 +4444,164 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Firework.getSignalOut(plug) end
 
 --- Fire the firework
-function self.fire() end
+function Firework.fire() end
 
 ---@deprecated Firework.activate() is deprecated, use Firework.open() instead.
-function self.activate() end
+function Firework.activate() end
 
 --- Set the delay before the launched Fireworks explodes
 ---@param delay number The delay before explosion in seconds (maximum 5s)
-function self.setExplosionDelay(delay) end
+function Firework.setExplosionDelay(delay) end
 
 --- Returns the delay before the launched Fireworks explodes
 ---@return number 
-function self.getExplosionDelay() end
+function Firework.getExplosionDelay() end
 
 --- Set the speed at which the firework will be launched (impacts its altitude, depending on the local gravity).
 ---@param speed number The launch speed in m/s (maximum 200m/s)
-function self.setLaunchSpeed(speed) end
+function Firework.setLaunchSpeed(speed) end
 
 --- Returns the speed at which the firework will be launched
 ---@return number 
-function self.getLaunchSpeed() end
+function Firework.getLaunchSpeed() end
 
 --- Set the type of launched firework (will affect which firework is picked in the attached Container)
 ---@param type integer The type index of the firework (Ball = 1, Ring = 2, Palmtree = 3, Shower = 4)
-function self.setType(type) end
+function Firework.setType(type) end
 
 --- Returns the type of launched firework
 ---@return integer 
-function self.getType() end
+function Firework.getType() end
 
 --- Set the color of the launched firework (will affect which firework is picked in the attached Container)
 ---@param color integer The color index of the firework (Blue = 1, Gold = 2, Green = 3, Purple = 4, Red = 5, Silver = 6)
-function self.setColor(color) end
+function Firework.setColor(color) end
 
 --- Returns the color of the launched firework
 ---@return integer 
-function self.getColor() end
+function Firework.getColor() end
 
 --- Emitted when a firework has just been fired
 ---@type Event
-self.onFired = Event:new()
+Firework.onFired = Event:new()
 
-return self
-end
 
 ---@class ForceField
-function ForceField()
-local self = {}
-
+ForceField = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function ForceField.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function ForceField.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function ForceField.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function ForceField.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function ForceField.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function ForceField.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function ForceField.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function ForceField.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function ForceField.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function ForceField.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function ForceField.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function ForceField.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function ForceField.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function ForceField.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function ForceField.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function ForceField.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function ForceField.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function ForceField.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function ForceField.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function ForceField.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function ForceField.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function ForceField.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function ForceField.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function ForceField.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function ForceField.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function ForceField.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function ForceField.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function ForceField.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function ForceField.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function ForceField.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4688,7 +4610,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function ForceField.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4697,7 +4619,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function ForceField.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4706,148 +4628,144 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function ForceField.getSignalOut(plug) end
 
 --- Deploys the forcefield
-function self.deploy() end
+function ForceField.deploy() end
 
 ---@deprecated ForceField.activate() is deprecated, use ForceField.deploy() instead.
-function self.activate() end
+function ForceField.activate() end
 
 --- Retracts the forcefield
-function self.retract() end
+function ForceField.retract() end
 
 ---@deprecated ForceField.deactivate() is deprecated, use ForceField.retract() instead.
-function self.deactivate() end
+function ForceField.deactivate() end
 
 --- Checks if the forcefield is deployed
 ---@return integer 
-function self.isDeployed() end
+function ForceField.isDeployed() end
 
 ---@deprecated ForceField.getState() is deprecated, use ForceField.isDeployed() instead.
-function self.getState() end
+function ForceField.getState() end
 
 --- Toggle the forcefield
-function self.toggle() end
+function ForceField.toggle() end
 
-return self
-end
 
 ---@class FueledEngine
-function FueledEngine()
-local self = {}
-
+FueledEngine = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function FueledEngine.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function FueledEngine.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function FueledEngine.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function FueledEngine.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function FueledEngine.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function FueledEngine.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function FueledEngine.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function FueledEngine.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function FueledEngine.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function FueledEngine.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function FueledEngine.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function FueledEngine.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function FueledEngine.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function FueledEngine.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function FueledEngine.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function FueledEngine.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function FueledEngine.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function FueledEngine.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function FueledEngine.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function FueledEngine.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function FueledEngine.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function FueledEngine.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function FueledEngine.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function FueledEngine.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function FueledEngine.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function FueledEngine.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function FueledEngine.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function FueledEngine.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function FueledEngine.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function FueledEngine.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4856,7 +4774,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function FueledEngine.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4865,7 +4783,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function FueledEngine.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4874,265 +4792,261 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function FueledEngine.getSignalOut(plug) end
 
 --- Returns the obstruction ratio of the engine exhaust by Elements and Voxels.
 --- The more obstructed the engine is, the less properly it will work. Try to fix your design if this is the case
 ---@return number 
-function self.getObstructionFactor() end
+function FueledEngine.getObstructionFactor() end
 
 --- Returns the tags of the engine
 ---@return string 
-function self.getTags() end
+function FueledEngine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
 ---@param ignore boolean: True to ignore the default engine tags
-function self.setTags(tags, ignore) end
+function FueledEngine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
 ---@return integer 1 if the engine ignores default engine tags
-function self.isIgnoringTags() end
+function FueledEngine.isIgnoringTags() end
 
 --- Start the engine at full power (works only when run inside a cockpit or under remote control)
-function self.activate() end
+function FueledEngine.activate() end
 
 --- Stops the engine (works only when run inside a cockpit or under remote control)
-function self.deactivate() end
+function FueledEngine.deactivate() end
 
 --- Checks if the engine is active
 ---@return integer 
-function self.isActive() end
+function FueledEngine.isActive() end
 
 ---@deprecated FueledEngine.getState() is deprecated, use FueledEngine.isActive().
-function self.getState() end
+function FueledEngine.getState() end
 
 --- Toggle the state of the engine
-function self.toggle() end
+function FueledEngine.toggle() end
 
 --- Set the thrust of the engine
 ---@param thrust number The engine thrust in newtons (limited by the maximum thrust)
-function self.setThrust(thrust) end
+function FueledEngine.setThrust(thrust) end
 
 --- Returns the current thrust of the engine
 ---@return number 
-function self.getThrust() end
+function FueledEngine.getThrust() end
 
 ---@deprecated FueledEngine.getMaxThrust() is deprecated, use FueledEngine.getCurrentMaxThrust().
 ---@deprecated @diagnostic disable-next-line
-function self.getMaxThrust() end
+function FueledEngine.getMaxThrust() end
 
 ---@deprecated FueledEngine.getMaxThrustBase() is deprecated, use FueledEngine.getMaxThrust().
-function self.getMaxThrustBase() end
+function FueledEngine.getMaxThrustBase() end
 
 --- Returns the minimal thrust the engine can deliver at the moment (can be more than zero),
 --- which will depend on various conditions like atmospheric density, obstruction, orientation, etc
 --- Most of the time, this will be 0 but it can be greater than 0, particularly for Ailerons, in which case
 --- the actual thrust will be at least equal to minThrust
 ---@return number 
-function self.getCurrentMinThrust() end
+function FueledEngine.getCurrentMinThrust() end
 
 ---@deprecated FueledEngine.getMinThrust() is deprecated, use FueledEngine.getCurrentMinThrust().
-function self.getMinThrust() end
+function FueledEngine.getMinThrust() end
 
 --- Returns the maximal thrust the engine can deliver at the moment, which might depend on
 --- various conditions like atmospheric density, obstruction, orientation, etc. The actual thrust will be
 --- anything below this maxThrust, which defines the current max capability of the engine
 ---@return number 
-function self.getCurrentMaxThrust() end
+function FueledEngine.getCurrentMaxThrust() end
 
 --- Returns the ratio between the current maximum thrust and the optimal maximum thrust
 ---@return number 
-function self.getMaxThrustEfficiency() end
+function FueledEngine.getMaxThrustEfficiency() end
 
 --- Checks if the torque generation is enabled on the engine
 ---@return integer 
-function self.isTorqueEnabled() end
+function FueledEngine.isTorqueEnabled() end
 
 --- Sets the torque generation state on the engine
 ---@param state boolean 
-function self.enableTorque(state) end
+function FueledEngine.enableTorque(state) end
 
 --- Returns the engine thrust direction in construct local coordinates
 ---@return table 
-function self.getThrustAxis() end
+function FueledEngine.getThrustAxis() end
 
 --- Returns the engine torque axis in construct local coordinates
 ---@return table 
-function self.getTorqueAxis() end
+function FueledEngine.getTorqueAxis() end
 
 --- Returns the engine exhaust thrust direction in world coordinates
 ---@return table 
-function self.getWorldThrustAxis() end
+function FueledEngine.getWorldThrustAxis() end
 
 ---@deprecated FueledEngine.thrustAxis() is deprecated, use FueledEngine.getWorldThrustAxis().
-function self.thrustAxis() end
+function FueledEngine.thrustAxis() end
 
 --- Returns the engine torque axis in world coordinates
 ---@return table 
-function self.getWorldTorqueAxis() end
+function FueledEngine.getWorldTorqueAxis() end
 
 ---@deprecated FueledEngine.torqueAxis() is deprecated, use FueledEngine.getWorldTorqueAxis().
-function self.torqueAxis() end
+function FueledEngine.torqueAxis() end
 
 --- Checks if the engine out of fuel
 ---@return integer 
-function self.isOutOfFuel() end
+function FueledEngine.isOutOfFuel() end
 
 --- Returns the item ID of the fuel currently used by the engine
 ---@return integer 
-function self.getFuelId() end
+function FueledEngine.getFuelId() end
 
 --- Returns the local ID of the fueltank linked to the engine
 ---@return integer 
-function self.getFuelTankId() end
+function FueledEngine.getFuelTankId() end
 
 --- Checks if the engine linked to a functional Fuel Tank (not broken or colliding)?
 ---@return integer 
-function self.hasFunctionalFuelTank() end
+function FueledEngine.hasFunctionalFuelTank() end
 
 ---@deprecated FueledEngine.hasBrokenFuelTank() is deprecated, use FueledEngine.hasFunctionalFuelTank().
-function self.hasBrokenFuelTank() end
+function FueledEngine.hasBrokenFuelTank() end
 
 --- Returns the engine fuel consumption rate per newton of thrust delivered per second
 ---@return number 
-function self.getCurrentFuelRate() end
+function FueledEngine.getCurrentFuelRate() end
 
 --- Returns the ratio between the current fuel rate and the theoretical nominal fuel rate
 ---@return number 
-function self.getFuelRateEfficiency() end
+function FueledEngine.getFuelRateEfficiency() end
 
 --- Returns the current fuel consumption rate
 ---@return number 
-function self.getFuelConsumption() end
+function FueledEngine.getFuelConsumption() end
 
 --- Returns the T50; the time needed for the engine to reach 50% of its maximal thrust (all engines
 --- do not instantly reach the thrust that is set for them, but they can take time to "warm up" to
 --- the final value)
 ---@return number 
-function self.getWarmupTime() end
+function FueledEngine.getWarmupTime() end
 
 ---@deprecated FueledEngine.getT50() is deprecated, use FueledEngine.getWarmupTime().
-function self.getT50() end
+function FueledEngine.getT50() end
 
-return self
-end
 
 ---@class Gyro
-function Gyro()
-local self = {}
-
+Gyro = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Gyro.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Gyro.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Gyro.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Gyro.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Gyro.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Gyro.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Gyro.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Gyro.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Gyro.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Gyro.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Gyro.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Gyro.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Gyro.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Gyro.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Gyro.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Gyro.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Gyro.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Gyro.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Gyro.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Gyro.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Gyro.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Gyro.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Gyro.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Gyro.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Gyro.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Gyro.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Gyro.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Gyro.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Gyro.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Gyro.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -5141,7 +5055,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Gyro.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -5150,7 +5064,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Gyro.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -5159,168 +5073,164 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Gyro.getSignalOut(plug) end
 
 --- Selects this gyro as the main gyro used for ship orientation
-function self.activate() end
+function Gyro.activate() end
 
 --- Deselects this gyro as the main gyro used for ship orientation, using the Core Unit instead
-function self.deactivate() end
+function Gyro.deactivate() end
 
 --- Toggle the activation state of the gyro
-function self.toggle() end
+function Gyro.toggle() end
 
 --- Returns the activation state of the gyro
 ---@return integer 
-function self.isActive() end
+function Gyro.isActive() end
 
 ---@deprecated Gyro.getState() is deprecated, use Gyro.isActive() instead.
-function self.getState() end
+function Gyro.getState() end
 
 --- The pitch value relative to the gyro orientation and the local gravity
 ---@return number pitch The pitch angle in degrees, relative to the gyro orientation and the local gravity
-function self.getPitch() end
+function Gyro.getPitch() end
 
 --- The roll value relative to the gyro orientation and the local gravity
 ---@return number roll The roll angle in degrees, relative to the gyro orientation and the local gravity
-function self.getRoll() end
+function Gyro.getRoll() end
 
 ---@deprecated Gyro.localUp() is deprecated, use Gyro.getUp() instead.
-function self.localUp() end
+function Gyro.localUp() end
 
 ---@deprecated Gyro.localForward() is deprecated, use Gyro.getForward() instead.
-function self.localForward() end
+function Gyro.localForward() end
 
 ---@deprecated Gyro.localRight() is deprecated, use Gyro.getRight() instead.
-function self.localRight() end
+function Gyro.localRight() end
 
 ---@deprecated Gyro.worldUp() is deprecated, use Gyro.getWorldUp() instead.
-function self.worldUp() end
+function Gyro.worldUp() end
 
 ---@deprecated Gyro.worldForward() is deprecated, use Gyro.getWorldForward() instead.
-function self.worldForward() end
+function Gyro.worldForward() end
 
 ---@deprecated Gyro.worldRight() is deprecated, use Gyro.getWorldRight() instead.
-function self.worldRight() end
+function Gyro.worldRight() end
 
-return self
-end
 
 ---@class HoverEngine
-function HoverEngine()
-local self = {}
-
+HoverEngine = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function HoverEngine.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function HoverEngine.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function HoverEngine.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function HoverEngine.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function HoverEngine.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function HoverEngine.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function HoverEngine.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function HoverEngine.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function HoverEngine.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function HoverEngine.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function HoverEngine.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function HoverEngine.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function HoverEngine.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function HoverEngine.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function HoverEngine.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function HoverEngine.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function HoverEngine.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function HoverEngine.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function HoverEngine.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function HoverEngine.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function HoverEngine.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function HoverEngine.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function HoverEngine.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function HoverEngine.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function HoverEngine.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function HoverEngine.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function HoverEngine.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function HoverEngine.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function HoverEngine.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function HoverEngine.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -5329,7 +5239,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function HoverEngine.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -5338,7 +5248,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function HoverEngine.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -5347,273 +5257,269 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function HoverEngine.getSignalOut(plug) end
 
 --- Returns the obstruction ratio of the engine exhaust by Elements and Voxels.
 --- The more obstructed the engine is, the less properly it will work. Try to fix your design if this is the case
 ---@return number 
-function self.getObstructionFactor() end
+function HoverEngine.getObstructionFactor() end
 
 --- Returns the tags of the engine
 ---@return string 
-function self.getTags() end
+function HoverEngine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
 ---@param ignore boolean: True to ignore the default engine tags
-function self.setTags(tags, ignore) end
+function HoverEngine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
 ---@return integer 1 if the engine ignores default engine tags
-function self.isIgnoringTags() end
+function HoverEngine.isIgnoringTags() end
 
 --- Start the engine at full power (works only when run inside a cockpit or under remote control)
-function self.activate() end
+function HoverEngine.activate() end
 
 --- Stops the engine (works only when run inside a cockpit or under remote control)
-function self.deactivate() end
+function HoverEngine.deactivate() end
 
 --- Checks if the engine is active
 ---@return integer 
-function self.isActive() end
+function HoverEngine.isActive() end
 
 ---@deprecated FueledEngine.getState() is deprecated, use FueledEngine.isActive().
-function self.getState() end
+function HoverEngine.getState() end
 
 --- Toggle the state of the engine
-function self.toggle() end
+function HoverEngine.toggle() end
 
 --- Set the thrust of the engine
 ---@param thrust number The engine thrust in newtons (limited by the maximum thrust)
-function self.setThrust(thrust) end
+function HoverEngine.setThrust(thrust) end
 
 --- Returns the current thrust of the engine
 ---@return number 
-function self.getThrust() end
+function HoverEngine.getThrust() end
 
 ---@deprecated FueledEngine.getMaxThrust() is deprecated, use FueledEngine.getCurrentMaxThrust().
 ---@deprecated @diagnostic disable-next-line
-function self.getMaxThrust() end
+function HoverEngine.getMaxThrust() end
 
 ---@deprecated FueledEngine.getMaxThrustBase() is deprecated, use FueledEngine.getMaxThrust().
-function self.getMaxThrustBase() end
+function HoverEngine.getMaxThrustBase() end
 
 --- Returns the minimal thrust the engine can deliver at the moment (can be more than zero),
 --- which will depend on various conditions like atmospheric density, obstruction, orientation, etc
 --- Most of the time, this will be 0 but it can be greater than 0, particularly for Ailerons, in which case
 --- the actual thrust will be at least equal to minThrust
 ---@return number 
-function self.getCurrentMinThrust() end
+function HoverEngine.getCurrentMinThrust() end
 
 ---@deprecated FueledEngine.getMinThrust() is deprecated, use FueledEngine.getCurrentMinThrust().
-function self.getMinThrust() end
+function HoverEngine.getMinThrust() end
 
 --- Returns the maximal thrust the engine can deliver at the moment, which might depend on
 --- various conditions like atmospheric density, obstruction, orientation, etc. The actual thrust will be
 --- anything below this maxThrust, which defines the current max capability of the engine
 ---@return number 
-function self.getCurrentMaxThrust() end
+function HoverEngine.getCurrentMaxThrust() end
 
 --- Returns the ratio between the current maximum thrust and the optimal maximum thrust
 ---@return number 
-function self.getMaxThrustEfficiency() end
+function HoverEngine.getMaxThrustEfficiency() end
 
 --- Checks if the torque generation is enabled on the engine
 ---@return integer 
-function self.isTorqueEnabled() end
+function HoverEngine.isTorqueEnabled() end
 
 --- Sets the torque generation state on the engine
 ---@param state boolean 
-function self.enableTorque(state) end
+function HoverEngine.enableTorque(state) end
 
 --- Returns the engine thrust direction in construct local coordinates
 ---@return table 
-function self.getThrustAxis() end
+function HoverEngine.getThrustAxis() end
 
 --- Returns the engine torque axis in construct local coordinates
 ---@return table 
-function self.getTorqueAxis() end
+function HoverEngine.getTorqueAxis() end
 
 --- Returns the engine exhaust thrust direction in world coordinates
 ---@return table 
-function self.getWorldThrustAxis() end
+function HoverEngine.getWorldThrustAxis() end
 
 ---@deprecated FueledEngine.thrustAxis() is deprecated, use FueledEngine.getWorldThrustAxis().
-function self.thrustAxis() end
+function HoverEngine.thrustAxis() end
 
 --- Returns the engine torque axis in world coordinates
 ---@return table 
-function self.getWorldTorqueAxis() end
+function HoverEngine.getWorldTorqueAxis() end
 
 ---@deprecated FueledEngine.torqueAxis() is deprecated, use FueledEngine.getWorldTorqueAxis().
-function self.torqueAxis() end
+function HoverEngine.torqueAxis() end
 
 --- Checks if the engine out of fuel
 ---@return integer 
-function self.isOutOfFuel() end
+function HoverEngine.isOutOfFuel() end
 
 --- Returns the item ID of the fuel currently used by the engine
 ---@return integer 
-function self.getFuelId() end
+function HoverEngine.getFuelId() end
 
 --- Returns the local ID of the fueltank linked to the engine
 ---@return integer 
-function self.getFuelTankId() end
+function HoverEngine.getFuelTankId() end
 
 --- Checks if the engine linked to a functional Fuel Tank (not broken or colliding)?
 ---@return integer 
-function self.hasFunctionalFuelTank() end
+function HoverEngine.hasFunctionalFuelTank() end
 
 ---@deprecated FueledEngine.hasBrokenFuelTank() is deprecated, use FueledEngine.hasFunctionalFuelTank().
-function self.hasBrokenFuelTank() end
+function HoverEngine.hasBrokenFuelTank() end
 
 --- Returns the engine fuel consumption rate per newton of thrust delivered per second
 ---@return number 
-function self.getCurrentFuelRate() end
+function HoverEngine.getCurrentFuelRate() end
 
 --- Returns the ratio between the current fuel rate and the theoretical nominal fuel rate
 ---@return number 
-function self.getFuelRateEfficiency() end
+function HoverEngine.getFuelRateEfficiency() end
 
 --- Returns the current fuel consumption rate
 ---@return number 
-function self.getFuelConsumption() end
+function HoverEngine.getFuelConsumption() end
 
 --- Returns the T50; the time needed for the engine to reach 50% of its maximal thrust (all engines
 --- do not instantly reach the thrust that is set for them, but they can take time to "warm up" to
 --- the final value)
 ---@return number 
-function self.getWarmupTime() end
+function HoverEngine.getWarmupTime() end
 
 ---@deprecated FueledEngine.getT50() is deprecated, use FueledEngine.getWarmupTime().
-function self.getT50() end
+function HoverEngine.getT50() end
 
 --- Returns the distance to the first object detected in the direction of the thrust
 ---@return number 
-function self.getDistance() end
+function HoverEngine.getDistance() end
 
 --- Returns the maximum functional distance from the ground
 ---@return number 
-function self.getMaxDistance() end
+function HoverEngine.getMaxDistance() end
 
-return self
-end
 
 ---@class Industry
-function Industry()
-local self = {}
-
+Industry = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Industry.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Industry.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Industry.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Industry.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Industry.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Industry.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Industry.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Industry.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Industry.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Industry.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Industry.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Industry.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Industry.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Industry.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Industry.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Industry.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Industry.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Industry.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Industry.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Industry.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Industry.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Industry.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Industry.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Industry.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Industry.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Industry.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Industry.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Industry.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Industry.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Industry.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -5622,7 +5528,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Industry.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -5631,7 +5537,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Industry.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -5640,236 +5546,232 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Industry.getSignalOut(plug) end
 
 --- Start the production, and it will run unless it is stopped or the input resources run out
-function self.startRun() end
+function Industry.startRun() end
 
 ---@deprecated Industry.start() is deprecated, use Industry.startRun() instead.
-function self.start() end
+function Industry.start() end
 
 --- Start maintaining the specified quantity. Resumes production when the quantity in the output Container is too low, and pauses production when it is equal or higher
 ---@param quantity integer Quantity to maintain inside output containers
-function self.startMaintain(quantity) end
+function Industry.startMaintain(quantity) end
 
 ---@deprecated Industry.startAndMaintain(quantity) is deprecated, use Industry.startMaintain(quantity) instead.
-function self.startAndMaintain() end
+function Industry.startAndMaintain() end
 
 --- Start the production of numBatches and then stop
 ---@param numBatches integer Number of batches to run before unit stops
-function self.startFor(numBatches) end
+function Industry.startFor(numBatches) end
 
 ---@deprecated Industry.batchStart(quantity) is deprecated, use Industry.startFor(numBatches) instead.
-function self.batchStart() end
+function Industry.batchStart() end
 
 --- Stop the production of the industry unit
 ---@param force boolean (optional by default false) True if you want to force the production to stop immediately
 ---@param allowLoss boolean (optional by default false) True if you want to allow the industry unit to lose components when recovering in use components
-function self.stop(force, allowLoss) end
+function Industry.stop(force, allowLoss) end
 
 ---@deprecated Industry.hardStop(allowLoss) is deprecated, use Industry.stop(true,allowLoss) instead.
-function self.hardStop() end
+function Industry.hardStop() end
 
 ---@deprecated Industry.softStop() is deprecated, use Industry.stop(false,false) instead.
-function self.softStop() end
+function Industry.softStop() end
 
 --- Get the current running state of the industry
 ---@return integer value (Stopped = 1, Running = 2, Jammed missing ingredient = 3, Jammed output full = 4, Jammed no output container = 5, Pending = 6, Jammed missing schematics = 7)
-function self.getState() end
+function Industry.getState() end
 
-function self.getStatus() end
+function Industry.getStatus() end
 
 --- Returns the complete information of the industry
 ---@return integer value The complete state of the industry, a table with fields {[int] state, [bool] stopRequested, [int] schematicId (deprecated = 0), [int] schematicsRemaining, [int] unitsProduced, [int] remainingTime, [int] batchesRequested, [int] batchesRemaining, [float] maintainProductAmount, [int] currentProductAmount, [table] currentProducts:{{[int] id, [double] quantity},...}}
-function self.getInfo() end
+function Industry.getInfo() end
 
 --- Get the count of completed cycles since the player started the unit
 ---@return integer 
-function self.getCyclesCompleted() end
+function Industry.getCyclesCompleted() end
 
 ---@deprecated Industry.getCycleCountSinceStartup() is deprecated, use Industry.getCyclesCompleted() instead.
-function self.getCycleCountSinceStartup() end
+function Industry.getCycleCountSinceStartup() end
 
 --- Returns the efficiency of the industry
 ---@return number 
-function self.getEfficiency() end
+function Industry.getEfficiency() end
 
 --- Returns the time elapsed in seconds since the player started the unit for the latest time
 ---@return number 
-function self.getUptime() end
+function Industry.getUptime() end
 
 --- Returns the list of items required to run the selected output product.
 ---@return table outputs Returns the list of products
-function self.getInputs() end
+function Industry.getInputs() end
 
 --- Returns the list of id of the items currently produced.
 ---@return table outputs The first entry in the table is always the main product produced
-function self.getOutputs() end
+function Industry.getOutputs() end
 
 ---@deprecated Industry.getCurrentSchematic() is deprecated.
-function self.getCurrentSchematic() end
+function Industry.getCurrentSchematic() end
 
 --- Set the item to produce from its id
 ---@param itemId integer The item id of the item to produce
 ---@return integer success The result of the operation 0 for a sucess, -1 if the industry is running
-function self.setOutput(itemId) end
+function Industry.setOutput(itemId) end
 
 ---@deprecated Industry.setCurrentSchematic(id) is deprecated, use Industry.setOutput(itemId) instead.
-function self.setCurrentSchematic() end
+function Industry.setCurrentSchematic() end
 
 --- Send a request to get an update of the content of the schematic bank, limited to one call allowed per 30 seconds
 ---@return number time If the request is not yet possible, returns the remaining time to wait for
-function self.updateBank() end
+function Industry.updateBank() end
 
 --- Returns a table describing the contents of the schematic bank, as a pair itemId and quantity per slot
 ---@return table content The content of the schematic bank as a table with fields {[int] id, [float] quantity} per slot
-function self.getBank() end
+function Industry.getBank() end
 
 --- Emitted when the Industry Unit has started a new production process
 ---@param id integer The product item id
 ---@param quantity number The product quantity
 ---@type Event
-self.onStarted = Event:new()
+Industry.onStarted = Event:new()
 
 --- Emitted when the Industry Unit has completed a run
 ---@param id integer The product item id
 ---@param quantity number The product quantity
 ---@type Event
-self.onCompleted = Event:new()
+Industry.onCompleted = Event:new()
 
 ---@type Event
-self.completed = Event:new()
+Industry.completed = Event:new()
 
 --- Emitted when the industry status has changed
 ---@param status integer The status of the industry can be (Stopped = 1, Running = 2, Jammed missing ingredient = 3, Jammed output full = 4, Jammed no output container = 5, Pending = 6)
 ---@type Event
-self.onStatusChanged = Event:new()
+Industry.onStatusChanged = Event:new()
 
 ---@type Event
-self.statusChanged = Event:new()
+Industry.statusChanged = Event:new()
 
 --- Emitted when the schematic bank content is updated(bank update or after a manual request made with updateBank())
 ---@type Event
-self.onBankUpdate = Event:new()
+Industry.onBankUpdate = Event:new()
 
-return self
-end
 
 ---@class LandingGear
-function LandingGear()
-local self = {}
-
+LandingGear = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function LandingGear.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function LandingGear.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function LandingGear.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function LandingGear.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function LandingGear.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function LandingGear.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function LandingGear.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function LandingGear.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function LandingGear.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function LandingGear.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function LandingGear.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function LandingGear.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function LandingGear.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function LandingGear.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function LandingGear.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function LandingGear.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function LandingGear.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function LandingGear.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function LandingGear.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function LandingGear.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function LandingGear.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function LandingGear.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function LandingGear.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function LandingGear.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function LandingGear.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function LandingGear.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function LandingGear.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function LandingGear.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function LandingGear.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function LandingGear.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -5878,7 +5780,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function LandingGear.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -5887,7 +5789,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function LandingGear.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -5896,148 +5798,144 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function LandingGear.getSignalOut(plug) end
 
 --- Deploys the landing gear
-function self.deploy() end
+function LandingGear.deploy() end
 
 ---@deprecated LandingGear.activate() is deprecated, use LandingGear.deploy() instead.
-function self.activate() end
+function LandingGear.activate() end
 
 --- Retracts the landing gear
-function self.retract() end
+function LandingGear.retract() end
 
 ---@deprecated ForceField.deactivate() is deprecated, use ForceField.retract() instead.
-function self.deactivate() end
+function LandingGear.deactivate() end
 
 --- Checks if the landing gear is deployed
 ---@return integer 
-function self.isDeployed() end
+function LandingGear.isDeployed() end
 
 ---@deprecated ForceField.getState() is deprecated, use ForceField.isDeployed() instead.
-function self.getState() end
+function LandingGear.getState() end
 
 --- Toggle the landing gear
-function self.toggle() end
+function LandingGear.toggle() end
 
-return self
-end
 
 ---@class LaserDetector
-function LaserDetector()
-local self = {}
-
+LaserDetector = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function LaserDetector.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function LaserDetector.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function LaserDetector.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function LaserDetector.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function LaserDetector.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function LaserDetector.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function LaserDetector.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function LaserDetector.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function LaserDetector.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function LaserDetector.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function LaserDetector.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function LaserDetector.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function LaserDetector.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function LaserDetector.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function LaserDetector.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function LaserDetector.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function LaserDetector.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function LaserDetector.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function LaserDetector.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function LaserDetector.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function LaserDetector.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function LaserDetector.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function LaserDetector.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function LaserDetector.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function LaserDetector.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function LaserDetector.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function LaserDetector.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function LaserDetector.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function LaserDetector.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function LaserDetector.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6046,7 +5944,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function LaserDetector.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6055,7 +5953,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function LaserDetector.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6064,147 +5962,143 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function LaserDetector.getSignalOut(plug) end
 
 --- Checks if any laser is hitting the detector
 ---@return integer 
-function self.isHit() end
+function LaserDetector.isHit() end
 
 ---@deprecated LaserDetector.getState() is deprecated, use LaserDetector.isHit() instead.
-function self.getState() end
+function LaserDetector.getState() end
 
 --- Emitted when a laser hit the detector
 ---@type Event
-self.onHit = Event:new()
+LaserDetector.onHit = Event:new()
 
 ---@type Event
-self.laserHit = Event:new()
+LaserDetector.laserHit = Event:new()
 
 --- Emitted when all lasers stop hitting the detector
 ---@type Event
-self.onLoss = Event:new()
+LaserDetector.onLoss = Event:new()
 
 ---@type Event
-self.laserRelease = Event:new()
+LaserDetector.laserRelease = Event:new()
 
-return self
-end
 
 ---@class LaserEmitter
-function LaserEmitter()
-local self = {}
-
+LaserEmitter = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function LaserEmitter.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function LaserEmitter.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function LaserEmitter.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function LaserEmitter.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function LaserEmitter.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function LaserEmitter.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function LaserEmitter.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function LaserEmitter.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function LaserEmitter.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function LaserEmitter.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function LaserEmitter.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function LaserEmitter.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function LaserEmitter.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function LaserEmitter.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function LaserEmitter.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function LaserEmitter.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function LaserEmitter.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function LaserEmitter.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function LaserEmitter.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function LaserEmitter.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function LaserEmitter.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function LaserEmitter.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function LaserEmitter.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function LaserEmitter.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function LaserEmitter.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function LaserEmitter.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function LaserEmitter.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function LaserEmitter.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function LaserEmitter.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function LaserEmitter.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6213,7 +6107,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function LaserEmitter.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6222,7 +6116,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function LaserEmitter.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6231,169 +6125,161 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function LaserEmitter.getSignalOut(plug) end
 
 --- Activates the laser emitter
-function self.activate() end
+function LaserEmitter.activate() end
 
 --- Deactivates the laser emitter
-function self.deactivate() end
+function LaserEmitter.deactivate() end
 
 --- Toggle the laser emitter
-function self.toggle() end
+function LaserEmitter.toggle() end
 
 --- Checks if the laser emitter is active
 ---@return integer 
-function self.isActive() end
+function LaserEmitter.isActive() end
 
 ---@deprecated LaserEmitter.getState() is deprecated, use LaserEmitter.isActive() instead.
-function self.getState() end
+function LaserEmitter.getState() end
 
-return self
-end
 
 ---@class Library
-function Library()
-local self = {}
-
+Library = {}
 --- Solve the 3D linear system M*x=c0 where M is defined by its column vectors c1,c2,c3
 ---@param c1 table The first column of the matrix M
 ---@param c2 table The second column of the matrix M
 ---@param c3 table The third column of the matrix M
 ---@param c0 table The target column vector of the system
 ---@return table value The vec3 solution of the above system
-function self.systemResolution3(c1, c2, c3, c0) end
+function Library.systemResolution3(c1, c2, c3, c0) end
 
 --- Solve the 2D linear system M*x=c0 where M is defined by its column vectors c1,c2
 ---@param c1 table The first column of the matrix M
 ---@param c2 table The second column of the matrix M
 ---@param c0 table The target column vector of the system
 ---@return table value The vec2 solution of the above system
-function self.systemResolution2(c1, c2, c0) end
+function Library.systemResolution2(c1, c2, c0) end
 
 --- Returns the position of the given point in world coordinates system, on the game screen
 ---@param worldPos table: The world position of the point
 ---@return table value The position in percentage (between 0 and 1) of the screen resolution as vec3 with {x, y, depth}
-function self.getPointOnScreen(worldPos) end
+function Library.getPointOnScreen(worldPos) end
 
-return self
-end
 
 ---@class Light
-function Light()
-local self = {}
-
+Light = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Light.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Light.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Light.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Light.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Light.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Light.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Light.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Light.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Light.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Light.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Light.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Light.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Light.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Light.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Light.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Light.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Light.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Light.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Light.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Light.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Light.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Light.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Light.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Light.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Light.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Light.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Light.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Light.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Light.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Light.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6402,7 +6288,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Light.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6411,7 +6297,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Light.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6420,190 +6306,186 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Light.getSignalOut(plug) end
 
 --- Switches the light on
-function self.activate() end
+function Light.activate() end
 
 --- Switches the light off
-function self.deactivate() end
+function Light.deactivate() end
 
 --- Checks if the light is on
 ---@return integer 
-function self.isActive() end
+function Light.isActive() end
 
 ---@deprecated Light.getState() is deprecated, use Light.isActive() instead.
-function self.getState() end
+function Light.getState() end
 
 --- Toggle the state of the light
-function self.toggle() end
+function Light.toggle() end
 
 --- Set the light color in RGB. Lights can use HDR color values above 1.0 to glow.
 ---@param r number The red component, between 0.0 and 1.0, up to 5.0 for HDR colors.
 ---@param g number The green component, between 0.0 and 1.0, up to 5.0 for HDR colors.
 ---@param b number The blue component, between 0.0 and 1.0, up to 5.0 for HDR colors.
-function self.setColor(r, g, b) end
+function Light.setColor(r, g, b) end
 
 ---@deprecated Light.setRGBColor(r,g,b) is deprecated, use Light.setColor(r,g,b) instead.
-function self.setRGBColor() end
+function Light.setRGBColor() end
 
 --- Returns the light color in RGB
 ---@return table color  A vec3 for the red, blue and green components of the light, with values between 0.0 and 1.0, up to 5.0.
-function self.getColor() end
+function Light.getColor() end
 
 ---@deprecated Light.getRGBColor() is deprecated, use Light.getColor() instead.
-function self.getRGBColor() end
+function Light.getRGBColor() end
 
 --- Returns the blinking state of the light
 ---@param state boolean True to enable light blinking
-function self.setBlinkingState(state) end
+function Light.setBlinkingState(state) end
 
 --- Checks if the light blinking is enabled
 ---@return integer 
-function self.isBlinking() end
+function Light.isBlinking() end
 
 --- Returns the light 'on' blinking duration
 ---@return number 
-function self.getOnBlinkingDuration() end
+function Light.getOnBlinkingDuration() end
 
 --- Set the light 'on' blinking duration
 ---@param time number The duration of the 'on' blinking in seconds
-function self.setOnBlinkingDuration(time) end
+function Light.setOnBlinkingDuration(time) end
 
 --- Returns the light 'off' blinking duration
 ---@return number 
-function self.getOffBlinkingDuration() end
+function Light.getOffBlinkingDuration() end
 
 --- Set the light 'off' blinking duration
 ---@param time number The duration of the 'off' blinking in seconds
-function self.setOffBlinkingDuration(time) end
+function Light.setOffBlinkingDuration(time) end
 
 --- Returns the light blinking time shift
 ---@return number 
-function self.getBlinkingTimeShift() end
+function Light.getBlinkingTimeShift() end
 
 --- Set the light blinking time shift
 ---@param shift number The time shift of the blinking
-function self.setBlinkingTimeShift(shift) end
+function Light.setBlinkingTimeShift(shift) end
 
-return self
-end
 
 ---@class ManualButton
-function ManualButton()
-local self = {}
-
+ManualButton = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function ManualButton.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function ManualButton.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function ManualButton.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function ManualButton.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function ManualButton.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function ManualButton.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function ManualButton.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function ManualButton.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function ManualButton.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function ManualButton.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function ManualButton.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function ManualButton.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function ManualButton.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function ManualButton.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function ManualButton.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function ManualButton.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function ManualButton.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function ManualButton.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function ManualButton.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function ManualButton.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function ManualButton.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function ManualButton.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function ManualButton.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function ManualButton.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function ManualButton.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function ManualButton.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function ManualButton.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function ManualButton.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function ManualButton.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function ManualButton.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6612,7 +6494,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function ManualButton.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6621,7 +6503,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function ManualButton.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6630,147 +6512,143 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function ManualButton.getSignalOut(plug) end
 
 --- Checks if the manual button is down
 ---@return integer 
-function self.isDown() end
+function ManualButton.isDown() end
 
 ---@deprecated ManualButton.getState() is deprecated, use ManualButton.isDown() instead.
-function self.getState() end
+function ManualButton.getState() end
 
 --- Emitted when the button is pressed
 ---@type Event
-self.onPressed = Event:new()
+ManualButton.onPressed = Event:new()
 
 ---@type Event
-self.pressed = Event:new()
+ManualButton.pressed = Event:new()
 
 --- Emitted when the button is released
 ---@type Event
-self.onReleased = Event:new()
+ManualButton.onReleased = Event:new()
 
 ---@type Event
-self.released = Event:new()
+ManualButton.released = Event:new()
 
-return self
-end
 
 ---@class ManualSwitch
-function ManualSwitch()
-local self = {}
-
+ManualSwitch = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function ManualSwitch.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function ManualSwitch.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function ManualSwitch.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function ManualSwitch.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function ManualSwitch.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function ManualSwitch.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function ManualSwitch.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function ManualSwitch.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function ManualSwitch.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function ManualSwitch.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function ManualSwitch.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function ManualSwitch.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function ManualSwitch.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function ManualSwitch.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function ManualSwitch.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function ManualSwitch.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function ManualSwitch.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function ManualSwitch.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function ManualSwitch.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function ManualSwitch.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function ManualSwitch.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function ManualSwitch.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function ManualSwitch.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function ManualSwitch.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function ManualSwitch.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function ManualSwitch.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function ManualSwitch.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function ManualSwitch.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function ManualSwitch.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function ManualSwitch.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6779,7 +6657,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function ManualSwitch.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6788,7 +6666,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function ManualSwitch.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6797,156 +6675,152 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function ManualSwitch.getSignalOut(plug) end
 
 --- Switches the switch on
-function self.activate() end
+function ManualSwitch.activate() end
 
 --- Switches the switch off
-function self.deactivate() end
+function ManualSwitch.deactivate() end
 
 --- Toggle the switch
-function self.toggle() end
+function ManualSwitch.toggle() end
 
 --- Checks if the switch is active
 ---@return integer 
-function self.isActive() end
+function ManualSwitch.isActive() end
 
 ---@deprecated ManualSwitch.getState() is deprecated, use ManualSwitch.isActive() instead.
-function self.getState() end
+function ManualSwitch.getState() end
 
 --- Emitted when the button is pressed
 ---@type Event
-self.onPressed = Event:new()
+ManualSwitch.onPressed = Event:new()
 
 ---@type Event
-self.pressed = Event:new()
+ManualSwitch.pressed = Event:new()
 
 --- Emitted when the button is released
 ---@type Event
-self.onReleased = Event:new()
+ManualSwitch.onReleased = Event:new()
 
 ---@type Event
-self.released = Event:new()
+ManualSwitch.released = Event:new()
 
-return self
-end
 
 ---@class MiningUnit
-function MiningUnit()
-local self = {}
-
+MiningUnit = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function MiningUnit.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function MiningUnit.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function MiningUnit.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function MiningUnit.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function MiningUnit.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function MiningUnit.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function MiningUnit.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function MiningUnit.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function MiningUnit.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function MiningUnit.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function MiningUnit.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function MiningUnit.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function MiningUnit.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function MiningUnit.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function MiningUnit.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function MiningUnit.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function MiningUnit.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function MiningUnit.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function MiningUnit.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function MiningUnit.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function MiningUnit.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function MiningUnit.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function MiningUnit.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function MiningUnit.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function MiningUnit.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function MiningUnit.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function MiningUnit.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function MiningUnit.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function MiningUnit.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function MiningUnit.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6955,7 +6829,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function MiningUnit.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6964,7 +6838,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function MiningUnit.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6973,225 +6847,221 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function MiningUnit.getSignalOut(plug) end
 
 --- Returns the current state of the mining unit
 ---@return integer state The status of the mining unit can be (Stopped = 1, Running = 2, Jammed output full = 3, Jammed no output container = 4)
-function self.getState() end
+function MiningUnit.getState() end
 
 ---@deprecated MiningUnit.getStatus() is deprecated, use MiningUnit.getState() instead.
-function self.getStatus() end
+function MiningUnit.getStatus() end
 
 --- Returns the remaining time of the current batch extraction process.
 ---@return number 
-function self.getRemainingTime() end
+function MiningUnit.getRemainingTime() end
 
 --- Returns the item ID of the currently selected ore.
 ---@return integer 
-function self.getActiveOre() end
+function MiningUnit.getActiveOre() end
 
 --- Returns the list of available ore pools
 ---@return table pool A list of tables composed with {[int] oreId, [float] available, [float] maximum);
-function self.getOrePools() end
+function MiningUnit.getOrePools() end
 
 --- Returns the base production rate of the mining unit.
 ---@return number 
-function self.getBaseRate() end
+function MiningUnit.getBaseRate() end
 
 --- Returns the efficiency rate of the mining unit.
 ---@return number 
-function self.getEfficiency() end
+function MiningUnit.getEfficiency() end
 
 --- Returns the calibration rate of the mining unit.
 ---@return number 
-function self.getCalibrationRate() end
+function MiningUnit.getCalibrationRate() end
 
 --- Returns the optimal calibration rate of the mining unit.
 ---@return number 
-function self.getOptimalRate() end
+function MiningUnit.getOptimalRate() end
 
 --- Returns the current production rate of the mining unit.
 ---@return number 
-function self.getProductionRate() end
+function MiningUnit.getProductionRate() end
 
 --- Returns the territory's adjacency bonus to the territory of the mining unit. Note: This value is updated only when a new batch is started.
 ---@return number 
-function self.getAdjacencyBonus() end
+function MiningUnit.getAdjacencyBonus() end
 
 --- Returns the position of the last calibration excavation, in world coordinates.
 ---@return table 
-function self.getLastExtractionPosition() end
+function MiningUnit.getLastExtractionPosition() end
 
 --- Returns the ID of the last player who calibrated the mining unit.
 ---@return integer 
-function self.getLastExtractingPlayerId() end
+function MiningUnit.getLastExtractingPlayerId() end
 
 --- Returns the time in seconds since the last calibration of the mining unit.
 ---@return number 
-function self.getLastExtractionTime() end
+function MiningUnit.getLastExtractionTime() end
 
 --- Returns the item ID of the ore extracted during the last calibration excavation.
 ---@return integer 
-function self.getLastExtractedOre() end
+function MiningUnit.getLastExtractedOre() end
 
 --- Returns the volume of ore extracted during the last calibration excavation.
 ---@return number 
-function self.getLastExtractedVolume() end
+function MiningUnit.getLastExtractedVolume() end
 
 --- Emitted when the mining unit is calibrated.
 ---@param oreId integer The item ID of the ore extracted during the calibration process
 ---@param amount number Amount of ore extracted during the calibration process
 ---@param rate number The new calibration rate after calibration process
 ---@type Event
-self.onCalibrated = Event:new()
+MiningUnit.onCalibrated = Event:new()
 
 ---@type Event
-self.calibrated = Event:new()
+MiningUnit.calibrated = Event:new()
 
 --- Emitted when the mining unit started a new extraction process.
 ---@param oreId number The item ID of the ore mined during the extraction process
 ---@type Event
-self.onStarted = Event:new()
+MiningUnit.onStarted = Event:new()
 
 --- Emitted when the mining unit complete a batch.
 ---@param oreId number The item ID of the ore mined during the extraction process
 ---@param amount number Amount of ore mined
 ---@type Event
-self.onCompleted = Event:new()
+MiningUnit.onCompleted = Event:new()
 
 ---@type Event
-self.completed = Event:new()
+MiningUnit.completed = Event:new()
 
 --- Emitted when the mining unit status is changed.
 ---@param status integer The status of the mining unit can be (Stopped = 1, Running = 2, Jammed output full = 3, Jammed no output container = 4)
 ---@type Event
-self.onStatusChanged = Event:new()
+MiningUnit.onStatusChanged = Event:new()
 
 ---@type Event
-self.statusChanged = Event:new()
+MiningUnit.statusChanged = Event:new()
 
 --- Emitted when the mining unit stopped the extraction process.
 ---@type Event
-self.onStopped = Event:new()
+MiningUnit.onStopped = Event:new()
 
-return self
-end
 
 ---@class PlasmaExtractor
-function PlasmaExtractor()
-local self = {}
-
+PlasmaExtractor = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function PlasmaExtractor.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function PlasmaExtractor.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function PlasmaExtractor.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function PlasmaExtractor.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function PlasmaExtractor.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function PlasmaExtractor.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function PlasmaExtractor.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function PlasmaExtractor.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function PlasmaExtractor.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function PlasmaExtractor.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function PlasmaExtractor.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function PlasmaExtractor.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function PlasmaExtractor.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function PlasmaExtractor.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function PlasmaExtractor.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function PlasmaExtractor.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function PlasmaExtractor.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function PlasmaExtractor.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function PlasmaExtractor.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function PlasmaExtractor.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function PlasmaExtractor.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function PlasmaExtractor.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function PlasmaExtractor.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function PlasmaExtractor.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function PlasmaExtractor.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function PlasmaExtractor.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function PlasmaExtractor.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function PlasmaExtractor.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function PlasmaExtractor.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function PlasmaExtractor.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -7200,7 +7070,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function PlasmaExtractor.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -7209,7 +7079,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function PlasmaExtractor.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -7218,298 +7088,290 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function PlasmaExtractor.getSignalOut(plug) end
 
 --- Returns the current status of the plasma extractor
 ---@return integer status The status of the plasma extractor can be (Stopped = 1, Running = 2, Jammed output full = 3, Jammed no output container = 4)
-function self.getStatus() end
+function PlasmaExtractor.getStatus() end
 
 --- Returns the remaining time of the current batch extraction process.
 ---@return number 
-function self.getRemainingTime() end
+function PlasmaExtractor.getRemainingTime() end
 
 --- Returns the list of available plasma pools
 ---@return table pool A list of tables composed with {[int] oreId, [float] available, [float] maximum);
-function self.getPlasmaPools() end
+function PlasmaExtractor.getPlasmaPools() end
 
 --- Emitted when the plasma extractor started a new extraction process
 ---@type Event
-self.onStarted = Event:new()
+PlasmaExtractor.onStarted = Event:new()
 
 --- Emitted when the plasma extractor complete a batch
 ---@type Event
-self.onCompleted = Event:new()
+PlasmaExtractor.onCompleted = Event:new()
 
 --- Emitted when the plasma extractor status is changed
 ---@param status integer The status of the plasma extractor can be (Stopped = 1, Running = 2, Jammed output full = 3, Jammed no output container = 4)
 ---@type Event
-self.onStatusChanged = Event:new()
+PlasmaExtractor.onStatusChanged = Event:new()
 
 --- Emitted when the plasma extractor stopped the extraction process
 ---@type Event
-self.onStopped = Event:new()
+PlasmaExtractor.onStopped = Event:new()
 
-return self
-end
 
 ---@class Player
-function Player()
-local self = {}
-
+Player = {}
 --- Returns the player name
 ---@return string value The player name
-function self.getName() end
+function Player.getName() end
 
 --- Return the ID of the player
 ---@return integer value The ID of the player
-function self.getId() end
+function Player.getId() end
 
 --- Returns the player mass
 ---@return number value The mass of the player in kilograms
-function self.getMass() end
+function Player.getMass() end
 
 --- Returns the player's nanopack content mass
 ---@return number value The player's nanopack content mass in kilograms
-function self.getNanopackMass() end
+function Player.getNanopackMass() end
 
 --- Returns the player's nanopack content volume
 ---@return number value The player's nanopack content volume in liters
-function self.getNanopackVolume() end
+function Player.getNanopackVolume() end
 
 --- Returns the player's nanopack maximum volume
 ---@return number value The player's nanopack maximum volume in liters
-function self.getNanopackMaxVolume() end
+function Player.getNanopackMaxVolume() end
 
 --- Returns the list of organization IDs of the player
 ---@return table value The list of organization IDs
-function self.getOrgIds() end
+function Player.getOrgIds() end
 
 --- Returns the position of the player, in construct local coordinates
 ---@return table value The position in construct local coordinates
-function self.getPosition() end
+function Player.getPosition() end
 
 --- Returns the position of the player, in world coordinates
 ---@return table value The position in world coordinates
-function self.getWorldPosition() end
+function Player.getWorldPosition() end
 
 --- Returns the position of the head of the player's character, in construct local coordinates
 ---@return table value The position of the head in construct local coordinates
-function self.getHeadPosition() end
+function Player.getHeadPosition() end
 
 --- Returns the position of the head of the player's character, in world coordinates
 ---@return table value The position of the head in world coordinates
-function self.getWorldHeadPosition() end
+function Player.getWorldHeadPosition() end
 
 --- Returns the velocity vector of the player, in construct local coordinates
 ---@return table value The velocity vector in construct local coordinates
-function self.getVelocity() end
+function Player.getVelocity() end
 
 --- Returns the velocity vector of the player, in world coordinates
 ---@return table value The velocity vector in world coordinates
-function self.getWorldVelocity() end
+function Player.getWorldVelocity() end
 
 --- Returns the absolute velocity vector of the player, in world coordinates
 ---@return table value The velocity absolute vector in world coordinates
-function self.getAbsoluteVelocity() end
+function Player.getAbsoluteVelocity() end
 
 --- Returns the forward direction vector of the player, in construct local coordinates
 ---@return table value The forward direction vector in construct local coordinates
-function self.getForward() end
+function Player.getForward() end
 
 --- Returns the right direction vector of the player, in construct local coordinates
 ---@return table value The right direction vector in construct local coordinates
-function self.getRight() end
+function Player.getRight() end
 
 --- Returns the up direction vector of the player, in construct local coordinates
 ---@return table value The up direction vector in construct local coordinates
-function self.getUp() end
+function Player.getUp() end
 
 --- Returns the forward direction vector of the player, in world coordinates
 ---@return table value The forward direction vector in world coordinates
-function self.getWorldForward() end
+function Player.getWorldForward() end
 
 --- Returns the right direction vector of the player, in world coordinates
 ---@return table value The right direction vector in world coordinates
-function self.getWorldRight() end
+function Player.getWorldRight() end
 
 --- Returns the up direction vector of the player, in world coordinates
 ---@return table value The up direction vector in world coordinates
-function self.getWorldUp() end
+function Player.getWorldUp() end
 
 --- Returns the id of the planet the player is located on
 ---@return integer value The id of the planet, 0 if none
-function self.getPlanet() end
+function Player.getPlanet() end
 
 --- Returns the identifier of the construct to which the player is parented
 ---@return integer value The id of the construct, 0 if none
-function self.getParent() end
+function Player.getParent() end
 
 --- Checks if the player is seated
 ---@return integer value 1 if the player is seated
-function self.isSeated() end
+function Player.isSeated() end
 
 --- Returns the local id of the seat on which the player is sitting
 ---@return integer value The local id of the seat, or 0 is not seated
-function self.getSeatId() end
+function Player.getSeatId() end
 
 --- Checks if the player is parented to the given construct
 ---@param id integer The construct id
 ---@return integer value 1 if the player is parented to the given construct
-function self.isParentedTo(id) end
+function Player.isParentedTo(id) end
 
 --- Checks if the player is currently sprinting
 ---@return integer value 1 if the player is sprinting
-function self.isSprinting() end
+function Player.isSprinting() end
 
 --- Checks if the player's jetpack is on
 ---@return integer value 1 if the player's jetpack is on
-function self.isJetpackOn() end
+function Player.isJetpackOn() end
 
 --- Returns the state of the headlight of the player
 ---@return integer 1 if the player has his headlight on
-function self.isHeadlightOn() end
+function Player.isHeadlightOn() end
 
 --- Set the state of the headlight of the player
 ---@param state boolean : True to turn on headlight
-function self.setHeadlightOn(state) end
+function Player.setHeadlightOn(state) end
 
 --- Freezes the player movements, liberating the associated movement keys to be used by the script.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal)
 ---@param state boolean 1 freeze the character, 0 unfreeze the character
-function self.freeze(state) end
+function Player.freeze(state) end
 
 --- Checks if the player movements are frozen
 ---@return integer value 1 if the player is frozen, 0 otherwise
-function self.isFrozen() end
+function Player.isFrozen() end
 
 --- Checks if the player has DRM autorization to the control unit
 ---@return integer value 1 if the player has DRM autorization on the control unit
-function self.hasDRMAutorization() end
+function Player.hasDRMAutorization() end
 
 --- Emitted when the player parent change
 ---@param oldId integer The previous parent construct ID
 ---@param newId integer The new parent construct ID
 ---@type Event
-self.onParentChanged = Event:new()
+Player.onParentChanged = Event:new()
 
-return self
-end
 
 ---@class PressureTile
-function PressureTile()
-local self = {}
-
+PressureTile = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function PressureTile.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function PressureTile.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function PressureTile.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function PressureTile.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function PressureTile.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function PressureTile.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function PressureTile.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function PressureTile.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function PressureTile.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function PressureTile.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function PressureTile.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function PressureTile.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function PressureTile.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function PressureTile.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function PressureTile.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function PressureTile.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function PressureTile.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function PressureTile.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function PressureTile.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function PressureTile.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function PressureTile.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function PressureTile.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function PressureTile.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function PressureTile.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function PressureTile.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function PressureTile.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function PressureTile.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function PressureTile.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function PressureTile.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function PressureTile.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -7518,7 +7380,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function PressureTile.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -7527,7 +7389,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function PressureTile.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -7536,147 +7398,143 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function PressureTile.getSignalOut(plug) end
 
 --- Checks if the pressure tile is down
 ---@return integer 
-function self.isDown() end
+function PressureTile.isDown() end
 
 ---@deprecated PressureTile.getState() is deprecated, use PressureTile.isDown() instead.
-function self.getState() end
+function PressureTile.getState() end
 
 --- Emitted when the pressure tile is pressed
 ---@type Event
-self.onPressed = Event:new()
+PressureTile.onPressed = Event:new()
 
 ---@type Event
-self.pressed = Event:new()
+PressureTile.pressed = Event:new()
 
 --- Emitter when the pressure tile is released
 ---@type Event
-self.onReleased = Event:new()
+PressureTile.onReleased = Event:new()
 
 ---@type Event
-self.released = Event:new()
+PressureTile.released = Event:new()
 
-return self
-end
 
 ---@class Radar
-function Radar()
-local self = {}
-
+Radar = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Radar.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Radar.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Radar.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Radar.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Radar.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Radar.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Radar.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Radar.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Radar.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Radar.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Radar.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Radar.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Radar.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Radar.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Radar.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Radar.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Radar.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Radar.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Radar.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Radar.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Radar.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Radar.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Radar.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Radar.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Radar.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Radar.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Radar.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Radar.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Radar.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Radar.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -7685,7 +7543,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Radar.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -7694,7 +7552,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Radar.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -7703,279 +7561,275 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Radar.getSignalOut(plug) end
 
 --- Returns 1 if the radar is not broken, works in the current environment and is not used by another control unit
 ---@return integer state 1 if the radar is operational, otherwise: 0 = broken, -1 = bad environment, -2 = obstructed, -3 = already in use
-function self.getOperationalState() end
+function Radar.getOperationalState() end
 
 ---@deprecated Radar.isOperational() is deprecated, use Radar.getOperationalState() instead.
-function self.isOperational() end
+function Radar.isOperational() end
 
 --- Returns the scan range of the radar
 ---@return number value The scan range
-function self.getRange() end
+function Radar.getRange() end
 
 --- Returns ranges to identify a target based on its core size
 ---@return table ranges The list of float values for ranges in meters as { xsRange, sRange, mRange, lRange }
-function self.getIdentifyRanges() end
+function Radar.getIdentifyRanges() end
 
 --- Returns the list of construct IDs in the scan range
 ---@return table 
-function self.getConstructIds() end
+function Radar.getConstructIds() end
 
 --- Returns the list of identified construct IDs
 ---@return table 
-function self.getIdentifiedConstructIds() end
+function Radar.getIdentifiedConstructIds() end
 
 --- Returns the ID of the target construct
 ---@return integer 
-function self.getTargetId() end
+function Radar.getTargetId() end
 
 --- Returns the distance to the given construct
 ---@return number 
-function self.getConstructDistance() end
+function Radar.getConstructDistance() end
 
 --- Returns 1 if the given construct is identified
 ---@return integer 
-function self.isConstructIdentified() end
+function Radar.isConstructIdentified() end
 
 --- Returns 1 if the given construct was abandoned
 ---@return integer 
-function self.isConstructAbandoned() end
+function Radar.isConstructAbandoned() end
 
 --- Returns the core size of the given construct
 ---@return string size The core size name; can be 'XS', 'S', 'M', 'L', 'XL'
-function self.getConstructCoreSize() end
+function Radar.getConstructCoreSize() end
 
 --- Returns the threat rate your construct is for the given construct
 ---@return integer threat The threat rate index (None = 1, Identified = 2, Threatened and identified = 3, Threatened = 4, Attacked = 5), can be -1 if the radar is not operational
-function self.getThreatRateTo() end
+function Radar.getThreatRateTo() end
 
 ---@deprecated Radar.getThreatTo(id) is deprecated, use Radar.getThreatRateTo(id) instead.
-function self.getThreatTo() end
+function Radar.getThreatTo() end
 
 --- Returns the threat rate the given construct is for your construct
 ---@return string threat The threat rate index (None = 1, Identified = 2, Threatened and identified = 3, Threatened = 4, Attacked = 5), can be -1 if the radar is not operational
-function self.getThreatRateFrom() end
+function Radar.getThreatRateFrom() end
 
 ---@deprecated Radar.getThreatFrom(id) is deprecated, use Radar.getThreatRateFrom(id) instead.
-function self.getThreatFrom() end
+function Radar.getThreatFrom() end
 
 --- Returns whether the target has an active Transponder with matching tags
 ---@return integer 
-function self.hasMatchingTransponder() end
+function Radar.hasMatchingTransponder() end
 
 --- Returns a table with id of the owner entity (player or organization) of the given construct, if in range and if active transponder tags match for owned dynamic constructs.
 ---@param id integer The ID of the construct
 ---@return table entity A table with fields {[int] id, [bool] isOrganization} describing the owner. Use system.getPlayerName(id) and system.getOrganization(id) to retrieve info about it
-function self.getConstructOwnerEntity(id) end
+function Radar.getConstructOwnerEntity(id) end
 
 ---@deprecated Radar.getConstructOwner(id) is deprecated, use Radar.getConstructOwnerEntity(id) instead.
-function self.getConstructOwner() end
+function Radar.getConstructOwner() end
 
 --- Return the size of the bounding box of the given construct, if in range
 ---@param id integer The ID of the construct
 ---@return table 
-function self.getConstructSize(id) end
+function Radar.getConstructSize(id) end
 
 --- Return the kind of the given construct
 ---@param id integer The ID of the construct
 ---@return integer kind The kind index of the construct (Universe = 1, Planet = 2,Asteroid = 3,Static = 4,Dynamic = 5,Space = 6,Alien = 7)
-function self.getConstructKind(id) end
+function Radar.getConstructKind(id) end
 
 ---@deprecated Radar.getConstructType(id) is deprecated, use Radar.getConstructKind(id) instead.
-function self.getConstructType() end
+function Radar.getConstructType() end
 
 --- Returns the position of the given construct in construct local coordinates, if active transponder tags match for owned dynamic constructs
 ---@param id integer The ID of the construct
 ---@return table 
-function self.getConstructPos(id) end
+function Radar.getConstructPos(id) end
 
 --- Returns the position of the given construct in world coordinates, if in range and if active transponder tags match for owned dynamic constructs
 ---@param id integer The ID of the construct
 ---@return table 
-function self.getConstructWorldPos(id) end
+function Radar.getConstructWorldPos(id) end
 
 --- Returns the velocity vector of the given construct in construct local coordinates, if identified and if active transponder tags match for owned dynamic constructs
 ---@param id integer The ID of the construct
 ---@return table 
-function self.getConstructVelocity(id) end
+function Radar.getConstructVelocity(id) end
 
 --- Returns the velocity vector of the given construct in world coordinates, if identified and if active transponder tags match for owned dynamic constructs
 ---@param id integer The ID of the construct
 ---@return table 
-function self.getConstructWorldVelocity(id) end
+function Radar.getConstructWorldVelocity(id) end
 
 --- Returns the mass of the given construct, if identified for owned dynamic constructs
 ---@param id integer The ID of the construct
 ---@return number mass The mass of the construct in kilograms
-function self.getConstructMass(id) end
+function Radar.getConstructMass(id) end
 
 --- Return the name of the given construct, if defined
 ---@param id integer The ID of the construct
 ---@return string 
-function self.getConstructName(id) end
+function Radar.getConstructName(id) end
 
 --- Returns a table of working elements on the given construction, if identified for owned dynamic constructs
 ---@param id integer The ID of the construct
 ---@return table info A table with fields : {[float] weapons, [float] radars, [float] antiGravity, [float] atmoEngines, [float] spaceEngines, [float] rocketEngines} with values between 0.0 and 1.0. Exceptionally antiGravity and rocketEngines are always 1.0 if present, even if broken
-function self.getConstructInfos(id) end
+function Radar.getConstructInfos(id) end
 
 --- Returns the speed of the given construct, if identified for owned dynamic constructs
 ---@param id integer The ID of the construct
 ---@return number speed The speed of the construct relative to the universe in meters per second
-function self.getConstructSpeed(id) end
+function Radar.getConstructSpeed(id) end
 
 --- Returns the angular speed of the given construct to your construct, if identified for owned dynamic constructs
 ---@param id integer The ID of the construct
 ---@return number speed The angular speed of the construct relative to our construct in radians per second
-function self.getConstructAngularSpeed(id) end
+function Radar.getConstructAngularSpeed(id) end
 
 --- Returns the radial speed of the given construct to your construct, if identified for owned dynamic constructs
 ---@param id integer The ID of the construct
 ---@return number speed The radial speed of the construct relative to our construct in meters per second
-function self.getConstructRadialSpeed(id) end
+function Radar.getConstructRadialSpeed(id) end
 
 --- Emitted when a Construct enters the scan range of the radar
 ---@param id integer The ID of the construct
 ---@type Event
-self.onEnter = Event:new()
+Radar.onEnter = Event:new()
 
 ---@type Event
-self.enter = Event:new()
+Radar.enter = Event:new()
 
 --- Emitted when a construct leaves the range of the radar
 ---@param id integer The ID of the construct
 ---@type Event
-self.onLeave = Event:new()
+Radar.onLeave = Event:new()
 
 ---@type Event
-self.leave = Event:new()
+Radar.leave = Event:new()
 
 --- Emitted when a construct is identified
 ---@param id integer The ID of the construct
 ---@type Event
-self.onIdentified = Event:new()
+Radar.onIdentified = Event:new()
 
-return self
-end
 
 ---@class Receiver
-function Receiver()
-local self = {}
-
+Receiver = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Receiver.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Receiver.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Receiver.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Receiver.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Receiver.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Receiver.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Receiver.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Receiver.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Receiver.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Receiver.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Receiver.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Receiver.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Receiver.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Receiver.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Receiver.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Receiver.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Receiver.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Receiver.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Receiver.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Receiver.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Receiver.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Receiver.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Receiver.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Receiver.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Receiver.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Receiver.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Receiver.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Receiver.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Receiver.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Receiver.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -7984,7 +7838,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Receiver.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -7993,7 +7847,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Receiver.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -8002,159 +7856,155 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Receiver.getSignalOut(plug) end
 
 --- Returns the receiver range
 ---@return number 
-function self.getRange() end
+function Receiver.getRange() end
 
 --- Checks if the given channel exists in the receiver channels list
 ---@param channel string The channels list as Lua table
 ---@return integer 
-function self.hasChannel(channel) end
+function Receiver.hasChannel(channel) end
 
 --- Set the channels list
 ---@param channels table The channels list as Lua table
 ---@return integer 1 if the channels list has been successfully set
-function self.setChannelList(channels) end
+function Receiver.setChannelList(channels) end
 
 ---@deprecated Receiver.setChannels(channels) is deprecated, use Receiver.setChannelList(channels) instead.
-function self.setChannels() end
+function Receiver.setChannels() end
 
 --- Returns the channels list
 ---@return table channels The channels list as Lua table
-function self.getChannelList() end
+function Receiver.getChannelList() end
 
 ---@deprecated Receiver.getChannels() is deprecated, use Receiver.getChannelList() instead.
-function self.getChannels() end
+function Receiver.getChannels() end
 
 --- Emitted when a message is received on any channel defined on the element
 ---@param channel string The channel; can be used as a filter
 ---@param message string The message received
 ---@type Event
-self.onReceived = Event:new()
+Receiver.onReceived = Event:new()
 
 ---@type Event
-self.receive = Event:new()
+Receiver.receive = Event:new()
 
-return self
-end
 
 ---@class RocketEngine
-function RocketEngine()
-local self = {}
-
+RocketEngine = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function RocketEngine.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function RocketEngine.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function RocketEngine.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function RocketEngine.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function RocketEngine.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function RocketEngine.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function RocketEngine.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function RocketEngine.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function RocketEngine.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function RocketEngine.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function RocketEngine.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function RocketEngine.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function RocketEngine.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function RocketEngine.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function RocketEngine.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function RocketEngine.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function RocketEngine.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function RocketEngine.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function RocketEngine.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function RocketEngine.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function RocketEngine.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function RocketEngine.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function RocketEngine.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function RocketEngine.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function RocketEngine.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function RocketEngine.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function RocketEngine.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function RocketEngine.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function RocketEngine.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function RocketEngine.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -8163,7 +8013,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function RocketEngine.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -8172,7 +8022,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function RocketEngine.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -8181,268 +8031,264 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function RocketEngine.getSignalOut(plug) end
 
 --- Returns the obstruction ratio of the engine exhaust by Elements and Voxels.
 --- The more obstructed the engine is, the less properly it will work. Try to fix your design if this is the case
 ---@return number 
-function self.getObstructionFactor() end
+function RocketEngine.getObstructionFactor() end
 
 --- Returns the tags of the engine
 ---@return string 
-function self.getTags() end
+function RocketEngine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
 ---@param ignore boolean: True to ignore the default engine tags
-function self.setTags(tags, ignore) end
+function RocketEngine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
 ---@return integer 1 if the engine ignores default engine tags
-function self.isIgnoringTags() end
+function RocketEngine.isIgnoringTags() end
 
 --- Start the engine at full power (works only when run inside a cockpit or under remote control)
-function self.activate() end
+function RocketEngine.activate() end
 
 --- Stops the engine (works only when run inside a cockpit or under remote control)
-function self.deactivate() end
+function RocketEngine.deactivate() end
 
 --- Checks if the engine is active
 ---@return integer 
-function self.isActive() end
+function RocketEngine.isActive() end
 
 ---@deprecated FueledEngine.getState() is deprecated, use FueledEngine.isActive().
-function self.getState() end
+function RocketEngine.getState() end
 
 --- Toggle the state of the engine
-function self.toggle() end
+function RocketEngine.toggle() end
 
 --- Set the thrust of the engine
 ---@param thrust number The engine thrust in newtons (limited by the maximum thrust)
-function self.setThrust(thrust) end
+function RocketEngine.setThrust(thrust) end
 
 --- Returns the current thrust of the engine
 ---@return number 
-function self.getThrust() end
+function RocketEngine.getThrust() end
 
 ---@deprecated FueledEngine.getMaxThrust() is deprecated, use FueledEngine.getCurrentMaxThrust().
 ---@deprecated @diagnostic disable-next-line
-function self.getMaxThrust() end
+function RocketEngine.getMaxThrust() end
 
 ---@deprecated FueledEngine.getMaxThrustBase() is deprecated, use FueledEngine.getMaxThrust().
-function self.getMaxThrustBase() end
+function RocketEngine.getMaxThrustBase() end
 
 --- Returns the minimal thrust the engine can deliver at the moment (can be more than zero),
 --- which will depend on various conditions like atmospheric density, obstruction, orientation, etc
 --- Most of the time, this will be 0 but it can be greater than 0, particularly for Ailerons, in which case
 --- the actual thrust will be at least equal to minThrust
 ---@return number 
-function self.getCurrentMinThrust() end
+function RocketEngine.getCurrentMinThrust() end
 
 ---@deprecated FueledEngine.getMinThrust() is deprecated, use FueledEngine.getCurrentMinThrust().
-function self.getMinThrust() end
+function RocketEngine.getMinThrust() end
 
 --- Returns the maximal thrust the engine can deliver at the moment, which might depend on
 --- various conditions like atmospheric density, obstruction, orientation, etc. The actual thrust will be
 --- anything below this maxThrust, which defines the current max capability of the engine
 ---@return number 
-function self.getCurrentMaxThrust() end
+function RocketEngine.getCurrentMaxThrust() end
 
 --- Returns the ratio between the current maximum thrust and the optimal maximum thrust
 ---@return number 
-function self.getMaxThrustEfficiency() end
+function RocketEngine.getMaxThrustEfficiency() end
 
 --- Checks if the torque generation is enabled on the engine
 ---@return integer 
-function self.isTorqueEnabled() end
+function RocketEngine.isTorqueEnabled() end
 
 --- Sets the torque generation state on the engine
 ---@param state boolean 
-function self.enableTorque(state) end
+function RocketEngine.enableTorque(state) end
 
 --- Returns the engine thrust direction in construct local coordinates
 ---@return table 
-function self.getThrustAxis() end
+function RocketEngine.getThrustAxis() end
 
 --- Returns the engine torque axis in construct local coordinates
 ---@return table 
-function self.getTorqueAxis() end
+function RocketEngine.getTorqueAxis() end
 
 --- Returns the engine exhaust thrust direction in world coordinates
 ---@return table 
-function self.getWorldThrustAxis() end
+function RocketEngine.getWorldThrustAxis() end
 
 ---@deprecated FueledEngine.thrustAxis() is deprecated, use FueledEngine.getWorldThrustAxis().
-function self.thrustAxis() end
+function RocketEngine.thrustAxis() end
 
 --- Returns the engine torque axis in world coordinates
 ---@return table 
-function self.getWorldTorqueAxis() end
+function RocketEngine.getWorldTorqueAxis() end
 
 ---@deprecated FueledEngine.torqueAxis() is deprecated, use FueledEngine.getWorldTorqueAxis().
-function self.torqueAxis() end
+function RocketEngine.torqueAxis() end
 
 --- Checks if the engine out of fuel
 ---@return integer 
-function self.isOutOfFuel() end
+function RocketEngine.isOutOfFuel() end
 
 --- Returns the item ID of the fuel currently used by the engine
 ---@return integer 
-function self.getFuelId() end
+function RocketEngine.getFuelId() end
 
 --- Returns the local ID of the fueltank linked to the engine
 ---@return integer 
-function self.getFuelTankId() end
+function RocketEngine.getFuelTankId() end
 
 --- Checks if the engine linked to a functional Fuel Tank (not broken or colliding)?
 ---@return integer 
-function self.hasFunctionalFuelTank() end
+function RocketEngine.hasFunctionalFuelTank() end
 
 ---@deprecated FueledEngine.hasBrokenFuelTank() is deprecated, use FueledEngine.hasFunctionalFuelTank().
-function self.hasBrokenFuelTank() end
+function RocketEngine.hasBrokenFuelTank() end
 
 --- Returns the engine fuel consumption rate per newton of thrust delivered per second
 ---@return number 
-function self.getCurrentFuelRate() end
+function RocketEngine.getCurrentFuelRate() end
 
 --- Returns the ratio between the current fuel rate and the theoretical nominal fuel rate
 ---@return number 
-function self.getFuelRateEfficiency() end
+function RocketEngine.getFuelRateEfficiency() end
 
 --- Returns the current fuel consumption rate
 ---@return number 
-function self.getFuelConsumption() end
+function RocketEngine.getFuelConsumption() end
 
 --- Returns the T50; the time needed for the engine to reach 50% of its maximal thrust (all engines
 --- do not instantly reach the thrust that is set for them, but they can take time to "warm up" to
 --- the final value)
 ---@return number 
-function self.getWarmupTime() end
+function RocketEngine.getWarmupTime() end
 
 ---@deprecated FueledEngine.getT50() is deprecated, use FueledEngine.getWarmupTime().
-function self.getT50() end
+function RocketEngine.getT50() end
 
 ---@deprecated RocketEngine.getDistance() is deprecated.
-function self.getDistance() end
+function RocketEngine.getDistance() end
 
-return self
-end
 
 ---@class Screen
-function Screen()
-local self = {}
-
+Screen = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Screen.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Screen.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Screen.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Screen.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Screen.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Screen.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Screen.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Screen.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Screen.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Screen.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Screen.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Screen.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Screen.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Screen.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Screen.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Screen.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Screen.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Screen.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Screen.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Screen.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Screen.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Screen.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Screen.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Screen.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Screen.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Screen.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Screen.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Screen.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Screen.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Screen.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -8451,7 +8297,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Screen.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -8460,7 +8306,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Screen.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -8469,23 +8315,23 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Screen.getSignalOut(plug) end
 
 --- Switch on the screen
-function self.activate() end
+function Screen.activate() end
 
 --- Switch off the screen
-function self.deactivate() end
+function Screen.deactivate() end
 
 --- Checks if the screen is on
 ---@return integer 1 if the screen is on
-function self.isActive() end
+function Screen.isActive() end
 
 ---@deprecated Screen.getState() is deprecated, use Screen.isActive() instead.
-function self.getState() end
+function Screen.getState() end
 
 --- Toggle the state of the screen
-function self.toggle() end
+function Screen.toggle() end
 
 --- Displays the given text at the given coordinates in the screen, and returns an ID to move it later
 ---@param x number Horizontal position, as a percentage (between 0 and 100) of the screen width
@@ -8493,218 +8339,214 @@ function self.toggle() end
 ---@param fontSize number Text font size, as a percentage of the screen width
 ---@param text string The text to display
 ---@return integer 
-function self.addText(x, y, fontSize, text) end
+function Screen.addText(x, y, fontSize, text) end
 
 --- Displays the given text centered in the screen with a font to maximize its visibility
 ---@param text string The text to display
-function self.setCenteredText(text) end
+function Screen.setCenteredText(text) end
 
 --- Set the whole screen HTML content (overrides anything already set)
 ---@param html string The HTML content to display
-function self.setHTML(html) end
+function Screen.setHTML(html) end
 
 --- Set the screen render script, switching the screen to native rendering mode
 ---@param script string The Lua render script
-function self.setRenderScript(script) end
+function Screen.setRenderScript(script) end
 
 --- Defines the input of the screen rendering script, which will be automatically defined during the execution of Lua
 ---@param input string A string that can be retrieved by calling getInput in a render script
-function self.setScriptInput(input) end
+function Screen.setScriptInput(input) end
 
 --- Set the screen render script output to the empty string
-function self.clearScriptOutput() end
+function Screen.clearScriptOutput() end
 
 --- Get the screen render script output
 ---@return string value The contents of the last render script setOutput call, or an empty string
-function self.getScriptOutput() end
+function Screen.getScriptOutput() end
 
 --- Displays the given HTML content at the given coordinates in the screen, and returns an ID to move it later
 ---@param x number Horizontal position, as a percentage (between 0 and 100) of the screen width
 ---@param y number Vertical position, as a percentage (between 0 and 100) of the screen height
 ---@param html string The HTML content to display, which can contain SVG html elements to make drawings
 ---@return integer 
-function self.addContent(x, y, html) end
+function Screen.addContent(x, y, html) end
 
 --- Displays SVG code (anything that fits within a <svg> section), which overrides any preexisting content
 ---@param svg string The SVG content to display, which fits inside a 1920x1080 canvas
-function self.setSVG(svg) end
+function Screen.setSVG(svg) end
 
 --- Update the html element with the given ID (returned by addContent) with a new HTML content
 ---@param id integer An integer ID that is used to identify the html element in the screen. Methods such as addContent return the ID that you can store to use later here
 ---@param html string The HTML content to display, which can contain SVG html elements to make drawings
-function self.resetContent(id, html) end
+function Screen.resetContent(id, html) end
 
 --- Delete the html element with the given ID (returned by addContent)
 ---@param id integer An integer ID that is used to identify the html element in the screen. Methods such as addContent return the id that you can store to use later here
-function self.deleteContent(id) end
+function Screen.deleteContent(id) end
 
 --- Update the visibility of the html element with the given ID (returned by addContent)
 ---@param id integer An integer ID that is used to identify the html element in the screen. Methods such as addContent return the ID that you can store to use later here
 ---@param state boolean true to show the content, false to hide
-function self.showContent(id, state) end
+function Screen.showContent(id, state) end
 
 --- Move the html element with the given id (returned by addContent) to a new position in the screen
 ---@param id integer An integer id that is used to identify the html element in the screen. Methods such as addContent return the ID that you can store to use later here
 ---@param x number Horizontal position, as a percentage (between 0 and 100) of the screen width
 ---@param y number Vertical position, as a percentage (between 0 and 100) of the screen height
-function self.moveContent(id, x, y) end
+function Screen.moveContent(id, x, y) end
 
 --- Returns the x-coordinate of the position point at in the screen
 ---@return number x The x-position as a percentage (between 0 and 1) of screen width; -1 if nothing is point at
-function self.getMouseX() end
+function Screen.getMouseX() end
 
 --- Returns the y-coordinate of the position point at in the screen
 ---@return number y The y-position as a percentage (between 0 and 1) of screen height; -1 if nothing is point at
-function self.getMouseY() end
+function Screen.getMouseY() end
 
 --- Returns the state of the mouse click
 ---@return integer 1 if the mouse is pressed, otherwise 0
-function self.getMouseState() end
+function Screen.getMouseState() end
 
 --- Clear the screen
-function self.clear() end
+function Screen.clear() end
 
 --- Emitted when the player starts a click on the screen
 ---@param x number X-coordinate of the click in percentage (between 0 and 1) of the screen width
 ---@param y number Y-coordinate of the click in percentage (between 0 and 1) the screen height
 ---@type Event
-self.onMouseDown = Event:new()
+Screen.onMouseDown = Event:new()
 
 ---@type Event
-self.mouseDown = Event:new()
+Screen.mouseDown = Event:new()
 
 --- Emitted when the player releases a click on the screen
 ---@param x number X-coordinate of the click in percentage (between 0 and 1) of the screen width
 ---@param y number Y-coordinate of the click in percentage (between 0 and 1) the screen height
 ---@type Event
-self.onMouseUp = Event:new()
+Screen.onMouseUp = Event:new()
 
 ---@type Event
-self.mouseUp = Event:new()
+Screen.mouseUp = Event:new()
 
 --- Emitted when the output of the screen is changed
 ---@param output string The output string of the screen
 ---@type Event
-self.onOutputChanged = Event:new()
+Screen.onOutputChanged = Event:new()
 
-return self
-end
 
 ---@class SpaceBrake
-function SpaceBrake()
-local self = {}
-
+SpaceBrake = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function SpaceBrake.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function SpaceBrake.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function SpaceBrake.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function SpaceBrake.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function SpaceBrake.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function SpaceBrake.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function SpaceBrake.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function SpaceBrake.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function SpaceBrake.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function SpaceBrake.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function SpaceBrake.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function SpaceBrake.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function SpaceBrake.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function SpaceBrake.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function SpaceBrake.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function SpaceBrake.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function SpaceBrake.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function SpaceBrake.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function SpaceBrake.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function SpaceBrake.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function SpaceBrake.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function SpaceBrake.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function SpaceBrake.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function SpaceBrake.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function SpaceBrake.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function SpaceBrake.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function SpaceBrake.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function SpaceBrake.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function SpaceBrake.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function SpaceBrake.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -8713,7 +8555,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function SpaceBrake.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -8722,7 +8564,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function SpaceBrake.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -8731,230 +8573,226 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function SpaceBrake.getSignalOut(plug) end
 
 --- Returns the obstruction ratio of the engine exhaust by Elements and Voxels.
 --- The more obstructed the engine is, the less properly it will work. Try to fix your design if this is the case
 ---@return number 
-function self.getObstructionFactor() end
+function SpaceBrake.getObstructionFactor() end
 
 --- Returns the tags of the engine
 ---@return string 
-function self.getTags() end
+function SpaceBrake.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
 ---@param ignore boolean: True to ignore the default engine tags
-function self.setTags(tags, ignore) end
+function SpaceBrake.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
 ---@return integer 1 if the engine ignores default engine tags
-function self.isIgnoringTags() end
+function SpaceBrake.isIgnoringTags() end
 
 --- Start the brake at full power (works only when run inside a cockpit or under remote control)
-function self.activate() end
+function SpaceBrake.activate() end
 
 --- Stops the brake (works only when run inside a cockpit or under remote control)
-function self.deactivate() end
+function SpaceBrake.deactivate() end
 
 --- Checks if the brake is active
 ---@return integer 
-function self.isActive() end
+function SpaceBrake.isActive() end
 
 ---@deprecated BrakeEngine.getState() is deprecated, use BrakeEngine.isActive().
-function self.getState() end
+function SpaceBrake.getState() end
 
 --- Toggle the state of the brake
-function self.toggle() end
+function SpaceBrake.toggle() end
 
 --- Set the thrust of the brake. Note that brakes can generate a force only in the movement opposite direction
 ---@param thrust number The brake thrust in newtons (limited by the maximum thrust)
-function self.setThrust(thrust) end
+function SpaceBrake.setThrust(thrust) end
 
 --- Returns the current thrust of the brake
 ---@return number 
-function self.getThrust() end
+function SpaceBrake.getThrust() end
 
 ---@deprecated BrakeEngine.getMaxThrust() is deprecated, use BrakeEngine.getCurrentMaxThrust().
 ---@deprecated @diagnostic disable-next-line
-function self.getMaxThrust() end
+function SpaceBrake.getMaxThrust() end
 
 ---@deprecated BrakeEngine.getMaxThrustBase() is deprecated, use BrakeEngine.getMaxThrust().
-function self.getMaxThrustBase() end
+function SpaceBrake.getMaxThrustBase() end
 
 --- Returns the minimal thrust the brake can deliver at the moment (can be more than zero),
 --- which will depend on various conditions like atmospheric density, obstruction, orientation, etc
 --- Most of the time, this will be 0 but it can be greater than 0, particularly for Ailerons, in which case
 --- the actual thrust will be at least equal to minThrust
 ---@return number 
-function self.getCurrentMinThrust() end
+function SpaceBrake.getCurrentMinThrust() end
 
 ---@deprecated BrakeEngine.getMinThrust() is deprecated, use BrakeEngine.getCurrentMinThrust().
-function self.getMinThrust() end
+function SpaceBrake.getMinThrust() end
 
 --- Returns the maximal thrust the brake can deliver at the moment, which might depend on
 --- various conditions like atmospheric density, obstruction, orientation, etc. The actual thrust will be
 --- anything below this maxThrust, which defines the current max capability of the brake
 ---@return number 
-function self.getCurrentMaxThrust() end
+function SpaceBrake.getCurrentMaxThrust() end
 
 --- Returns the ratio between the current maximum thrust and the optimal maximum thrust
 ---@return number 
-function self.getMaxThrustEfficiency() end
+function SpaceBrake.getMaxThrustEfficiency() end
 
 --- Returns the brake thrust direction in construct local coordinates
 ---@return table 
-function self.getThrustAxis() end
+function SpaceBrake.getThrustAxis() end
 
 --- Returns the brake thrust direction in world coordinates
 ---@return table 
-function self.getWorldThrustAxis() end
+function SpaceBrake.getWorldThrustAxis() end
 
 ---@deprecated BrakeEngine.thrustAxis() is deprecated, use BrakeEngine.getWorldThrustAxis().
-function self.thrustAxis() end
+function SpaceBrake.thrustAxis() end
 
 ---@deprecated BrakeEngine.isOutOfFuel() is deprecated.
-function self.isOutOfFuel() end
+function SpaceBrake.isOutOfFuel() end
 
 ---@deprecated BrakeEngine.hasFunctionalFuelTank() is deprecated.
-function self.hasFunctionalFuelTank() end
+function SpaceBrake.hasFunctionalFuelTank() end
 
 ---@deprecated BrakeEngine.getCurrentFuelRate() is deprecated.
-function self.getCurrentFuelRate() end
+function SpaceBrake.getCurrentFuelRate() end
 
 ---@deprecated BrakeEngine.getFuelRateEfficiency() is deprecated.
-function self.getFuelRateEfficiency() end
+function SpaceBrake.getFuelRateEfficiency() end
 
 ---@deprecated BrakeEngine.getFuelConsumption() is deprecated.
-function self.getFuelConsumption() end
+function SpaceBrake.getFuelConsumption() end
 
 ---@deprecated BrakeEngine.getDistance() is deprecated.
-function self.getDistance() end
+function SpaceBrake.getDistance() end
 
 ---@deprecated BrakeEngine.getT50() is deprecated.
-function self.getT50() end
+function SpaceBrake.getT50() end
 
 ---@deprecated BrakeEngine.torqueAxis() is deprecated.
-function self.torqueAxis() end
+function SpaceBrake.torqueAxis() end
 
-return self
-end
 
 ---@class SpaceEngine
-function SpaceEngine()
-local self = {}
-
+SpaceEngine = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function SpaceEngine.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function SpaceEngine.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function SpaceEngine.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function SpaceEngine.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function SpaceEngine.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function SpaceEngine.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function SpaceEngine.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function SpaceEngine.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function SpaceEngine.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function SpaceEngine.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function SpaceEngine.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function SpaceEngine.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function SpaceEngine.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function SpaceEngine.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function SpaceEngine.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function SpaceEngine.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function SpaceEngine.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function SpaceEngine.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function SpaceEngine.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function SpaceEngine.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function SpaceEngine.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function SpaceEngine.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function SpaceEngine.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function SpaceEngine.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function SpaceEngine.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function SpaceEngine.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function SpaceEngine.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function SpaceEngine.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function SpaceEngine.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function SpaceEngine.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -8963,7 +8801,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function SpaceEngine.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -8972,7 +8810,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function SpaceEngine.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -8981,268 +8819,264 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function SpaceEngine.getSignalOut(plug) end
 
 --- Returns the obstruction ratio of the engine exhaust by Elements and Voxels.
 --- The more obstructed the engine is, the less properly it will work. Try to fix your design if this is the case
 ---@return number 
-function self.getObstructionFactor() end
+function SpaceEngine.getObstructionFactor() end
 
 --- Returns the tags of the engine
 ---@return string 
-function self.getTags() end
+function SpaceEngine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
 ---@param ignore boolean: True to ignore the default engine tags
-function self.setTags(tags, ignore) end
+function SpaceEngine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
 ---@return integer 1 if the engine ignores default engine tags
-function self.isIgnoringTags() end
+function SpaceEngine.isIgnoringTags() end
 
 --- Start the engine at full power (works only when run inside a cockpit or under remote control)
-function self.activate() end
+function SpaceEngine.activate() end
 
 --- Stops the engine (works only when run inside a cockpit or under remote control)
-function self.deactivate() end
+function SpaceEngine.deactivate() end
 
 --- Checks if the engine is active
 ---@return integer 
-function self.isActive() end
+function SpaceEngine.isActive() end
 
 ---@deprecated FueledEngine.getState() is deprecated, use FueledEngine.isActive().
-function self.getState() end
+function SpaceEngine.getState() end
 
 --- Toggle the state of the engine
-function self.toggle() end
+function SpaceEngine.toggle() end
 
 --- Set the thrust of the engine
 ---@param thrust number The engine thrust in newtons (limited by the maximum thrust)
-function self.setThrust(thrust) end
+function SpaceEngine.setThrust(thrust) end
 
 --- Returns the current thrust of the engine
 ---@return number 
-function self.getThrust() end
+function SpaceEngine.getThrust() end
 
 ---@deprecated FueledEngine.getMaxThrust() is deprecated, use FueledEngine.getCurrentMaxThrust().
 ---@deprecated @diagnostic disable-next-line
-function self.getMaxThrust() end
+function SpaceEngine.getMaxThrust() end
 
 ---@deprecated FueledEngine.getMaxThrustBase() is deprecated, use FueledEngine.getMaxThrust().
-function self.getMaxThrustBase() end
+function SpaceEngine.getMaxThrustBase() end
 
 --- Returns the minimal thrust the engine can deliver at the moment (can be more than zero),
 --- which will depend on various conditions like atmospheric density, obstruction, orientation, etc
 --- Most of the time, this will be 0 but it can be greater than 0, particularly for Ailerons, in which case
 --- the actual thrust will be at least equal to minThrust
 ---@return number 
-function self.getCurrentMinThrust() end
+function SpaceEngine.getCurrentMinThrust() end
 
 ---@deprecated FueledEngine.getMinThrust() is deprecated, use FueledEngine.getCurrentMinThrust().
-function self.getMinThrust() end
+function SpaceEngine.getMinThrust() end
 
 --- Returns the maximal thrust the engine can deliver at the moment, which might depend on
 --- various conditions like atmospheric density, obstruction, orientation, etc. The actual thrust will be
 --- anything below this maxThrust, which defines the current max capability of the engine
 ---@return number 
-function self.getCurrentMaxThrust() end
+function SpaceEngine.getCurrentMaxThrust() end
 
 --- Returns the ratio between the current maximum thrust and the optimal maximum thrust
 ---@return number 
-function self.getMaxThrustEfficiency() end
+function SpaceEngine.getMaxThrustEfficiency() end
 
 --- Checks if the torque generation is enabled on the engine
 ---@return integer 
-function self.isTorqueEnabled() end
+function SpaceEngine.isTorqueEnabled() end
 
 --- Sets the torque generation state on the engine
 ---@param state boolean 
-function self.enableTorque(state) end
+function SpaceEngine.enableTorque(state) end
 
 --- Returns the engine thrust direction in construct local coordinates
 ---@return table 
-function self.getThrustAxis() end
+function SpaceEngine.getThrustAxis() end
 
 --- Returns the engine torque axis in construct local coordinates
 ---@return table 
-function self.getTorqueAxis() end
+function SpaceEngine.getTorqueAxis() end
 
 --- Returns the engine exhaust thrust direction in world coordinates
 ---@return table 
-function self.getWorldThrustAxis() end
+function SpaceEngine.getWorldThrustAxis() end
 
 ---@deprecated FueledEngine.thrustAxis() is deprecated, use FueledEngine.getWorldThrustAxis().
-function self.thrustAxis() end
+function SpaceEngine.thrustAxis() end
 
 --- Returns the engine torque axis in world coordinates
 ---@return table 
-function self.getWorldTorqueAxis() end
+function SpaceEngine.getWorldTorqueAxis() end
 
 ---@deprecated FueledEngine.torqueAxis() is deprecated, use FueledEngine.getWorldTorqueAxis().
-function self.torqueAxis() end
+function SpaceEngine.torqueAxis() end
 
 --- Checks if the engine out of fuel
 ---@return integer 
-function self.isOutOfFuel() end
+function SpaceEngine.isOutOfFuel() end
 
 --- Returns the item ID of the fuel currently used by the engine
 ---@return integer 
-function self.getFuelId() end
+function SpaceEngine.getFuelId() end
 
 --- Returns the local ID of the fueltank linked to the engine
 ---@return integer 
-function self.getFuelTankId() end
+function SpaceEngine.getFuelTankId() end
 
 --- Checks if the engine linked to a functional Fuel Tank (not broken or colliding)?
 ---@return integer 
-function self.hasFunctionalFuelTank() end
+function SpaceEngine.hasFunctionalFuelTank() end
 
 ---@deprecated FueledEngine.hasBrokenFuelTank() is deprecated, use FueledEngine.hasFunctionalFuelTank().
-function self.hasBrokenFuelTank() end
+function SpaceEngine.hasBrokenFuelTank() end
 
 --- Returns the engine fuel consumption rate per newton of thrust delivered per second
 ---@return number 
-function self.getCurrentFuelRate() end
+function SpaceEngine.getCurrentFuelRate() end
 
 --- Returns the ratio between the current fuel rate and the theoretical nominal fuel rate
 ---@return number 
-function self.getFuelRateEfficiency() end
+function SpaceEngine.getFuelRateEfficiency() end
 
 --- Returns the current fuel consumption rate
 ---@return number 
-function self.getFuelConsumption() end
+function SpaceEngine.getFuelConsumption() end
 
 --- Returns the T50; the time needed for the engine to reach 50% of its maximal thrust (all engines
 --- do not instantly reach the thrust that is set for them, but they can take time to "warm up" to
 --- the final value)
 ---@return number 
-function self.getWarmupTime() end
+function SpaceEngine.getWarmupTime() end
 
 ---@deprecated FueledEngine.getT50() is deprecated, use FueledEngine.getWarmupTime().
-function self.getT50() end
+function SpaceEngine.getT50() end
 
 ---@deprecated SpaceEngine.getDistance() is deprecated.
-function self.getDistance() end
+function SpaceEngine.getDistance() end
 
-return self
-end
 
 ---@class SpaceMiningUnit
-function SpaceMiningUnit()
-local self = {}
-
+SpaceMiningUnit = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function SpaceMiningUnit.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function SpaceMiningUnit.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function SpaceMiningUnit.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function SpaceMiningUnit.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function SpaceMiningUnit.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function SpaceMiningUnit.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function SpaceMiningUnit.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function SpaceMiningUnit.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function SpaceMiningUnit.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function SpaceMiningUnit.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function SpaceMiningUnit.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function SpaceMiningUnit.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function SpaceMiningUnit.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function SpaceMiningUnit.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function SpaceMiningUnit.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function SpaceMiningUnit.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function SpaceMiningUnit.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function SpaceMiningUnit.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function SpaceMiningUnit.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function SpaceMiningUnit.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function SpaceMiningUnit.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function SpaceMiningUnit.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function SpaceMiningUnit.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function SpaceMiningUnit.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function SpaceMiningUnit.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function SpaceMiningUnit.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function SpaceMiningUnit.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function SpaceMiningUnit.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function SpaceMiningUnit.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function SpaceMiningUnit.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -9251,7 +9085,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function SpaceMiningUnit.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -9260,7 +9094,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function SpaceMiningUnit.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -9269,191 +9103,187 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function SpaceMiningUnit.getSignalOut(plug) end
 
 --- Returns the current state of the space mining unit
 ---@return integer state The status of the space mining unit can be (Stopped = 1, Running = 2, Jammed output full = 3, Jammed no output container = 4)
-function self.getState() end
+function SpaceMiningUnit.getState() end
 
 ---@deprecated MiningUnit.getStatus() is deprecated, use MiningUnit.getState() instead.
-function self.getStatus() end
+function SpaceMiningUnit.getStatus() end
 
 --- Returns the remaining time of the current batch extraction process.
 ---@return number 
-function self.getRemainingTime() end
+function SpaceMiningUnit.getRemainingTime() end
 
 --- Returns the item ID of the currently selected ore.
 ---@return integer 
-function self.getActiveOre() end
+function SpaceMiningUnit.getActiveOre() end
 
 --- Returns the list of available ore pools
 ---@return table pool A list of tables composed with {[int] oreId, [float] available, [float] maximum);
-function self.getOrePools() end
+function SpaceMiningUnit.getOrePools() end
 
 --- Returns the base production rate of the space mining unit.
 ---@return number 
-function self.getBaseRate() end
+function SpaceMiningUnit.getBaseRate() end
 
 --- Returns the efficiency rate of the space mining unit.
 ---@return number 
-function self.getEfficiency() end
+function SpaceMiningUnit.getEfficiency() end
 
 --- Returns the calibration rate of the space mining unit.
 ---@return number 
-function self.getCalibrationRate() end
+function SpaceMiningUnit.getCalibrationRate() end
 
 --- Returns the optimal calibration rate of the space mining unit.
 ---@return number 
-function self.getOptimalRate() end
+function SpaceMiningUnit.getOptimalRate() end
 
 --- Returns the current production rate of the space mining unit.
 ---@return number 
-function self.getProductionRate() end
+function SpaceMiningUnit.getProductionRate() end
 
 --- Emitted when the space mining unit started a new extraction process.
 ---@param oreId number The item ID of the ore mined during the extraction process
 ---@type Event
-self.onStarted = Event:new()
+SpaceMiningUnit.onStarted = Event:new()
 
 --- Emitted when the space mining unit complete a batch.
 ---@param oreId number The item ID of the ore mined during the extraction process
 ---@param amount number Amount of ore mined
 ---@type Event
-self.onCompleted = Event:new()
+SpaceMiningUnit.onCompleted = Event:new()
 
 ---@type Event
-self.completed = Event:new()
+SpaceMiningUnit.completed = Event:new()
 
 --- Emitted when the space mining unit status is changed.
 ---@param status integer The status of the space mining unit can be
 ---@type Event
-self.onStatusChanged = Event:new()
+SpaceMiningUnit.onStatusChanged = Event:new()
 
 ---@type Event
-self.statusChanged = Event:new()
+SpaceMiningUnit.statusChanged = Event:new()
 
 --- Emitted when the space mining unit stopped the extraction process.
 ---@type Event
-self.onStopped = Event:new()
+SpaceMiningUnit.onStopped = Event:new()
 
-return self
-end
 
 ---@class SurfaceEngine
-function SurfaceEngine()
-local self = {}
-
+SurfaceEngine = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function SurfaceEngine.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function SurfaceEngine.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function SurfaceEngine.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function SurfaceEngine.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function SurfaceEngine.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function SurfaceEngine.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function SurfaceEngine.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function SurfaceEngine.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function SurfaceEngine.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function SurfaceEngine.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function SurfaceEngine.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function SurfaceEngine.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function SurfaceEngine.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function SurfaceEngine.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function SurfaceEngine.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function SurfaceEngine.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function SurfaceEngine.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function SurfaceEngine.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function SurfaceEngine.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function SurfaceEngine.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function SurfaceEngine.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function SurfaceEngine.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function SurfaceEngine.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function SurfaceEngine.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function SurfaceEngine.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function SurfaceEngine.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function SurfaceEngine.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function SurfaceEngine.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function SurfaceEngine.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function SurfaceEngine.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -9462,7 +9292,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function SurfaceEngine.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -9471,7 +9301,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function SurfaceEngine.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -9480,616 +9310,608 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function SurfaceEngine.getSignalOut(plug) end
 
 --- Returns the obstruction ratio of the engine exhaust by Elements and Voxels.
 --- The more obstructed the engine is, the less properly it will work. Try to fix your design if this is the case
 ---@return number 
-function self.getObstructionFactor() end
+function SurfaceEngine.getObstructionFactor() end
 
 --- Returns the tags of the engine
 ---@return string 
-function self.getTags() end
+function SurfaceEngine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
 ---@param ignore boolean: True to ignore the default engine tags
-function self.setTags(tags, ignore) end
+function SurfaceEngine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
 ---@return integer 1 if the engine ignores default engine tags
-function self.isIgnoringTags() end
+function SurfaceEngine.isIgnoringTags() end
 
 --- Start the engine at full power (works only when run inside a cockpit or under remote control)
-function self.activate() end
+function SurfaceEngine.activate() end
 
 --- Stops the engine (works only when run inside a cockpit or under remote control)
-function self.deactivate() end
+function SurfaceEngine.deactivate() end
 
 --- Checks if the engine is active
 ---@return integer 
-function self.isActive() end
+function SurfaceEngine.isActive() end
 
 ---@deprecated FueledEngine.getState() is deprecated, use FueledEngine.isActive().
-function self.getState() end
+function SurfaceEngine.getState() end
 
 --- Toggle the state of the engine
-function self.toggle() end
+function SurfaceEngine.toggle() end
 
 --- Set the thrust of the engine
 ---@param thrust number The engine thrust in newtons (limited by the maximum thrust)
-function self.setThrust(thrust) end
+function SurfaceEngine.setThrust(thrust) end
 
 --- Returns the current thrust of the engine
 ---@return number 
-function self.getThrust() end
+function SurfaceEngine.getThrust() end
 
 ---@deprecated FueledEngine.getMaxThrust() is deprecated, use FueledEngine.getCurrentMaxThrust().
 ---@deprecated @diagnostic disable-next-line
-function self.getMaxThrust() end
+function SurfaceEngine.getMaxThrust() end
 
 ---@deprecated FueledEngine.getMaxThrustBase() is deprecated, use FueledEngine.getMaxThrust().
-function self.getMaxThrustBase() end
+function SurfaceEngine.getMaxThrustBase() end
 
 --- Returns the minimal thrust the engine can deliver at the moment (can be more than zero),
 --- which will depend on various conditions like atmospheric density, obstruction, orientation, etc
 --- Most of the time, this will be 0 but it can be greater than 0, particularly for Ailerons, in which case
 --- the actual thrust will be at least equal to minThrust
 ---@return number 
-function self.getCurrentMinThrust() end
+function SurfaceEngine.getCurrentMinThrust() end
 
 ---@deprecated FueledEngine.getMinThrust() is deprecated, use FueledEngine.getCurrentMinThrust().
-function self.getMinThrust() end
+function SurfaceEngine.getMinThrust() end
 
 --- Returns the maximal thrust the engine can deliver at the moment, which might depend on
 --- various conditions like atmospheric density, obstruction, orientation, etc. The actual thrust will be
 --- anything below this maxThrust, which defines the current max capability of the engine
 ---@return number 
-function self.getCurrentMaxThrust() end
+function SurfaceEngine.getCurrentMaxThrust() end
 
 --- Returns the ratio between the current maximum thrust and the optimal maximum thrust
 ---@return number 
-function self.getMaxThrustEfficiency() end
+function SurfaceEngine.getMaxThrustEfficiency() end
 
 --- Checks if the torque generation is enabled on the engine
 ---@return integer 
-function self.isTorqueEnabled() end
+function SurfaceEngine.isTorqueEnabled() end
 
 --- Sets the torque generation state on the engine
 ---@param state boolean 
-function self.enableTorque(state) end
+function SurfaceEngine.enableTorque(state) end
 
 --- Returns the engine thrust direction in construct local coordinates
 ---@return table 
-function self.getThrustAxis() end
+function SurfaceEngine.getThrustAxis() end
 
 --- Returns the engine torque axis in construct local coordinates
 ---@return table 
-function self.getTorqueAxis() end
+function SurfaceEngine.getTorqueAxis() end
 
 --- Returns the engine exhaust thrust direction in world coordinates
 ---@return table 
-function self.getWorldThrustAxis() end
+function SurfaceEngine.getWorldThrustAxis() end
 
 ---@deprecated FueledEngine.thrustAxis() is deprecated, use FueledEngine.getWorldThrustAxis().
-function self.thrustAxis() end
+function SurfaceEngine.thrustAxis() end
 
 --- Returns the engine torque axis in world coordinates
 ---@return table 
-function self.getWorldTorqueAxis() end
+function SurfaceEngine.getWorldTorqueAxis() end
 
 ---@deprecated FueledEngine.torqueAxis() is deprecated, use FueledEngine.getWorldTorqueAxis().
-function self.torqueAxis() end
+function SurfaceEngine.torqueAxis() end
 
 --- Checks if the engine out of fuel
 ---@return integer 
-function self.isOutOfFuel() end
+function SurfaceEngine.isOutOfFuel() end
 
 --- Returns the item ID of the fuel currently used by the engine
 ---@return integer 
-function self.getFuelId() end
+function SurfaceEngine.getFuelId() end
 
 --- Returns the local ID of the fueltank linked to the engine
 ---@return integer 
-function self.getFuelTankId() end
+function SurfaceEngine.getFuelTankId() end
 
 --- Checks if the engine linked to a functional Fuel Tank (not broken or colliding)?
 ---@return integer 
-function self.hasFunctionalFuelTank() end
+function SurfaceEngine.hasFunctionalFuelTank() end
 
 ---@deprecated FueledEngine.hasBrokenFuelTank() is deprecated, use FueledEngine.hasFunctionalFuelTank().
-function self.hasBrokenFuelTank() end
+function SurfaceEngine.hasBrokenFuelTank() end
 
 --- Returns the engine fuel consumption rate per newton of thrust delivered per second
 ---@return number 
-function self.getCurrentFuelRate() end
+function SurfaceEngine.getCurrentFuelRate() end
 
 --- Returns the ratio between the current fuel rate and the theoretical nominal fuel rate
 ---@return number 
-function self.getFuelRateEfficiency() end
+function SurfaceEngine.getFuelRateEfficiency() end
 
 --- Returns the current fuel consumption rate
 ---@return number 
-function self.getFuelConsumption() end
+function SurfaceEngine.getFuelConsumption() end
 
 --- Returns the T50; the time needed for the engine to reach 50% of its maximal thrust (all engines
 --- do not instantly reach the thrust that is set for them, but they can take time to "warm up" to
 --- the final value)
 ---@return number 
-function self.getWarmupTime() end
+function SurfaceEngine.getWarmupTime() end
 
 ---@deprecated FueledEngine.getT50() is deprecated, use FueledEngine.getWarmupTime().
-function self.getT50() end
+function SurfaceEngine.getT50() end
 
 --- Returns the distance to the first object detected in the direction of the thrust
 ---@return number 
-function self.getDistance() end
+function SurfaceEngine.getDistance() end
 
 --- Returns the maximum functional distance from the ground
 ---@return number 
-function self.getMaxDistance() end
+function SurfaceEngine.getMaxDistance() end
 
-return self
-end
 
 ---@class System
-function System()
-local self = {}
-
+System = {}
 --- Return the currently key bound to the given action. Useful to display tips.
 ---@param actionName string The action name, represented as a string taken among the set of predefined Lua-available actions (you can check the drop down list to see what is available)
 ---@return string value The key associated to the given action name
-function self.getActionKeyName(actionName) end
+function System.getActionKeyName(actionName) end
 
 --- Control the display of the Control Unit custom screen, where you can define customized display information in HTML.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param bool boolean True to show the screen, false to hide the screen
-function self.showScreen(bool) end
+function System.showScreen(bool) end
 
 --- Set the content of the Control Unit custom screen with some HTML code.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param content string The HTML content you want to display on the screen widget. You can also use SVG here to make drawings.
-function self.setScreen(content) end
+function System.setScreen(content) end
 
 --- Create an empty panel.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param label string The title of the panel
 ---@return string value The panel ID, or "" on failure
-function self.createWidgetPanel(label) end
+function System.createWidgetPanel(label) end
 
 --- Destroy the panel.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param panelId string The panel ID
 ---@return integer value 1 on success, 0 on failure.
-function self.destroyWidgetPanel(panelId) end
+function System.destroyWidgetPanel(panelId) end
 
 --- Create an empty widget and add it to a panel.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param panelId string The panel ID
 ---@param type string Widget type, determining how it will display data attached to ID
 ---@return string value The widget ID, or "" on failure.
-function self.createWidget(panelId, type) end
+function System.createWidget(panelId, type) end
 
 --- Destroy the widget.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param widgetId string The widget ID
 ---@return integer value 1 on success, 0 on failure.
-function self.destroyWidget(widgetId) end
+function System.destroyWidget(widgetId) end
 
 --- Create data.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param dataJson string The data fields as JSON
 ---@return string value The data ID, or "" on failure.
-function self.createData(dataJson) end
+function System.createData(dataJson) end
 
 --- Destroy the data.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param dataId string The data ID
 ---@return integer value 1 on success, 0 on failure.
-function self.destroyData(dataId) end
+function System.destroyData(dataId) end
 
 --- Update JSON associated to data.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param dataId string The data ID
 ---@param dataJson string The data fields as JSON
 ---@return integer value 1 on success, 0 on failure.
-function self.updateData(dataId, dataJson) end
+function System.updateData(dataId, dataJson) end
 
 --- Add data to widget.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param dataId string The data ID
 ---@param widgetId string The widget ID
 ---@return integer value 1 on success, 0 on failure.
-function self.addDataToWidget(dataId, widgetId) end
+function System.addDataToWidget(dataId, widgetId) end
 
 --- Remove data from widget.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param dataId string The data ID
 ---@param widgetId string The widget ID
 ---@return integer value 1 on success, 0 on failure.
-function self.removeDataFromWidget(dataId, widgetId) end
+function System.removeDataFromWidget(dataId, widgetId) end
 
 --- Return the current value of the mouse wheel
 ---@return number value The current value of the mouse wheel
-function self.getMouseWheel() end
+function System.getMouseWheel() end
 
 --- Return the current value of the mouse delta X
 ---@return number value The current value of the mouse delta X
-function self.getMouseDeltaX() end
+function System.getMouseDeltaX() end
 
 --- Return the current value of the mouse delta Y
 ---@return number value The current value of the mouse delta Y
-function self.getMouseDeltaY() end
+function System.getMouseDeltaY() end
 
 --- Return the current value of the mouse pos X
 ---@return number value The current value of the mouse pos X
-function self.getMousePosX() end
+function System.getMousePosX() end
 
 --- Return the current value of the mouse pos Y
 ---@return number value The current value of the mouse pos Y
-function self.getMousePosY() end
+function System.getMousePosY() end
 
 --- Return the value of mouse sensitivity game setting
 ---@return number value Sensitivity setting value
-function self.getMouseSensitivity() end
+function System.getMouseSensitivity() end
 
 --- Return the current value of the screen height
 ---@return integer value The current value of the screen height
-function self.getScreenHeight() end
+function System.getScreenHeight() end
 
 --- Return the current value of the screen width
 ---@return integer value The current value of the screen width
-function self.getScreenWidth() end
+function System.getScreenWidth() end
 
 --- Return the current value of the player's horizontal field of view
 ---@return number value The current value of the player's horizontal field of view
-function self.getCameraHorizontalFov() end
+function System.getCameraHorizontalFov() end
 
 ---@deprecated System.getFov() is deprecated, use System.getCameraHorizontalFov().
-function self.getFov() end
+function System.getFov() end
 
 --- Return the current value of the player's vertical field of view
 ---@return number value The current value of the player's vertical field of view
-function self.getCameraVerticalFov() end
+function System.getCameraVerticalFov() end
 
 --- Returns the active camera mode.
 ---@return integer mode 1: First Person View, 2: Look Around Construct View, 3: Follow Construct View
-function self.getCameraMode() end
+function System.getCameraMode() end
 
 --- Checks if the active camera is in first person view.
 ---@return integer value 1 if the camera is in first person view.
-function self.isFirstPerson() end
+function System.isFirstPerson() end
 
 --- Returns the position of the camera, in construct local coordinates.
 ---@return table value Camera position in construct local coordinates.
-function self.getCameraPos() end
+function System.getCameraPos() end
 
 --- Returns the position of the camera, in world coordinates.
 ---@return table value Camera position in world coordinates.
-function self.getCameraWorldPos() end
+function System.getCameraWorldPos() end
 
 --- Returns the forward direction vector of the active camera, in world coordinates.
 ---@return table value Camera forward direction vector in world coordinates.
-function self.getCameraWorldForward() end
+function System.getCameraWorldForward() end
 
 --- Returns the right direction vector of the active camera, in world coordinates.
 ---@return table value Camera right direction vector in world coordinates.
-function self.getCameraWorldRight() end
+function System.getCameraWorldRight() end
 
 --- Returns the up direction vector of the active camera, in world coordinates.
 ---@return table value Camera up direction vector in world coordinates.
-function self.getCameraWorldUp() end
+function System.getCameraWorldUp() end
 
 --- Returns the forward direction vector of the active camera, in construct local coordinates.
 ---@return table value Camera forward direction vector in construct local coordinates.
-function self.getCameraForward() end
+function System.getCameraForward() end
 
 --- Returns the right direction vector of the active camera, in construct local coordinates.
 ---@return table value Camera right direction vector in construct local coordinates.
-function self.getCameraRight() end
+function System.getCameraRight() end
 
 --- Returns the up direction vector of the active camera, in construct local coordinates.
 ---@return table value Camera up direction vector in construct local coordinates.
-function self.getCameraUp() end
+function System.getCameraUp() end
 
 --- Return the current value of the mouse wheel (for the throttle speedUp/speedDown action)
 --- This value will go through the control scheme, devices and sensitivity
 ---@return number value The current input
-function self.getThrottleInputFromMouseWheel() end
+function System.getThrottleInputFromMouseWheel() end
 
 --- Return the mouse input for the ship control action (forward/backward)
 --- This value will go through the control scheme to know on which input the mouse is mapped and its current sensitivity
 ---@return number value The current input
-function self.getControlDeviceForwardInput() end
+function System.getControlDeviceForwardInput() end
 
 --- Return the mouse input for the ship control action  (yaw right/left)
 --- This value will go through the control scheme to know on which input the mouse is mapped and its current sensitivity
 ---@return number value The current input
-function self.getControlDeviceYawInput() end
+function System.getControlDeviceYawInput() end
 
 --- Return the mouse input for the ship control action  (right/left)
 --- This value will go through the control scheme to know on which input the mouse is mapped and its current sensitivity
 ---@return number value The current value of the mouse delta Y
-function self.getControlDeviceLeftRightInput() end
+function System.getControlDeviceLeftRightInput() end
 
 --- Lock or unlock the mouse free look.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param state boolean true to lock and false to unlock
-function self.lockView(state) end
+function System.lockView(state) end
 
 --- Return the lock state of the mouse free look
 ---@return integer value 1 when locked and 0 when unlocked
-function self.isViewLocked() end
+function System.isViewLocked() end
 
 ---@deprecated System.freeze() is deprecated, use Player.freeze().
-function self.freeze() end
+function System.freeze() end
 
 ---@deprecated System.isFrozen() is deprecated, use Player.isFrozen().
-function self.isFrozen() end
+function System.isFrozen() end
 
 --- Return the current time since the arrival of the Arkship on September 30th, 2017
 ---@return number value Time in seconds
-function self.getArkTime() end
+function System.getArkTime() end
 
 ---@deprecated System.getTime() is deprecated, use System.getArkTime().
-function self.getTime() end
+function System.getTime() end
 
 --- Return the current time since January 1st, 1970.
 ---@return number value Time in seconds
-function self.getUtcTime() end
+function System.getUtcTime() end
 
 --- Return the time offset between local timezone and UTC
 ---@return number value Time in seconds
-function self.getUtcOffset() end
+function System.getUtcOffset() end
 
 --- Return the locale in which the game is currently running
 ---@return string value The locale, currently one of "en-US", "fr-FR", or "de-DE"
-function self.getLocale() end
+function System.getLocale() end
 
 --- Return delta time of action updates (to use in ActionLoop)
 ---@return number value The delta time in seconds
-function self.getActionUpdateDeltaTime() end
+function System.getActionUpdateDeltaTime() end
 
 --- Return the name of the given player, if in range of visibility or broadcasted by a transponder
 ---@param id integer The ID of the player
 ---@return string value The name of the player
-function self.getPlayerName(id) end
+function System.getPlayerName(id) end
 
 --- Return the world position of the given player, if in range of visibility
 ---@param id integer The ID of the player
 ---@return table value The coordinates of the player in world coordinates
-function self.getPlayerWorldPos(id) end
+function System.getPlayerWorldPos(id) end
 
 --- Return the item table corresponding to the given item ID.
 ---@param id integer The ID of the item
 ---@return table value An item table with fields: {[int] id, [string] name, [string] displayName, [string] locDisplayName, [string] displayNameWithSize, [string] locDisplayNameWithSize, [string] description, [string] locDescription, [string] type, [number] unitMass, [number] unitVolume, [integer] tier, [string] scale, [string] iconPath, [table] schematics, [table] products}
-function self.getItem(id) end
+function System.getItem(id) end
 
 --- Returns a list of recipes producing the given item from its id.
 ---@param itemId integer The ID of the item
 ---@return table value A list of recipe table with field: {[int] id, [int] tier,[double] time, [bool] nanocraftable, [table] products:{{[int] id, [double] quantity},...}, [table] ingredients:{{[int] id, [double] quantity},...}}
-function self.getRecipes(itemId) end
+function System.getRecipes(itemId) end
 
 ---@deprecated System.getSchematic(id) is deprecated, use System.getRecipes(itemId).tag.
-function self.getSchematic() end
+function System.getSchematic() end
 
 --- Returns the corresping organization to the given organization id, if known, e.g. broadcasted by a transponder
 ---@param id integer The ID of the organization
 ---@return table value A table containing information about the given organization {[string] name, [string] tag}
-function self.getOrganization(id) end
+function System.getOrganization(id) end
 
 ---@deprecated System.getOrganizationName() is deprecated, use System.getOrganization(id).name .
-function self.getOrganizationName() end
+function System.getOrganizationName() end
 
 ---@deprecated System.getOrganizationTag() is deprecated, use System.getOrganization(id).tag .
-function self.getOrganizationTag() end
+function System.getOrganizationTag() end
 
 --- Return the player's world position as a waypoint string, starting with '::pos' (only in explicit runs)
 ---@return string value The waypoint as a string
-function self.getWaypointFromPlayerPos() end
+function System.getWaypointFromPlayerPos() end
 
 --- Set a waypoint at the destination described by the waypoint string, of the form '::pos{...}' (only in explicit runs)
 ---@param waypointStr string The waypoint as a string
 ---@param notify boolean (Optional) True to display a notification on waypoint change
-function self.setWaypoint(waypointStr, notify) end
+function System.setWaypoint(waypointStr, notify) end
 
 --- Clear the active destination waypoint. (only in explicit runs)'
 ---@param notify boolean (Optional) True to display a notification about the waypoint's clearing
-function self.clearWaypoint(notify) end
+function System.clearWaypoint(notify) end
 
 --- Set the visibility of the helper top menu.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param show boolean True to show the top helper menu, false to hide the top helper menu
-function self.showHelper(show) end
+function System.showHelper(show) end
 
 --- Play a sound file from your audio folder (located in "My documents/NQ/DualUniverse/audio"). Only one sound can be played at a time.
 ---@param filePath string Relative path to audio folder (.mp3, .wav)
-function self.playSound(filePath) end
+function System.playSound(filePath) end
 
 --- Checks if a sound is playing
 ---@return integer value 1 if a sound is playing
-function self.isPlayingSound() end
+function System.isPlayingSound() end
 
 --- Stop the current playing sound
-function self.stopSound() end
+function System.stopSound() end
 
 --- Print the given string in the Lua chat channel
 ---@param msg string 
-function self.print(msg) end
+function System.print(msg) end
 
 --- Emitted when an action starts
 ---@param action string The action name, represented as a string taken among the set of predefined Lua-available actions (you can check the drop down list to see what is available)
 ---@type Event
-self.onActionStart = Event:new()
+System.onActionStart = Event:new()
 
 ---@type Event
-self.actionStart = Event:new()
+System.actionStart = Event:new()
 
 --- Emitted when an action stops
 ---@param action string The action name, represented as a string taken among the set of predefined Lua-available actions (you can check the drop down list to see what is available)
 ---@type Event
-self.onActionStop = Event:new()
+System.onActionStop = Event:new()
 
 ---@type Event
-self.actionStop = Event:new()
+System.actionStop = Event:new()
 
 --- Emitted at each update as long as the action is maintained
 ---@param action string The action name, represented as a string taken among the set of predefined Lua-available actions (you can check the drop down list to see what is available)
 ---@type Event
-self.onActionLoop = Event:new()
+System.onActionLoop = Event:new()
 
 ---@type Event
-self.actionLoop = Event:new()
+System.actionLoop = Event:new()
 
 --- Game update event. This is equivalent to a timer set at 0 seconds, as updates will go as fast as the FPS can go
 ---@type Event
-self.onUpdate = Event:new()
+System.onUpdate = Event:new()
 
 ---@type Event
-self.update = Event:new()
+System.update = Event:new()
 
 --- Physics update. Do not use to put anything else by a call to updateICC on your Control Unit, as many functions are
 --- disabled when called from 'onFlush'. This is only to update the physics (engine control, etc), not to setup some gameplay code
 ---@type Event
-self.onFlush = Event:new()
+System.onFlush = Event:new()
 
 ---@type Event
-self.flush = Event:new()
+System.flush = Event:new()
 
 --- A new message has been entered in the Lua tab of the chat, acting like a command line interface
 ---@param text string The message entered
 ---@type Event
-self.onInputText = Event:new()
+System.onInputText = Event:new()
 
 ---@type Event
-self.inputText = Event:new()
+System.inputText = Event:new()
 
 --- Emitted when the player changes the camera mode.
 ---@param mode integer The camera mode, represented by an integer (First Person View = 1, Look Around Construct View = 2, Follow Construct View = 3)
 ---@type Event
-self.onCameraChanged = Event:new()
+System.onCameraChanged = Event:new()
 
 ---@type Event
-self.cameraChanged = Event:new()
+System.cameraChanged = Event:new()
 
-return self
-end
 
 ---@class Telemeter
-function Telemeter()
-local self = {}
-
+Telemeter = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Telemeter.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Telemeter.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Telemeter.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Telemeter.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Telemeter.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Telemeter.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Telemeter.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Telemeter.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Telemeter.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Telemeter.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Telemeter.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Telemeter.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Telemeter.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Telemeter.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Telemeter.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Telemeter.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Telemeter.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Telemeter.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Telemeter.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Telemeter.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Telemeter.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Telemeter.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Telemeter.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Telemeter.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Telemeter.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Telemeter.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Telemeter.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Telemeter.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Telemeter.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Telemeter.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10098,7 +9920,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Telemeter.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10107,7 +9929,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Telemeter.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10116,153 +9938,149 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Telemeter.getSignalOut(plug) end
 
 ---@deprecated Telemeter.getDistance() is deprecated, use Telemeter.raycast().distance instead.
-function self.getDistance() end
+function Telemeter.getDistance() end
 
 --- Emits a raycast from the telemeter, returns a raycastHit object
 ---@return table hit A table with fields : {[bool] hit, [float] distance, [vec3] point}
-function self.raycast() end
+function Telemeter.raycast() end
 
 --- Returns telemeter raycast origin in local construct coordinates
 ---@return table 
-function self.getRayOrigin() end
+function Telemeter.getRayOrigin() end
 
 --- Returns telemeter raycast origin in world coordinates
 ---@return table 
-function self.getRayWorldOrigin() end
+function Telemeter.getRayWorldOrigin() end
 
 --- Returns telemeter raycast axis in local construct coordinates
 ---@return table 
-function self.getRayAxis() end
+function Telemeter.getRayAxis() end
 
 --- Returns telemeter raycast axis in world coordinates
 ---@return table 
-function self.getRayWorldAxis() end
+function Telemeter.getRayWorldAxis() end
 
 --- Returns the max distance from which an obstacle can be detected (default is 100m)
 ---@return number 
-function self.getMaxDistance() end
+function Telemeter.getMaxDistance() end
 
-return self
-end
 
 ---@class Transponder
-function Transponder()
-local self = {}
-
+Transponder = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Transponder.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Transponder.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Transponder.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Transponder.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Transponder.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Transponder.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Transponder.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Transponder.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Transponder.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Transponder.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Transponder.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Transponder.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Transponder.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Transponder.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Transponder.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Transponder.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Transponder.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Transponder.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Transponder.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Transponder.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Transponder.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Transponder.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Transponder.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Transponder.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Transponder.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Transponder.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Transponder.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Transponder.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Transponder.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Transponder.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10271,7 +10089,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Transponder.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10280,7 +10098,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Transponder.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10289,160 +10107,156 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Transponder.getSignalOut(plug) end
 
 --- Activate the transponder
-function self.activate() end
+function Transponder.activate() end
 
 --- Deactivate the transponder
-function self.deactivate() end
+function Transponder.deactivate() end
 
 --- Toggle the state of the transponder
-function self.toggle() end
+function Transponder.toggle() end
 
 --- Checks if the transponder is active
 ---@return integer 
-function self.isActive() end
+function Transponder.isActive() end
 
 ---@deprecated Transponder.getState() is deprecated, use Transponder.isActive().
-function self.getState() end
+function Transponder.getState() end
 
 --- Set the tags list with up to 8 entries. Returns 1 if the application was successful, 0 if the tag
 --- format is invalid.
 ---@param tags table List of up to 8 transponder tag strings
 ---@return integer 
-function self.setTags(tags) end
+function Transponder.setTags(tags) end
 
 --- Returns the tag list
 ---@return table tags List of up to 8 transponder tag strings
-function self.getTags() end
+function Transponder.getTags() end
 
 --- Emitted when the transponder is started or stopped
 ---@param active integer 1 if the element was activated, 0 otherwise
 ---@type Event
-self.onToggled = Event:new()
+Transponder.onToggled = Event:new()
 
 ---@type Event
-self.toggled = Event:new()
+Transponder.toggled = Event:new()
 
-return self
-end
 
 ---@class VerticalBooster
-function VerticalBooster()
-local self = {}
-
+VerticalBooster = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function VerticalBooster.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function VerticalBooster.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function VerticalBooster.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function VerticalBooster.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function VerticalBooster.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function VerticalBooster.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function VerticalBooster.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function VerticalBooster.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function VerticalBooster.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function VerticalBooster.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function VerticalBooster.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function VerticalBooster.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function VerticalBooster.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function VerticalBooster.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function VerticalBooster.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function VerticalBooster.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function VerticalBooster.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function VerticalBooster.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function VerticalBooster.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function VerticalBooster.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function VerticalBooster.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function VerticalBooster.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function VerticalBooster.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function VerticalBooster.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function VerticalBooster.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function VerticalBooster.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function VerticalBooster.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function VerticalBooster.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function VerticalBooster.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function VerticalBooster.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10451,7 +10265,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function VerticalBooster.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10460,7 +10274,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function VerticalBooster.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10469,273 +10283,269 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function VerticalBooster.getSignalOut(plug) end
 
 --- Returns the obstruction ratio of the engine exhaust by Elements and Voxels.
 --- The more obstructed the engine is, the less properly it will work. Try to fix your design if this is the case
 ---@return number 
-function self.getObstructionFactor() end
+function VerticalBooster.getObstructionFactor() end
 
 --- Returns the tags of the engine
 ---@return string 
-function self.getTags() end
+function VerticalBooster.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
 ---@param ignore boolean: True to ignore the default engine tags
-function self.setTags(tags, ignore) end
+function VerticalBooster.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
 ---@return integer 1 if the engine ignores default engine tags
-function self.isIgnoringTags() end
+function VerticalBooster.isIgnoringTags() end
 
 --- Start the engine at full power (works only when run inside a cockpit or under remote control)
-function self.activate() end
+function VerticalBooster.activate() end
 
 --- Stops the engine (works only when run inside a cockpit or under remote control)
-function self.deactivate() end
+function VerticalBooster.deactivate() end
 
 --- Checks if the engine is active
 ---@return integer 
-function self.isActive() end
+function VerticalBooster.isActive() end
 
 ---@deprecated FueledEngine.getState() is deprecated, use FueledEngine.isActive().
-function self.getState() end
+function VerticalBooster.getState() end
 
 --- Toggle the state of the engine
-function self.toggle() end
+function VerticalBooster.toggle() end
 
 --- Set the thrust of the engine
 ---@param thrust number The engine thrust in newtons (limited by the maximum thrust)
-function self.setThrust(thrust) end
+function VerticalBooster.setThrust(thrust) end
 
 --- Returns the current thrust of the engine
 ---@return number 
-function self.getThrust() end
+function VerticalBooster.getThrust() end
 
 ---@deprecated FueledEngine.getMaxThrust() is deprecated, use FueledEngine.getCurrentMaxThrust().
 ---@deprecated @diagnostic disable-next-line
-function self.getMaxThrust() end
+function VerticalBooster.getMaxThrust() end
 
 ---@deprecated FueledEngine.getMaxThrustBase() is deprecated, use FueledEngine.getMaxThrust().
-function self.getMaxThrustBase() end
+function VerticalBooster.getMaxThrustBase() end
 
 --- Returns the minimal thrust the engine can deliver at the moment (can be more than zero),
 --- which will depend on various conditions like atmospheric density, obstruction, orientation, etc
 --- Most of the time, this will be 0 but it can be greater than 0, particularly for Ailerons, in which case
 --- the actual thrust will be at least equal to minThrust
 ---@return number 
-function self.getCurrentMinThrust() end
+function VerticalBooster.getCurrentMinThrust() end
 
 ---@deprecated FueledEngine.getMinThrust() is deprecated, use FueledEngine.getCurrentMinThrust().
-function self.getMinThrust() end
+function VerticalBooster.getMinThrust() end
 
 --- Returns the maximal thrust the engine can deliver at the moment, which might depend on
 --- various conditions like atmospheric density, obstruction, orientation, etc. The actual thrust will be
 --- anything below this maxThrust, which defines the current max capability of the engine
 ---@return number 
-function self.getCurrentMaxThrust() end
+function VerticalBooster.getCurrentMaxThrust() end
 
 --- Returns the ratio between the current maximum thrust and the optimal maximum thrust
 ---@return number 
-function self.getMaxThrustEfficiency() end
+function VerticalBooster.getMaxThrustEfficiency() end
 
 --- Checks if the torque generation is enabled on the engine
 ---@return integer 
-function self.isTorqueEnabled() end
+function VerticalBooster.isTorqueEnabled() end
 
 --- Sets the torque generation state on the engine
 ---@param state boolean 
-function self.enableTorque(state) end
+function VerticalBooster.enableTorque(state) end
 
 --- Returns the engine thrust direction in construct local coordinates
 ---@return table 
-function self.getThrustAxis() end
+function VerticalBooster.getThrustAxis() end
 
 --- Returns the engine torque axis in construct local coordinates
 ---@return table 
-function self.getTorqueAxis() end
+function VerticalBooster.getTorqueAxis() end
 
 --- Returns the engine exhaust thrust direction in world coordinates
 ---@return table 
-function self.getWorldThrustAxis() end
+function VerticalBooster.getWorldThrustAxis() end
 
 ---@deprecated FueledEngine.thrustAxis() is deprecated, use FueledEngine.getWorldThrustAxis().
-function self.thrustAxis() end
+function VerticalBooster.thrustAxis() end
 
 --- Returns the engine torque axis in world coordinates
 ---@return table 
-function self.getWorldTorqueAxis() end
+function VerticalBooster.getWorldTorqueAxis() end
 
 ---@deprecated FueledEngine.torqueAxis() is deprecated, use FueledEngine.getWorldTorqueAxis().
-function self.torqueAxis() end
+function VerticalBooster.torqueAxis() end
 
 --- Checks if the engine out of fuel
 ---@return integer 
-function self.isOutOfFuel() end
+function VerticalBooster.isOutOfFuel() end
 
 --- Returns the item ID of the fuel currently used by the engine
 ---@return integer 
-function self.getFuelId() end
+function VerticalBooster.getFuelId() end
 
 --- Returns the local ID of the fueltank linked to the engine
 ---@return integer 
-function self.getFuelTankId() end
+function VerticalBooster.getFuelTankId() end
 
 --- Checks if the engine linked to a functional Fuel Tank (not broken or colliding)?
 ---@return integer 
-function self.hasFunctionalFuelTank() end
+function VerticalBooster.hasFunctionalFuelTank() end
 
 ---@deprecated FueledEngine.hasBrokenFuelTank() is deprecated, use FueledEngine.hasFunctionalFuelTank().
-function self.hasBrokenFuelTank() end
+function VerticalBooster.hasBrokenFuelTank() end
 
 --- Returns the engine fuel consumption rate per newton of thrust delivered per second
 ---@return number 
-function self.getCurrentFuelRate() end
+function VerticalBooster.getCurrentFuelRate() end
 
 --- Returns the ratio between the current fuel rate and the theoretical nominal fuel rate
 ---@return number 
-function self.getFuelRateEfficiency() end
+function VerticalBooster.getFuelRateEfficiency() end
 
 --- Returns the current fuel consumption rate
 ---@return number 
-function self.getFuelConsumption() end
+function VerticalBooster.getFuelConsumption() end
 
 --- Returns the T50; the time needed for the engine to reach 50% of its maximal thrust (all engines
 --- do not instantly reach the thrust that is set for them, but they can take time to "warm up" to
 --- the final value)
 ---@return number 
-function self.getWarmupTime() end
+function VerticalBooster.getWarmupTime() end
 
 ---@deprecated FueledEngine.getT50() is deprecated, use FueledEngine.getWarmupTime().
-function self.getT50() end
+function VerticalBooster.getT50() end
 
 --- Returns the distance to the first object detected in the direction of the thrust
 ---@return number 
-function self.getDistance() end
+function VerticalBooster.getDistance() end
 
 --- Returns the maximum functional distance from the ground
 ---@return number 
-function self.getMaxDistance() end
+function VerticalBooster.getMaxDistance() end
 
-return self
-end
 
 ---@class WarpDrive
-function WarpDrive()
-local self = {}
-
+WarpDrive = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function WarpDrive.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function WarpDrive.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function WarpDrive.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function WarpDrive.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function WarpDrive.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function WarpDrive.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function WarpDrive.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function WarpDrive.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function WarpDrive.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function WarpDrive.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function WarpDrive.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function WarpDrive.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function WarpDrive.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function WarpDrive.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function WarpDrive.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function WarpDrive.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function WarpDrive.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function WarpDrive.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function WarpDrive.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function WarpDrive.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function WarpDrive.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function WarpDrive.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function WarpDrive.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function WarpDrive.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function WarpDrive.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function WarpDrive.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function WarpDrive.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function WarpDrive.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function WarpDrive.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function WarpDrive.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10744,7 +10554,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function WarpDrive.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10753,7 +10563,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function WarpDrive.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10762,157 +10572,153 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function WarpDrive.getSignalOut(plug) end
 
 --- Initiate the warp jump process
-function self.initiate() end
+function WarpDrive.initiate() end
 
 --- Returns the current status of the warp drive
 ---@return integer status The current status of the warp drive (NoWarpDrive = 1, Broken = 2, Warping = 3, ParentWarping = 4, NotAnchored = 5, WarpCooldown = 6, PvPCooldown = 7, MovingChild = 8, NoContainer = 9, PlanetTooClose = 10, DestinationNotSet = 11, DestinationTooClose = 12, DestinationTooFar = 13, NotEnoughWarpCells = 14, Ready = 15)
-function self.getStatus() end
+function WarpDrive.getStatus() end
 
 --- Returns the distance to the current warp destination
 ---@return number 
-function self.getDistance() end
+function WarpDrive.getDistance() end
 
 --- Returns the construct ID of the current warp destination
 ---@return integer 
-function self.getDestination() end
+function WarpDrive.getDestination() end
 
 --- Returns the name of the current warp destination construct
 ---@return string 
-function self.getDestinationName() end
+function WarpDrive.getDestinationName() end
 
 --- Returns the local id of the container linked to the warp drive
 ---@return integer 
-function self.getContainerId() end
+function WarpDrive.getContainerId() end
 
 --- Returns the quantity of warp cells available in the linked container
 ---@return integer 
-function self.getAvailableWarpCells() end
+function WarpDrive.getAvailableWarpCells() end
 
 --- Returns the quantity of warp cells required to warp to the warp destination set
 ---@return integer 
-function self.getRequiredWarpCells() end
+function WarpDrive.getRequiredWarpCells() end
 
-return self
-end
 
 ---@class Weapon
-function Weapon()
-local self = {}
-
+Weapon = {}
 --- Show the element widget in the in-game widget stack
-function self.showWidget() end
+function Weapon.showWidget() end
 
 ---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
-function self.show() end
+function Weapon.show() end
 
 --- Hide the element widget in the in-game widget stack
-function self.hideWidget() end
+function Weapon.hideWidget() end
 
 ---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
-function self.hide() end
+function Weapon.hide() end
 
 --- Returns the widget type compatible with the element data
 ---@return string 
-function self.getWidgetType() end
+function Weapon.getWidgetType() end
 
 --- Returns the element data as JSON
 ---@return string 
-function self.getWidgetData() end
+function Weapon.getWidgetData() end
 
 ---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
-function self.getData() end
+function Weapon.getData() end
 
 --- Returns the element data ID
 ---@return string 
-function self.getWidgetDataId() end
+function Weapon.getWidgetDataId() end
 
 ---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
-function self.getDataId() end
+function Weapon.getDataId() end
 
 --- Returns the element name
 ---@return string 
-function self.getName() end
+function Weapon.getName() end
 
 --- Returns the class of the Element
 ---@return string 
-function self.getClass() end
+function Weapon.getClass() end
 
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
-function self.getElementClass() end
+function Weapon.getElementClass() end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number 
-function self.getMass() end
+function Weapon.getMass() end
 
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer 
-function self.getItemId() end
+function Weapon.getItemId() end
 
 --- Returns the unique local ID of the element
 ---@return integer 
-function self.getLocalId() end
+function Weapon.getLocalId() end
 
 ---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
-function self.getId() end
+function Weapon.getId() end
 
 --- Returns the element integrity between 0 and 100
 ---@return number 
-function self.getIntegrity() end
+function Weapon.getIntegrity() end
 
 --- Returns the element's current hit points (0 = destroyed)
 ---@return number 
-function self.getHitPoints() end
+function Weapon.getHitPoints() end
 
 --- Returns the element's maximal hit points
 ---@return number 
-function self.getMaxHitPoints() end
+function Weapon.getMaxHitPoints() end
 
 --- Returns the element's remaining number of restorations
 ---@return integer 
-function self.getRemainingRestorations() end
+function Weapon.getRemainingRestorations() end
 
 --- Returns the element's maximal number of restorations
 ---@return integer 
-function self.getMaxRestorations() end
+function Weapon.getMaxRestorations() end
 
 --- Returns the position of the Element in construct local coordinates.
 ---@return table 
-function self.getPosition() end
+function Weapon.getPosition() end
 
 --- Returns the bounding box dimensions of the element.
 ---@return table 
-function self.getBoundingBoxSize() end
+function Weapon.getBoundingBoxSize() end
 
 --- Returns the position of the center of bounding box of the element in local construct coordinates.
 ---@return table 
-function self.getBoundingBoxCenter() end
+function Weapon.getBoundingBoxCenter() end
 
 --- Returns the up direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getUp() end
+function Weapon.getUp() end
 
 --- Returns the right direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getRight() end
+function Weapon.getRight() end
 
 --- Returns the forward direction vector of the Element in construct local coordinates
 ---@return table 
-function self.getForward() end
+function Weapon.getForward() end
 
 --- Returns the up direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldUp() end
+function Weapon.getWorldUp() end
 
 --- Returns the right direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldRight() end
+function Weapon.getWorldRight() end
 
 --- Returns the forward direction vector of the Element in world coordinates
 ---@return table 
-function self.getWorldForward() end
+function Weapon.getWorldForward() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10921,7 +10727,7 @@ function self.getWorldForward() end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@param state integer The plug signal state
-function self.setSignalIn(plug, state) end
+function Weapon.setSignalIn(plug, state) end
 
 --- Returns the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10930,7 +10736,7 @@ function self.setSignalIn(plug, state) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalIn(plug) end
+function Weapon.getSignalIn(plug) end
 
 --- Returns the value of a signal in the specified OUT plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10939,132 +10745,130 @@ function self.getSignalIn(plug) end
 --- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
 ---@param plug string The plug name, in the form of IN-SIGNAL-index
 ---@return integer value The plug signal state
-function self.getSignalOut(plug) end
+function Weapon.getSignalOut(plug) end
 
 --- Returns the item id of the currently equipped ammo
 ---@return integer 
-function self.getAmmo() end
+function Weapon.getAmmo() end
 
 --- Returns the current amount of remaining ammunition
 ---@return integer 
-function self.getAmmoCount() end
+function Weapon.getAmmoCount() end
 
 --- Returns the maximum amount of ammunition the weapon can carry
 ---@return integer 
-function self.getMaxAmmo() end
+function Weapon.getMaxAmmo() end
 
 --- Checks if the weapon is out of ammo
 ---@return integer 
-function self.isOutOfAmmo() end
+function Weapon.isOutOfAmmo() end
 
 --- Returns 1 if the weapon is not broken and compatible with the construct size
 ---@return integer state 1 if the weapon is operational, otherwise 0 = broken, -1 = incompatible size
-function self.getOperationalState() end
+function Weapon.getOperationalState() end
 
 ---@deprecated Weapon.isOperational() is deprecated, use Weapon.getOperationalState() instead.
-function self.isOperational() end
+function Weapon.isOperational() end
 
 --- Returns the current weapon status
 ---@return integer status The current status of the weapon (Idle = 1, Firing = 2, Reloading = 3, Unloading = 4)
-function self.getStatus() end
+function Weapon.getStatus() end
 
 --- Returns the local id of the container linked to the weapon
 ---@return integer 
-function self.getContainerId() end
+function Weapon.getContainerId() end
 
 --- Returns the current hit probability of the weapon for the current target
 ---@return number 
-function self.getHitProbability() end
+function Weapon.getHitProbability() end
 
 --- Returns the base weapon damage
 ---@return number 
-function self.getBaseDamage() end
+function Weapon.getBaseDamage() end
 
 --- Returns the optimal aim cone
 ---@return number 
-function self.getOptimalAimingCone() end
+function Weapon.getOptimalAimingCone() end
 
 --- Returns the optimal distance to target
 ---@return number 
-function self.getOptimalDistance() end
+function Weapon.getOptimalDistance() end
 
 --- Returns the maximum distance to target
 ---@return number 
-function self.getMaxDistance() end
+function Weapon.getMaxDistance() end
 
 --- Returns the optimal tracking rate
 ---@return number 
-function self.getOptimalTracking() end
+function Weapon.getOptimalTracking() end
 
 --- Returns the magazine volume
 ---@return number 
-function self.getMagazineVolume() end
+function Weapon.getMagazineVolume() end
 
 --- Returns the weapon cycle time
 ---@return number 
-function self.getCycleTime() end
+function Weapon.getCycleTime() end
 
 --- Returns the weapon reload time
 ---@return number 
-function self.getReloadTime() end
+function Weapon.getReloadTime() end
 
 --- Returns the weapon unload time
 ---@return number 
-function self.getUnloadTime() end
+function Weapon.getUnloadTime() end
 
 --- Returns the id of the current target construct of the weapon
 ---@return integer 
-function self.getTargetId() end
+function Weapon.getTargetId() end
 
 --- Emitted when the weapon start reloading
 ---@param ammoId integer The item id of the ammo
 ---@type Event
-self.onReload = Event:new()
+Weapon.onReload = Event:new()
 
 --- Emitted when the weapon has reloaded
 ---@param ammoId integer The item id of the ammo
 ---@type Event
-self.onReloaded = Event:new()
+Weapon.onReloaded = Event:new()
 
 --- Emitted when the weapon has missed its target
 ---@param targetId integer The construct id of the target
 ---@type Event
-self.onMissed = Event:new()
+Weapon.onMissed = Event:new()
 
 --- Emitted when the weapon target has been destroyed
 ---@param targetId integer The construct id of the target
 ---@type Event
-self.onDestroyed = Event:new()
+Weapon.onDestroyed = Event:new()
 
 --- Emitted when an element on the weapon target has been destroyed
 ---@param targetId integer The construct id of the target
 ---@param itemId integer The item id of the destroyed element
 ---@type Event
-self.onElementDestroyed = Event:new()
+Weapon.onElementDestroyed = Event:new()
 
 --- Emitted when the weapon has hit
 ---@param targetId integer The construct id of the target
 ---@param damage number The damage amount dealt by the hit
 ---@type Event
-self.onHit = Event:new()
+Weapon.onHit = Event:new()
 
-return self
-end
 
-library = Library()
+library = Library
 
-system = System()
+system = System
 
-unit = ControlUnit()
+unit = ControlUnit
 
-player = Player()
+player = Player
 
-construct = Construct()
+construct = Construct
 
-DULibrary = Library()
+DULibrary = Library
 
-DUSystem = System()
+DUSystem = System
 
-DUPlayer = Player()
+DUPlayer = Player
 
-DUConstruct = Construct()
+DUConstruct = Construct

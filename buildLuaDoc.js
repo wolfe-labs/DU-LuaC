@@ -26,16 +26,16 @@ function buildClassWithInheritance (className, Codex) {
 // Builds LuaDoc for classes
 function buildClassLua (className, classData) {
   const classLuaDoc = [
-    ...Object.keys(classData.methods || {}).map((name) => buildMethodLua(name, classData.methods[name])),
-    ...Object.keys(classData.events || {}).map((name) => buildEventLua(name, classData.events[name])),
+    ...Object.keys(classData.methods || {}).map((name) => buildMethodLua(name, classData.methods[name], className)),
+    ...Object.keys(classData.events || {}).map((name) => buildEventLua(name, classData.events[name], className)),
   ];
 
   // Builds the class Lua
-  return `---@class ${className}\nfunction ${className}()\nlocal self = {}\n\n${ classLuaDoc.join('\n\n') }\n\nreturn self\nend`;
+  return `---@class ${className}\n${className} = {}\n${ classLuaDoc.join('\n\n') }\n`;
 }
 
 // Builds LuaDoc for methods
-function buildMethodLua (name, data) {
+function buildMethodLua (name, data, className) {
   const lua = [];
 
   // Adds description
@@ -64,14 +64,14 @@ function buildMethodLua (name, data) {
   }
 
   // Adds method name
-  lua.push(`function self.${ name }(${ (data.params || []).map((param) => param.name).join(', ') }) end`);
+  lua.push(`function ${ className || 'self' }.${ name }(${ (data.params || []).map((param) => param.name).join(', ') }) end`);
 
   // Done
   return lua.join('\n');
 }
 
 // Builds LuaDoc for events
-function buildEventLua (name, data) {
+function buildEventLua (name, data, className) {
   const lua = [];
 
   // Adds description
@@ -96,7 +96,7 @@ function buildEventLua (name, data) {
   lua.push('---@type Event');
 
   // Adds method name
-  lua.push(`self.${ name } = Event:new()`);
+  lua.push(`${ className || 'self' }.${ name } = Event:new()`);
 
   // Done
   return lua.join('\n');
@@ -131,7 +131,7 @@ module.exports = function buildLuaDoc (Codex) {
     const globalData = Codex.globals[globalName];
 
     // Builds global string into our Lua
-    lua.push(`${globalName} = ${globalData.type}()`);
+    lua.push(`${globalName} = ${globalData.type}`);
   });
 
   // Returns our prepared Lua
