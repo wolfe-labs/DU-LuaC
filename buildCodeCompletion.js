@@ -43,10 +43,15 @@ module.exports = async function buildCodeCompletion (dir) {
       .map((build) => Object.values(build.slots))
   );
 
+  // Reads a list of extra Lua headers
+  const extraHeadersDir = path.join(__dirname, 'Codex/ExtraHeaders');
+  const extraHeaders = fs.readdirSync(extraHeadersDir)
+    .map((file) => fs.readFileSync(path.join(extraHeadersDir, file)).toString());
+
   // Copies the codex locally, adding any links to the globals
   const codex = [
     fs.readFileSync(path.join(__dirname, 'Codex/Codex.lua')).toString(),
-    fs.readFileSync(path.join(__dirname, 'Codex/CodexExtras.lua')).toString(),
+    ...extraHeaders,
     slots.map((slot) => {
       const element = elementTypes[slot.type];
       if (element && element.luaClass) {

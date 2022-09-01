@@ -1,3 +1,5 @@
+--[[ Those are the DU-LuaC Helpers ]]
+
 --- Returns a list of elements linked to the current Control Unit
 ---@param filters table<string, string> A list of filters where each key is a element function and the value is the desired value
 ---@param noLinkNames boolean When true the results will be keyed by the linking order instead of link name
