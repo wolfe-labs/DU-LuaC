@@ -106,7 +106,7 @@ function vec3:normalize_inplace() end
 --- TODO: Write documentation about this method
 ---@param orientation vec3
 ---@return vec3
-function vec3:orientation_to_direction(orientation)
+function vec3:orientation_to_direction(orientation) end
 
 --- Returns the vector perpendicular to the current
 ---@return vec3
