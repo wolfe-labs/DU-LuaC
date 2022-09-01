@@ -2054,12 +2054,12 @@ function Construct.isConstructDocked(id) end
 function Construct.getDockedConstructMass(id) end
 
 --- Sets the docking mode
----@param mode integer The docking mode (Manual = 0, Automatic = 1, Semi-automatic = 2)
+---@param mode integer The docking mode (Manual = 1, Automatic = 2, Semi-automatic = 3)
 ---@return integer 
 function Construct.setDockingMode(mode) end
 
 --- Returns the current docking mode
----@return integer mode The docking mode (Manual = 0, Automatic = 1, Semi-automatic = 2)
+---@return integer mode The docking mode (Manual = 1, Automatic = 2, Semi-automatic = 3)
 function Construct.getDockingMode() end
 
 --- Sends a request to dock to the given construct. Limited to piloting controllers
@@ -8432,6 +8432,276 @@ Screen.mouseUp = Event:new()
 ---@param output string The output string of the screen
 ---@type Event
 Screen.onOutputChanged = Event:new()
+
+
+---@class ShieldGenerator
+ShieldGenerator = {}
+--- Show the element widget in the in-game widget stack
+function ShieldGenerator.showWidget() end
+
+---@deprecated Element.show() is deprecated, use Element.showWidget() instead.
+function ShieldGenerator.show() end
+
+--- Hide the element widget in the in-game widget stack
+function ShieldGenerator.hideWidget() end
+
+---@deprecated Element.hide() is deprecated, use Element.hideWidget() instead.
+function ShieldGenerator.hide() end
+
+--- Returns the widget type compatible with the element data
+---@return string 
+function ShieldGenerator.getWidgetType() end
+
+--- Returns the element data as JSON
+---@return string 
+function ShieldGenerator.getWidgetData() end
+
+---@deprecated Element.getData() is deprecated, use Element.getWidgetData() instead.
+function ShieldGenerator.getData() end
+
+--- Returns the element data ID
+---@return string 
+function ShieldGenerator.getWidgetDataId() end
+
+---@deprecated Element.getDataId() is deprecated, use Element.getWidgetDataId() instead.
+function ShieldGenerator.getDataId() end
+
+--- Returns the element name
+---@return string 
+function ShieldGenerator.getName() end
+
+--- Returns the class of the Element
+---@return string 
+function ShieldGenerator.getClass() end
+
+---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
+function ShieldGenerator.getElementClass() end
+
+--- Returns the mass of the element (includes the included items' mass when the Element is a Container)
+---@return number 
+function ShieldGenerator.getMass() end
+
+--- Returns the element item ID (to be used with system.getItem() function to get information about the element).
+---@return integer 
+function ShieldGenerator.getItemId() end
+
+--- Returns the unique local ID of the element
+---@return integer 
+function ShieldGenerator.getLocalId() end
+
+---@deprecated Element.getId() is deprecated, use Element.getLocalId() instead.
+function ShieldGenerator.getId() end
+
+--- Returns the element integrity between 0 and 100
+---@return number 
+function ShieldGenerator.getIntegrity() end
+
+--- Returns the element's current hit points (0 = destroyed)
+---@return number 
+function ShieldGenerator.getHitPoints() end
+
+--- Returns the element's maximal hit points
+---@return number 
+function ShieldGenerator.getMaxHitPoints() end
+
+--- Returns the element's remaining number of restorations
+---@return integer 
+function ShieldGenerator.getRemainingRestorations() end
+
+--- Returns the element's maximal number of restorations
+---@return integer 
+function ShieldGenerator.getMaxRestorations() end
+
+--- Returns the position of the Element in construct local coordinates.
+---@return table 
+function ShieldGenerator.getPosition() end
+
+--- Returns the bounding box dimensions of the element.
+---@return table 
+function ShieldGenerator.getBoundingBoxSize() end
+
+--- Returns the position of the center of bounding box of the element in local construct coordinates.
+---@return table 
+function ShieldGenerator.getBoundingBoxCenter() end
+
+--- Returns the up direction vector of the Element in construct local coordinates
+---@return table 
+function ShieldGenerator.getUp() end
+
+--- Returns the right direction vector of the Element in construct local coordinates
+---@return table 
+function ShieldGenerator.getRight() end
+
+--- Returns the forward direction vector of the Element in construct local coordinates
+---@return table 
+function ShieldGenerator.getForward() end
+
+--- Returns the up direction vector of the Element in world coordinates
+---@return table 
+function ShieldGenerator.getWorldUp() end
+
+--- Returns the right direction vector of the Element in world coordinates
+---@return table 
+function ShieldGenerator.getWorldRight() end
+
+--- Returns the forward direction vector of the Element in world coordinates
+---@return table 
+function ShieldGenerator.getWorldForward() end
+
+--- Set the value of a signal in the specified IN plug of the Element.
+--- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
+--- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
+--- the total number of plugs of the given type in the given direction. Some plugs have special names like 'on' or 'off' for the
+--- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
+---@param plug string The plug name, in the form of IN-SIGNAL-index
+---@param state integer The plug signal state
+function ShieldGenerator.setSignalIn(plug, state) end
+
+--- Returns the value of a signal in the specified IN plug of the Element.
+--- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
+--- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
+--- the total number of plugs of the given type in the given direction. Some plugs have special names like 'on' or 'off' for the
+--- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
+---@param plug string The plug name, in the form of IN-SIGNAL-index
+---@return integer value The plug signal state
+function ShieldGenerator.getSignalIn(plug) end
+
+--- Returns the value of a signal in the specified OUT plug of the Element.
+--- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
+--- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
+--- the total number of plugs of the given type in the given direction. Some plugs have special names like 'on' or 'off' for the
+--- Manual Switch Unit. Just check in-game for the plug names if you have a doubt.
+---@param plug string The plug name, in the form of IN-SIGNAL-index
+---@return integer value The plug signal state
+function ShieldGenerator.getSignalOut(plug) end
+
+--- Activate the shield
+function ShieldGenerator.activate() end
+
+--- Deactivate the shield
+function ShieldGenerator.deactivate() end
+
+--- Toggle the state of the shield
+function ShieldGenerator.toggle() end
+
+--- Returns the activation state of the shield
+---@return integer 
+function ShieldGenerator.isActive() end
+
+---@deprecated ShieldGenerator.getState() is deprecated, use ShieldGenerator.isActive() instead.
+function ShieldGenerator.getState() end
+
+--- Returns the current hit points of the shield
+---@return number 
+function ShieldGenerator.getShieldHitpoints() end
+
+--- Returns the maximal hit points of the shield
+---@return number 
+function ShieldGenerator.getMaxShieldHitpoints() end
+
+--- Activate shield venting to restore hit points
+---@return integer state 1 if venting started, 0 if an error occurred
+function ShieldGenerator.startVenting() end
+
+--- Stop shield venting
+---@return integer state 1 if venting stopped, 0 if an error occurred
+function ShieldGenerator.stopVenting() end
+
+--- Check whether venting is in progress
+---@return integer state 1 if venting is ongoing, 0 otherwise
+function ShieldGenerator.isVenting() end
+
+--- Returns time after which venting is possible again
+---@return number value Remaining seconds of the venting cooldown
+function ShieldGenerator.getVentingCooldown() end
+
+--- Returns maximal cooldown between venting
+---@return number value Maximal seconds of the venting cooldown
+function ShieldGenerator.getVentingMaxCooldown() end
+
+--- Returns distribution of resistance pool over resistance types
+---@return table resistances Resistance to damage type {antimatter, electromagnetic, kinetic, thermic}
+function ShieldGenerator.getResistances() end
+
+--- Distribute the resistance pool according to damage type
+---@param antimatter number Antimatter damage resistance
+---@param electromagnetic number Electromagnetic damage resistance
+---@param kinetic number Kinetic damage resistance
+---@param thermic number Thermic damage resistance
+---@return integer 
+function ShieldGenerator.setResistances(antimatter, electromagnetic, kinetic, thermic) end
+
+--- Returns time after which adjusting resistances is possible again
+---@return number 
+function ShieldGenerator.getResistancesCooldown() end
+
+--- Returns maximal cooldown between adjusting resistances
+---@return number 
+function ShieldGenerator.getResistancesMaxCooldown() end
+
+--- Returns total resistance pool that may be distributed
+---@return number 
+function ShieldGenerator.getResistancesPool() end
+
+--- Returns the remaining amount of the resistance pool that can be distributed
+---@return number 
+function ShieldGenerator.getResistancesRemaining() end
+
+--- Returns ratio per damage type of recent weapon impacts after applying resistance
+---@return table stress Stress ratio due to damage type {antimatter, electromagnetic, kinetic, thermic}
+function ShieldGenerator.getStressRatio() end
+
+--- Returns ratio per damage type of recent weapon impacts without resistance
+---@return table stress Stress ratio due to damage type {antimatter, electromagnetic, kinetic, thermic}
+function ShieldGenerator.getStressRatioRaw() end
+
+--- Returns stress, that is the total hit points of recent weapon impacts after applying resistance
+---@return number 
+function ShieldGenerator.getStressHitpoints() end
+
+--- Returns stress, that is the total hit points of recent weapon impacts without resistance
+---@return number 
+function ShieldGenerator.getStressHitpointsRaw() end
+
+--- Emitted when we started or stopped the shield generator
+---@param active integer 1 if the element was activated, 0 otherwise
+---@type Event
+ShieldGenerator.onToggled = Event:new()
+
+---@type Event
+ShieldGenerator.toggled = Event:new()
+
+--- Emitted when the shield absorbed incoming damage
+---@param hitpoints number Damage the shield absorbed
+---@param rawHitpoints number Total damage without taking resistances into account
+---@type Event
+ShieldGenerator.onAbsorbed = Event:new()
+
+---@type Event
+ShieldGenerator.absorbed = Event:new()
+
+--- Emitted when venting started, stopped or restored some hitpoints
+---@param active integer 1 when venting is active, 0 otherwise
+---@param restoredHitpoints number Hitpoints restored since the last venting step
+---@type Event
+ShieldGenerator.onVenting = Event:new()
+
+---@type Event
+ShieldGenerator.venting = Event:new()
+
+--- Emitted when the shield hit points reached 0 due to damage
+---@type Event
+ShieldGenerator.onDown = Event:new()
+
+---@type Event
+ShieldGenerator.down = Event:new()
+
+--- Emitted when the shield hit points were fully restored
+---@type Event
+ShieldGenerator.onRestored = Event:new()
+
+---@type Event
+ShieldGenerator.restored = Event:new()
 
 
 ---@class SpaceBrake
