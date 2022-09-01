@@ -2,13 +2,35 @@
 
 --- A vec3 represents a 3-dimensional vector and includes methods to manipulate it
 ---@class vec3
-vec3 = {}
+vec3 = {
+  --- A vector representing the origin point (0, 0, 0)
+  ---@type vec3
+  zero = {},
 
---- Calculates the dot product of two vectors
----@param a vec3 The first vector to dot with
----@param b vec3 The second vector to dot with
----@return number
-function vec3.dot(a, b) end
+  --- A vector representing the X axis (1, 0, 0)
+  ---@type vec3
+  unit_x = {},
+
+  --- A vector representing the Y axis (0, 1, 0)
+  ---@type vec3
+  unit_y = {},
+
+  --- A vector representing the Z axis (0, 0, 1)
+  ---@type vec3
+  unit_z = {},
+
+  --- The X component of the vector
+  ---@type number
+  x = 0,
+
+  --- The Y component of the vector
+  ---@type number
+  y = 0,
+
+  --- The Z component of the vector
+  ---@type number
+  z = 0,
+}
 
 --- Calculates the distance between two points
 ---@param a vec3 The first point
@@ -21,6 +43,17 @@ function vec3.dist(a, b) end
 ---@param b vec3 The second point
 ---@return number
 function vec3.dist2(a, b) end
+
+--- Calculates the dot product of two vectors
+---@param a vec3 The first vector to dot with
+---@param b vec3 The second vector to dot with
+---@return number
+function vec3.dot(a, b) end
+
+--- Returns true when a valid vec3 is provided
+---@param vector any The value to test against
+---@return boolean
+function vec3.isvector(vector) end
 
 --- Calculates the linear interpolation between two points
 --- https://web.archive.org/web/20220115105703/https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
