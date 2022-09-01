@@ -41,7 +41,7 @@ module.exports = function (project, buildName, buildFile, libraries) {
     return relativePath && !relativePath.startsWith('..') && !path.isAbsolute(relativePath)
   }
 
-  function handleRequire (filename, sourceDirectory) {
+  function handleRequire (filename, sourceDirectory) {    
     // Is this the root file
     const isRoot = !currentFiles[0]
 
@@ -143,6 +143,9 @@ module.exports = function (project, buildName, buildFile, libraries) {
 
     // Gets our project's source path
     const projectSourcePath = path.join(lib.root, lib.project.sourcePath)
+
+    // This ensures extra paths are only used on current project
+    if (projectSourcePath != currentProjectSourcePath) extraPaths = [];
 
     // Generates our own LUA_PATH
     const internalLuaPath = _.flatten([
