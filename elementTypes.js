@@ -149,7 +149,7 @@ module.exports = {
     title: 'Shield Generator (Ship)',
     value: 'shield',
     class: 'ShieldGeneratorUnit',
-    luaClass: 'BaseShieldGenerator', // TODO: Waiting on official ShieldGenerator class
+    luaClass: 'ShieldGenerator',
     events: [
       { signature: 'onToggled(active)' },
       { signature: 'onAbsorbed(hitpoints,rawHitpoints)' },
