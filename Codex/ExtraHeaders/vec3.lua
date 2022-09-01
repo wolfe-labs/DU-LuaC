@@ -35,9 +35,9 @@ function vec3.lerp(a, b, delta) end
 ---@return number
 function vec3:angle_between(vector) end
 
---- TODO: Write documentation about this method
+--- TODO: Write documentation about this method, but only seems to work on 2D vectors (why is this here?)
 ---@param vector vec3
----@return vec3
+---@return number
 function vec3:angle_to(vector) end
 
 --- Creates a new instance containing the same data
@@ -69,6 +69,11 @@ function vec3:normalize() end
 --- Normalizes the vector in-place so that its length is 1
 ---@return vec3
 function vec3:normalize_inplace() end
+
+--- TODO: Write documentation about this method
+---@param orientation vec3
+---@return vec3
+function vec3:orientation_to_direction(orientation)
 
 --- Returns the vector perpendicular to the current
 ---@return vec3
