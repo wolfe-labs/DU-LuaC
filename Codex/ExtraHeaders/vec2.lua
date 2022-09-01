@@ -55,6 +55,11 @@ function vec3.isvector(vector) end
 ---@return vec2
 function vec2.lerp(a, b, delta) end
 
+--- TODO: Write documentation about this method
+---@param vector vec2
+---@return number
+function vec2:angle_to(vector) end
+
 --- Creates a new instance containing the same data
 ---@return vec2
 function vec2:clone() end
