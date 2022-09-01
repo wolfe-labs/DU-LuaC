@@ -3,31 +3,31 @@
 --- A vec3 represents a 3-dimensional vector and includes methods to manipulate it
 ---@class vec3
 vec3 = {
-  --- A vector representing the origin point (0, 0, 0)
+  --- A vector representing the origin point (0, 0, 0), only available outside instances
   ---@type vec3
   zero = {},
 
-  --- A vector representing the X axis (1, 0, 0)
+  --- A vector representing the X axis (1, 0, 0), only available outside instances
   ---@type vec3
   unit_x = {},
 
-  --- A vector representing the Y axis (0, 1, 0)
+  --- A vector representing the Y axis (0, 1, 0), only available outside instances
   ---@type vec3
   unit_y = {},
 
-  --- A vector representing the Z axis (0, 0, 1)
+  --- A vector representing the Z axis (0, 0, 1), only available outside instances
   ---@type vec3
   unit_z = {},
 
-  --- The X component of the vector
+  --- The X component of the vector, only available on instances
   ---@type number
   x = 0,
 
-  --- The Y component of the vector
+  --- The Y component of the vector, only available on instances
   ---@type number
   y = 0,
 
-  --- The Z component of the vector
+  --- The Z component of the vector, only available on instances
   ---@type number
   z = 0,
 }
