@@ -150,11 +150,6 @@ function vec3:trim_inplace(vector) end
 function vec3:unpack() end
 
 --- Initializes a new 3D vector with its components in a table
----@param components table A table in the { x, y, z } format
+---@param components number[] A table in the { x, y, z } format
+---@return vec3
 function vec3(components) return setmetatable({}, { _index = vec3 }) end
-
---- Initializes a new 3D vector with its individual components
----@param x number The value of X component
----@param y number The value of Y component
----@param z number The value of Z component
-function vec3(x, y, z) return setmetatable({}, { _index = vec3 }) end

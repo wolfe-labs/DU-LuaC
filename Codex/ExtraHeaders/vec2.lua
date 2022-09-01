@@ -126,10 +126,6 @@ function vec2:trim_inplace(vector) end
 function vec2:unpack() end
 
 --- Initializes a new 2D vector with its components in a table
----@param components table A table in the { x, y } format
+---@param components number[] A table in the { x, y } format
+---@return vec2
 function vec2(components) return setmetatable({}, { _index = vec2 }) end
-
---- Initializes a new 2D vector with its individual components
----@param x number The value of X component
----@param y number The value of Y component
-function vec2(x, y) return setmetatable({}, { _index = vec2 }) end
