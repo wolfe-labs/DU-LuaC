@@ -67,6 +67,22 @@ module.exports = function (project, buildName, buildFile, libraries) {
     // Generate the require string
     let requireString = `${required.lib}:${required.filename}`
 
+    // Fixes/hashes external files
+    const parsedRequire = requireString.split(':')
+    const parsedRequirePackage = parsedRequire[0]
+    const parsedRequirePath = parsedRequire.slice(1).join(':')
+    if (!isPathInsideProject(parsedRequirePath)) {
+      // Rewrites the require statement if outside the project directory
+      const absolutePath = path.resolve(currentProjectSourcePath, parsedRequirePath)
+      const safePathHash = crypto.createHash('sha1')
+        .update(absolutePath)
+        .digest('hex')
+        .slice(0, 10)
+      const newRequireString = `:${ safePathHash }:${ path.basename(absolutePath) }`
+      CLI.info('COMPILE', `External path hashed [${ newRequireString.green }] -> ${ absolutePath.yellow }`)
+      requireString = newRequireString
+    }
+
     // Check if this file was not already included
     if (~requires.indexOf(file)) {
       return { fqn: requireString, output: '' }
@@ -93,21 +109,6 @@ module.exports = function (project, buildName, buildFile, libraries) {
 
     // Adds to preload list if not root file
     if (!isRoot) {
-      const parsedRequire = requireString.split(':')
-      const parsedRequirePackage = parsedRequire[0]
-      const parsedRequirePath = parsedRequire.slice(1).join(':')
-      if (!isPathInsideProject(parsedRequirePath)) {
-        // Rewrites the require statement if outside the project directory
-        const absolutePath = path.resolve(currentProjectSourcePath, parsedRequirePath)
-        const safePathHash = crypto.createHash('sha1')
-          .update(absolutePath)
-          .digest('hex')
-          .slice(0, 10)
-        const newRequireString = `:${ safePathHash }:${ path.basename(absolutePath) }`
-        CLI.info('COMPILE', `External path hashed [${ newRequireString }] -> ${ absolutePath }`)
-        requireString = newRequireString
-      }
-
       // Saves on preloads
       preloads[requireString] = result
     }
