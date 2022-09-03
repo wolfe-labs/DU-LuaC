@@ -158,7 +158,7 @@
       newProjectName = args[0] || path.basename(process.cwd())
 
       // Gets a project file prototype
-      project = Object.assign({ cli: { fmtVersion: 2 } }, await prompts([
+      project = Object.assign({ cli: { fmtVersion: 3 } }, await prompts([
         {
           type: 'text',
           name: 'name',

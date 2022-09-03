@@ -27,6 +27,11 @@ module.exports = function (project, buildName, buildFile, libraries) {
   const LUA_PATH = (process.env.LUA_PATH ?? '').split(';').filter(entry => entry.length > 0);
   CLI.info('COMPILE', `Found ${LUA_PATH.length} locations on LUA_PATH.`);
 
+  // Gets a project's version
+  function getLibVersion (lib) {
+    return lib.project?.cli?.fmtVersion || 1;
+  }
+
   // Is a certain path inside a certain directory?
   function isPathInsideProject (target) {
     // Converts the target path to absolute notation
@@ -154,10 +159,14 @@ module.exports = function (project, buildName, buildFile, libraries) {
       projectSourcePath,
     ].map((currentPath) => {
       return [
-        path.join(currentPath, '?'),
+        // Allows requires with .lua extension
+        // This will be deprecated, eventually
+        (getLibVersion(lib) <= 2)
+          ? path.join(currentPath, '?')
+          : '',
         path.join(currentPath, '?.lua'),
       ]
-    })).concat(LUA_PATH || [])
+    })).concat(LUA_PATH || []).filter((entry) => entry.length > 0)
 
     // Generates list of possible file pathes
     const possibleFilePaths = internalLuaPath.map(
@@ -175,6 +184,16 @@ module.exports = function (project, buildName, buildFile, libraries) {
         // Stops of first match for performance
         file = path
         break
+      }
+    }
+
+    // Displays warning when ending with .lua, fails on newer versions
+    if ('.lua' == parsedProjectFile[1].substr(-4).toLowerCase()) {
+      if (getLibVersion(lib) >= 3) {
+        CLI.error(`Invalid require: "${ filename.red }" - requires should only contain the file name without the .lua extension!`);
+        process.exit(1);
+      } else if (!file) {
+        CLI.warn(`Invalid require: "${ filename.yellow }" - requires should only contain the file name without the .lua extension!`);
       }
     }
 
