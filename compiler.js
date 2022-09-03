@@ -72,29 +72,32 @@ module.exports = function (project, buildName, buildFile, libraries) {
     // Generate the require string
     let requireString = `${required.lib}:${required.filename}`
 
-    // Fixes/hashes external files
     const parsedRequire = requireString.split(':')
     const parsedRequirePackage = parsedRequire[0]
     const parsedRequirePath = parsedRequire.slice(1).join(':')
+
+    // Gets the absolute require path
+    const fileAbsolutePath = path.resolve(currentProjectSourcePath, parsedRequirePath)
+
+    // Fixes/hashes external files
     if (!isPathInsideProject(parsedRequirePath)) {
       // Rewrites the require statement if outside the project directory
-      const absolutePath = path.resolve(currentProjectSourcePath, parsedRequirePath)
       const safePathHash = crypto.createHash('sha1')
-        .update(absolutePath)
+        .update(fileAbsolutePath)
         .digest('hex')
         .slice(0, 10)
-      const newRequireString = `:${ safePathHash }:${ path.basename(absolutePath) }`
-      CLI.info('COMPILE', `External path hashed [${ newRequireString.green }] -> ${ absolutePath.yellow }`)
+      const newRequireString = `:${ safePathHash }:${ path.basename(fileAbsolutePath) }`
+      CLI.info('COMPILE', `External path hashed [${ newRequireString.green }] -> ${ fileAbsolutePath.yellow }`)
       requireString = newRequireString
     }
 
     // Check if this file was not already included
-    if (~requires.indexOf(file)) {
+    if (~requires.indexOf(fileAbsolutePath)) {
       return { fqn: requireString, output: '' }
     }
 
     // Prevents file from being included twice
-    requires.push(file)
+    requires.push(fileAbsolutePath)
 
     // Setup current path
     srcpath.unshift(path.dirname(file))
