@@ -411,6 +411,77 @@
 
     // Imports a library
     case 'import':
+      // Gets current project
+      project = await library.getProjectInfo(process.cwd())
+
+      // If no libs are present, add a libs key
+      project.libs = project.libs || []
+
+      // Gets the current path
+      importLibRaw = args[0]
+      
+      // Checks if the specified path exists
+      if (exists(importLibRaw)) {
+        // Imports found library
+        importLib = await library.getProjectInfo(importLibRaw)
+
+        // Checks if valid project
+        if (!importLib) {
+          console.error(`No valid library found at path: ${importLibRaw}`)
+          process.exit(1)
+        }
+
+        // Checks if project already has it
+        if (library.projectHasLibrary(project, importLib.name)) {
+          console.error(`The specified library was already in the project. Exiting...`)
+          process.exit(1)
+        }
+
+        // Generates project info
+        project.libs.push({
+          id: importLib.name,
+          path: importLibRaw,
+        })
+
+        // Saves
+        await library.saveProject(project)
+
+        // Informs user
+        console.info(`The library "${importLib.name}" was successfully imported into your project!`)
+        console.info(`Please note that, this library was fetched from a local path and may not work properly in other machines`)
+      } else {
+        // Tries to parse Git URL
+        importLib = await library.loadExternalLibrary(importLibRaw, 'libs')
+
+        // Validates, protocol MUST NOT be 'file' as it may point to an invalid local path
+        if (importLib) {
+          // Check if we already have this library
+          if (library.projectHasLibrary(project, importLib.name)) {
+            // Informs user that library is present and only it was updated
+            console.info(`The current project already has the library "${importLib.name}" present and only the library was updated`)
+          } else {
+            // Saves the new library
+            project.libs.push({
+              id: importLib.name,
+              type: importLib.type,
+              path: importLib.path,
+              remote: {
+                git: importLibRaw,
+              }
+            })
+            await library.saveProject(project)
+
+            // Finishes with some log
+            console.info(`The library "${importLib.name}" was successfully imported into your project!`)
+            console.info(`Usage: require("${importLib.name}:FileName")`)
+          }
+        } else {
+          // Errors
+          console.error(`Could not resolve library: "${importLibRaw}"`)
+          process.exit(1)
+        }
+      }
+      break
 
     // Builds the intellisense for the current project
     case 'add-code-completion':
@@ -425,14 +496,6 @@
       const updatedCodex = (await axios.get('https://raw.githubusercontent.com/wolfe-labs/DU-OpenData/main/dist/Lua/Codex.json')).data;
       fs.writeFileSync(path.join(__dirname, 'Codex/Codex.json'), JSON.stringify(updatedCodex));
       console.info('JSON Codex updated!');
-      break
-
-    // Builds the built-in LuaDoc (for intellisense)
-    case 'update-luadoc':
-      console.info('Building LuaDoc code completion helper...');
-      const updatedLuaDoc = require('./buildLuaDoc')(require(path.join(__dirname, 'Codex/Codex.json')));
-      fs.writeFileSync(path.join(__dirname, 'Codex/Codex.lua'), updatedLuaDoc);
-      console.info('LuaDoc code completion helper built successfully!');
       break
 
     // By default shows help

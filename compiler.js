@@ -1,6 +1,8 @@
 module.exports = function (project, buildName, buildFile, libraries) {
+  const _ = require('lodash');
   const fs = require('fs-extra')
   const path = require('path')
+  const crypto = require('crypto')
   const luaparse = require('luaparse')
   
   const BuildError = require('./BuildError')
@@ -18,12 +20,33 @@ module.exports = function (project, buildName, buildFile, libraries) {
 
   if (inlineRequires) CLI.info('COMPILE', `Build '${buildName}' will not include package.preload statements.`)
 
-  function handleRequire (filename) {
+  // Builds project source Path
+  const currentProjectSourcePath = path.join(process.cwd(), project.sourcePath)
+
+  // Parses LUA_PATH
+  const LUA_PATH = (process.env.LUA_PATH ?? '').split(';').filter(entry => entry.length > 0);
+  CLI.info('COMPILE', `Found ${LUA_PATH.length} locations on LUA_PATH.`);
+
+  // Is a certain path inside a certain directory?
+  function isPathInsideProject (target) {
+    // Converts the target path to absolute notation
+    if (!path.isAbsolute(target)) {
+      target = path.resolve(currentProjectSourcePath, target)
+    }
+
+    // Creates a relative path from current source directory and out absolute directory
+    const relativePath = path.relative(currentProjectSourcePath, target)
+
+    // If the relative path starts with '..' or is absolute (usually a different Windows disk), returns false
+    return relativePath && !relativePath.startsWith('..') && !path.isAbsolute(relativePath)
+  }
+
+  function handleRequire (filename, sourceDirectory) {    
     // Is this the root file
     const isRoot = !currentFiles[0]
 
     // Process the file name)
-    const required = handleFilename(filename)
+    const required = handleFilename(filename, sourceDirectory ? [sourceDirectory] : [])
 
     // File not found?
     if (!required) {
@@ -42,7 +65,23 @@ module.exports = function (project, buildName, buildFile, libraries) {
     const file = required.file
 
     // Generate the require string
-    const requireString = `${required.lib}:${required.filename}`
+    let requireString = `${required.lib}:${required.filename}`
+
+    // Fixes/hashes external files
+    const parsedRequire = requireString.split(':')
+    const parsedRequirePackage = parsedRequire[0]
+    const parsedRequirePath = parsedRequire.slice(1).join(':')
+    if (!isPathInsideProject(parsedRequirePath)) {
+      // Rewrites the require statement if outside the project directory
+      const absolutePath = path.resolve(currentProjectSourcePath, parsedRequirePath)
+      const safePathHash = crypto.createHash('sha1')
+        .update(absolutePath)
+        .digest('hex')
+        .slice(0, 10)
+      const newRequireString = `:${ safePathHash }:${ path.basename(absolutePath) }`
+      CLI.info('COMPILE', `External path hashed [${ newRequireString.green }] -> ${ absolutePath.yellow }`)
+      requireString = newRequireString
+    }
 
     // Check if this file was not already included
     if (~requires.indexOf(file)) {
@@ -66,10 +105,11 @@ module.exports = function (project, buildName, buildFile, libraries) {
     currentFiles.unshift(file)
 
     // Process the file source and return it
-    const result = handleSource(source)
+    const result = handleSource(source, file)
 
     // Adds to preload list if not root file
     if (!isRoot) {
+      // Saves on preloads
       preloads[requireString] = result
     }
 
@@ -84,12 +124,12 @@ module.exports = function (project, buildName, buildFile, libraries) {
     return { fqn: requireString, output: result }
   }
 
-  function handleFilename (filename) {
+  function handleFilename (filename, extraPaths) {
     // The file we'll resolve
     let file = filename
 
     // Are we pointing to another project or the current one?
-    const parsedProjectFile = file.split(':')
+    const parsedProjectFile = file.replace(/\\/g, '/').split(':')
 
     // If no library exists, then use the current one
     if (parsedProjectFile.length == 1) parsedProjectFile.unshift(currentLib[0])
@@ -101,23 +141,56 @@ module.exports = function (project, buildName, buildFile, libraries) {
     if (!lib) {
       return null
     }
-    
-    // Get the filename from the library
-    file = path.join(path.join(lib.root, lib.project.sourcePath), parsedProjectFile[1])
 
-    // Works on file
-    if (fs.existsSync(file)) file = file
-    else if (fs.existsSync(file + '.lua')) file = file + '.lua'
-    else return null
+    // Gets our project's source path
+    const projectSourcePath = path.join(lib.root, lib.project.sourcePath)
+
+    // This ensures extra paths are only used on current project
+    if (projectSourcePath != currentProjectSourcePath) extraPaths = [];
+
+    // Generates our own LUA_PATH
+    const internalLuaPath = _.flatten([
+      ...(extraPaths || []),
+      projectSourcePath,
+    ].map((currentPath) => {
+      return [
+        path.join(currentPath, '?'),
+        path.join(currentPath, '?.lua'),
+      ]
+    })).concat(LUA_PATH || [])
+
+    // Generates list of possible file pathes
+    const possibleFilePaths = internalLuaPath.map(
+      (path) => path.replace('?', parsedProjectFile[1])
+    )
+
+    // Figures out which file to use
+    file = null;
+    for (let iPath = 0; iPath < possibleFilePaths.length; iPath++) {
+      // Extracts file path
+      const path = possibleFilePaths[iPath]
+
+      // Checks if file both exists AND is a file, so no directories are incorrectly attempted to be read
+      if (fs.existsSync(path) && fs.statSync(path).isFile()) {
+        // Stops of first match for performance
+        file = path
+        break
+      }
+    }
+
+    // Returns null in case the file was not found anywhere
+    if (!file) return null
     
     return {
       lib: parsedProjectFile[0],
       file: file,
-      filename: parsedProjectFile[1],
+      filename: path.relative(projectSourcePath, file)
+        .replace(/\\/g, '/') // Unifies paths to forward-slash
+        .replace(/.lua$/g, ''), // Removes .lua from end of string
     }
   }
 
-  function handleSource (source) {
+  function handleSource (source, sourceFilename) {
     // Validate source AST
     try {
       luaparse.parse(source)
@@ -131,7 +204,7 @@ module.exports = function (project, buildName, buildFile, libraries) {
         expression: /require[\s\()]*[\'\"](.+?)[\'\"][\s]*[\)]*/gi,
         handle (match, file) {
           // Does the require, should return null if not found
-          const req = handleRequire(file)
+          const req = handleRequire(file, path.dirname(sourceFilename))
 
           if (req) {
             // If we're inlining requires, inlines it now
