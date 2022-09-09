@@ -2,35 +2,14 @@
 
 --- A vec3 represents a 3-dimensional vector and includes methods to manipulate it
 ---@class vec3
-vec3 = {
-  --- A vector representing the origin point (0, 0, 0) - Only available OUTSIDE instances
-  ---@type vec3
-  zero = {},
-
-  --- A vector representing the X axis (1, 0, 0) - Only available OUTSIDE instances
-  ---@type vec3
-  unit_x = {},
-
-  --- A vector representing the Y axis (0, 1, 0) - Only available OUTSIDE instances
-  ---@type vec3
-  unit_y = {},
-
-  --- A vector representing the Z axis (0, 0, 1) - Only available OUTSIDE instances
-  ---@type vec3
-  unit_z = {},
-
-  --- The X component of the vector - Only available INSIDE instances
-  ---@type number
-  x = 0,
-
-  --- The Y component of the vector - Only available INSIDE instances
-  ---@type number
-  y = 0,
-
-  --- The Z component of the vector - Only available INSIDE instances
-  ---@type number
-  z = 0,
-}
+---@field zero vec3 A vector representing the origin point (0, 0, 0) - Only available OUTSIDE instances
+---@field unit_x vec3 A vector representing the X axis (1, 0, 0) - Only available OUTSIDE instances
+---@field unit_y vec3 A vector representing the Y axis (0, 1, 0) - Only available OUTSIDE instances
+---@field unit_z vec3 A vector representing the Z axis (0, 0, 1) - Only available OUTSIDE instances
+---@field x number The X component of the vector - Only available INSIDE instances
+---@field y number The Y component of the vector - Only available INSIDE instances
+---@field z number The Z component of the vector - Only available INSIDE instances
+vec3 = {}
 
 --- Calculates the distance between two points
 ---@param a vec3 The first point

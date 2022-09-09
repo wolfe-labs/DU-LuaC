@@ -2,27 +2,12 @@
 
 --- A vec2 represents a 2-dimensional vector and includes methods to manipulate it
 ---@class vec2
-vec2 = {
-  --- A vector representing the origin point (0, 0) - Only available OUTSIDE instances
-  ---@type vec2
-  zero = {},
-
-  --- A vector representing the X axis (1, 0) - Only available OUTSIDE instances
-  ---@type vec2
-  unit_x = {},
-
-  --- A vector representing the Y axis (0, 1) - Only available OUTSIDE instances
-  ---@type vec2
-  unit_y = {},
-
-  --- The X component of the vector - Only available INSIDE instances
-  ---@type number
-  x = 0,
-
-  --- The Y component of the vector - Only available INSIDE instances
-  ---@type number
-  y = 0,
-}
+---@field zero vec3 A vector representing the origin point (0, 0) - Only available OUTSIDE instances
+---@field unit_x vec3 A vector representing the X axis (1, 0) - Only available OUTSIDE instances
+---@field unit_y vec3 A vector representing the Y axis (0, 1) - Only available OUTSIDE instances
+---@field x number The X component of the vector - Only available INSIDE instances
+---@field y number The Y component of the vector - Only available INSIDE instances
+vec2 = {}
 
 --- Calculates the distance between two points
 ---@param a vec2 The first point
