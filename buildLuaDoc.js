@@ -64,7 +64,7 @@ function buildMethodLua (name, data, className) {
   }
 
   // Adds method name
-  lua.push(`function ${ className || 'self' }.${ name }(${ (data.params || []).map((param) => param.name).join(', ') }) end`);
+  lua.push(`function ${ className || 'self' }${ data.isMethodStatic ? '.' : ':' }${ name }(${ (data.params || []).map((param) => param.name).join(', ') }) end`);
 
   // Done
   return lua.join('\n');

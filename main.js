@@ -495,7 +495,10 @@
       console.info('Updating JSON Codex from GitHub...');
       const updatedCodex = (await axios.get('https://raw.githubusercontent.com/wolfe-labs/DU-OpenData/main/dist/Lua/Codex.json')).data;
       fs.writeFileSync(path.join(__dirname, 'Codex/Codex.json'), JSON.stringify(updatedCodex));
-      console.info('JSON Codex updated!');
+      console.info('Building LuaDoc Codex...');
+      const updatedCodexLuaDoc = require('./buildLuaDoc')(updatedCodex);
+      fs.writeFileSync(path.join(__dirname, 'Codex/Codex.lua'), updatedCodexLuaDoc);
+      console.info('Codex updated successfully!');
       break
 
     // By default shows help
@@ -525,6 +528,8 @@
           text: `Builds the project on current directory` },
         { command: 'add-code-completion',
           text: `Adds extra local files to aid with code completion` },
+        { command: 'update-codex',
+          text: `Updates the built-in Codex to the latest one available on OpenData. For development use only!` },
       ]
 
       console.info(`Usage: du-lua (command) [args]`)
