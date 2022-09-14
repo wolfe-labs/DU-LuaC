@@ -1,5 +1,5 @@
 ---@class Library
-local library = DULibrary
+local library = DULibrary or {}
 
 --- Returns a list of elements linked to the current Control Unit
 ---@param filters table<string, string> A list of filters where each key is a element function and the value is the desired value
