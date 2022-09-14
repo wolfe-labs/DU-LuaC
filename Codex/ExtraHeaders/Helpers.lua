@@ -29,3 +29,8 @@ function library.getLinkByName(elementName) end
 --- Adds event handling to an object's instance
 ---@param obj table The object you are adding events to
 function library.addEventHandlers(obj) end
+
+--- Embeds a local file (from your LuaC project) as a Lua string
+---@param file string The file you are embedding
+---@return string
+function library.embedFile(file) end
