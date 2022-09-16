@@ -1,0 +1,29 @@
+--- Represents a celestial body (planet, moon, moonlet, asteroid, etc) found in the Dual Universe atlas
+---@class DUAtlasCelestialBody
+---@field id number The unique ID of the celestial body
+---@field name DUMultiLanguageString The localized name of the celestial body
+---@field type DUMultiLanguageString The localized type of the celestial body
+---@field biosphere DUMultiLanguageString The localized biosphere of the celestial body
+---@field classification DUMultiLanguageString The localized classification of the celestial body
+---@field habitability DUMultiLanguageString The localized habitability of the celestial body
+---@field description DUMultiLanguageString The localized description of the celestial body
+---@field iconPath string The image path to the icon representing the celestial body
+---@field hasAtmosphere boolean Whether the celestial body has an atmosphere or not
+---@field isSanctuary boolean Whether the celestial body is a Sanctuary moon or not
+---@field isInSafeZone boolean Whether the celestial body is on the safe zone or not
+---@field systemId number The ID of the solar system the celestial body belongs to
+---@field positionInSystem number The position of the celestial body on the solar system
+---@field satellites number[] The IDs of each satellite belonging to the celestial body
+---@field center table The world coordinates of the center of the celestial body
+---@field gravity number The gravity of the celestial body, in m/s²
+---@field radius number The radius of the celestial body, in meters from its center, represents altitude 0m (sea level)
+---@field atmosphereRadius number The radius of the celestial body atmosphere, in meters from its center
+---@field atmosphereThickness number The thickness of the atmosphere, in meters (around the same as the atmosphereRadius - radius)
+---@field GM number The celestial body mass in units of the product of the gravitational constant (G) and the mass of the star (M), also known as the heliocentric gravitational constant
+---@field surfaceArea number The celestial body total surface area, in m²
+---@field surfaceAverageAltitude number The celestial body average surface altitude, in meters above sea level
+---@field surfaceMaxAltitude number The celestial body maximum surface altitude, in meters above sea level
+---@field surfaceMinAltitude number The celestial body minimum surface altitude, in meters above sea level
+---@field ores DUMultiLanguageString[] A list of all the ores that can be found on the celestial body
+---@field territories number How many territories the celestial body has in total
+local AtlasCelestialBody = {}
