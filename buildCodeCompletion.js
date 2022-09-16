@@ -25,6 +25,26 @@ function addToGitIgnore (src, entries) {
   }).join('\n');
 }
 
+function deepReadDirectory (dir) {
+  // Reads directory recursively
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  const files = [];
+
+  // Processes entries
+  entries.forEach((entry) => {
+    if (entry.isDirectory()) {
+      files.push(
+        ...deepReadDirectory(path.join(dir, entry.name)).map((file) => path.join(entry.name, file)),
+      );
+    } else {
+      files.push(entry.name);
+    }
+  });
+
+  // Done
+  return files;
+}
+
 module.exports = async function buildCodeCompletion (dir) {
   // Gets project info
   const project = await library.getProjectInfo(dir);
@@ -45,13 +65,13 @@ module.exports = async function buildCodeCompletion (dir) {
 
   // Reads a list of extra Lua headers
   const extraHeadersDir = path.join(__dirname, 'Codex/ExtraHeaders');
-  const extraHeaders = fs.readdirSync(extraHeadersDir)
+  const extraHeaders = deepReadDirectory(extraHeadersDir)
     .map((file) => fs.readFileSync(path.join(extraHeadersDir, file)).toString());
 
   // Copies the codex locally, adding any links to the globals
   const codex = [
-    fs.readFileSync(path.join(__dirname, 'Codex/Codex.lua')).toString(),
     ...extraHeaders,
+    fs.readFileSync(path.join(__dirname, 'Codex/Codex.lua')).toString(),
     slots.map((slot) => {
       const element = elementTypes[slot.type];
       if (element && element.luaClass) {
