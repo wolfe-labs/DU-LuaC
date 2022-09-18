@@ -21,6 +21,8 @@
   const semver = require('semver')
   const axios = require('axios')
 
+  const CLI = require('./cli')
+
   // Load package info
   const cPackage = require(path.join(__dirname, 'package.json'))
 
@@ -31,7 +33,7 @@
   const cache = require(cacheLocation)
 
   // Welcome msg :)
-  console.info(`Lua CLI Utility for Dual Universe v${ cPackage.version } by Wolfe Labs @ Node ${ process.version }`)  
+  CLI.print(`Lua CLI Utility for Dual Universe v${ cPackage.version } by Wolfe Labs @ Node ${ process.version }`)  
 
   // Update checks
   const timeBetweenChecks = 3 * 3600 * 1000 // 3 hours delay between update checks
@@ -41,7 +43,7 @@
       const rPackage = (await axios.get(`https://registry.npmjs.org/${ cPackage.name }`)).data
       cache.lastUpdateAvailable = rPackage['dist-tags'].latest
     } catch (e) {
-      console.info('Could not check for package updates!')
+      CLI.warn('Could not check for package updates!')
     }
 
     // Saves current update check time
@@ -50,12 +52,12 @@
 
   // Update available message
   if (cache.lastUpdateAvailable && semver.lt(cPackage.version, cache.lastUpdateAvailable)) {
-    console.info(`New version ${ `v${ cache.lastUpdateAvailable }`.blue } available, run ${ `npm i -g ${ cPackage.name }`.cyan } to update`)
+    CLI.print(`New version ${ `v${ cache.lastUpdateAvailable }`.blue } available, run ${ `npm i -g ${ cPackage.name }`.cyan } to update`)
   }
 
   // Notifies user if Git is missing
   if (!Git.isGitInstalled()) {
-    console.info(`WARNING: No Git version detected! Install from https://git-scm.com/download`.yellow)
+    CLI.warn(`No Git version detected! Install from https://git-scm.com/download`.yellow)
   }
 
   // Saves cache
@@ -80,23 +82,23 @@
 
     // If the build is not valid, errors
     if (!buildName) {
-      console.error(`Invalid build name`)
+      CLI.error(`Invalid build name`)
       process.exit(1)
     }
 
     // If that already exists, notify user and exit
     if (library.projectHasBuild(project, buildName)) {
-      console.info(`The build "${buildName}" already exists at current project. Exiting...`)
+      CLI.error(`The build "${buildName}" already exists at current project. Exiting...`)
       process.exit(1)
     }
 
     // Adds file if not already existing
     if (!exists(buildFile)) {
-      console.info(`Created new source file: ${buildFile}`)
+      CLI.print(`Created new source file: ${buildFile}`)
       fs.ensureDirSync(path.dirname(buildFile))
       fs.writeFileSync(buildFile, fs.readFileSync(path.join(__dirname, 'lua', 'templates', `${ buildType || 'control' }.lua`)))
     } else {
-      console.info(`Add existing source file: ${buildFile}`)
+      CLI.print(`Add existing source file: ${buildFile}`)
     }
 
     // Adds the new build definition
@@ -141,7 +143,7 @@
       if (exists(newDir)) {
         // Checks if the directory is empty
         if ((await fs.readdir(newDir)).length > 0) {
-          console.error(`The directory "${newDir}" already exists and may contain files. Exiting...`)
+          CLI.error(`The directory "${newDir}" already exists and may contain files. Exiting...`)
           process.exit(1)
         }
       } else {
@@ -198,16 +200,16 @@
 
       // Sanity check
       if (!(project.name && project.sourcePath && project.outputPath)) {
-        console.warn('Cancelled by the user!')
+        CLI.error('Cancelled by the user!')
         process.exit()
       }
 
       // Makes the project.json file
-      console.info(`Generating "project.json" file...`)
+      CLI.print(`Generating "project.json" file...`)
       await library.saveProject(project)
 
       // Makes the .gitignore
-      console.info(`Generating ".gitignore" file...`)
+      CLI.print(`Generating ".gitignore" file...`)
       await fs.writeFile('.gitignore', [
         `libs/`,
         `temp/`,
@@ -215,7 +217,7 @@
       ].join('\r\n'))
 
       // Makes the README.md file
-      console.info(`Generating "README.md" file...`)
+      CLI.print(`Generating "README.md" file...`)
       await fs.writeFile('README.md', [
         `# ${project.name}`,
         ``,
@@ -226,13 +228,13 @@
 
       // Makes the source directory
       if (!fs.existsSync(project.sourcePath)) {
-        console.info(`Generating source directory...`)
+        CLI.print(`Generating source directory...`)
         await fs.mkdir(project.sourcePath)
       }
     
       // Adds default files and settings
       if (doScaffolding) {
-        console.info(`Generating default build file and target...`)
+        CLI.print(`Generating default build file and target...`)
         await scriptAdd(project, 'main')
         await targetAdd(project, 'development', {
           // Uses in-game error handling as it highlights the error on source
@@ -244,16 +246,16 @@
       }
 
       // Shows finished message
-      console.info(`Project "${project.name}" created successfully!`)
+      CLI.print(`Project "${project.name}" created successfully!`)
     
       // For anyone using the "create" command, instruct them to "cd" into the directory
       if (newDir) {
-        console.info(`To start working on your project, type "cd ${newDir}"`)
+        CLI.print(`To start working on your project, type "cd ${newDir}"`)
       }
 
       // Extra information
-      console.info(`To build your project run either "du-lua build" or "du-luac" on your project's directory`)
-      console.info(`Other commands are available by running "du-lua -h"`)
+      CLI.print(`To build your project run either "du-lua build" or "du-luac" on your project's directory`)
+      CLI.print(`Other commands are available by running "du-lua -h"`)
       break
 
     case 'script-add':
@@ -264,7 +266,7 @@
       await scriptAdd(project, args[0], 'control')
 
       // Informs the user
-      console.info(`The build "${args[0]}" was successfully added to your project!`)
+      CLI.print(`The build "${args[0]}" was successfully added to your project!`)
       
       break
 
@@ -276,7 +278,7 @@
       await scriptAdd(project, args[0], 'screen')
 
       // Informs the user
-      console.info(`The render script "${args[0]}" was successfully added to your project!`)
+      CLI.print(`The render script "${args[0]}" was successfully added to your project!`)
       
       break
 
@@ -292,13 +294,13 @@
 
       // If the build is not valid, errors
       if (!buildName) {
-        console.error(`Invalid build name`)
+        CLI.error(`Invalid build name`)
         process.exit(1)
       }
       
       // If build is not found, warn user
       if (!library.projectHasBuild(project, buildName)) {
-        console.error(`The build "${buildName}" was not found. Exiting...`)
+        CLI.error(`The build "${buildName}" was not found. Exiting...`)
         process.exit(1)
       }
 
@@ -332,7 +334,7 @@
 
       // Sanity check
       if (!(linkInfo.name && linkInfo.type !== undefined)) {
-        console.warn('Cancelled by the user!')
+        CLI.warn('Cancelled by the user!')
         process.exit()
       }
 
@@ -344,12 +346,12 @@
 
       // Updates Codex if needed
       if (fs.existsSync(path.join(process.cwd(), 'util/Codex.lua'))) {
-        console.info('Updating code completion...');
+        CLI.print('Updating code completion...');
         require('./buildCodeCompletion')(process.cwd());
       }
 
       // Done
-      console.info(`Your slot was added successfully!`)
+      CLI.print(`Your slot was added successfully!`)
       
       break
 
@@ -392,7 +394,7 @@
 
       // Sanity check
       if (!(targetInfo.name)) {
-        console.warn('Cancelled by the user!')
+        CLI.warn('Cancelled by the user!')
         process.exit()
       }
 
@@ -400,7 +402,7 @@
       targetAdd(project, targetInfo.name, targetInfo)
 
       // Informs user
-      console.info(`The build target "${targetInfo.name}" was successfully added to your project!`)
+      CLI.print(`The build target "${targetInfo.name}" was successfully added to your project!`)
       
       break
 
@@ -427,13 +429,13 @@
 
         // Checks if valid project
         if (!importLib) {
-          console.error(`No valid library found at path: ${importLibRaw}`)
+          CLI.error(`No valid library found at path: ${importLibRaw}`)
           process.exit(1)
         }
 
         // Checks if project already has it
         if (library.projectHasLibrary(project, importLib.name)) {
-          console.error(`The specified library was already in the project. Exiting...`)
+          CLI.error(`The specified library was already in the project. Exiting...`)
           process.exit(1)
         }
 
@@ -447,8 +449,8 @@
         await library.saveProject(project)
 
         // Informs user
-        console.info(`The library "${importLib.name}" was successfully imported into your project!`)
-        console.info(`Please note that, this library was fetched from a local path and may not work properly in other machines`)
+        CLI.print(`The library "${importLib.name}" was successfully imported into your project!`)
+        CLI.print(`Please note that, this library was fetched from a local path and may not work properly in other machines`)
       } else {
         // Tries to parse Git URL
         importLib = await library.loadExternalLibrary(importLibRaw, 'libs')
@@ -458,7 +460,7 @@
           // Check if we already have this library
           if (library.projectHasLibrary(project, importLib.name)) {
             // Informs user that library is present and only it was updated
-            console.info(`The current project already has the library "${importLib.name}" present and only the library was updated`)
+            CLI.print(`The current project already has the library "${importLib.name}" present and only the library was updated`)
           } else {
             // Saves the new library
             project.libs.push({
@@ -472,12 +474,12 @@
             await library.saveProject(project)
 
             // Finishes with some log
-            console.info(`The library "${importLib.name}" was successfully imported into your project!`)
-            console.info(`Usage: require("${importLib.name}:FileName")`)
+            CLI.print(`The library "${importLib.name}" was successfully imported into your project!`)
+            CLI.print(`Usage: require("${importLib.name}:FileName")`)
           }
         } else {
           // Errors
-          console.error(`Could not resolve library: "${importLibRaw}"`)
+          CLI.error(`Could not resolve library: "${importLibRaw}"`)
           process.exit(1)
         }
       }
@@ -485,20 +487,20 @@
 
     // Builds the intellisense for the current project
     case 'add-code-completion':
-      console.info('Preparing code completion support...');
+      CLI.print('Preparing code completion support...');
       await (require('./buildCodeCompletion')(process.cwd()));
-      console.info('Code completion support built!');
+      CLI.print('Code completion support built!');
       break
 
     // Updates the built-in JSON Codex
     case 'update-codex':
-      console.info('Updating JSON Codex from GitHub...');
+      CLI.print('Updating JSON Codex from GitHub...');
       const updatedCodex = (await axios.get('https://raw.githubusercontent.com/wolfe-labs/DU-OpenData/main/dist/Lua/Codex.json')).data;
       fs.writeFileSync(path.join(__dirname, 'Codex/Codex.json'), JSON.stringify(updatedCodex));
-      console.info('Building LuaDoc Codex...');
+      CLI.print('Building LuaDoc Codex...');
       const updatedCodexLuaDoc = require('./buildLuaDoc')(updatedCodex);
       fs.writeFileSync(path.join(__dirname, 'Codex/Codex.lua'), updatedCodexLuaDoc);
-      console.info('Codex updated successfully!');
+      CLI.print('Codex updated successfully!');
       break
 
     // By default shows help
@@ -532,8 +534,8 @@
           text: `Updates the built-in Codex to the latest one available on OpenData. For development use only!` },
       ]
 
-      console.info(`Usage: du-lua (command) [args]`)
-      console.info(`du-lua`.gray)
+      CLI.print(`Usage: du-lua (command) [args]`)
+      CLI.print(`du-lua`.gray)
       
       // Creates list of command lines
       const commandLines = []
@@ -562,7 +564,7 @@
         .reduce((acc, line) => Math.max(line, acc), 0)
       commandLines.forEach((commandLine) => {
         const padding = ' '.repeat(Math.max(0, maxLeftSize - commandLine.left.replace(regexCleanup, '').length))
-        console.info(`  ${ commandLine.left }${ padding } : ${ commandLine.right }`)
+        CLI.print(`  ${ commandLine.left }${ padding } : ${ commandLine.right }`)
       })
   }
 
