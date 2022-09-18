@@ -61,8 +61,14 @@ module.exports = function (project, buildName, buildFile, libraries) {
         return process.exit(1);
       }
 
-      // Normal missing files
-      CLI.warn(`Required library/file not found: "${ filename.magenta }" on file "${ currentFiles[0].yellow }", leaving statement alone...`)
+      if (project.internalPaths.filter((path) => filename.startsWith(path)).length > 0) {
+        // Ignores missing internal paths
+        CLI.info('COMPILE', `Imported internal library: "${ filename.magenta }" on file "${ currentFiles[0].yellow }", leaving statement alone...`)
+      } else {
+        // Normal missing files
+        CLI.warn(`Required library/file not found: "${ filename.magenta }" on file "${ currentFiles[0].yellow }", leaving statement alone...`)
+      }
+
       return null
     }
 

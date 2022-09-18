@@ -9,6 +9,8 @@
   // Injects color-coding everywhere
   require('colors')
 
+  const _ = require('lodash')
+
   const fs = require('fs-extra')
   const path = require('path')
   const exists = require('fs').existsSync
@@ -503,6 +505,19 @@
       CLI.print('Codex updated successfully!');
       break
 
+    // Adds code to ignore DU libraries to project
+    case 'ignore-native-libraries':
+      CLI.print('Updating project...')
+      const currentProject = await library.getProjectInfo(process.cwd())
+      currentProject.internalPaths = _.uniq((currentProject.internalPaths || []).concat([
+        "autoconf/",
+        "cpml/",
+        "pl/",
+        "utils/event",
+      ]));
+      await library.saveProject(currentProject)
+      break
+
     // By default shows help
     case '-h':
     default:
@@ -530,6 +545,8 @@
           text: `Builds the project on current directory` },
         { command: 'add-code-completion',
           text: `Adds extra local files to aid with code completion` },
+        { command: 'ignore-native-libraries',
+          text: `Adds project configuration to ignore errors from using DU's native Lua libraries (cpml, pl, util/event)` },
         { command: 'update-codex',
           text: `Updates the built-in Codex to the latest one available on OpenData. For development use only!` },
       ]
