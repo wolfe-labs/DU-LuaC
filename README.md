@@ -281,6 +281,20 @@ There's no package management or online listing available as of now, though.
 
 You can check the examples included in this repository to see how this can be implemented, the only requirement is that whenever you use `require` to load a file from another library, you add a `:` between the library ID and the file name. You don't need to include the `.lua` extension, but any file names must be valid files located under the library's corresponding `sourcePath` directory.
 
+#### Disabling errors from the built-in DU libraries
+
+When working with libraries that are built-in on Dual Universe, such as CPML, PL, Event, etc, you might find the compiler throwing out warnings about requires not being found. To counter that, you can mark those libraries as "internal" in your project file, by running `du-lua ignore-native-libraries`, those warnings will be converted to normal status messages and won't show when filtering log output to warning + errors.
+
+### Environment Variables
+
+You can control how verbose the Lua CLI is by using the `LOG_LEVEL` environment variable. It has the following options:
+
+- `debug` - Includes debugging information
+- `info` - Default option, includes normal status information
+- `warning` - Display only warnings and errors
+- `error` - Displays only errors
+- `none` - Completely silences the CLI
+
 ## Post-Mercury (0.30) Support
 
 As of the Mercury (0.30) update, all events now start with the prefix `on`. So, for example, the old `update` event is now `onUpdate`.
