@@ -19,15 +19,31 @@ function library.addEventHandlers(obj)
 
   -- Adds event handler
   obj.onEvent = (function (self, event, handler, selfRef)
-    -- If event handler is not a function trigger error
-    if 'function' ~= type(handler) then
-      error('Event handler must be a function!')
-    end
-
     -- Self reference passed to the event
     selfRef = selfRef or self
     if 'table' ~= type(selfRef) then
       error('The value of self must be a table!')
+    end
+
+    -- If event handler is not a function or callable object, trigger an error
+    local signalHandlerError = function(arg)
+       error(string.format('Event handler must be a function or a callable object, got "%s"', type(arg)))
+    end
+
+    if 'table' == type(handler) then
+      -- We got a table, check if it is callable
+      local originalHander = handler
+      local mt = getmetatable(handler)
+      if mt.__call then
+        -- The table is a callable, redefine the handler to call the object via its metatable
+        handler = function(s, ...)
+          mt.__call(originalHander, s, ...)
+        end
+      else
+        signalHandlerError(handler)
+      end
+    elseif 'function' ~= type(handler) then
+      signalHandlerError(handler)
     end
 
     -- Adds event handler array if missing
