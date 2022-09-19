@@ -32,12 +32,12 @@ function library.addEventHandlers(obj)
 
     if 'table' == type(handler) then
       -- We got a table, check if it is callable
-      local originalHander = handler
       local mt = getmetatable(handler)
-      if mt.__call then
-        -- The table is a callable, redefine the handler to call the object via its metatable
+      if mt and mt.__call then
+        local originalHander = handler
+        -- The table is a callable, redefine the handler to call the object
         handler = function(s, ...)
-          mt.__call(originalHander, s, ...)
+          originalHander(s, ...)
         end
       else
         signalHandlerError(handler)
