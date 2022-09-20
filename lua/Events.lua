@@ -21,18 +21,11 @@ function library.addEventHandlers(obj)
 
   -- Asserts something is callable
   local function isCallable(obj)
+    local T = type(obj)
     return (
-      (T_FUNCTION == type(obj))
-      or (T_TABLE == type(obj) and isCallable(getmetatable(obj).__call))
-      or (T_THREAD == type(obj) and 'dead' ~= coroutine.status(obj))
-    )
-  end
-
-  -- Invokes a callable object
-  local function invoke(obj, ...)
-    return (
-      ((T_FUNCTION == type(obj) or (T_TABLE == type(obj) and isCallable(getmetatable(obj).__call))) and obj(...))
-      or ((T_THREAD == type(obj)) and coroutine.resume(obj, ...))
+      (T_FUNCTION == T)
+      or (T_TABLE == T and isCallable(getmetatable(obj).__call))
+      or (T_THREAD == T)
     )
   end
 
@@ -40,7 +33,7 @@ function library.addEventHandlers(obj)
   obj.onEvent = (function (self, event, handler, selfRef)
     -- If event handler is not callable trigger error
     if not isCallable(handler) then
-      error('Event handler must be a function!')
+      error('Event handler must be a function, a callable object or a thread!')
     end
 
     -- Self reference passed to the event
@@ -54,9 +47,14 @@ function library.addEventHandlers(obj)
       eventHandlers[event] = {}
     end
 
+    -- If we have a thread, wraps it into a function call
+    local internalHandler = ((T_THREAD == type(handler)) and function (...)
+      coroutine.resume(handler, ...)
+    end) or handler
+
     -- Adds the actual handler and returns a number identifying it (for removal)
     eventHandlerIds = eventHandlerIds + 1
-    eventHandlers[event][eventHandlerIds] = { handler, selfRef }
+    eventHandlers[event][eventHandlerIds] = { internalHandler, selfRef }
 
     -- Returns the ID for later removal
     return eventHandlerIds
@@ -73,7 +71,7 @@ function library.addEventHandlers(obj)
   obj.triggerEvent = (function (self, event, ...)
     -- Processes each of the handlers
     for _, handler in pairs(eventHandlers[event] or {}) do
-      invoke(handler[1], handler[2], ...)
+      handler[1](handler[2], ...)
     end
   end)
 
