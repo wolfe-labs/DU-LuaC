@@ -32,6 +32,40 @@ module.exports = function (project, buildName, buildFile, libraries) {
     return lib.project?.cli?.fmtVersion || 1;
   }
 
+  // Parses a Lua value into JS
+  function parseLuaValue (luaValue) {
+    // Clean-up
+    luaValue = luaValue.trim();
+
+    // Parses strings
+    if (
+      luaValue.startsWith('\'') && luaValue.endsWith('\'') ||
+      luaValue.startsWith('\"') && luaValue.endsWith('\"')
+    ) return { valid: true, data: luaValue.substring(1, luaValue.length - 1)
+        .replace(/\\\'/g, '\'')
+        .replace(/\\\"/g, '\"')
+      };
+
+    // Nil
+    if ('nil' == luaValue.toLowerCase())
+      return { valid: true, data: null };
+
+    // Booleans
+    if ('true' == luaValue.toLowerCase()) return { valid: true, data: true };
+    if ('false' == luaValue.toLowerCase()) return { valid: true, data: false };
+
+    // Tries parsing a number
+    try {
+      return { valid: true, data: parseFloat(luaValue) };
+    } catch (e) { }
+
+    // Fails
+    return { valid: false };
+  }
+
+  // This stores any custom compiler-side Lua functions to replace
+  const luaFunctionReplacements = require('./compilerLuaFunctions')
+
   // Is a certain path inside a certain directory?
   function isPathInsideProject (target) {
     // Converts the target path to absolute notation
@@ -226,6 +260,56 @@ module.exports = function (project, buildName, buildFile, libraries) {
       handleParseError(err, source)
     }
 
+    // This is our compiler function context
+    const compilerFunctionsContext = {
+      fn: {
+        isPathInsideProject,
+      },
+      project,
+      projectSrcPath: currentProjectSourcePath,
+      currentFile: sourceFilename,
+    }
+
+    // Creates Regexes from the Lua function replacements
+    const compilerFunctions = {}
+    Object.keys(luaFunctionReplacements || {}).forEach(functionName => {
+      // Prepares the regex
+      const baseExpression = functionName
+        .replace(/\./g, '\\.');
+      
+      // Creates actual regex
+      const regex = new RegExp(`${baseExpression}[\\s]*\\((.*?)\\)`, 'g');
+
+      // Creates the expression
+      compilerFunctions['fn__' + functionName] = {
+        expression: regex,
+        handle: (match, rawArgs) => {
+          // Parses the arguments
+          const args = rawArgs.split(',')
+            .map((arg) => arg.trim())
+            .map((arg) => {
+              // Parses our Lua value
+              const argValue = parseLuaValue(arg);
+              
+              // Checks validity
+              if (!argValue.valid) {
+                CLI.error(`Invalid argument value '${ arg.yellow }' for function '${ functionName.yellow }'`);
+                process.exit(1);
+              }
+
+              // Returns actual JS value
+              return argValue.data;
+          });
+
+          // Pipes values into our function
+          return luaFunctionReplacements[functionName].apply(luaFunctionReplacements, [
+            compilerFunctionsContext, // This should be the context, will be used later
+            ...args, // Our arguments
+          ]);
+        },
+      };
+    });
+
     // All regexes go here
     const regex = {
       require: {
@@ -261,7 +345,8 @@ module.exports = function (project, buildName, buildFile, libraries) {
           CLI.warn(`Undefined Behavior: Period character detected directly before line break, may misbehave when minified or in different runtime implementations.`)
           return `${ number }.0\n`
         }
-      }
+      },
+      ...compilerFunctions,
     }
 
     // Handles exports first

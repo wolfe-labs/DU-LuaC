@@ -53,6 +53,14 @@ Below you have a list of functions and how to use them:
 
 **Please note that:** to be able to get elements by their name, you will need to link your Core Unit to your Control Unit, thus losing one link. In case you don't want to go that route, you can still hard link your slot via the CLI. The disavantage of this is that you will have to remember the linking order for these elements.
 
+### Embedding Files
+
+With the `library.embedFile(file)` function you are able to embed files at compilation time.
+
+A great use case for HTML templates or any other kind of "large" content. You can simply put everything into a file (let's call it "hud.html"), edit it with your favorite editor's full capability of syntax highlighting and, when done, simply embed it into your code automatically with `local hud = library.embedFile('hud.html')`. All the contents of your file will be output into as a string into the `hud` variable, as if it was always there!
+
+**Please note that:** values passed to that kind of function MUST be literals, so you can't pass any kind of value which requires processing (like `'test' .. 123`, it must be pre-set as `'test123'` instead).
+
 ## Installation
 
 To install the compiler, run `npm i -g @wolfe-labs/du-luac` and it will be installed to your CLI. Make sure you have at least Node v.12 installed as some required features may not be present below that. You can also run this command to update the compiler.
