@@ -59,7 +59,13 @@ With the `library.embedFile(file)` function you are able to embed files at compi
 
 A great use case for HTML templates or any other kind of "large" content. You can simply put everything into a file (let's call it "hud.html"), edit it with your favorite editor's full capability of syntax highlighting and, when done, simply embed it into your code automatically with `local hud = library.embedFile('hud.html')`. All the contents of your file will be output into as a string into the `hud` variable, as if it was always there!
 
-**Please note that:** values passed to that kind of function MUST be literals, so you can't pass any kind of value which requires processing (like `'test' .. 123`, it must be pre-set as `'test123'` instead).
+**Please note that:**
+
+- Values passed to that kind of function MUST be literals, so you can't pass any kind of value which requires processing (like `'test' .. 123`, it must be pre-set as `'test123'` instead).
+
+- File paths are relative to the Lua file being currently processed
+
+- File access is restricted only to the current project, due to security concerns
 
 ## Installation
 

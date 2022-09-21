@@ -8,7 +8,9 @@ function libEmbedFile (context, file) {
   const currentDirectory = path.dirname(context.currentFile);
 
   // Resolves our new path
-  const filePath = path.join(currentDirectory, file);
+  const filePath = path.isAbsolute(file)
+    ? file
+    : path.join(currentDirectory, file);
 
   // Checks if the file is inside our project for safety
   if (!context.fn.isPathInsideProject(filePath)) {
