@@ -13,9 +13,6 @@ function library.addEventHandlers(obj)
     error('You can only add event handlers to table objects!')
   end
 
-  -- Adds a event handler counter
-  local eventHandlerIds = 0
-
   -- This will store the event handlers
   local eventHandlers = {}
 
@@ -44,7 +41,7 @@ function library.addEventHandlers(obj)
 
     -- Adds event handler array if missing
     if not eventHandlers[event] then
-      eventHandlers[event] = {}
+      eventHandlers[event] = { _ = 0 }
     end
 
     -- If we have a thread, wraps it into a function call
@@ -53,11 +50,13 @@ function library.addEventHandlers(obj)
     end) or handler
 
     -- Adds the actual handler and returns a number identifying it (for removal)
-    eventHandlerIds = eventHandlerIds + 1
-    eventHandlers[event][eventHandlerIds] = { internalHandler, selfRef }
+    local handler = eventHandlers[event]
+    local eventId = handler._ + 1
+    handler[eventId] = { internalHandler, selfRef }
+    handler._ = eventId
 
     -- Returns the ID for later removal
-    return eventHandlerIds
+    return eventId
   end)
 
   -- Removes event handler
@@ -69,9 +68,16 @@ function library.addEventHandlers(obj)
 
   -- Triggers event
   obj.triggerEvent = (function (self, event, ...)
+    local handlers = eventHandlers[event]
+
     -- Processes each of the handlers
-    for _, handler in pairs(eventHandlers[event] or {}) do
-      handler[1](handler[2], ...)
+    if handlers then
+      for _ = 1, handlers._ do
+        local handler = handlers[_]
+        if handler then
+          handler[1](handler[2], ...)
+        end
+      end
     end
   end)
 
