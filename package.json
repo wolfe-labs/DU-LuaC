@@ -13,7 +13,12 @@
     "url": "https://github.com/wolfe-labs/DU-LuaC/issues"
   },
   "bin": {
-    "du-lua": "main.js"
+    "du-lua": "dist/index.js"
+  },
+  "scripts": {
+    "build": "npx tsc",
+    "watch": "npx tsc --watch",
+    "start": "npx tsc && node dist/index.js"
   },
   "homepage": "https://github.com/wolfe-labs/DU-LuaC#readme",
   "dependencies": {
@@ -30,5 +35,9 @@
     "semver": "^7.3.5",
     "sha1": "^1.1.1",
     "yaml": "^1.10.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.18",
+    "typescript": "^4.8.3"
   }
 }
