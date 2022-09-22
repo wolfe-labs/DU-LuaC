@@ -42,7 +42,7 @@ class CLI {
    * Checks if we can print something at this log level
    * @param logLevel The log level for the desired message
    */
-  static canPrint(logLevel: LogLevel) {
+  static canPrint(logLevel: LogLevel): boolean {
     return currentLogLevel <= logLevelValues[logLevel];
   }
 
