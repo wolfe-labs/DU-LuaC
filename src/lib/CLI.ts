@@ -1,4 +1,4 @@
-import { SimpleMap } from './types/SimpleMap';
+import { SimpleMap } from '../types/SimpleMap';
 
 // This will be used for colors
 import Colors from 'colors';
