@@ -1,10 +1,16 @@
 import child_process from 'child_process';
 
+/**
+ * A result from a Git command
+ */
 type GitClientResult = {
   status: number,
   output: string,
 };
 
+/**
+ * A simple interface with the installed (CLI) Git client
+ */
 export default class GitClient {
   /**
    * Executes a Git command
