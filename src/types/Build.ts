@@ -44,6 +44,13 @@ export default class Build {
   }
 
   /**
+   * Gets the linked elements of this build
+   */
+  getLinkedElements(): BuildLinkedElement[] {
+    return Object.values(this.linkedElements);
+  }
+
+  /**
    * Converts our build definition into a JSON object
    */
   toJSON(): object {

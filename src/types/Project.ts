@@ -171,6 +171,13 @@ export default class Project {
   }
 
   /**
+   * Gets the project's utility directory
+   */
+  getUtilityDirectory(): string {
+    return path.join(this.projectDirectory, 'util');
+  }
+
+  /**
    * Gets the project's base directory
    */
   getProjectDirectory(): string {
@@ -182,6 +189,20 @@ export default class Project {
    */
   getProjectFile(): string {
     return path.join(this.projectDirectory, 'project.json');
+  }
+
+  /**
+   * Gets the project entry-points
+   */
+  getProjectBuilds(): Build[] {
+    return Object.values(this.projectBuilds);
+  }
+
+  /**
+   * Gets the project build targets
+   */
+  getProjectBuildTargets(): BuildTarget[] {
+    return Object.values(this.projectBuildTargets);
   }
 
   /**

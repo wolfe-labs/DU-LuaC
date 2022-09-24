@@ -28,7 +28,7 @@ module.exports = {
     title: 'Anti-Gravity Generator (AGG)',
     value: 'antigravityGenerator',
     class: 'AntiGravityGeneratorUnit',
-    luaclass: 'AntiGravityGenerator',
+    luaClass: 'AntiGravityGenerator',
   },
   core: {
     title: 'Core Unit',
