@@ -8,6 +8,11 @@ export type CommandData = {
   options: CommandOptions,
 };
 
+export type CommandOptionsList = SimpleMap<{
+  format: string,
+  description: string,
+}>;
+
 export default interface Command {
   /**
    * The command string used to invoke this command
@@ -22,7 +27,7 @@ export default interface Command {
   /**
    * The options for this command
    */
-  readonly options?: string[];
+  readonly options?: CommandOptionsList;
 
   /**
    * The command description

@@ -19,14 +19,28 @@ export default class CommandManager {
   /**
    * A list of all commands we have
    */
-  private static commands: SimpleMap<Command>;
+  private static commands: SimpleMap<Command> = {};
 
   /**
    * Registers a command
    * @param command The command's class
    */
   static registerCommand(command: RegisterableCommand) {
-    this.commands[command.name] = new command;
+    // Initializes our command
+    const commandInstance = new command;
+
+    // Checks if command already has been registered
+    if (this.commands[commandInstance.command]) throw new Error(`Command '${commandInstance.command}' has already been registered! Attempted to register '${command.name}'`);
+
+    // Adds to our list of commands
+    this.commands[commandInstance.command] = commandInstance;
+  }
+
+  /**
+   * Gets a list of all available commands
+   */
+  static getCommandList(): Command[] {
+    return Object.values(this.commands);
   }
 
   /**

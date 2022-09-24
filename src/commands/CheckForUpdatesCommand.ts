@@ -19,7 +19,7 @@ export type UpdateInformation = {
 export default class CheckForUpdatesCommand implements Command {
   // Sets the values we'll be using on the main CLI
   command = 'check-updates';
-  description = 'Checks for new CLI updates';
+  description = `Checks for new CLI updates`;
 
   // This is what runs our command
   async run({ options }: CommandData): Promise<UpdateInformation | null> {
