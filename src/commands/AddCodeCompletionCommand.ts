@@ -7,6 +7,7 @@ import Command, { CommandData } from "./Command";
 import ElementTypes from "../types/ElementType";
 import Application from "../Application";
 import path from "path";
+import GitIgnoreBuilder from "../lib/GitIgnoreBuilder";
 
 /**
  * A command that initializes a new project
@@ -77,6 +78,19 @@ export default class AddCodeCompletionCommand implements Command {
 
     // Status message
     CLI.success(`Code completion config generated successfully!`);
+
+    // Reads our .gitignore
+    const gitignorePath = path.join(project.getProjectDirectory(), '.gitignore');
+    const gitignore = fs.existsSync(gitignorePath)
+      ? GitIgnoreBuilder.fromFile(project.getProjectDirectory())
+      : new GitIgnoreBuilder;
+    
+    // Updates data on .gitignore
+    gitignore.addEntries('util/Codex.lua');
+    gitignore.save(project.getProjectDirectory());
+
+    // Status message
+    CLI.success(`Codex added to .gitignore!`);
   }
 
   /**
