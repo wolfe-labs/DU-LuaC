@@ -1,6 +1,11 @@
+import fs from "fs";
 import path from "path";
-import GitClient from "../lib/GitClient";
+import crypto from "crypto";
+import Application from "../Application";
+import GitClient, { GitClientResult } from "../lib/GitClient";
 import Project from "./Project";
+import { CLI } from "../lib/CLI";
+import ColorScheme from "../lib/ColorScheme";
 
 export type LibraryRemote = {
   git: string,
@@ -100,7 +105,86 @@ export default class Library {
    * @param url The URL to our Git repository
    */
   static loadFromGit(project: Project, url: string): Library {
+    // Checks if Git is installed etc
+    if (!GitClient.isGitInstalled()) {
+      throw new Error('Git installation not detected!');
+    }
+
+    // Fails when not a valid Git URL
+    if (!GitClient.isGitPath(url)) {
+      throw new Error('Invalid Git path!');
+    }
+
     // Parses our Git URL
     const gitInfo = GitClient.parseGitUrl(url);
+
+    // This is our destination (temp) directory, it's a sha1 of our URL
+    const tempDir = Application.getTempPath(crypto.createHash('sha1').update(url).digest('hex'));
+
+    // Deletes our directory if it exists
+    if (fs.existsSync(tempDir)) {
+      fs.rmSync(tempDir, { recursive: true });
+    }
+
+    // Creates our directory
+    fs.mkdirSync(tempDir, { recursive: true });
+
+    // Attempts to clone Git repo
+    let cloneResult!: GitClientResult;
+    try {
+      // First, try the provided URL
+      cloneResult = GitClient.clone(url, tempDir);
+    } catch (err) {
+      try {
+        // If fails, retry it with SSH
+        cloneResult = GitClient.clone(`git@${gitInfo.resource}:${gitInfo.full_name}.git`, tempDir)
+      } catch (err) {
+        // Now we can fail
+        throw new Error([
+          `Error while fetching repository from Git: ${err}`,
+          `Make sure you have the right access permissions to your repository and, if you're cloning via the SSH URL, you have the proper public and private keys set`,
+          `Also, make sure the following Git path is correct: ${ColorScheme.highlight(url)}`,
+        ].join('\n'));
+      }
+    }
+
+    // This shouldn't happen
+    if (!cloneResult) {
+      throw new Error('Git command returned invalid result!');
+    }
+
+    // Extra error checks
+    if (cloneResult.status != 0) {
+      throw new Error([
+        `Error while fetching repository from Git: ${cloneResult.output}`,
+        `Make sure you have the right access permissions to your repository and, if you're cloning via the SSH URL, you have the proper public and private keys set`,
+        `Also, make sure the following Git path is correct: ${ColorScheme.highlight(url)}`,
+      ].join('\n'));
+    }
+
+    // Okay, let's generate an ID for our imported library (or use one, if it has)
+    const libraryId = Project.isDirectoryProject(tempDir)
+      ? Project.load(tempDir).name
+      : `@${gitInfo.full_name}`;
+
+    // Checks if it already doesn't exist
+    const finalDir = path.join(project.getLibraryDirectory(), libraryId);
+    if (fs.existsSync(finalDir)) {
+      throw new Error('Library with same name already exists on the project!');
+    }
+
+    // Finally, let's move it to a local directory
+    const finalDirParent = path.dirname(finalDir);
+    if (!fs.existsSync(finalDirParent)) fs.mkdirSync(finalDirParent, { recursive: true });
+    fs.renameSync(tempDir, finalDir);
+
+    // Initializes our library
+    return new Library(project, {
+      id: libraryId,
+      path: finalDir,
+      remote: {
+        git: url,
+      }
+    });
   }
 }

@@ -5,6 +5,7 @@ import Command, { CommandData } from "./Command";
 import Library from "../types/Library";
 import { CLI } from "../lib/CLI";
 import ColorScheme from "../lib/ColorScheme";
+import GitClient from "../lib/GitClient";
 
 /**
  * A command that initializes a new project
@@ -33,12 +34,14 @@ export default class ImportLibraryCommand implements Command {
 
       // Okay, let's import from local filesystem
       library = Library.loadFromLocalPath(project, libraryPath);
-    } else {
+    } else if (GitClient.isGitPath(libraryPath)) {
       // Status update
       CLI.print(`Loading library from Git repository...`);
 
       // Okay, let's try to import from Git
       library = Library.loadFromGit(project, libraryPath);
+    } else {
+      throw new Error('Invalid library path!');
     }
 
     // Adds our library to our project

@@ -4,7 +4,7 @@ import child_process from 'child_process';
 /**
  * A result from a Git command
  */
-type GitClientResult = {
+export type GitClientResult = {
   status: number,
   output: string,
 };
@@ -92,5 +92,17 @@ export default class GitClient {
    */
   static parseGitUrl(url: string): GitUrl {
     return parseGitUrl(url);
+  }
+
+  /**
+   * Checks if it's a valid Git path
+   * @param url The Git URL being checked
+   */
+  static isGitPath(url: string): boolean {
+    // Parses URL first
+    const parsedGit = this.parseGitUrl(url);
+
+    // Actual check
+    return !!(parsedGit && parsedGit.protocol && 'file' != parsedGit.protocol);
   }
 }
