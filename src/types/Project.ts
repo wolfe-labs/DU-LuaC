@@ -107,6 +107,18 @@ export default class Project {
   }
 
   /**
+   * Determines whether a directory has a project or not
+   * @param dir The directory we're testing
+   */
+  static isDirectoryProject(dir: string): boolean {
+    // Checks if directory is valid
+    if (!fs.existsSync(dir) || !fs.statSync(dir).isDirectory()) throw new Error('Invalid project directory!');
+
+    // Returns true if we have the project.json file
+    return fs.existsSync(path.join(dir, 'project.json'));
+  }
+
+  /**
    * Loads a project from a known disk location
    * @param projectDirectory The directory for our project
    */
@@ -150,6 +162,7 @@ export default class Project {
       description: this.description,
       sourcePath: this.sourcePath,
       outputPath: this.outputPath,
+      libs: Object.values(this.projectLibs).map((lib) => lib.toJSON()),
       builds: this.projectBuilds,
       targets: this.projectBuildTargets,
       internalPaths: this.internalPaths,
@@ -280,5 +293,17 @@ export default class Project {
 
     // Registers our build
     this.projectBuildTargets[buildTarget.name] = buildTarget;
+  }
+
+  /**
+   * Gets a library by its ID
+   * @param libraryId The library ID
+   */
+  getLibrary(libraryId: string): Library {
+    // Sanity check
+    if (!this.hasLibrary(libraryId)) throw new Error('Specified library does not exist!');
+
+    // Returns our library
+    return this.projectLibs[libraryId];
   }
 }

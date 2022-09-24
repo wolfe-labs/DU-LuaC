@@ -29,7 +29,7 @@ export default class CreateProjectCommand implements Command {
     }
 
     // Creates directory and sets current directory to it
-    fs.mkdirSync(projectDir);
+    fs.mkdirSync(projectDir, { recursive: true });
     process.chdir(projectDir);
 
     // Invokes the init command

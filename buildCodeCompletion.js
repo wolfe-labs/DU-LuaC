@@ -51,7 +51,7 @@ module.exports = async function buildCodeCompletion (dir) {
 
   // Makes utility directory if needed
   if (!fs.existsSync('util')) {
-    fs.mkdirSync(path.join(dir, 'util'));
+    fs.mkdirSync(path.join(dir, 'util'), { recursive: true });
   }
 
   // Gets list of element types

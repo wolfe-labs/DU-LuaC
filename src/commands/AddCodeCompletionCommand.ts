@@ -32,7 +32,7 @@ export default class AddCodeCompletionCommand implements Command {
     );
 
     // Creates utility directory as needed
-    if (!fs.existsSync(project.getUtilityDirectory())) fs.mkdirSync(project.getUtilityDirectory());
+    if (!fs.existsSync(project.getUtilityDirectory())) fs.mkdirSync(project.getUtilityDirectory(), { recursive: true });
 
     // Reads all extra Lua headers
     const dirExtraHeaders = Application.getPath('lua/headers');

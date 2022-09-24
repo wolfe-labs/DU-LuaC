@@ -37,7 +37,7 @@ export default class AddBuildCommand implements Command {
 
     // Creates our entry-point
     const build = new Build({
-      name: buildName,
+      name: buildName.replace(/\\/g, '/'),
       type: options.type || BuildType.ControlUnit,
     });
 

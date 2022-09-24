@@ -143,8 +143,8 @@ export default class InitializeProjectCommand implements Command {
     }
 
     // Creates our project directories
-    if (!fs.existsSync(project.getSourceDirectory())) fs.mkdirSync(project.getSourceDirectory());
-    if (!fs.existsSync(project.getOutputDirectory())) fs.mkdirSync(project.getOutputDirectory());
+    if (!fs.existsSync(project.getSourceDirectory())) fs.mkdirSync(project.getSourceDirectory(), { recursive: true });
+    if (!fs.existsSync(project.getOutputDirectory())) fs.mkdirSync(project.getOutputDirectory(), { recursive: true });
 
     // Creates scaffolding
     if (answers.scaffolding) {

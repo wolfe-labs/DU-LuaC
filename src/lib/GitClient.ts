@@ -1,3 +1,4 @@
+import parseGitUrl, { GitUrl } from "git-url-parse";
 import child_process from 'child_process';
 
 /**
@@ -83,5 +84,13 @@ export default class GitClient {
 
     // Returns the command result
     return result;
+  }
+
+  /**
+   * Parses a Git URL
+   * @param url The Git URL being parsed
+   */
+  static parseGitUrl(url: string): GitUrl {
+    return parseGitUrl(url);
   }
 }

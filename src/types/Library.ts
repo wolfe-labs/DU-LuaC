@@ -1,4 +1,5 @@
 import path from "path";
+import GitClient from "../lib/GitClient";
 import Project from "./Project";
 
 export type LibraryRemote = {
@@ -56,9 +57,50 @@ export default class Library {
     // Attempts to load the project file, if it fails then set library type to raw instead
     try {
       this.project = Project.load(this.path);
+      this.id = this.project.name;
       this.type = LibraryType.Project;
     } catch (err) {
       this.type = LibraryType.Raw;
     }
+  }
+
+  /**
+   * Converts the Library instance into a JSON representation
+   */
+  toJSON(): object {
+    return {
+      id: this.id,
+      type: this.type,
+      path: path.relative(this.parentProject.getProjectDirectory(), this.path).replace(/\\/g, '/'),
+      remote: this.remote,
+    };
+  }
+
+  /**
+   * Loads a library from a local path
+   * @param dir The path to our library
+   */
+  static loadFromLocalPath(project: Project, dir: string): Library {
+    // Checks if we have a valid project on the directory
+    if (Project.isDirectoryProject(dir)) {
+      return new Library(project, {
+        path: path.relative(project.getProjectDirectory(), dir),
+      });
+    }
+
+    // Handles raw libraries
+    return new Library(project, {
+      id: path.basename(dir),
+      path: path.relative(project.getProjectDirectory(), dir),
+    });
+  }
+
+  /**
+   * Loads a library from a Git repository
+   * @param url The URL to our Git repository
+   */
+  static loadFromGit(project: Project, url: string): Library {
+    // Parses our Git URL
+    const gitInfo = GitClient.parseGitUrl(url);
   }
 }

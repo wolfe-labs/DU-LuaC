@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
+    "@types/git-url-parse": "^9.0.1",
     "@types/lodash": "^4.14.185",
     "@types/node": "^18.7.18",
     "@types/prompts": "^2.0.14",
