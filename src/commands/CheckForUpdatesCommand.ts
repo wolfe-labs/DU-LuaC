@@ -4,7 +4,7 @@ import Command, { CommandData } from "./Command";
 import semver from "semver";
 import axios from "axios";
 import { CLI } from "../lib/CLI";
-import Colors from 'colors';
+import ColorScheme from '../lib/ColorScheme';
 import Application from "../Application";
 
 export type UpdateInformation = {
@@ -72,7 +72,7 @@ export default class CheckForUpdatesCommand implements Command {
     // Shows update message
     if (result.hasUpdate) {
       const updateCommand = `npm i -g ${currentPackage.name}`
-      CLI.print(`New version ${Colors.blue(`v${result.latestVersion}`)} available, run ${Colors.cyan(updateCommand)} to update`);
+      CLI.print(`New version ${ColorScheme.highlight(`v${result.latestVersion}`)} available, run ${ColorScheme.highlight(updateCommand)} to update`);
     }
 
     // Done

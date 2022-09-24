@@ -37,6 +37,13 @@ export default class Build {
   }
 
   /**
+   * Gets the file path to this build entry
+   */
+  getFilePath(): string {
+    return `${this.name}.lua`;
+  }
+
+  /**
    * Converts our build definition into a JSON object
    */
   toJSON(): object {

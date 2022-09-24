@@ -1,5 +1,11 @@
-import Colors from "colors";
+import fs from "fs";
+import ColorScheme from "../lib/ColorScheme";
+import Build, { BuildType } from "../types/Build";
+import Project from "../types/Project";
 import Command, { CommandData } from "./Command";
+import path from "path";
+import { CLI } from "../lib/CLI";
+import Application from "../Application";
 
 /**
  * A command that initializes a new project
@@ -12,6 +18,38 @@ export default class AddBuildCommand implements Command {
 
   // This is what runs our command
   async run({ args, options }: CommandData) {
-    throw new Error('Not implemented yet!');
+    // Gets our args
+    const [buildName] = args;
+
+    // Handles no build passed
+    if (!buildName || buildName.length == 0) {
+      throw new Error('No build name provided!');
+    }
+
+    // Gets current project
+    const project = Project.load(process.cwd());
+
+    // Creates our entry-point
+    const build = new Build({
+      name: buildName,
+      type: BuildType.ControlUnit,
+    });
+
+    // Tries to add our entry-point
+    project.registerBuild(build);
+
+    // Handles file already existing
+    const buildFilePath = path.join(project.getSourceDirectory(), build.getFilePath());
+    if (fs.existsSync(buildFilePath)) {
+      CLI.warn(`The file for build ${ColorScheme.highlight(build.name)} already exists, new file not created.`);
+    } else {
+      fs.writeFileSync(buildFilePath, fs.readFileSync(Application.getPath('lua/templates/control.lua')));
+    }
+
+    // Saves our project
+    project.save();
+
+    // Done
+    CLI.success(`Entry-point ${ColorScheme.highlight(build.name)} added successfully!`);
   }
 }

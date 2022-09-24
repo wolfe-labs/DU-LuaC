@@ -1,4 +1,4 @@
-import Colors from "colors";
+import ColorScheme from "../lib/ColorScheme";
 import { CLI } from "../lib/CLI";
 import CommandManager from "../lib/CommandManager";
 import Command, { CommandData } from "./Command";
@@ -21,7 +21,7 @@ export default class HelpCommand implements Command {
     commands.forEach((command) => {
       // Adds command data
       commandLines.push({
-        left: `${Colors.blue(command.command)} ${Colors.gray((command.args || []).join(' '))}`,
+        left: `${ColorScheme.command(command.command)} ${ColorScheme.argument((command.args || []).join(' '))}`,
         right: command.description.trim(),
       })
 
@@ -34,8 +34,8 @@ export default class HelpCommand implements Command {
         // Adds option data
         commandLines.push({
           left: `  ` + (option.format.trim().length > 0
-            ? Colors.gray(`--${optionName}=${option.format}`)
-            : Colors.gray(`--${optionName}`)),
+            ? ColorScheme.argument(`--${optionName}=${option.format}`)
+            : ColorScheme.argument(`--${optionName}`)),
           right: option.description,
         });
       }
@@ -48,8 +48,8 @@ export default class HelpCommand implements Command {
       .reduce((acc, line) => Math.max(line, acc), 0);
 
     // Renders the command header
-    CLI.print(`Usage: ${Colors.yellow('du-lua')} ${Colors.blue('command')} ${Colors.gray('args')} ${Colors.gray('--option=value')}`);
-    CLI.print(Colors.yellow('du-lua'));
+    CLI.print(`Usage: ${ColorScheme.highlight('du-lua')} ${ColorScheme.command('command')} ${ColorScheme.argument('args')} ${ColorScheme.argument('--option=value')}`);
+    CLI.print(ColorScheme.highlight('du-lua'));
 
     // Renders the command list
     commandLines.forEach((commandLine) => {

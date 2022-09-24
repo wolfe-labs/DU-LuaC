@@ -1,4 +1,4 @@
-import Colors from "colors";
+import ColorScheme from "../lib/ColorScheme";
 import Command, { CommandData } from "./Command";
 
 /**
@@ -10,7 +10,7 @@ export default class BuildProjectCommand implements Command {
   description = `Builds the current project`;
   options = {
     copy: {
-      format: `target-name/${Colors.cyan('build-name')}`,
+      format: `target-name/${ColorScheme.highlightArgument('build-name')}`,
       description: `Copies the specified build's JSON into your clipboard. If no target is provided, the first is selected`,
     },
   };

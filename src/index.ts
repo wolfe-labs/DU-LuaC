@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import Colors from 'colors';
+import ColorScheme from './lib/ColorScheme';
 import { CLI, LogLevel } from './lib/CLI';
 import GitClient from './lib/GitClient';
 
@@ -43,7 +43,7 @@ async function main(args: string[]) {
 
   // Checks for Git
   if (!GitClient.isGitInstalled()) {
-    CLI.warn(`No Git version detected! Install from ${Colors.yellow('https://git-scm.com/download')}`);
+    CLI.warn(`No Git version detected! Install from ${ColorScheme.highlight('https://git-scm.com/download')}`);
   }
 
   // If no arguments are passed, let's do "help" instead

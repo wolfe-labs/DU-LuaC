@@ -150,6 +150,20 @@ export default class Project {
   }
 
   /**
+   * Gets the project's source directory
+   */
+  getSourceDirectory(): string {
+    return path.join(this.projectDirectory, this.sourcePath);
+  }
+
+  /**
+   * Gets the project's output directory
+   */
+  getOutputDirectory(): string {
+    return path.join(this.projectDirectory, this.outputPath);
+  }
+
+  /**
    * Gets the project's library directory
    */
   getLibraryDirectory(): string {

@@ -1,5 +1,5 @@
 import fs from "fs";
-import Colors from "colors";
+import ColorScheme from "../lib/ColorScheme";
 import prompts from "prompts";
 import { CLI } from "../lib/CLI";
 import Project from "../types/Project";
@@ -105,7 +105,7 @@ export default class InitializeProjectCommand implements Command {
     }
 
     // Status update
-    CLI.print(`Preparing ${Colors.yellow('project.json')} file...`);
+    CLI.print(`Preparing ${ColorScheme.highlight('project.json')} file...`);
 
     // Fills-in data
     project.name = answers.name;
@@ -117,7 +117,7 @@ export default class InitializeProjectCommand implements Command {
     project.save();
 
     // Status update
-    CLI.print(`Preparing ${Colors.yellow('.gitignore')} file...`);
+    CLI.print(`Preparing ${ColorScheme.highlight('.gitignore')} file...`);
 
     // Creates or updates our .gitignore
     const gitignore = fs.existsSync(path.join(projectDirectory, '.gitignore'))
@@ -132,7 +132,7 @@ export default class InitializeProjectCommand implements Command {
     // Adds README.md if not present
     if (!fs.existsSync(path.join(projectDirectory, 'README.md'))) {
       // Status update
-      CLI.print(`Preparing ${Colors.yellow('README.md')} file...`);
+      CLI.print(`Preparing ${ColorScheme.highlight('README.md')} file...`);
       fs.writeFileSync(path.join(projectDirectory, 'README.md'), [
         `# ${project.name}`,
         ``,
@@ -142,19 +142,23 @@ export default class InitializeProjectCommand implements Command {
       ].join('\n'));
     }
 
+    // Creates our project directories
+    if (!fs.existsSync(project.getSourceDirectory())) fs.mkdirSync(project.getSourceDirectory());
+    if (!fs.existsSync(project.getOutputDirectory())) fs.mkdirSync(project.getOutputDirectory());
+
     // Creates scaffolding
     if (answers.scaffolding) {
       // Status update
       CLI.print(`Preparing app structure...`);
       
       // Creates main script
-      CommandManager.runUnregistered(AddBuildCommand, {
+      await CommandManager.runUnregistered(AddBuildCommand, {
         args: ['main'],
         options: {},
       });
 
       // Creates development build target
-      CommandManager.runUnregistered(AddBuildTargetCommand, {
+      await CommandManager.runUnregistered(AddBuildTargetCommand, {
         args: [],
         options: {
           noPrompt: true,
@@ -171,7 +175,7 @@ export default class InitializeProjectCommand implements Command {
       CLI.print(`Preparing code completion...`);
 
       // Runs code completion script
-      CommandManager.runUnregistered(AddCodeCompletionCommand);
+      await CommandManager.runUnregistered(AddCodeCompletionCommand);
     }
 
     // Ignores built-in libraries by NQ from warnings
@@ -180,7 +184,7 @@ export default class InitializeProjectCommand implements Command {
       CLI.print(`Preparing library ignore list...`);
 
       // Runs code completion script
-      CommandManager.runUnregistered(IgnoreNativeLibrariesCommand);
+      await CommandManager.runUnregistered(IgnoreNativeLibrariesCommand);
     }
 
     // Done
