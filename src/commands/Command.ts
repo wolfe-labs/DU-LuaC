@@ -22,7 +22,7 @@ export default interface Command {
   /**
    * The arguments for this command
    */
-  readonly arguments?: string[];
+  readonly args?: string[];
 
   /**
    * The options for this command
