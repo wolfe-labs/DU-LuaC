@@ -15,6 +15,12 @@ export default class AddBuildCommand implements Command {
   command = 'script-add';
   description = `Creates a new entry-point and its corresponding .lua script file`;
   args = ['script-name'];
+  options = {
+    type: {
+      format: `control`,
+      description: `Sets the entry-point type, either to a Control Unit (${ColorScheme.highlightArgument('control')}) or Render Script (${ColorScheme.highlightArgument('screen')})`,
+    },
+  };
 
   // This is what runs our command
   async run({ args, options }: CommandData) {
@@ -32,7 +38,7 @@ export default class AddBuildCommand implements Command {
     // Creates our entry-point
     const build = new Build({
       name: buildName,
-      type: BuildType.ControlUnit,
+      type: options.type || BuildType.ControlUnit,
     });
 
     // Tries to add our entry-point
@@ -43,7 +49,7 @@ export default class AddBuildCommand implements Command {
     if (fs.existsSync(buildFilePath)) {
       CLI.warn(`The file for build ${ColorScheme.highlight(build.name)} already exists, new file not created.`);
     } else {
-      fs.writeFileSync(buildFilePath, fs.readFileSync(Application.getPath('lua/templates/control.lua')));
+      fs.writeFileSync(buildFilePath, fs.readFileSync(Application.getPath(`lua/templates/${build.type}.lua`)));
     }
 
     // Saves our project
