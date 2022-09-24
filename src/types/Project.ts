@@ -122,7 +122,7 @@ export default class Project {
     if (!projectJSON) throw new Error('Invalid project.json file!');
 
     // If everything succeeded, creates a new instance from the JSON object
-    return Project.fromJSON(projectDirectory, projectJSON);
+    return this.fromJSON(projectDirectory, projectJSON);
   }
 
   /**
