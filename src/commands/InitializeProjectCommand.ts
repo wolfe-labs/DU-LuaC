@@ -189,5 +189,14 @@ export default class InitializeProjectCommand implements Command {
 
     // Done
     CLI.success('Project created successfully!');
+
+    // When working on new directory, show extra instructions
+    if (options.isNewDir) {
+      CLI.print(`To start working on your project, type ${ColorScheme.highlight(`cd ${options.newProjectName}`)}`);
+    }
+
+    // Extra information
+    CLI.print(`To build your project, run ${ColorScheme.highlight('du-lua build')} on your project's root directory`)
+    CLI.print(`Other commands are available by running ${ColorScheme.highlight('du-lua help')}`)
   }
 }
