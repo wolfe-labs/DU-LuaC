@@ -11,6 +11,11 @@ export default class AddBuildTargetCommand implements Command {
 
   // This is what runs our command
   async run({ args, options }: CommandData) {
+    // Skips prompt, uses options instead
+    if (options.noPrompt) {
+      
+    }
+
     throw new Error('Not implemented yet!');
   }
 }

@@ -37,6 +37,14 @@ export default class CommandParser {
         // Parses option
         const option = arg.split('=');
         const optionName = option[0].substring(2);
+
+        // Handles --name options
+        if (option.length == 1) {
+          options[optionName] = true;
+          return;
+        }
+
+        // Parses --name=value
         const optionValue = option.slice(1).join('=');
 
         // Saves our option

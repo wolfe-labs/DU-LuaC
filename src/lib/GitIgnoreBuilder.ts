@@ -98,4 +98,27 @@ export default class GitIgnoreBuilder {
     // Writes our data
     fs.writeFileSync(path.join(directory, '.gitignore'), this.toString());
   }
+
+  /**
+   * Creates a new instance from a string
+   * @param str The string of the .gitignore file
+   */
+  static fromString(str: string): GitIgnoreBuilder {
+    return new this(...str.split('\n'));
+  }
+
+  /**
+   * Creates a new instance from an existing file
+   * @param file The file or directory path to the .gitignore file
+   */
+  static fromFile(file: string): GitIgnoreBuilder {
+    // When file is a directory, try its .gitignore
+    if (fs.statSync(file).isDirectory()) file = path.join(file, '.gitignore');
+
+    // Checks if it extists
+    if (!fs.existsSync(file)) throw new Error('Invalid .gitignore file!');
+
+    // Does initialization
+    return this.fromString(fs.readFileSync(file).toString());
+  }
 }

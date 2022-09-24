@@ -33,7 +33,9 @@ export default class HelpCommand implements Command {
 
         // Adds option data
         commandLines.push({
-          left: `  ` + Colors.gray(`--${optionName}=${option.format}`),
+          left: `  ` + (option.format.trim().length > 0
+            ? Colors.gray(`--${optionName}=${option.format}`)
+            : Colors.gray(`--${optionName}`)),
           right: option.description,
         });
       }
