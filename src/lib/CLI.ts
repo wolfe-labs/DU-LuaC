@@ -106,7 +106,7 @@ class CLI {
    * @param title The title or area of the application sending the message
    * @param data The data being printed
    */
-  static status(title: string, ...data: string[]) {
+  static status(title: string, ...data: any[]) {
     // Checks for valid logging level
     if (!this.canPrint(LogLevel.INFO)) return;
 
@@ -121,7 +121,7 @@ class CLI {
    * Prints a success message
    * @param data The data being printed
    */
-  static success(...data: string[]) {
+  static success(...data: any[]) {
     // Checks for valid logging level
     if (!this.canPrint(LogLevel.INFO)) return;
 
@@ -141,6 +141,18 @@ class CLI {
 
     // Prints a new empty line
     console.log('');
+  }
+
+  /**
+   * Stops execution with error code 1
+   * @param messages Optional error messages
+   */
+  static panic(...messages: any[]) {
+    // Checks for valid logging level
+    if (messages.length > 0) this.error(...messages);
+
+    // Stops execution
+    process.exit(1);
   }
 }
 

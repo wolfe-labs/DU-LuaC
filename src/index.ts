@@ -19,7 +19,6 @@ import UpdateCodexCommand from './commands/UpdateCodexCommand';
 
 import Application from './Application';
 import CommandManager from './lib/CommandManager';
-import CommandParser from './lib/CommandParser';
 import BuildProjectCommand from './commands/BuildProjectCommand';
 
 /**
@@ -68,8 +67,17 @@ async function main(args: string[]) {
     UpdateCodexCommand,
   ].forEach((command) => CommandManager.registerCommand(command));
 
-  // Executes commands
-  CommandManager.execute(...args);
+  try {
+    // Executes commands
+    await CommandManager.execute(...args);
+  } catch (err) {
+    // Error handling, for known errors err will be of type Error, while for any other kind of error usually won't
+    if (err instanceof Error) {
+      CLI.panic(err.message);
+    } else {
+      CLI.panic('Internal error:', err);
+    }
+  }
 }
 
 // Invokes our main function, passes down the arguments without first two (which point to the node executable and the script)
