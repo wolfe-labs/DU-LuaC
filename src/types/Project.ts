@@ -31,6 +31,11 @@ export default class Project {
   outputPath: string = 'out';
 
   /**
+   * The paths that are native to DU and should be ignored when issuing warnings
+   */
+  internalPaths: string[] = [];
+
+  /**
    * The current project base directory
    */
   private projectDirectory: string = '';
@@ -80,6 +85,7 @@ export default class Project {
     project.sourcePath = projectJSON.sourcePath || 'src';
     project.outputPath = projectJSON.outputPath || 'out';
     project.projectFormat = projectJSON.cli?.fmtVersion || 1;
+    project.internalPaths = projectJSON.internalPaths || [];
 
     // Parses libraries
     (projectJSON.libs as any[] || []).forEach((lib) => {
@@ -146,6 +152,7 @@ export default class Project {
       outputPath: this.outputPath,
       builds: this.projectBuilds,
       targets: this.projectBuildTargets,
+      internalPaths: this.internalPaths,
     };
   }
 

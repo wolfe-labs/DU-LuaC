@@ -19,7 +19,7 @@ export default class AddCodeCompletionCommand implements Command {
 
   // This is what runs our command
   async run({ args, options }: CommandData) {
-    // Creates a project from current directory
+    // Gets the current project
     const project = Project.load(process.cwd());
 
     // Gets list of element types
