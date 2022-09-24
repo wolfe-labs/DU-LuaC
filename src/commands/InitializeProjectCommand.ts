@@ -162,7 +162,7 @@ export default class InitializeProjectCommand implements Command {
         args: [],
         options: {
           noPrompt: true,
-          name: 'decelopment',
+          name: 'development',
           minify: false,
           handleErrors: false,
         },
