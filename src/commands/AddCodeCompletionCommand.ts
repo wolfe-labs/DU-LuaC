@@ -67,6 +67,16 @@ export default class AddCodeCompletionCommand implements Command {
 
     // Status message
     CLI.success(`Codex file generated successfully!`);
+
+    // Creates EmmyLua config file
+    const emmyLuaConfig = fs.readFileSync(Application.getPath('templates/emmy.config.json')).toString()
+      .replace(/\$\{srcpath\}/g, project.sourcePath);
+    
+    // Writes EmmyLua config file
+    fs.writeFileSync(path.join(project.getProjectDirectory(), 'emmy.config.json'), emmyLuaConfig);
+
+    // Status message
+    CLI.success(`Code completion config generated successfully!`);
   }
 
   /**
