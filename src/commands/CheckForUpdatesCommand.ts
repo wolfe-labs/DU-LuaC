@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from "path";
-import Command from "./Command";
+import Command, { CommandData } from "./Command";
 import semver from "semver";
 import axios from "axios";
 import { CLI } from "../lib/CLI";
@@ -22,7 +22,7 @@ export default class CheckForUpdatesCommand implements Command {
   description = 'Checks for new CLI updates';
 
   // This is what runs our command
-  async run(useCache: boolean = false, silent: boolean = false): Promise<UpdateInformation | null> {
+  async run({ options }: CommandData): Promise<UpdateInformation | null> {
     // This is our update cache location
     const updateCacheLocation = Application.getPath('cache.json');
 
@@ -36,14 +36,14 @@ export default class CheckForUpdatesCommand implements Command {
     const timeBetweenChecks = 3 * 3600 * 1000; // 3 hours delay between update checks
 
     // Informs user
-    if (!silent) CLI.print('Checking for updates...');
+    if (!options.silent) CLI.print('Checking for updates...');
 
     // Reads our current CLI package
     const currentPackage = require(Application.getPath('package.json'));
 
     // By default use cached data
     let latestVersion = updateCache.lastUpdateAvailable;
-    if (!useCache || !latestVersion || !updateCache.lastUpdateCheck || Date.now() >= updateCache.lastUpdateCheck + timeBetweenChecks) {
+    if (!options.useCache || !latestVersion || !updateCache.lastUpdateCheck || Date.now() >= updateCache.lastUpdateCheck + timeBetweenChecks) {
       try {
         // Reads our most recent CLI package
         const remotePackage = (await axios.get(`https://registry.npmjs.org/${currentPackage.name}`)).data;

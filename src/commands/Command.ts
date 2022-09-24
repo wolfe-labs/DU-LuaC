@@ -1,3 +1,13 @@
+import { SimpleMap } from "../types/SimpleMap";
+
+export type CommandArguments = any[];
+export type CommandOptions = SimpleMap<any>;
+
+export type CommandData = {
+  args: CommandArguments,
+  options: CommandOptions,
+};
+
 export default interface Command {
   /**
    * The command string used to invoke this command
@@ -23,5 +33,5 @@ export default interface Command {
    * Runs the specified command
    * @param args The arguments for that command
    */
-  run(...args: any[]): Promise<any>;
+  run(data: CommandData): Promise<any>;
 }

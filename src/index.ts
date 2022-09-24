@@ -7,6 +7,7 @@ import GitClient from './lib/GitClient';
 import CommandManager from './lib/CommandManager';
 import CheckForUpdatesCommand from './commands/CheckForUpdatesCommand';
 import Application from './Application';
+import CommandParser from './lib/CommandParser';
 
 /**
  * The main entry-point of our script
@@ -20,14 +21,20 @@ async function main(args: string[]) {
   CLI.print(`Lua CLI Utility for Dual Universe v${currentPackage.version} by Wolfe Labs @ Node ${process.version}`);
 
   // Checks for updates
-  await CommandManager.runUnregistered(new CheckForUpdatesCommand, true, true);
+  await CommandManager.runUnregistered(CheckForUpdatesCommand, {
+    args: [],
+    options: {
+      silent: true,
+      useCache: true,
+    },
+  });
 
   // Checks for Git
   if (!GitClient.isGitInstalled()) {
     CLI.warn(`No Git version detected! Install from ${Colors.yellow('https://git-scm.com/download')}`);
   }
 
-  console.log(args);
+  console.log(CommandParser.parse(...args));
 }
 
 // Invokes our main function, passes down the arguments without first two (which point to the node executable and the script)
