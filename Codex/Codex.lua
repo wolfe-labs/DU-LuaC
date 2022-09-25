@@ -1,5 +1,5 @@
 ---@class Adjustor
-Adjustor = {}
+local Adjustor = {}
 --- Show the element widget in the in-game widget stack
 function Adjustor.showWidget() end
 
@@ -233,7 +233,7 @@ function Adjustor.getT50() end
 
 
 ---@class Airbrake
-Airbrake = {}
+local Airbrake = {}
 --- Show the element widget in the in-game widget stack
 function Airbrake.showWidget() end
 
@@ -479,7 +479,7 @@ function Airbrake.torqueAxis() end
 
 
 ---@class Airfoil
-Airfoil = {}
+local Airfoil = {}
 --- Show the element widget in the in-game widget stack
 function Airfoil.showWidget() end
 
@@ -762,7 +762,7 @@ function Airfoil.getT50() end
 
 
 ---@class AntiGravityGenerator
-AntiGravityGenerator = {}
+local AntiGravityGenerator = {}
 --- Show the element widget in the in-game widget stack
 function AntiGravityGenerator.showWidget() end
 
@@ -951,7 +951,7 @@ function AntiGravityGenerator.getBaseAltitude() end
 
 
 ---@class AtmosphericEngine
-AtmosphericEngine = {}
+local AtmosphericEngine = {}
 --- Show the element widget in the in-game widget stack
 function AtmosphericEngine.showWidget() end
 
@@ -1235,7 +1235,7 @@ function AtmosphericEngine.getDistance() end
 
 
 ---@class BaseShieldGenerator
-BaseShieldGenerator = {}
+local BaseShieldGenerator = {}
 --- Show the element widget in the in-game widget stack
 function BaseShieldGenerator.showWidget() end
 
@@ -1507,7 +1507,7 @@ BaseShieldGenerator.leaveLockdown = Event:new()
 
 
 ---@class BrakeEngine
-BrakeEngine = {}
+local BrakeEngine = {}
 --- Show the element widget in the in-game widget stack
 function BrakeEngine.showWidget() end
 
@@ -1753,7 +1753,7 @@ function BrakeEngine.torqueAxis() end
 
 
 ---@class Construct
-Construct = {}
+local Construct = {}
 --- Returns the name of the construct
 ---@return string 
 function Construct.getName() end
@@ -2118,7 +2118,7 @@ Construct.onPvPTimer = Event:new()
 
 
 ---@class Container
-Container = {}
+local Container = {}
 --- Show the element widget in the in-game widget stack
 function Container.showWidget() end
 
@@ -2298,7 +2298,7 @@ Container.storageAcquired = Event:new()
 
 
 ---@class ControlUnit
-ControlUnit = {}
+local ControlUnit = {}
 --- Show the element widget in the in-game widget stack
 function ControlUnit.showWidget() end
 
@@ -2659,7 +2659,7 @@ ControlUnit.tick = Event:new()
 
 
 ---@class CoreUnit
-CoreUnit = {}
+local CoreUnit = {}
 --- Show the element widget in the in-game widget stack
 function CoreUnit.showWidget() end
 
@@ -3158,7 +3158,7 @@ CoreUnit.stressChanged = Event:new()
 
 
 ---@class Counter
-Counter = {}
+local Counter = {}
 --- Show the element widget in the in-game widget stack
 function Counter.showWidget() end
 
@@ -3321,7 +3321,7 @@ function Counter.setIndex(index) end
 
 
 ---@class Databank
-Databank = {}
+local Databank = {}
 --- Show the element widget in the in-game widget stack
 function Databank.showWidget() end
 
@@ -3517,7 +3517,7 @@ function Databank.getFloatValue(key) end
 
 
 ---@class DetectionZone
-DetectionZone = {}
+local DetectionZone = {}
 --- Show the element widget in the in-game widget stack
 function DetectionZone.showWidget() end
 
@@ -3683,7 +3683,7 @@ DetectionZone.leave = Event:new()
 
 
 ---@class Door
-Door = {}
+local Door = {}
 --- Show the element widget in the in-game widget stack
 function Door.showWidget() end
 
@@ -3847,7 +3847,7 @@ function Door.toggle() end
 
 
 ---@class Element
-Element = {}
+local Element = {}
 --- Show the element widget in the in-game widget stack
 function Element.showWidget() end
 
@@ -3989,7 +3989,7 @@ function Element.getSignalOut(plug) end
 
 
 ---@class Emitter
-Emitter = {}
+local Emitter = {}
 --- Show the element widget in the in-game widget stack
 function Emitter.showWidget() end
 
@@ -4146,7 +4146,7 @@ Emitter.onSent = Event:new()
 
 
 ---@class Engine
-Engine = {}
+local Engine = {}
 --- Show the element widget in the in-game widget stack
 function Engine.showWidget() end
 
@@ -4306,7 +4306,7 @@ function Engine.isIgnoringTags() end
 
 
 ---@class Firework
-Firework = {}
+local Firework = {}
 --- Show the element widget in the in-game widget stack
 function Firework.showWidget() end
 
@@ -4490,7 +4490,7 @@ Firework.onFired = Event:new()
 
 
 ---@class ForceField
-ForceField = {}
+local ForceField = {}
 --- Show the element widget in the in-game widget stack
 function ForceField.showWidget() end
 
@@ -4654,7 +4654,7 @@ function ForceField.toggle() end
 
 
 ---@class FueledEngine
-FueledEngine = {}
+local FueledEngine = {}
 --- Show the element widget in the in-game widget stack
 function FueledEngine.showWidget() end
 
@@ -4935,7 +4935,7 @@ function FueledEngine.getT50() end
 
 
 ---@class Gyro
-Gyro = {}
+local Gyro = {}
 --- Show the element widget in the in-game widget stack
 function Gyro.showWidget() end
 
@@ -5119,7 +5119,7 @@ function Gyro.worldRight() end
 
 
 ---@class HoverEngine
-HoverEngine = {}
+local HoverEngine = {}
 --- Show the element widget in the in-game widget stack
 function HoverEngine.showWidget() end
 
@@ -5408,7 +5408,7 @@ function HoverEngine.getMaxDistance() end
 
 
 ---@class Industry
-Industry = {}
+local Industry = {}
 --- Show the element widget in the in-game widget stack
 function Industry.showWidget() end
 
@@ -5660,7 +5660,7 @@ Industry.onBankUpdate = Event:new()
 
 
 ---@class LandingGear
-LandingGear = {}
+local LandingGear = {}
 --- Show the element widget in the in-game widget stack
 function LandingGear.showWidget() end
 
@@ -5824,7 +5824,7 @@ function LandingGear.toggle() end
 
 
 ---@class LaserDetector
-LaserDetector = {}
+local LaserDetector = {}
 --- Show the element widget in the in-game widget stack
 function LaserDetector.showWidget() end
 
@@ -5987,7 +5987,7 @@ LaserDetector.laserRelease = Event:new()
 
 
 ---@class LaserEmitter
-LaserEmitter = {}
+local LaserEmitter = {}
 --- Show the element widget in the in-game widget stack
 function LaserEmitter.showWidget() end
 
@@ -6145,7 +6145,7 @@ function LaserEmitter.getState() end
 
 
 ---@class Library
-Library = {}
+local Library = {}
 --- Solve the 3D linear system M*x=c0 where M is defined by its column vectors c1,c2,c3
 ---@param c1 table The first column of the matrix M
 ---@param c2 table The second column of the matrix M
@@ -6168,7 +6168,7 @@ function Library.getPointOnScreen(worldPos) end
 
 
 ---@class Light
-Light = {}
+local Light = {}
 --- Show the element widget in the in-game widget stack
 function Light.showWidget() end
 
@@ -6374,7 +6374,7 @@ function Light.setBlinkingTimeShift(shift) end
 
 
 ---@class ManualButton
-ManualButton = {}
+local ManualButton = {}
 --- Show the element widget in the in-game widget stack
 function ManualButton.showWidget() end
 
@@ -6537,7 +6537,7 @@ ManualButton.released = Event:new()
 
 
 ---@class ManualSwitch
-ManualSwitch = {}
+local ManualSwitch = {}
 --- Show the element widget in the in-game widget stack
 function ManualSwitch.showWidget() end
 
@@ -6709,7 +6709,7 @@ ManualSwitch.released = Event:new()
 
 
 ---@class MiningUnit
-MiningUnit = {}
+local MiningUnit = {}
 --- Show the element widget in the in-game widget stack
 function MiningUnit.showWidget() end
 
@@ -6950,7 +6950,7 @@ MiningUnit.onStopped = Event:new()
 
 
 ---@class PlasmaExtractor
-PlasmaExtractor = {}
+local PlasmaExtractor = {}
 --- Show the element widget in the in-game widget stack
 function PlasmaExtractor.showWidget() end
 
@@ -7121,7 +7121,7 @@ PlasmaExtractor.onStopped = Event:new()
 
 
 ---@class Player
-Player = {}
+local Player = {}
 --- Returns the player name
 ---@return string value The player name
 function Player.getName() end
@@ -7260,7 +7260,7 @@ Player.onParentChanged = Event:new()
 
 
 ---@class PressureTile
-PressureTile = {}
+local PressureTile = {}
 --- Show the element widget in the in-game widget stack
 function PressureTile.showWidget() end
 
@@ -7423,7 +7423,7 @@ PressureTile.released = Event:new()
 
 
 ---@class Radar
-Radar = {}
+local Radar = {}
 --- Show the element widget in the in-game widget stack
 function Radar.showWidget() end
 
@@ -7718,7 +7718,7 @@ Radar.onIdentified = Event:new()
 
 
 ---@class Receiver
-Receiver = {}
+local Receiver = {}
 --- Show the element widget in the in-game widget stack
 function Receiver.showWidget() end
 
@@ -7893,7 +7893,7 @@ Receiver.receive = Event:new()
 
 
 ---@class RocketEngine
-RocketEngine = {}
+local RocketEngine = {}
 --- Show the element widget in the in-game widget stack
 function RocketEngine.showWidget() end
 
@@ -8177,7 +8177,7 @@ function RocketEngine.getDistance() end
 
 
 ---@class Screen
-Screen = {}
+local Screen = {}
 --- Show the element widget in the in-game widget stack
 function Screen.showWidget() end
 
@@ -8435,7 +8435,7 @@ Screen.onOutputChanged = Event:new()
 
 
 ---@class ShieldGenerator
-ShieldGenerator = {}
+local ShieldGenerator = {}
 --- Show the element widget in the in-game widget stack
 function ShieldGenerator.showWidget() end
 
@@ -8705,7 +8705,7 @@ ShieldGenerator.restored = Event:new()
 
 
 ---@class SpaceBrake
-SpaceBrake = {}
+local SpaceBrake = {}
 --- Show the element widget in the in-game widget stack
 function SpaceBrake.showWidget() end
 
@@ -8951,7 +8951,7 @@ function SpaceBrake.torqueAxis() end
 
 
 ---@class SpaceEngine
-SpaceEngine = {}
+local SpaceEngine = {}
 --- Show the element widget in the in-game widget stack
 function SpaceEngine.showWidget() end
 
@@ -9235,7 +9235,7 @@ function SpaceEngine.getDistance() end
 
 
 ---@class SpaceMiningUnit
-SpaceMiningUnit = {}
+local SpaceMiningUnit = {}
 --- Show the element widget in the in-game widget stack
 function SpaceMiningUnit.showWidget() end
 
@@ -9442,7 +9442,7 @@ SpaceMiningUnit.onStopped = Event:new()
 
 
 ---@class SurfaceEngine
-SurfaceEngine = {}
+local SurfaceEngine = {}
 --- Show the element widget in the in-game widget stack
 function SurfaceEngine.showWidget() end
 
@@ -9731,7 +9731,7 @@ function SurfaceEngine.getMaxDistance() end
 
 
 ---@class System
-System = {}
+local System = {}
 --- Return the currently key bound to the given action. Useful to display tips.
 ---@param actionName string The action name, represented as a string taken among the set of predefined Lua-available actions (you can check the drop down list to see what is available)
 ---@return string value The key associated to the given action name
@@ -10070,7 +10070,7 @@ System.cameraChanged = Event:new()
 
 
 ---@class Telemeter
-Telemeter = {}
+local Telemeter = {}
 --- Show the element widget in the in-game widget stack
 function Telemeter.showWidget() end
 
@@ -10239,7 +10239,7 @@ function Telemeter.getMaxDistance() end
 
 
 ---@class Transponder
-Transponder = {}
+local Transponder = {}
 --- Show the element widget in the in-game widget stack
 function Transponder.showWidget() end
 
@@ -10415,7 +10415,7 @@ Transponder.toggled = Event:new()
 
 
 ---@class VerticalBooster
-VerticalBooster = {}
+local VerticalBooster = {}
 --- Show the element widget in the in-game widget stack
 function VerticalBooster.showWidget() end
 
@@ -10704,7 +10704,7 @@ function VerticalBooster.getMaxDistance() end
 
 
 ---@class WarpDrive
-WarpDrive = {}
+local WarpDrive = {}
 --- Show the element widget in the in-game widget stack
 function WarpDrive.showWidget() end
 
@@ -10877,7 +10877,7 @@ function WarpDrive.getRequiredWarpCells() end
 
 
 ---@class Weapon
-Weapon = {}
+local Weapon = {}
 --- Show the element widget in the in-game widget stack
 function Weapon.showWidget() end
 
@@ -11125,20 +11125,20 @@ Weapon.onElementDestroyed = Event:new()
 Weapon.onHit = Event:new()
 
 
-library = Library
+library = Library()
 
-system = System
+system = System()
 
-unit = ControlUnit
+unit = ControlUnit()
 
-player = Player
+player = Player()
 
-construct = Construct
+construct = Construct()
 
-DULibrary = Library
+DULibrary = Library()
 
-DUSystem = System
+DUSystem = System()
 
-DUPlayer = Player
+DUPlayer = Player()
 
-DUConstruct = Construct
+DUConstruct = Construct()
