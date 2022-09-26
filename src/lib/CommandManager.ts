@@ -44,6 +44,13 @@ export default class CommandManager {
   }
 
   /**
+   * Checks if a command exists
+   */
+  static hasCommand(command: string): boolean {
+    return !!this.commands[command];
+  }
+
+  /**
    * Runs a command
    * @param command The command being executed
    * @param data The arguments and options for that command

@@ -67,6 +67,14 @@ async function main(args: string[]) {
     UpdateCodexCommand,
   ].forEach((command) => CommandManager.registerCommand(command));
 
+  // Handles commands that don't exist
+  if (!CommandManager.hasCommand(args[0])) {
+    CLI.panic([
+      `Invalid command: ${ColorScheme.highlight(args[0])}`,
+      `To check valid commands, use ${ColorScheme.highlight('du-lua help')}`
+    ].join('\n'));
+  }
+
   try {
     // Executes commands
     await CommandManager.execute(...args);
