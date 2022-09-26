@@ -95,7 +95,7 @@ module.exports = function (project, buildName, buildFile, libraries) {
         return process.exit(1);
       }
 
-      if (project.internalPaths.filter((path) => filename.startsWith(path)).length > 0) {
+      if ((project.internalPaths || []).filter((path) => filename.startsWith(path)).length > 0) {
         // Ignores missing internal paths
         CLI.info('COMPILE', `Imported internal library: "${ filename.magenta }" on file "${ currentFiles[0].yellow }", leaving statement alone...`)
       } else {
