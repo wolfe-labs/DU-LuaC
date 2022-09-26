@@ -24,7 +24,7 @@ module.exports = function (project, buildName, buildFile, libraries) {
   const currentProjectSourcePath = path.join(process.cwd(), project.sourcePath)
 
   // Parses LUA_PATH
-  const LUA_PATH = (process.env.LUA_PATH ?? '').split(';').filter(entry => entry.length > 0);
+  const LUA_PATH = (process.env.LUA_PATH || '').split(';').filter(entry => entry.length > 0);
   CLI.info('COMPILE', `Found ${LUA_PATH.length} locations on LUA_PATH.`);
 
   // Gets a project's version
