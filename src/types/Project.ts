@@ -296,6 +296,13 @@ export default class Project {
   }
 
   /**
+   * Gets all available libraries
+   */
+  getLibraries(): Library[] {
+    return Object.values(this.projectLibs);
+  }
+
+  /**
    * Gets a library by its ID
    * @param libraryId The library ID
    */
@@ -305,5 +312,28 @@ export default class Project {
 
     // Returns our library
     return this.projectLibs[libraryId];
+  }
+
+  /**
+   * Whether this project contains a certain path
+   * @param target The target path
+   * @param useSourcePath Should we use source directory instead of actual project directory?
+   */
+  containsPath(target: string, useSourcePath: boolean = false): boolean {
+    // Our base path
+    const referencePath = useSourcePath
+      ? this.getSourceDirectory()
+      : this.getProjectDirectory();
+
+    // Converts the target path to absolute notation
+    if (!path.isAbsolute(target)) {
+      target = path.resolve(referencePath, target);
+    }
+
+    // Creates a relative path from current source directory and out absolute directory
+    const relativePath = path.relative(referencePath, target);
+
+    // If the relative path starts with '..' or is absolute (usually a different Windows disk), returns false
+    return !!relativePath && !relativePath.startsWith('..') && !path.isAbsolute(relativePath);
   }
 }

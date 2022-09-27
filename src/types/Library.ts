@@ -20,22 +20,27 @@ export default class Library {
   /**
    * The library's unique identifier
    */
-  id: string = '';
+  readonly id: string;
 
   /**
    * The library type
    */
-  type: LibraryType = LibraryType.Project;
+  readonly type: LibraryType;
 
   /**
    * The library path
    */
-  path: string = '';
+  readonly path: string;
+
+  /**
+   * The library source path
+   */
+  readonly sourcePath: string;
 
   /**
    * The library remote details
    */
-  remote?: LibraryRemote;
+  readonly remote?: LibraryRemote;
 
   /**
    * The library's project definition
@@ -64,8 +69,10 @@ export default class Library {
       this.project = Project.load(this.path);
       this.id = this.project.name;
       this.type = LibraryType.Project;
+      this.sourcePath = this.project.getSourceDirectory();
     } catch (err) {
       this.type = LibraryType.Raw;
+      this.sourcePath = this.path;
     }
   }
 
@@ -79,6 +86,14 @@ export default class Library {
       path: path.relative(this.parentProject.getProjectDirectory(), this.path).replace(/\\/g, '/'),
       remote: this.remote,
     };
+  }
+
+  /**
+   * Generates a library from a project
+   * @param project The project we're creating the library from
+   */
+  static loadFromProject(project: Project): Library {
+    return Library.loadFromLocalPath(project, project.getProjectDirectory());
   }
 
   /**
@@ -186,5 +201,29 @@ export default class Library {
         git: url,
       }
     });
+  }
+
+  /**
+   * Whether this library contains a certain path
+   * @param target The target path
+   * @param useSourcePath Should we use source directory instead of actual project directory?
+   */
+  containsPath(target: string, useSourcePath: boolean = false): boolean {
+    // If we have a project, use it's method instead
+    if (this.project) return this.project.containsPath(target, useSourcePath);
+
+    // Our base path
+    const referencePath = this.sourcePath;
+
+    // Converts the target path to absolute notation
+    if (!path.isAbsolute(target)) {
+      target = path.resolve(referencePath, target);
+    }
+
+    // Creates a relative path from current source directory and out absolute directory
+    const relativePath = path.relative(referencePath, target);
+
+    // If the relative path starts with '..' or is absolute (usually a different Windows disk), returns false
+    return !!relativePath && !relativePath.startsWith('..') && !path.isAbsolute(relativePath);
   }
 }

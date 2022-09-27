@@ -35,4 +35,12 @@ export default class ColorScheme {
   static highlightArgument(str: string) {
     return Colors.cyan(str);
   }
+
+  /**
+   * Colors a piece of code code
+   * @param str The code being printed
+   */
+  static code(str: string) {
+    return Colors.magenta(str);
+  }
 }

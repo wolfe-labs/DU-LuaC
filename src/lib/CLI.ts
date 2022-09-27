@@ -2,6 +2,7 @@ import { SimpleMap } from '../types/SimpleMap';
 
 // This will be used for colors
 import Colors from 'colors';
+import ColorScheme from './ColorScheme';
 
 /**
  * A list of all valid log levels
@@ -98,7 +99,7 @@ class CLI {
     if (!this.canPrint(logLevel)) return;
 
     // Prints data
-    console.info(code.trim());
+    console.info(ColorScheme.code(code.trim()));
   }
 
   /**
