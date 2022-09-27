@@ -65,9 +65,6 @@ export default class BuildProjectCommand implements Command {
 
       // Invokes our compiler step
       const buildResult = await DULuaCompiler.compile(project, build);
-
-      // Test
-      console.log(buildResult);
     }
 
     throw new Error('Not implemented yet!');
