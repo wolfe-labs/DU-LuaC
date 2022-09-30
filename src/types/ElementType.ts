@@ -2,6 +2,13 @@ import { SimpleMap } from "./SimpleMap";
 import AllElementTypes from '../data/ElementTypes';
 
 /**
+ * Represents an element type event
+ */
+export type ElementTypeEvent = {
+  signature: string
+};
+
+/**
  * Represents an element type
  */
 export type ElementType = {
@@ -9,7 +16,7 @@ export type ElementType = {
   value: string,
   class: string,
   luaClass?: string,
-  events?: { signature: string }[],
+  events?: ElementTypeEvent[],
   description?: string,
 } 
 

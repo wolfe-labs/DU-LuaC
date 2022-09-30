@@ -1,6 +1,7 @@
 import { CLI } from "../lib/CLI";
 import ColorScheme from "../lib/ColorScheme";
 import { DULuaCompiler } from "../lib/DULuaCompiler";
+import { DULuaConfig } from "../lib/DULuaConfig";
 import { BuildType } from "../types/Build";
 import Project from "../types/Project";
 import Command, { CommandData } from "./Command";
@@ -65,6 +66,13 @@ export default class BuildProjectCommand implements Command {
 
       // Invokes our compiler step
       const buildResult = await DULuaCompiler.compile(project, build);
+
+      // Builds our config file
+      CLI.status(CLITag, 'Building config object...');
+      const configFile = DULuaConfig.fromCompilerResult(buildResult);
+
+      // Empty line for visibility
+      CLI.skip();
     }
 
     throw new Error('Not implemented yet!');

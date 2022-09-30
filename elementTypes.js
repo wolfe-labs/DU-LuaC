@@ -116,7 +116,7 @@ module.exports = {
     ],
   },
   pvpRadar: {
-    title: 'Radar (PVP)',
+    title: 'Radar (PVP Enabled)',
     value: 'pvpRadar',
     class: 'RadarPVPUnit',
     luaClass: 'Radar',

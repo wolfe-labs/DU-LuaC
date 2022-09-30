@@ -25,6 +25,8 @@ export type DULuaCompilerPreload = {
  * Represents a build result by the compiler
  */
 export type DULuaCompilerResult = {
+  project: Project,
+  build: Build,
   output: string,
   preloads: DULuaCompilerPreload[],
 };
@@ -527,6 +529,8 @@ export class DULuaCompiler {
 
     // Done
     return {
+      project: this.project,
+      build: this.build,
       output: outputLua!.sourceCode,
       preloads: outputPreloads,
     };

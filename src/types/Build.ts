@@ -1,4 +1,5 @@
 import BuildLinkedElement from "./BuildLinkedElement";
+import BuildTarget from "./BuildTarget";
 import { SimpleMap } from "./SimpleMap";
 
 export enum BuildType {
@@ -101,6 +102,14 @@ export default class Build {
    */
   getLinkedElements(): BuildLinkedElement[] {
     return Object.values(this.linkedElements);
+  }
+
+  /**
+   * Gets the full build name in the target/build syntax
+   * @param buildTarget The build target we're getting the name for
+   */
+  getFullName(buildTarget: BuildTarget): string {
+    return `${buildTarget.name}/${this.name}`;
   }
 
   /**

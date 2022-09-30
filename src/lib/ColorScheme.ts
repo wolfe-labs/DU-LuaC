@@ -1,4 +1,6 @@
 import Colors from "colors";
+import Build from "../types/Build";
+import BuildTarget from "../types/BuildTarget";
 
 /**
  * The color scheme used by the CLI
@@ -42,5 +44,13 @@ export default class ColorScheme {
    */
   static code(str: string) {
     return Colors.magenta(str);
+  }
+
+  /**
+   * Formats a build's full name
+   * @param str The argument being printed
+   */
+  static buildFullName(build: Build, buildTarget: BuildTarget) {
+    return `${Colors.bgCyan(buildTarget.name)}/${Colors.blue(build.name)}`;
   }
 }
