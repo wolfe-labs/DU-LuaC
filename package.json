@@ -1,6 +1,6 @@
 {
   "name": "@wolfe-labs/du-luac",
-  "version": "0.15.0",
+  "version": "1.0.0",
   "description": "Lua CLI Utility for Dual Universe",
   "main": "main.js",
   "repository": {
@@ -18,7 +18,8 @@
   "scripts": {
     "build": "npx tsc",
     "watch": "npx tsc --watch",
-    "start": "npx tsc && node dist/index.js"
+    "start": "npx tsc && node dist/index.js",
+    "pre-release": "npx tsc && node dist/index.js update-codex"
   },
   "homepage": "https://github.com/wolfe-labs/DU-LuaC#readme",
   "dependencies": {
