@@ -122,7 +122,7 @@ export default class BuildProjectCommand implements Command {
           fs.writeFileSync(`${buildOutputFile}.conf`, output);
 
           // Measures output size
-          this.printScriptUsage(this.getStringByteSize(output), 150000);
+          this.printScriptUsage(this.getStringByteSize(output), 180000);
         }
 
         // Copies our build to the clipboard

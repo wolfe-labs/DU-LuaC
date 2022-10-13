@@ -85,7 +85,7 @@ async function main(args: string[]) {
     // Error handling, for known errors err will be of type Error, while for any other kind of error usually won't
     if (err instanceof Error) {
       // Special debugging error
-      if (process.env.DEBUG) {
+      if (Application.isDebugging()) {
         CLI.error(err.message);
         if (err.stack) CLI.code(err.stack);
         CLI.panic();

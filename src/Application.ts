@@ -2,6 +2,13 @@ import path from "path";
 
 export default class Application {
   /**
+   * Detects debug mode
+   */
+  static isDebugging(): boolean {
+    return !!JSON.parse(process.env.DEBUG || 'false');
+  }
+
+  /**
    * Returns the path to the root of the app
    */
   static getPath(...pieces: string[]): string {

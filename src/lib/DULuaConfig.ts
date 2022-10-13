@@ -336,18 +336,18 @@ export class DULuaConfig {
       autoconf.addAutoConfigHandlerEntry(
         this.internalSlots.library,
         eventOnStart,
-        buildTarget.minify
-          ? this.runMinifier(compilerInternals.events)
-          : compilerInternals.events
+        Application.isDebugging()
+          ? compilerInternals.events
+          : this.runMinifier(compilerInternals.events)
       );
 
       // Linking helpers
       autoconf.addAutoConfigHandlerEntry(
         this.internalSlots.library,
         eventOnStart,
-        buildTarget.minify
-          ? this.runMinifier(compilerInternals.linking)
-          : compilerInternals.linking
+        Application.isDebugging()
+          ? compilerInternals.linking
+          : this.runMinifier(compilerInternals.linking)
       );
 
       // Decompression helper, only for compressed builds
@@ -355,9 +355,9 @@ export class DULuaConfig {
         autoconf.addAutoConfigHandlerEntry(
           this.internalSlots.library,
           eventOnStart,
-          buildTarget.minify
-            ? this.runMinifier(compilerInternals.decompression)
-            : compilerInternals.decompression
+          Application.isDebugging()
+            ? compilerInternals.decompression
+            : this.runMinifier(compilerInternals.decompression)
         );
       }
     }
@@ -384,9 +384,7 @@ export class DULuaConfig {
       autoconf.addAutoConfigHandlerEntry(
         this.internalSlots.library,
         eventOnStart,
-        buildTarget.minify
-          ? this.runMinifier(preloadCode)
-          : preloadCode
+        preloadCode,
       );
     }
 
