@@ -46,6 +46,9 @@ async function main(args: string[]) {
     CLI.warn(`No Git version detected! Install from ${ColorScheme.highlight('https://git-scm.com/download')}`);
   }
 
+  // Empty line for visibility
+  CLI.skip();
+
   // If no arguments are passed, let's do "help" instead
   if (args.length == 0) {
     args = ['help'];
@@ -81,6 +84,14 @@ async function main(args: string[]) {
   } catch (err) {
     // Error handling, for known errors err will be of type Error, while for any other kind of error usually won't
     if (err instanceof Error) {
+      // Special debugging error
+      if (process.env.DEBUG) {
+        CLI.error(err.message);
+        if (err.stack) CLI.code(err.stack);
+        CLI.panic();
+      }
+      
+      // Standard error reporting
       CLI.panic(err.message);
     } else {
       CLI.panic('Internal error:', err);

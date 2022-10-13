@@ -45,7 +45,7 @@ export default class GitClient {
 
     // If the result is valid (should not be only when Git is not installed), parses and returns version
     if (result) {
-      return Array.from(result.output.match(/git version (.*)/) || [])[1];
+      return Array.from(/git version (.*)/.exec(result.output) || [])[1];
     }
 
     // If we got down here, then no version is available

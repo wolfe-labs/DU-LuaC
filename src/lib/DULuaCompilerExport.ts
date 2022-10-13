@@ -35,7 +35,7 @@ export class DULuaCompilerExport {
    */
   static parseExportStatement(code: string): DULuaCompilerExportInfo | null {
     // Tries to match everything
-    const match = code.match(/(.*?)=(.*?)--[ ]*export:?(.*)?/g)
+    const match = /(.*?)=(.*?)--[ ]*export:?(.*)?/g.exec(code);
 
     // Stop if no matches
     if (!match) return null;
@@ -57,7 +57,7 @@ export class DULuaCompilerExport {
     const parsedExport = this.parseExportStatement(code);
 
     // Done
-    return `;${this.globalName}=[[${JSON.stringify(parsedExport)}]];`
+    return `${this.globalName}=[[${JSON.stringify(parsedExport)}]]`
   }
 
   /**
@@ -66,7 +66,7 @@ export class DULuaCompilerExport {
    */
   static decodeExportStatement(code: string): string {
     // Parses our statement
-    const rawExport = code.match(new RegExp(`\\;${this.globalName}\\=\\[\\[(.*)\\]\\]\\;`));
+    const rawExport = new RegExp(`${this.globalName}\\=\\[\\[(.*)\\]\\]`).exec(code);
 
     // Ignores if no matches
     if (!rawExport) return code;
@@ -75,6 +75,23 @@ export class DULuaCompilerExport {
     const parsedExport = JSON.parse(rawExport[1]) as DULuaCompilerExportInfo;
 
     // Now we can rebuild our --export
-    return `${parsedExport.name}=${parsedExport.default} --export: ${parsedExport.comment}`;
+    return `${parsedExport.name}=${parsedExport.default}--export: ${parsedExport.comment}`;
+  }
+
+  /**
+   * Decodes all encoded --export statement from minification on a piece of code
+   * @param code The code in question
+   * @param isMinified Was the code already minified?
+   */
+  static decodeAllExportStatements(code: string, isMinified: boolean): string {
+    // This is our search
+    const search = new RegExp(`(${this.globalName}\\=\\[\\[.*?\\]\\])`, 'g');
+
+    // Isolates our matches
+    return code.replace(search, (src, match) => {
+      return isMinified
+        ? `\n${this.decodeExportStatement(match)}\n`
+        : this.decodeExportStatement(match);
+    });
   }
 }
