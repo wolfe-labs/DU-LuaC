@@ -155,6 +155,26 @@ class CLI {
     // Stops execution
     process.exit(1);
   }
+
+  /**
+   * Formats a number into its Bytes amount
+   * @param bytes The byte size being formatted
+   */
+  static formatByteSize(bytes: number): string {
+    // What will be appended
+    let suffix = 'Bytes';
+    let value = bytes.toString();
+
+    // kB
+    if (bytes > 1000) {
+      bytes = bytes / 1000;
+      value = bytes.toFixed(2);
+      suffix = 'kB';
+    }
+
+    // Applies suffix
+    return `${value} ${suffix}`;
+  }
 }
 
 // Exposes our stuff

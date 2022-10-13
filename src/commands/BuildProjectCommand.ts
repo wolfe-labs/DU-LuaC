@@ -159,32 +159,22 @@ export default class BuildProjectCommand implements Command {
     CLI.success('Build completed successfully!');
   }
 
-  // Gets the size of a string
+  /**
+   * Gets the Byte size of a string
+   * @param str The string
+   */
   private getStringByteSize(str: string): number {
     return Buffer.byteLength(str, 'utf8');
   }
 
-  // Formats a string size
-  private formatByteSize(bytes: number): string {
-    // What will be appended
-    let suffix = 'Bytes';
-    let value = bytes.toString();
-
-    // kB
-    if (bytes > 1000) {
-      bytes = bytes / 1000;
-      value = bytes.toFixed(2);
-      suffix = 'kB';
-    }
-
-    // Applies suffix
-    return `${value} ${suffix}`;
-  }
-
-  // Prints usage
+  /**
+   * Prints script size usage
+   * @param currentBytes The current size of script
+   * @param maxBytes The max size of the script
+   */
   private printScriptUsage(currentBytes: number, maxBytes: number) {
     const percentage = 100 * currentBytes / maxBytes;
-    const message = `${this.formatByteSize(currentBytes)} out of ${this.formatByteSize(maxBytes)} (${percentage.toFixed(2)}%)`;
+    const message = `${CLI.formatByteSize(currentBytes)} out of ${CLI.formatByteSize(maxBytes)} (${percentage.toFixed(2)}%)`;
     
     if (percentage > 100) {
       CLI.error(`Build is too large! Using ${message}`);

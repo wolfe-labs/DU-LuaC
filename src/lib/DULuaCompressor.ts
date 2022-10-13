@@ -1,3 +1,4 @@
+import { CLI } from "./CLI";
 import { DULuaCompilerExport } from "./DULuaCompilerExport"
 
 /**
@@ -5,20 +6,25 @@ import { DULuaCompilerExport } from "./DULuaCompilerExport"
  */
 export class DULuaCompressor {
   /**
+   * Tag we're using to debug
+   */
+  private static CLITag = 'REDUCER';
+
+  /**
    * Compresses a piece of Lua code
    * @param source The code being compressed
    * @param helperCompressed The Lua template for compressed files
    */
   static compress(source: string, helperCompressed: string): string {
     // Decodes all --export entries
-    source = DULuaCompilerExport.decodeAllExportStatements(source, true);
+    const initialLua = DULuaCompilerExport.decodeAllExportStatements(source, true);
 
     // Extracts any exports
     const params: {
       encoded: string,
       decoded: string,
     }[] = [];
-    source = source
+    source = initialLua
       .split('\n')
       .filter((line) => line.length > 0)
       .filter((line, idx) => {
@@ -156,19 +162,20 @@ export class DULuaCompressor {
       .replace('__PARAMS__()', () => `\n${params.map((param) => param.encoded).join('\n')}\n`)
       .replace(/\n+/g, '\n');
 
-    // Done
-    return inflateLua;
+    // Computes final sizes
+    const initialSize = Buffer.byteLength(initialLua, 'utf8');
+    const compressedSize = Buffer.byteLength(inflateLua, 'utf8');
 
-    // Informs compression stuff
-    // const finalSize = Buffer.byteLength(inflateLua, 'utf8')
-    // if (finalSize < sourceSize) {
-    //   CLI.info('REDUCER', `Input size: ${prettyPrintSize(sourceSize)}`)
-    //   CLI.info('REDUCER', `Final size: ${prettyPrintSize(finalSize)}`)
-    //   CLI.info('REDUCER', `Total savings: ${prettyPrintSize(sourceSize - finalSize)} (Ratio: ${(100 * finalSize / sourceSize).toFixed(2)}%)`)
-    //   return inflateLua
-    // } else {
-    //   CLI.info('REDUCER', `Compression had no effective result, skipping...`)
-    //   return initialLua
-    // }
+    // If our compressed code yields no results, use the original code
+    if (compressedSize >= initialSize) {
+      CLI.status(this.CLITag, `Compression had no effective result, maintaining original code...`);
+      return initialLua;
+    }
+
+    // Informs results and returns compressed code
+    CLI.status(this.CLITag, `Input size: ${CLI.formatByteSize(initialSize)}`);
+    CLI.status(this.CLITag, `Final size: ${CLI.formatByteSize(compressedSize)}`);
+    CLI.status(this.CLITag, `Difference: ${CLI.formatByteSize(initialSize - compressedSize)} - Ratio: ${(100 * compressedSize / initialSize).toFixed(2)}%`);
+    return inflateLua;
   }
 }
