@@ -390,6 +390,13 @@ export class DULuaConfig {
 
     // Binds all event handlers
     if (compilerResult.build.options.events) {
+      // Adds event support to all slots
+      const slotEventInitializationCode = Object.keys(slots)
+        .map((slotName) => `library.addEventHandlers(${slotName})`)
+        .join('\n');
+      autoconf.addAutoConfigHandlerEntry(this.internalSlots.library, eventOnStart, slotEventInitializationCode);
+
+      // Adds event handlers
       Object.keys(slots).forEach((slotName) => {
         const slot = slots[slotName];
         
