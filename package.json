@@ -1,6 +1,6 @@
 {
   "name": "@wolfe-labs/du-luac",
-  "version": "0.15.3",
+  "version": "1.0.0",
   "description": "Lua CLI Utility for Dual Universe",
   "main": "main.js",
   "repository": {
@@ -13,7 +13,13 @@
     "url": "https://github.com/wolfe-labs/DU-LuaC/issues"
   },
   "bin": {
-    "du-lua": "main.js"
+    "du-lua": "dist/index.js"
+  },
+  "scripts": {
+    "build": "npx tsc",
+    "watch": "npx tsc --watch",
+    "start": "npx tsc && node dist/index.js",
+    "pre-release": "npx tsc && node dist/index.js update-codex"
   },
   "homepage": "https://github.com/wolfe-labs/DU-LuaC#readme",
   "dependencies": {
@@ -30,5 +36,15 @@
     "semver": "^7.3.5",
     "sha1": "^1.1.1",
     "yaml": "^1.10.2"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/git-url-parse": "^9.0.1",
+    "@types/lodash": "^4.14.185",
+    "@types/luaparse": "^0.2.8",
+    "@types/node": "^18.7.18",
+    "@types/prompts": "^2.0.14",
+    "@types/semver": "^7.3.12",
+    "typescript": "^4.8.3"
   }
 }
