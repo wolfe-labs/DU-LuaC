@@ -47,7 +47,7 @@ const registeredElementTypes: ElementTypeOrCategoryList = {
     ],
   },
   fuelContainer: {
-    title: 'Fuel Container',
+    title: 'Fuel Container (Any/Generic)',
     value: 'fuelContainer',
     class: 'FuelContainer',
     luaClass: 'Container',
