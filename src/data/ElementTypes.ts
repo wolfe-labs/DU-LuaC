@@ -49,7 +49,25 @@ const registeredElementTypes: ElementTypeOrCategoryList = {
   fuelContainer: {
     title: 'Fuel Container',
     value: 'fuelContainer',
-    class: 'Container',
+    class: 'FuelContainer',
+    luaClass: 'Container',
+  },
+  fuelContainerAtmo: {
+    title: 'Fuel Container (Atmospheric)',
+    value: 'fuelContainerAtmo',
+    class: 'AtmoFuelContainer',
+    luaClass: 'Container',
+  },
+  fuelContainerSpace: {
+    title: 'Fuel Container (Space)',
+    value: 'fuelContainerSpace',
+    class: 'SpaceFuelContainer',
+    luaClass: 'Container',
+  },
+  fuelContainerRocket: {
+    title: 'Fuel Container (Rocket)',
+    value: 'fuelContainerRocket',
+    class: 'RocketFuelContainer',
     luaClass: 'Container',
   },
   itemContainer: {
