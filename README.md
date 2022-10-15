@@ -219,6 +219,7 @@ For example, if you have a construct with two different Programming Boards, each
   "builds": [
     {
       "name": "control_panel",
+      "title": "Wolfe's Control Panel",
       "slots": {
         "screen_main": {
           "type": "screen"

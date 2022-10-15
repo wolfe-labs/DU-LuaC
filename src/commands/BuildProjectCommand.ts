@@ -107,12 +107,12 @@ export default class BuildProjectCommand implements Command {
 
         // Exports our JSON file
         if (exportFormats.JSON) {
-          fs.writeFileSync(`${buildOutputFile}.json`, JSON.stringify(configFile.toDUAutoConfig()));
+          fs.writeFileSync(`${buildOutputFile}.json`, JSON.stringify(configFile.toDUUnitConfig()));
         }
 
         // Exports our YAML file
         if (exportFormats.YAML) {
-          fs.writeFileSync(`${buildOutputFile}.yaml`, YAML.stringify(configFile.toDUAutoConfig()));
+          fs.writeFileSync(`${buildOutputFile}.yaml`, YAML.stringify(configFile.toDUUnitConfig()));
         }
 
         // Exports our CONF file

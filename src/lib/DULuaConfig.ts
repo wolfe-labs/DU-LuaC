@@ -22,14 +22,18 @@ export type DULuaConfigSlot = {
   select?: string,
 };
 
-export type DULuaAutoConfig = {
-  slots: SimpleMap<DULuaAutoConfigSlot>,
-  handlers: DULuaAutoConfigHandler[],
+/**
+ * The types below refer to "unit config", which mean the JSON and YAML outputs, not CONF!
+ */
+
+export type DULuaUnitConfig = {
+  slots: SimpleMap<DULuaUnitConfigSlot>,
+  handlers: DULuaUnitConfigHandler[],
   methods: any[],
   events: any[],
 };
 
-export type DULuaAutoConfigSlot = {
+export type DULuaUnitConfigSlot = {
   name: string,
   class?: string,
   select?: string,
@@ -39,21 +43,72 @@ export type DULuaAutoConfigSlot = {
   }
 };
 
-export type DULuaAutoConfigHandler = {
+export type DULuaUnitConfigHandler = {
   key: number,
-  filter: DULuaAutoConfigHandlerFilter,
+  filter: DULuaUnitConfigHandlerFilter,
   code: string,
 };
 
-export type DULuaAutoConfigHandlerFilter = {
+export type DULuaUnitConfigHandlerFilter = {
   slotKey: number,
   signature: string,
   args: { variable: string }[],
 };
 
-export type DULuaAutoConfigHandlerFilterSignature = {
+export type DULuaUnitConfigHandlerFilterSignature = {
   name: string,
   args: string[],
+};
+
+/**
+ * The types below now refer to the "auto config", aka the CONF files!
+ * Autoconf should follow this format:
+ * {
+ *   name: "Your Config Name",
+ *   slots: { slotName: slotObject },
+ *   handlers: slotHandlers,
+ * }
+ */
+export type DULuaAutoConfig = {
+  name: string,
+  slots: SimpleMap<DULuaAutoConfigSlot>,
+  handlers: SimpleMap<DULuaAutoConfigSlotHandler>
+};
+
+/**
+ * Slots follow the format:
+ * {
+ *   name: "test_variable",
+ *   class: "FuelContainer",
+ *   select: "all",
+ *   type: {
+ *     methods: [],
+ *     events: [],
+ *   },
+ * }
+ */
+export type DULuaAutoConfigSlot = {
+  name: string,
+  class?: string,
+  select: string,
+  type: {
+    methods: any[],
+    events: any[],
+  }
+};
+
+/**
+ * Slot handlers follow the format:
+ * { event: handlerObject }
+ */
+export type DULuaAutoConfigSlotHandler = SimpleMap<DULuaAutoConfigHandler>;
+
+/**
+ * Handlers follow the format:
+ * { lua: "your lua code here" }
+ */
+export type DULuaAutoConfigHandler = {
+  lua: string,
 };
 
 // Compiler internals
@@ -68,12 +123,12 @@ export class DULuaConfig {
   /**
    * This will store our slots, but not any code
    */
-  private slots: Map<string, DULuaAutoConfigSlot> = new Map<string, DULuaAutoConfigSlot>();
+  private slots: Map<string, DULuaUnitConfigSlot> = new Map<string, DULuaUnitConfigSlot>();
 
   /**
    * This will store our handlers, the actual code
    */
-  private handlers: DULuaAutoConfigHandler[] = [];
+  private handlers: DULuaUnitConfigHandler[] = [];
 
   /**
    * Unused?
@@ -85,17 +140,70 @@ export class DULuaConfig {
    */
   private events: any[] = [];
 
-  private constructor() {}
+  private constructor(
+    private compilerResult: DULuaCompilerResult,
+  ) { }
 
   /**
-   * Converts the object into DU-readable format
+   * Converts the object into DU-readable format (JSON/YAML files only!)
    */
-  public toDUAutoConfig(): DULuaAutoConfig {
+  public toDUUnitConfig(): DULuaUnitConfig {
     return {
       slots: Object.fromEntries(this.slots.entries()),
       handlers: this.handlers,
       events: this.events,
       methods: this.methods,
+    };
+  }
+
+  /**
+   * Converts the object into DU-readable format autoconf format (.conf files only!)
+   */
+  public toDUAutoConfig(): DULuaAutoConfig {
+    // This is the config name that will show on the autoconf drop-down
+    const name = this.compilerResult.build.title || `${this.compilerResult.project.name} ${this.compilerResult.build.name}`;
+
+    // Prepates list of slots
+    const slots: SimpleMap<DULuaAutoConfigSlot> = {};
+    const handlers: SimpleMap<DULuaAutoConfigSlotHandler> = {};
+    for (let slotKey in Object.fromEntries(this.slots.entries())) {
+      // Retrieves slot info
+      const slot = this.slots.get(slotKey)!;
+
+      // Only add slots to definition if they aren't internal to DU already
+      if (!DULuaConfig.internalSlots[slot.name]) {
+        slots[slot.name] = {
+          ...slot,
+          select: slot.select || 'manual',
+        };
+      }
+
+      // Also creates the entry on handlers
+      handlers[slot.name] = {};
+    }
+
+    // Processes handlers
+    this.handlers.forEach((handler) => {
+      // Gets the slot for this handler
+      const slot = this.slots.get(handler.filter.slotKey.toString())!;
+
+      // Parses the signature
+      const signature = DULuaConfig.parseEventSignature(handler.filter.signature);
+
+      // Now add the handler code
+      handlers[slot.name][signature.name] = {
+        lua: [
+          handlers[slot.name][signature.name]?.lua || '',
+          handler.code,
+        ].join('\n').trim(),
+      };
+    });
+
+    // Builds our final config object
+    return {
+      name,
+      slots,
+      handlers,
     };
   }
 
@@ -220,7 +328,7 @@ export class DULuaConfig {
    * Creates an autoconf slot entry for a project slot
    * @param slot The config slot
    */
-  private static getAutoConfigSlotEntry(slot: DULuaConfigSlot): DULuaAutoConfigSlot {
+  private static getUnitConfigSlotEntry(slot: DULuaConfigSlot): DULuaUnitConfigSlot {
     return {
       name: slot.name,
       class: slot.class,
@@ -236,7 +344,7 @@ export class DULuaConfig {
    * Parses an event signature
    * @param signature The event signature
    */
-  private static parseEventSignature(signature: string): DULuaAutoConfigHandlerFilterSignature {
+  private static parseEventSignature(signature: string): DULuaUnitConfigHandlerFilterSignature {
     // Gets a list of arguments from the event signature
     const parsed = /(.*?)\s*\((.*?)\)/g.exec(signature) || [];
 
@@ -255,12 +363,12 @@ export class DULuaConfig {
    * @param slot The config slot
    * @param code The code for that
    */
-  private addAutoConfigHandlerEntry(slot: DULuaConfigSlot, event: ElementTypeEvent, code: string) {
+  private addUnitConfigHandlerEntry(slot: DULuaConfigSlot, event: ElementTypeEvent, code: string) {
     // Parses our event signature
     const parsedEvent = DULuaConfig.parseEventSignature(event.signature);
 
     // Creates the handler entry
-    const entry: DULuaAutoConfigHandler = {
+    const entry: DULuaUnitConfigHandler = {
       key: this.handlers.length + 1,
       filter: {
         slotKey: slot.slotId,
@@ -313,7 +421,7 @@ export class DULuaConfig {
    */
   static fromCompilerResult(compilerResult: DULuaCompilerResult, buildTarget: BuildTarget): DULuaConfig {
     // Our final autoconf object
-    const autoconf = new this();
+    const autoconf = new this(compilerResult);
     
     // This is all our slots
     const slots = {
@@ -322,18 +430,18 @@ export class DULuaConfig {
     };
 
     // This is a "onStart" event
-    const eventOnStart: ElementTypeEvent = { signature: 'onStart' };
+    const eventOnStart: ElementTypeEvent = { signature: 'onStart()' };
 
     // Processes the slots
     for (let slotName in slots) {
       // Creates the autoconf entry
-      autoconf.slots.set(slots[slotName].slotId.toString(), this.getAutoConfigSlotEntry(slots[slotName]));
+      autoconf.slots.set(slots[slotName].slotId.toString(), this.getUnitConfigSlotEntry(slots[slotName]));
     }
 
     // Adds Lua helpers
     if (compilerResult.build.options.helpers) {
       // Event handlers
-      autoconf.addAutoConfigHandlerEntry(
+      autoconf.addUnitConfigHandlerEntry(
         this.internalSlots.library,
         eventOnStart,
         Application.isDebugging()
@@ -342,7 +450,7 @@ export class DULuaConfig {
       );
 
       // Linking helpers
-      autoconf.addAutoConfigHandlerEntry(
+      autoconf.addUnitConfigHandlerEntry(
         this.internalSlots.library,
         eventOnStart,
         Application.isDebugging()
@@ -352,7 +460,7 @@ export class DULuaConfig {
 
       // Decompression helper, only for compressed builds
       if (compilerResult.build.options.compress) {
-        autoconf.addAutoConfigHandlerEntry(
+        autoconf.addUnitConfigHandlerEntry(
           this.internalSlots.library,
           eventOnStart,
           Application.isDebugging()
@@ -381,7 +489,7 @@ export class DULuaConfig {
       ).join('\n');
 
       // Adds the preloads
-      autoconf.addAutoConfigHandlerEntry(
+      autoconf.addUnitConfigHandlerEntry(
         this.internalSlots.library,
         eventOnStart,
         preloadCode,
@@ -394,7 +502,7 @@ export class DULuaConfig {
       const slotEventInitializationCode = Object.keys(slots)
         .map((slotName) => `library.addEventHandlers(${slotName})`)
         .join('\n');
-      autoconf.addAutoConfigHandlerEntry(this.internalSlots.library, eventOnStart, slotEventInitializationCode);
+      autoconf.addUnitConfigHandlerEntry(this.internalSlots.library, eventOnStart, slotEventInitializationCode);
 
       // Adds event handlers
       Object.keys(slots).forEach((slotName) => {
@@ -415,7 +523,7 @@ export class DULuaConfig {
           const code = `${slotName}:triggerEvent(${args.join(',')})`;
 
           // Adds the slot handler
-          autoconf.addAutoConfigHandlerEntry(slot, event, code)
+          autoconf.addUnitConfigHandlerEntry(slot, event, code)
         });
       });
     }
@@ -435,7 +543,7 @@ export class DULuaConfig {
     }
 
     // This is the entrypoint
-    autoconf.addAutoConfigHandlerEntry(
+    autoconf.addUnitConfigHandlerEntry(
       this.internalSlots.unit,
       eventOnStart,
       this.restoreExports(mainCode, buildTarget.minify)
