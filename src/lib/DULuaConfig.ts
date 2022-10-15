@@ -90,7 +90,7 @@ export type DULuaAutoConfig = {
 export type DULuaAutoConfigSlot = {
   name: string,
   class?: string,
-  select: string,
+  select: string | null,
   type: {
     methods: any[],
     events: any[],
@@ -174,7 +174,7 @@ export class DULuaConfig {
       if (!DULuaConfig.internalSlots[slot.name]) {
         slots[slot.name] = {
           ...slot,
-          select: slot.select || 'manual',
+          select: slot.select || null,
         };
       }
 
@@ -537,7 +537,7 @@ export class DULuaConfig {
         this.runMinifier(mainCode),
         this.runMinifier(compilerInternals.compressedTemplate)
       );
-    } else {
+    } else if (buildTarget.minify) {
       // Minifies code if needed
       mainCode = this.runMinifier(compilerResult.output);
     }
