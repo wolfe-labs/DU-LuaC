@@ -28,6 +28,11 @@ export default class Build {
   name: string = '';
 
   /**
+   * The autoconf name of the script
+   */
+  title?: string;
+
+  /**
    * The type of the script
    */
   type: BuildType = BuildType.ControlUnit;
@@ -73,6 +78,7 @@ export default class Build {
    */
   constructor(data: any) {
     this.name = data.name;
+    this.title = data.title;
     this.type = data.type;
 
     // Parses slots
