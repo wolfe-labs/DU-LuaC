@@ -26,8 +26,10 @@ module.exports = function buildAutoConfig (project, builtYamlOrJson) {
     name: project.name,
     slots: {},
     handlers: {
-      library: getHandlerCodeFromSlotId(builtYamlOrJson, -3),
-      system: getHandlerCodeFromSlotId(builtYamlOrJson, -2),
+      library: getHandlerCodeFromSlotId(builtYamlOrJson, -5),
+      system: getHandlerCodeFromSlotId(builtYamlOrJson, -4),
+      player: getHandlerCodeFromSlotId(builtYamlOrJson, -3),
+      construct: getHandlerCodeFromSlotId(builtYamlOrJson, -2),
       unit: getHandlerCodeFromSlotId(builtYamlOrJson, -1),
     },
   }
