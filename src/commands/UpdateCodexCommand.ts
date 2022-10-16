@@ -1,6 +1,5 @@
 import fs from "fs";
 import axios from "axios";
-import Colors from "colors";
 import Command, { CommandData } from "./Command";
 import Application from "../Application";
 import { CLI } from "../lib/CLI";
@@ -8,7 +7,7 @@ import LuaDocBuilder from "../lib/LuaDocBuilder";
 import Codex from "../types/Codex";
 
 /**
- * A command that initializes a new project
+ * A command that updates the codex
  */
 export default class UpdateCodexCommand implements Command {
   // Sets the values we'll be using on the main CLI

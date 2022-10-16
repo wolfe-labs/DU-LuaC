@@ -8,7 +8,7 @@ import { CLI } from "../lib/CLI";
 import Application from "../Application";
 
 /**
- * A command that initializes a new project
+ * A command that adds a new build (entry-point)
  */
 export default class AddBuildCommand implements Command {
   // Sets the values we'll be using on the main CLI

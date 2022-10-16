@@ -10,7 +10,7 @@ import Project from "../types/Project";
 import Command, { CommandData } from "./Command";
 
 /**
- * A command that initializes a new project
+ * A command that builds the project
  */
 export default class BuildProjectCommand implements Command {
   // Sets the values we'll be using on the main CLI

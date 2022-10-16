@@ -6,7 +6,7 @@ import Command, { CommandData } from "./Command";
 import InitializeProjectCommand from "./InitializeProjectCommand";
 
 /**
- * A command that initializes a new project
+ * A command that creates a new project
  */
 export default class CreateProjectCommand implements Command {
   // Sets the values we'll be using on the main CLI

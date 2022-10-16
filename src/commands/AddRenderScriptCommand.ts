@@ -1,10 +1,9 @@
-import Colors from "colors";
 import CommandManager from "../lib/CommandManager";
 import AddBuildCommand from "./AddBuildCommand";
 import Command, { CommandData } from "./Command";
 
 /**
- * A command that initializes a new project
+ * A command that adds a new Render Script to the project
  */
 export default class AddRenderScriptCommand implements Command {
   // Sets the values we'll be using on the main CLI
