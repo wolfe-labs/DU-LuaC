@@ -6,6 +6,8 @@ Currently, the compiler also has some notion of package management, though not v
 
 The compiler works by scanning and parsing `require` statements. It follows the following naming format: `Package:File`, though you should also be able to directly access a file in your current project by just pointing to the file instead. The `.lua` extension is not required. In cases where you try using `require` with an not found file, you will receive a small warning on your console but it won't fail the build, thus allowing to allow the game's built-in libraries, such as `dkjson`.
 
+To start using the CLI, please refer to our [Getting Started](https://github.com/wolfe-labs/DU-LuaC/wiki/Getting-Started) guide!
+
 ## Features
 
 Here's some extra goodies that you have by using the Lua CLI on your next project:
@@ -71,22 +73,6 @@ A great use case for HTML templates or any other kind of "large" content. You ca
 
 To install the compiler, run `npm i -g @wolfe-labs/du-luac` and it will be installed to your CLI. Make sure you have at least Node v.12 installed as some required features may not be present below that. You can also run this command to update the compiler.
 
-### Development Versions/Branches
-
-If you're feeling adventurous and want to try out a development version of the CLI, you can install it using NPM: `npm i -g https://github.com/wolfe-labs/DU-LuaC.git#wip`
-
-Specific feature branches are also available by changing the `#wip` to the branch name, for example: `#feature/autoconf`
-
-**Please be conscious that by using those versions things are subject to changes and bugs!**
-
-### Setting-up GitHub Actions
-
-By default when your project is created it comes with just an `.gitignore` file, so you aren't forced to use Git by default. In case you do, though, you can setup GitHub Actions so that your creations are automatically built and made available as JSON/YAML config files for your users.
-
-To do this, copy over the [github-actions.yaml](templates/github-actions.yaml) template to your project's `.github/workflows` directory. Inside the file, copy and adjust the appropriate JSON/YAML artifact processing tasks so that your files are made available under the `Actions` tab.
-
-You can also setup different builds for different branches too, just duplicate your file and edit the branches on the top of the file.
-
 ## Usage
 
 After installed, go into your projects directory and run `du-lua create my-first-project` and the interactive CLI will guide you with configuring your `project.json` file. You don't need to change any of the settings on this step.
@@ -98,58 +84,7 @@ You can compile your code using `du-lua build`, optionally passing one of the fo
 | Parameter | Description |
 | --- | --- |
 | `--project=path/to/project.json` | Provides a custom project file to the compiler |
-| `--copy=target-name/build-name` | Automatically copies the specified build's JSON to the clipboard after compiling. If no `target-name` is provided, the first one is used, usually `development` |
-
-### Adding a new Script/Build Entrypoint
-
-In DU-Lua, scripts or "build entry-points" are meant to represent individual Control Unit elements on your project. For example, if you create a project for a new ship, you can have a script that will be used on the main flight seat, another for the cargo bay screens, etc.
-
-To add a new script, run `du-lua script-add your-script-name-here`. This will create a new entry on the `builds` field and also create a new file called `your-script-name-here.lua`, which will also generate corresponding Lua, YAML and JSON files at build-time.
-
-#### What about Render Scripts?
-
-You can easily add a render script to your project by running `du-lua script-add-screen`, followed by a name for your script. At build time it will generate only a single optimized .lua file with all required files built into it.
-
-Please keep in mind render script builds don't include any of the extra stuff such as event handlers or link detection.
-
-To make an existing build into a render script, simply add `"type": "screen"` to the build in the `project.json` file, like so:
-
-```json
-{
-  "name": "Example",
-  "description": "My example script",
-  "sourcePath": "src",
-  "outputPath": "out",
-  "builds": {
-    "MyRenderScript": {
-      "name": "path/to/script",
-      "type": "screen",
-      "slots": {}
-    }
-  },
-  "targets": {
-    "development": {
-      "name": "development",
-      "handleErrors": false,
-      "minify": false
-    }
-  }
-}
-```
-
-### Adding a new Build Target/Output
-
-Before compiling, you also need to specify a Build Target for your project. It is used to define any optimizations that are done, such as minification, error logging and tracing, etc.
-
-To access the interactive configuration tool, just run `du-lua target-add` and follow the instruction, selecting the options that best fit for your use case.
-
-### Listening to Events with Slots
-
-Slots allow you to listen for events on linked elements. For that, you **must** define the events in the same order the elements will be linked to your Control Unit.
-
-For elements that you only want to interact with via Lua, without any events, you can use the Automatic Linking Detection feature to find links by element class or name.
-
-To add a new link to your script `your-script-name-here`, run `du-lua script-link your-script-name-here` and follow the interactive CLI. You will be asked to select an element type at one point, this is only needed if you want to be able to receive events from that element, otherwise select "Generic Element".
+| `--copy=target-name/build-name` | Automatically copies the specified build's JSON to the clipboard after compiling. If no `target-name` is provided, the first one is used, usually `development` |image.png
 
 ### Using external Libraries
 
