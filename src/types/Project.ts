@@ -264,6 +264,14 @@ export default class Project {
   }
 
   /**
+   * Gets a build
+   * @param buildName The name of the build we are getting
+   */
+  getBuild(buildName: string): Build {
+    return this.projectBuilds[buildName];
+  }
+
+  /**
    * Registers a build into the project
    * @param build The build being registered
    */
