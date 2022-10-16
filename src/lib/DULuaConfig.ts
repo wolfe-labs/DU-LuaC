@@ -416,6 +416,13 @@ export class DULuaConfig {
   }
 
   /**
+   * Gets a list of the internal slot names
+   */
+  static getInternalSlotNames(): string[] {
+    return Object.keys(this.internalSlots);
+  }
+
+  /**
    * Creates a config file from a compiler result
    * @param compilerResult 
    */

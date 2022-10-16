@@ -1,5 +1,7 @@
+import ColorScheme from "../lib/ColorScheme";
 import BuildLinkedElement from "./BuildLinkedElement";
 import BuildTarget from "./BuildTarget";
+import ElementTypes from "./ElementType";
 import { SimpleMap } from "./SimpleMap";
 
 export enum BuildType {
@@ -134,6 +136,24 @@ export default class Build {
       name: this.name,
       type: this.type,
       slots,
+    };
+  }
+  
+  /**
+   * 
+   * @param name The link name
+   * @param type The link type
+   */
+  addLinkedElement(name: string, type: string) {
+    // Checks if the type actually exists
+    if (!Object.keys(ElementTypes.getAllTypes()).includes(type)) {
+      throw new Error(`Invalid element type: ${ColorScheme.highlight(type)}`);
+    }
+
+    // Creates the linked element
+    this.linkedElements[name] = {
+      name: name,
+      type: type,
     };
   }
 }
