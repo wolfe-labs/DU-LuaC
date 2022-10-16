@@ -188,12 +188,12 @@ export class DULuaConfig {
       const slot = this.slots.get(handler.filter.slotKey.toString())!;
 
       // Parses the signature
-      const signature = DULuaConfig.parseEventSignature(handler.filter.signature);
+      const signature = handler.filter.signature;
 
       // Now add the handler code
-      handlers[slot.name][signature.name] = {
+      handlers[slot.name][signature] = {
         lua: [
-          handlers[slot.name][signature.name]?.lua || '',
+          handlers[slot.name][signature]?.lua || '',
           handler.code,
         ].join('\n').trim(),
       };
