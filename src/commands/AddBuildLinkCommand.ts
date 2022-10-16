@@ -1,8 +1,7 @@
-import Colors from "colors";
 import Command, { CommandData } from "./Command";
 
 /**
- * A command that initializes a new project
+ * A command that adds a new link to a build
  */
 export default class AddBuildLinkCommand implements Command {
   // Sets the values we'll be using on the main CLI

@@ -1,6 +1,5 @@
 import _ from "lodash";
 import fs, { link } from "fs";
-import Colors from "colors";
 import { CLI } from "../lib/CLI";
 import Project from "../types/Project";
 import Command, { CommandData } from "./Command";
@@ -10,7 +9,7 @@ import path from "path";
 import GitIgnoreBuilder from "../lib/GitIgnoreBuilder";
 
 /**
- * A command that initializes a new project
+ * A command that adds code completion
  */
 export default class AddCodeCompletionCommand implements Command {
   // Sets the values we'll be using on the main CLI
