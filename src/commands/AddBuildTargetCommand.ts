@@ -1,4 +1,3 @@
-import Colors from "colors";
 import prompts from "prompts";
 import { CLI } from "../lib/CLI";
 import ColorScheme from "../lib/ColorScheme";
@@ -7,7 +6,7 @@ import Project from "../types/Project";
 import Command, { CommandData } from "./Command";
 
 /**
- * A command that initializes a new project
+ * A command that adds a new build target
  */
 export default class AddBuildTargetCommand implements Command {
   // Sets the values we'll be using on the main CLI

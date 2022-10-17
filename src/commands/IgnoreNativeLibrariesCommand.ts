@@ -1,11 +1,10 @@
 import _ from "lodash";
-import Colors from "colors";
 import Project from "../types/Project";
 import Command, { CommandData } from "./Command";
 import { CLI } from "../lib/CLI";
 
 /**
- * A command that initializes a new project
+ * A command that ignores DU's built-in libraries from warnings
  */
 export default class IgnoreNativeLibrariesCommand implements Command {
   // Sets the values we'll be using on the main CLI

@@ -8,7 +8,7 @@ import ColorScheme from "../lib/ColorScheme";
 import GitClient from "../lib/GitClient";
 
 /**
- * A command that initializes a new project
+ * A command that imports a library into the project
  */
 export default class ImportLibraryCommand implements Command {
   // Sets the values we'll be using on the main CLI

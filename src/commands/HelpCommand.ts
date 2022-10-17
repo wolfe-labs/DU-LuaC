@@ -4,7 +4,7 @@ import CommandManager from "../lib/CommandManager";
 import Command, { CommandData } from "./Command";
 
 /**
- * A command that initializes a new project
+ * A command that lists all commands
  */
 export default class HelpCommand implements Command {
   // Sets the values we'll be using on the main CLI

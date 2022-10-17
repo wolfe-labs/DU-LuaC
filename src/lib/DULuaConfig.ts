@@ -416,6 +416,13 @@ export class DULuaConfig {
   }
 
   /**
+   * Gets a list of the internal slot names
+   */
+  static getInternalSlotNames(): string[] {
+    return Object.keys(this.internalSlots);
+  }
+
+  /**
    * Creates a config file from a compiler result
    * @param compilerResult 
    */
@@ -510,6 +517,16 @@ export class DULuaConfig {
         
         // Creates an event handler to pass data through to our handler library
         (slot.events || []).forEach((event) => {
+          // Skips a few events that wouldn't be called anyways
+          if ([
+            'player.onStart()',
+            'construct.onStart()',
+            'library.onStart()',
+            'unit.onStart()',
+          ].includes(`${slot.name}.${event.signature}`)) {
+            return;
+          }
+
           // Parses the event
           const parsedEvent = this.parseEventSignature(event.signature);
 
@@ -523,7 +540,7 @@ export class DULuaConfig {
           const code = `${slotName}:triggerEvent(${args.join(',')})`;
 
           // Adds the slot handler
-          autoconf.addUnitConfigHandlerEntry(slot, event, code)
+          autoconf.addUnitConfigHandlerEntry(slot, event, code);
         });
       });
     }

@@ -1,8 +1,13 @@
-import Colors from "colors";
+import { CLI } from "../lib/CLI";
+import prompts from "prompts";
+import ColorScheme from "../lib/ColorScheme";
+import Project from "../types/Project";
 import Command, { CommandData } from "./Command";
+import ElementTypes from "../types/ElementType";
+import { DULuaConfig } from "../lib/DULuaConfig";
 
 /**
- * A command that initializes a new project
+ * A command that adds a new link to a build
  */
 export default class AddBuildLinkCommand implements Command {
   // Sets the values we'll be using on the main CLI
@@ -12,6 +17,80 @@ export default class AddBuildLinkCommand implements Command {
 
   // This is what runs our command
   async run({ args, options }: CommandData) {
-    throw new Error('Not implemented yet!');
+    // Gets our args
+    const [buildName] = args;
+
+    // Gets current project
+    const project = Project.load(process.cwd());
+
+    // Checks if build exists
+    if (!buildName) {
+      CLI.panic(`No build provided!`);
+    }
+    if (!project.hasBuild(buildName)) {
+      CLI.panic(`Invalid build: ${ColorScheme.highlight(buildName)}`);
+    }
+
+    // This is our build
+    const build = project.getBuild(buildName);
+
+    // Those are the linked elements
+    const buildLinkedElements = build.getLinkedElements();
+
+    // Loads element types
+    const elementTypes = ElementTypes.getAllTypesForSelection();
+
+    // Prompts user for info
+    const linkData: {
+      name: string,
+      type: string,
+    } = await prompts([
+      {
+        type: 'text',
+        name: 'name',
+        message: 'Give your element link a name, it will be used as a variable in Lua',
+        validate: (value) => {
+          // If empty
+          if (0 == value.length) {
+            return 'You must give your element a name';
+          }
+
+          // Prevent adding stuff with system names
+          if (DULuaConfig.getInternalSlotNames().includes(value)) {
+            return 'You cannot override a system slot or variable!'
+          }
+
+          // If already exists
+          if (buildLinkedElements.find(
+            (element) => element.name == value
+          )) {
+            return 'A slot with this name already exists!';
+          }
+
+          // Passed
+          return true;
+        }
+      },
+      {
+        type: 'select',
+        name: 'type',
+        message: 'Select your element type, it will be used to filter events from this element',
+        choices: Object.values(elementTypes),
+      }
+    ]);
+
+    // Sanity check
+    if (!linkData || !linkData.name || !linkData.type) {
+      CLI.panic('Cancelled by the user!');
+    }
+    
+    // Adds to list
+    build.addLinkedElement(linkData.name, linkData.type);
+
+    // Saves project
+    project.save();
+
+    // Done
+    CLI.success(`Slot ${ColorScheme.highlight(linkData.name)} added successfully!`);
   }
 }
