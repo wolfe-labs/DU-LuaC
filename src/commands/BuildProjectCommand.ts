@@ -138,7 +138,7 @@ export default class BuildProjectCommand implements Command {
             // Copies to clipboard
             switch (build.type) {
               case BuildType.ControlUnit:
-                clipboard.writeSync(JSON.stringify(configFile.toDUAutoConfig()));
+                clipboard.writeSync(JSON.stringify(configFile.toDUUnitConfig()));
                 break;
               case BuildType.RenderScript:
                 clipboard.writeSync(DULuaConfig.restoreExports(buildTarget.minify ? DULuaConfig.runMinifier(buildResult.output) : buildResult.output, buildTarget.minify));
