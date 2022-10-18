@@ -69,35 +69,6 @@ A great use case for HTML templates or any other kind of "large" content. You ca
 
 - File access is restricted only to the current project, due to security concerns
 
-## Installation
-
-To install the compiler, run `npm i -g @wolfe-labs/du-luac` and it will be installed to your CLI. Make sure you have at least Node v.12 installed as some required features may not be present below that. You can also run this command to update the compiler.
-
-## Usage
-
-After installed, go into your projects directory and run `du-lua create my-first-project` and the interactive CLI will guide you with configuring your `project.json` file. You don't need to change any of the settings on this step.
-
-After done with that, run `du-lua -h` to view a list of available commands.
-
-You can compile your code using `du-lua build`, optionally passing one of the following parameters:
-
-| Parameter | Description |
-| --- | --- |
-| `--project=path/to/project.json` | Provides a custom project file to the compiler |
-| `--copy=target-name/build-name` | Automatically copies the specified build's JSON to the clipboard after compiling. If no `target-name` is provided, the first one is used, usually `development` |image.png
-
-### Using external Libraries
-
-One of the coolest features of the compiler is allowing you to use external libraries in your code! This is possible by running the `du-lua import your-library-path`, where `your-library-path` can be either a directory path to another library or a Git address.
-
-Using a directory path is not recommended as it will require everyone working on your code to have the exact same directory structure around, which can be a little cumbersome. Going for the Git alternative is much easier, as your `project.json` file will keep track of the Git repository of that specific library and any files will be automatically downloaded whenever you build a project with missing libraries.
-
-You can use either the web URL of the repository or go for the recommended way and use the clone URL. For public repositories you can use the HTTPS clone URL and it will work without issues, though with private repositories you will need to have a proper public and private key pair set on your system. You can refer to [this guide from GitHub](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) on how to do it.
-
-Please note you are required to have Git installed to be able to download Git repositories. You can download it [here](https://git-scm.com/download).
-
-**Note:** As of v0.8, libraries that were not created on DU-LuaC (such as repositories containing only "pure" source files) are supported.
-
 ## Inner Workings
 
 There's a bunch of stuff here explaining how the compiler works and what every field in the `project.json` file does. You don't need to read this or understand how it works, since all configuration is now done via interactive CLI.
