@@ -163,6 +163,15 @@ const registeredElementTypes: ElementTypeOrCategoryList = {
       { signature: 'onReceived(channel,message)' },
     ],
   },
+  emitter: {
+    title: 'Emitter',
+    value: 'emitter',
+    class: 'Emitter',
+    luaClass: 'Emitter',
+    events: [
+      { signature: 'onSent(channel,message)' },
+    ],
+  },
   screen: {
     title: 'Screen',
     value: 'screen',
@@ -229,6 +238,18 @@ const registeredElementTypes: ElementTypeOrCategoryList = {
       { signature: 'onElementDestroyed(targetId,itemId)' },
       { signature: 'onHit(targetId,damage)' },
     ]
+  },
+  spaceEngine: {
+      title: "Space Engine",
+      value: "spaceEngine",
+      class: "SpaceEngine",
+      luaClass: "SpaceEngine"
+  },
+  atmoEngine: {
+      title: "Atmo Engine",
+      value: "atmoEngine",
+      class: "AtmosphericEngine",
+      luaClass: "AtmosphericEngine"
   },
   zoneDetector: {
     title: 'Zone Detector',
