@@ -69,153 +69,6 @@ A great use case for HTML templates or any other kind of "large" content. You ca
 
 - File access is restricted only to the current project, due to security concerns
 
-## Inner Workings
-
-There's a bunch of stuff here explaining how the compiler works and what every field in the `project.json` file does. You don't need to read this or understand how it works, since all configuration is now done via interactive CLI.
-
-### The minimalistic `project.json`
-
-The most basic form of the project file is one including only your project name, the `sourcePath` field that indicates which of the directories includes source-code, and the `outputPath` field that points to where built files should go:
-
-```json
-{
-  "name": "@your-github/your-repo",
-  "sourcePath": "src",
-  "outputPath": "out"
-}
-```
-
-It's basic, but since it doesn't include any builds or anything else, it won't do anything.
-
-By adding a build and a target to it, it will be able to properly build:
-
-```json
-{
-  "name": "@your-github/your-repo",
-  "sourcePath": "src",
-  "outputPath": "out",
-  "builds": [
-    {
-      "name": "main",
-      "slots": []
-    }
-  ],
-  "targets": [
-    {
-      "name": "development",
-      "minify": false,
-      "handleErrors": true
-    }
-  ]
-}
-```
-
-With that and a file named `main.lua` in your `src` directory, you should be able to build successfully!
-
-The resulting files will be located under the `out/development` directory, and will be named `main.lua` and `main.json`, with the JSON file being the auto-config one you can simply copy and paste in-game.
-
-### Builds
-
-A build, in a nutshell, can be thought as one isolated part of your project.
-
-For example, if you have a construct with two different Programming Boards, each connected to different Elements and with different scripts (`control_panel.lua` and `storage.lua`), you can do this simply creating the following setup:
-
-```json
-{
-  "builds": [
-    {
-      "name": "control_panel",
-      "title": "Wolfe's Control Panel",
-      "slots": {
-        "screen_main": {
-          "type": "screen"
-        },
-        "door_entrance": {},
-        "db_accesses": {
-          "type": "databank"
-        },
-        "fuel_tank": {
-          "type": "fuelContainer"
-        }
-      }
-    },
-    {
-      "name": "storage",
-      "slots": {
-        "door_storage": {},
-        "container_hub": {}
-      }
-    }
-  ]
-}
-```
-
-The `name` field for each of your `build` entries map directly to the files on your source directory, so if you have a file called `controller.lua`, then your build must be named `controller`.
-
-#### Extra Build Options
-
-These values may be set to `true` in your project file to have extra customization on how the code is output:
-
-- `noEvents` will disable the generation of event handling helpers
-- `noHelpers` will disable the generation of internal compiler helpers such as tools to find links
-- `noPreload` will disable the generation of `package.preload` when a valid require is found, inlines code instead
-- `compress` will enable the compression of your script's main output, which may help for larger scripts but makes them take a few instants to start
-
-Enabling the options above is recommended when dealing with Lua render scripts.
-
-### Targets
-
-A target, in other hand, defines how to output your code after it has been compiled. For example, you might want to have a minified version of your code for deployment in production, while also having a complete version for development or debugging purposes. This is possible by defining targets in your project file:
-
-```json
-{
-  "targets": [
-    {
-      "name": "development",
-      "minify": false,
-      "handleErrors": true
-    },
-    {
-      "name": "production",
-      "minify": true,
-      "handleErrors": false
-    }
-  ]
-}
-```
-
-With that, you don't need to keep building for different targets, as the moment you build your project they will be built automatically for you, each in their own directory.
-
-### Slots
-
-Slots allow you to register elements linked to your control unit (Programming Board, Cockpit, etc) and have them available to your script for direct control and event handling.
-
-They can be configured under each build and **must be in the same sequence as you link the elements in-game**. Failing to do so will link the wrong components and cause errors, potentially including headaches and hair pulling.
-
-**Note:** All slots are now handled internally by the compiler when generating the autoconfig file, with the old `wrap.lua` script not being required anymore.
-
-### Libraries
-
-To link a library to your project, you will need to give it an ID and then add its path to the `libs` field. The ID doesn't need to match the one on the library itself, but will be the one you will use on your code when referring to that library. Relative paths are allowed, so if you have all your projects in the same directory, you can just use `../my-library-directory` as its path and everything will just work!
-
-There's no package management or online listing available as of now, though.
-
-You can check the examples included in this repository to see how this can be implemented, the only requirement is that whenever you use `require` to load a file from another library, you add a `:` between the library ID and the file name. You don't need to include the `.lua` extension, but any file names must be valid files located under the library's corresponding `sourcePath` directory.
-
-#### Disabling errors from the built-in DU libraries
-
-When working with libraries that are built-in on Dual Universe, such as CPML, PL, Event, etc, you might find the compiler throwing out warnings about requires not being found. To counter that, you can mark those libraries as "internal" in your project file, by running `du-lua ignore-native-libraries`, those warnings will be converted to normal status messages and won't show when filtering log output to warning + errors.
-
-### Environment Variables
-
-You can control how verbose the Lua CLI is by using the `LOG_LEVEL` environment variable. It has the following options:
-
-- `debug` - Includes debugging information
-- `info` - Default option, includes normal status information
-- `warning` - Display only warnings and errors
-- `error` - Displays only errors
-- `none` - Completely silences the CLI
-
 ## Post-Mercury (0.30) Support
 
 As of the Mercury (0.30) update, all events now start with the prefix `on`. So, for example, the old `update` event is now `onUpdate`.
@@ -248,21 +101,6 @@ It should look like this:
 
 After doing so the CLI **will not** do any translations anymore and you should be using NQ's event format.
 
-## Ideas and Features
-
-If you have any suggestions on how to improve the compiler, feel free to open an Issue on GitHub! It's always a welcome contribution!
-
-Right now, these are features being planned/implemented:
-
-- [x] Use `package.preload` instead of copying over module contents
-- [x] CLI to ease creation of projects
-- [x] Proper way to import libraries, maybe link to Git repos?
-- [ ] Command to update libraries in a project
-- [ ] Version control, maybe using Git branches/tags?
-- [x] Proper autoconf generator written in JS so we don't need to use any Lua binary
-- [ ] Automated tests
-- [ ] Clean-up code, make it easier to contribute and maintain
-
 ## Special Thanks
 
 Code completion is made possible by the Codex generated by [DU-OpenData](https://github.com/wolfe-labs/DU-OpenData), and is powered by NQ's excellent [Lua API Mockup](https://github.com/dual-universe/lua-examples/tree/main/api-mockup).
@@ -271,7 +109,7 @@ Special thanks to everyone who contributed on ideas for new features, testing an
 
 ## About, Contact, Support, etc.
 
-If you have any questions, feel free to ping me in [Wolfe Labs' Discord server](https://discord.gg/YerENgKDre) and I'll be glad to help!
+If you have any questions, feel free to ping me in [Wolfe Labs' Discord server](https://discord.gg/YerENgKDre) or at the [DU Open Source Initiative server](https://discord.gg/gu4XX34EGz) and I'll be glad to help!
 
 I don't usually respond to friend requests, sometimes don't even notice them, so if you need to contact me **please** use the Discord server. Ping me, it won't hurt :)
 
