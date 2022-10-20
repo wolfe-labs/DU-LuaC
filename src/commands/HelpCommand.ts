@@ -59,5 +59,11 @@ export default class HelpCommand implements Command {
       // Does actual printing
       CLI.print(`  ${commandLine.left}${padding} : ${commandLine.right}`);
     });
+
+    // Empty separator
+    CLI.skip();
+
+    // Link to help
+    CLI.print(`You can find more documentation at our wiki: https://github.com/wolfe-labs/DU-LuaC/wiki/Getting-Started`);
   }
 }

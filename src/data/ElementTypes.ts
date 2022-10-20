@@ -46,6 +46,39 @@ const registeredElementTypes: ElementTypeOrCategoryList = {
       { signature: 'onStressChanged(stress)' },
     ],
   },
+  emitter: {
+    title: 'Emitter',
+    value: 'emitter',
+    class: 'Emitter',
+    luaClass: 'Emitter',
+    events: [
+      { signature: 'onSent(channel,message)' },
+    ],
+  },
+  engine: {
+    title: 'Engine (Any/Generic)',
+    value: 'engine',
+    class: 'FueledEngine',
+    luaClass: 'FueledEngine',
+  },
+  engineAtmo: {
+    title: 'Engine (Atmospheric)',
+    value: 'engineAtmo',
+    class: 'AtmosphericEngine',
+    luaClass: 'AtmosphericEngine',
+  },
+  engineSpace: {
+    title: 'Engine (Space)',
+    value: 'engineSpace',
+    class: 'SpaceEngine',
+    luaClass: 'SpaceEngine',
+  },
+  engineRocket: {
+    title: 'Engine (Rocket)',
+    value: 'engineRocket',
+    class: 'RocketEngine',
+    luaClass: 'RocketEngine',
+  },
   fuelContainer: {
     title: 'Fuel Container (Any/Generic)',
     value: 'fuelContainer',
