@@ -113,6 +113,11 @@ export class DULuaCompiler {
   private currentLineOfCode: number[] = [];
 
   /**
+   * The Lua global used for inlined requires
+   */
+  public static readonly globalInlineRequire = '_REQ';
+
+  /**
    * Creates a new compiler instance
    * @param project The project being compiled
    * @param build The build being compiled
@@ -364,7 +369,7 @@ export class DULuaCompiler {
 
           // Handles inlined requires
           if (!this.build.options.preload) {
-            return `(function()\n${requireResult.sourceCode}\nend)()`;
+            return `${DULuaCompiler.globalInlineRequire}['${requireResult.fullNameWithProject}']`;
           }
 
           // Returns our modified require
@@ -516,16 +521,13 @@ export class DULuaCompiler {
     }
 
     // Those are pre-loaded files we'll add to package.preload
-    const outputPreloads: DULuaCompilerPreload[] = [];
-    if (this.build.options.preload) {
-      outputPreloads.push(...this.requiredFiles.map(
-        (file) => Object.assign({
-          path: file.fullNameWithProject,
-          source: file.sourceCode,
-          output: `package.preload['${file.fullNameWithProject}'] = (function (...) ${file.sourceCode}; end);`,
-        })
-      ));
-    }
+    const outputPreloads: DULuaCompilerPreload[] = this.requiredFiles.map(
+      (file) => Object.assign({
+        path: file.fullNameWithProject,
+        source: file.sourceCode,
+        output: `package.preload['${file.fullNameWithProject}'] = (function (...) ${file.sourceCode}; end);`,
+      })
+    );
 
     // Done
     return {

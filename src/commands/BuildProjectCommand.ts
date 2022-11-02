@@ -96,7 +96,7 @@ export default class BuildProjectCommand implements Command {
         // Exports our Lua file (if needed)
         if (exportFormats.LUA) {
           // Generates output Lua
-          const output = DULuaConfig.restoreExports(buildTarget.minify ? DULuaConfig.runMinifier(buildResult.output) : buildResult.output, buildTarget.minify);
+          const output = configFile.getMainCode();
           fs.writeFileSync(`${buildOutputFile}.lua`, output);
 
           // Measures output size when Render Script
