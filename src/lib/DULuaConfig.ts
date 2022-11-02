@@ -531,7 +531,7 @@ export class DULuaConfig {
     if (compilerResult.build.options.preload) {
       // Formats our preload as a proper Lua preload
       const preloadCode = preloads.map(
-        (preload) => `${DULuaCompiler.globalInlineRequire}['${preload.path}']=(function()\n${preload.code}\nend)`
+        (preload) => `package.preload['${preload.path}']=(function()\n${preload.code}\nend)`
       ).join('\n');
 
       // Adds the preloads
@@ -609,7 +609,7 @@ export class DULuaConfig {
       );
     } else if (buildTarget.minify) {
       // Minifies code if needed
-      mainCode = this.runMinifier(compilerResult.output);
+      mainCode = this.runMinifier(mainCode);
     }
 
     // This is the entrypoint

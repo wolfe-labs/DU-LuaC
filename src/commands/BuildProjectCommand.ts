@@ -141,7 +141,7 @@ export default class BuildProjectCommand implements Command {
                 clipboard.writeSync(JSON.stringify(configFile.toDUUnitConfig()));
                 break;
               case BuildType.RenderScript:
-                clipboard.writeSync(DULuaConfig.restoreExports(buildTarget.minify ? DULuaConfig.runMinifier(buildResult.output) : buildResult.output, buildTarget.minify));
+                clipboard.writeSync(configFile.getMainCode());
                 break;
             }
 
