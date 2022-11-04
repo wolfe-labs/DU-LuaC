@@ -6,6 +6,8 @@ Currently, the compiler also has some notion of package management, though not v
 
 The compiler works by scanning and parsing `require` statements. It follows the following naming format: `Package:File`, though you should also be able to directly access a file in your current project by just pointing to the file instead. The `.lua` extension is not required. In cases where you try using `require` with an not found file, you will receive a small warning on your console but it won't fail the build, thus allowing to allow the game's built-in libraries, such as `dkjson`.
 
+To start using the CLI, please refer to our [Getting Started](https://github.com/wolfe-labs/DU-LuaC/wiki/Getting-Started) guide!
+
 ## Features
 
 Here's some extra goodies that you have by using the Lua CLI on your next project:
@@ -67,248 +69,6 @@ A great use case for HTML templates or any other kind of "large" content. You ca
 
 - File access is restricted only to the current project, due to security concerns
 
-## Installation
-
-To install the compiler, run `npm i -g @wolfe-labs/du-luac` and it will be installed to your CLI. Make sure you have at least Node v.12 installed as some required features may not be present below that. You can also run this command to update the compiler.
-
-### Development Versions/Branches
-
-If you're feeling adventurous and want to try out a development version of the CLI, you can install it using NPM: `npm i -g https://github.com/wolfe-labs/DU-LuaC.git#wip`
-
-Specific feature branches are also available by changing the `#wip` to the branch name, for example: `#feature/autoconf`
-
-**Please be conscious that by using those versions things are subject to changes and bugs!**
-
-### Setting-up GitHub Actions
-
-By default when your project is created it comes with just an `.gitignore` file, so you aren't forced to use Git by default. In case you do, though, you can setup GitHub Actions so that your creations are automatically built and made available as JSON/YAML config files for your users.
-
-To do this, copy over the [github-actions.yaml](templates/github-actions.yaml) template to your project's `.github/workflows` directory. Inside the file, copy and adjust the appropriate JSON/YAML artifact processing tasks so that your files are made available under the `Actions` tab.
-
-You can also setup different builds for different branches too, just duplicate your file and edit the branches on the top of the file.
-
-## Usage
-
-After installed, go into your projects directory and run `du-lua create my-first-project` and the interactive CLI will guide you with configuring your `project.json` file. You don't need to change any of the settings on this step.
-
-After done with that, run `du-lua -h` to view a list of available commands.
-
-You can compile your code using `du-lua build`, optionally passing one of the following parameters:
-
-| Parameter | Description |
-| --- | --- |
-| `--project=path/to/project.json` | Provides a custom project file to the compiler |
-| `--copy=target-name/build-name` | Automatically copies the specified build's JSON to the clipboard after compiling. If no `target-name` is provided, the first one is used, usually `development` |
-
-### Adding a new Script/Build Entrypoint
-
-In DU-Lua, scripts or "build entry-points" are meant to represent individual Control Unit elements on your project. For example, if you create a project for a new ship, you can have a script that will be used on the main flight seat, another for the cargo bay screens, etc.
-
-To add a new script, run `du-lua script-add your-script-name-here`. This will create a new entry on the `builds` field and also create a new file called `your-script-name-here.lua`, which will also generate corresponding Lua, YAML and JSON files at build-time.
-
-#### What about Render Scripts?
-
-You can easily add a render script to your project by running `du-lua script-add-screen`, followed by a name for your script. At build time it will generate only a single optimized .lua file with all required files built into it.
-
-Please keep in mind render script builds don't include any of the extra stuff such as event handlers or link detection.
-
-To make an existing build into a render script, simply add `"type": "screen"` to the build in the `project.json` file, like so:
-
-```json
-{
-  "name": "Example",
-  "description": "My example script",
-  "sourcePath": "src",
-  "outputPath": "out",
-  "builds": {
-    "MyRenderScript": {
-      "name": "path/to/script",
-      "type": "screen",
-      "slots": {}
-    }
-  },
-  "targets": {
-    "development": {
-      "name": "development",
-      "handleErrors": false,
-      "minify": false
-    }
-  }
-}
-```
-
-### Adding a new Build Target/Output
-
-Before compiling, you also need to specify a Build Target for your project. It is used to define any optimizations that are done, such as minification, error logging and tracing, etc.
-
-To access the interactive configuration tool, just run `du-lua target-add` and follow the instruction, selecting the options that best fit for your use case.
-
-### Listening to Events with Slots
-
-Slots allow you to listen for events on linked elements. For that, you **must** define the events in the same order the elements will be linked to your Control Unit.
-
-For elements that you only want to interact with via Lua, without any events, you can use the Automatic Linking Detection feature to find links by element class or name.
-
-To add a new link to your script `your-script-name-here`, run `du-lua script-link your-script-name-here` and follow the interactive CLI. You will be asked to select an element type at one point, this is only needed if you want to be able to receive events from that element, otherwise select "Generic Element".
-
-### Using external Libraries
-
-One of the coolest features of the compiler is allowing you to use external libraries in your code! This is possible by running the `du-lua import your-library-path`, where `your-library-path` can be either a directory path to another library or a Git address.
-
-Using a directory path is not recommended as it will require everyone working on your code to have the exact same directory structure around, which can be a little cumbersome. Going for the Git alternative is much easier, as your `project.json` file will keep track of the Git repository of that specific library and any files will be automatically downloaded whenever you build a project with missing libraries.
-
-You can use either the web URL of the repository or go for the recommended way and use the clone URL. For public repositories you can use the HTTPS clone URL and it will work without issues, though with private repositories you will need to have a proper public and private key pair set on your system. You can refer to [this guide from GitHub](https://docs.github.com/pt/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) on how to do it.
-
-Please note you are required to have Git installed to be able to download Git repositories. You can download it [here](https://git-scm.com/download).
-
-**Note:** As of v0.8, libraries that were not created on DU-LuaC (such as repositories containing only "pure" source files) are supported.
-
-## Inner Workings
-
-There's a bunch of stuff here explaining how the compiler works and what every field in the `project.json` file does. You don't need to read this or understand how it works, since all configuration is now done via interactive CLI.
-
-### The minimalistic `project.json`
-
-The most basic form of the project file is one including only your project name, the `sourcePath` field that indicates which of the directories includes source-code, and the `outputPath` field that points to where built files should go:
-
-```json
-{
-  "name": "@your-github/your-repo",
-  "sourcePath": "src",
-  "outputPath": "out"
-}
-```
-
-It's basic, but since it doesn't include any builds or anything else, it won't do anything.
-
-By adding a build and a target to it, it will be able to properly build:
-
-```json
-{
-  "name": "@your-github/your-repo",
-  "sourcePath": "src",
-  "outputPath": "out",
-  "builds": [
-    {
-      "name": "main",
-      "slots": []
-    }
-  ],
-  "targets": [
-    {
-      "name": "development",
-      "minify": false,
-      "handleErrors": true
-    }
-  ]
-}
-```
-
-With that and a file named `main.lua` in your `src` directory, you should be able to build successfully!
-
-The resulting files will be located under the `out/development` directory, and will be named `main.lua` and `main.json`, with the JSON file being the auto-config one you can simply copy and paste in-game.
-
-### Builds
-
-A build, in a nutshell, can be thought as one isolated part of your project.
-
-For example, if you have a construct with two different Programming Boards, each connected to different Elements and with different scripts (`control_panel.lua` and `storage.lua`), you can do this simply creating the following setup:
-
-```json
-{
-  "builds": [
-    {
-      "name": "control_panel",
-      "slots": {
-        "screen_main": {
-          "type": "screen"
-        },
-        "door_entrance": {},
-        "db_accesses": {
-          "type": "databank"
-        },
-        "fuel_tank": {
-          "type": "fuelContainer"
-        }
-      }
-    },
-    {
-      "name": "storage",
-      "slots": {
-        "door_storage": {},
-        "container_hub": {}
-      }
-    }
-  ]
-}
-```
-
-The `name` field for each of your `build` entries map directly to the files on your source directory, so if you have a file called `controller.lua`, then your build must be named `controller`.
-
-#### Extra Build Options
-
-These values may be set to `true` in your project file to have extra customization on how the code is output:
-
-- `noEvents` will disable the generation of event handling helpers
-- `noHelpers` will disable the generation of internal compiler helpers such as tools to find links
-- `noPreload` will disable the generation of `package.preload` when a valid require is found, inlines code instead
-- `compress` will enable the compression of your script's main output, which may help for larger scripts but makes them take a few instants to start
-
-Enabling the options above is recommended when dealing with Lua render scripts.
-
-### Targets
-
-A target, in other hand, defines how to output your code after it has been compiled. For example, you might want to have a minified version of your code for deployment in production, while also having a complete version for development or debugging purposes. This is possible by defining targets in your project file:
-
-```json
-{
-  "targets": [
-    {
-      "name": "development",
-      "minify": false,
-      "handleErrors": true
-    },
-    {
-      "name": "production",
-      "minify": true,
-      "handleErrors": false
-    }
-  ]
-}
-```
-
-With that, you don't need to keep building for different targets, as the moment you build your project they will be built automatically for you, each in their own directory.
-
-### Slots
-
-Slots allow you to register elements linked to your control unit (Programming Board, Cockpit, etc) and have them available to your script for direct control and event handling.
-
-They can be configured under each build and **must be in the same sequence as you link the elements in-game**. Failing to do so will link the wrong components and cause errors, potentially including headaches and hair pulling.
-
-**Note:** All slots are now handled internally by the compiler when generating the autoconfig file, with the old `wrap.lua` script not being required anymore.
-
-### Libraries
-
-To link a library to your project, you will need to give it an ID and then add its path to the `libs` field. The ID doesn't need to match the one on the library itself, but will be the one you will use on your code when referring to that library. Relative paths are allowed, so if you have all your projects in the same directory, you can just use `../my-library-directory` as its path and everything will just work!
-
-There's no package management or online listing available as of now, though.
-
-You can check the examples included in this repository to see how this can be implemented, the only requirement is that whenever you use `require` to load a file from another library, you add a `:` between the library ID and the file name. You don't need to include the `.lua` extension, but any file names must be valid files located under the library's corresponding `sourcePath` directory.
-
-#### Disabling errors from the built-in DU libraries
-
-When working with libraries that are built-in on Dual Universe, such as CPML, PL, Event, etc, you might find the compiler throwing out warnings about requires not being found. To counter that, you can mark those libraries as "internal" in your project file, by running `du-lua ignore-native-libraries`, those warnings will be converted to normal status messages and won't show when filtering log output to warning + errors.
-
-### Environment Variables
-
-You can control how verbose the Lua CLI is by using the `LOG_LEVEL` environment variable. It has the following options:
-
-- `debug` - Includes debugging information
-- `info` - Default option, includes normal status information
-- `warning` - Display only warnings and errors
-- `error` - Displays only errors
-- `none` - Completely silences the CLI
-
 ## Post-Mercury (0.30) Support
 
 As of the Mercury (0.30) update, all events now start with the prefix `on`. So, for example, the old `update` event is now `onUpdate`.
@@ -341,21 +101,6 @@ It should look like this:
 
 After doing so the CLI **will not** do any translations anymore and you should be using NQ's event format.
 
-## Ideas and Features
-
-If you have any suggestions on how to improve the compiler, feel free to open an Issue on GitHub! It's always a welcome contribution!
-
-Right now, these are features being planned/implemented:
-
-- [x] Use `package.preload` instead of copying over module contents
-- [x] CLI to ease creation of projects
-- [x] Proper way to import libraries, maybe link to Git repos?
-- [ ] Command to update libraries in a project
-- [ ] Version control, maybe using Git branches/tags?
-- [x] Proper autoconf generator written in JS so we don't need to use any Lua binary
-- [ ] Automated tests
-- [ ] Clean-up code, make it easier to contribute and maintain
-
 ## Special Thanks
 
 Code completion is made possible by the Codex generated by [DU-OpenData](https://github.com/wolfe-labs/DU-OpenData), and is powered by NQ's excellent [Lua API Mockup](https://github.com/dual-universe/lua-examples/tree/main/api-mockup).
@@ -364,7 +109,7 @@ Special thanks to everyone who contributed on ideas for new features, testing an
 
 ## About, Contact, Support, etc.
 
-If you have any questions, feel free to ping me in [Wolfe Labs' Discord server](https://discord.gg/YerENgKDre) and I'll be glad to help!
+If you have any questions, feel free to ping me in [Wolfe Labs' Discord server](https://discord.gg/YerENgKDre) or at the [DU Open Source Initiative server](https://discord.gg/gu4XX34EGz) and I'll be glad to help!
 
 I don't usually respond to friend requests, sometimes don't even notice them, so if you need to contact me **please** use the Discord server. Ping me, it won't hurt :)
 
