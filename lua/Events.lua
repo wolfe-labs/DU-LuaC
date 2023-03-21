@@ -96,7 +96,7 @@ end
 
 -- Removes all events from registered event handlers
 library.clearEventsHandlers = function()
-    for _,obj in triggerables do
+    for _,obj in pairs(triggerables) do
         if obj and obj.clearEvents then
             obj:clearEvents()
         end
