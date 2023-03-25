@@ -1,9 +1,14 @@
+local triggerables = {}
+
 -- Adds event handling to an object's instance
 function library.addEventHandlers(obj)
   -- Does nothing when obj is null or already has events
   if (not obj) or (obj.onEvent and obj.triggerEvent) then
     return false
   end
+
+  -- Track objects that have event handler support for later use
+  triggerables[#triggerables+1] = obj
 
   -- Some types, this will be minified and used later
   local T_TABLE, T_FUNCTION, T_THREAD = 'table', 'function', 'thread'
@@ -66,6 +71,11 @@ function library.addEventHandlers(obj)
     end
   end)
 
+  -- Removes all events
+  obj.clearAllEvents = (function(self)
+    eventHandlers = {}
+  end)
+
   -- Triggers event
   obj.triggerEvent = (function (self, event, ...)
     local handlers = eventHandlers[event]
@@ -83,4 +93,14 @@ function library.addEventHandlers(obj)
 
   -- Returns true to indicate success
   return true
+end
+
+-- Removes all events from registered event handlers
+function library.clearAllEventHandlers()
+    for i=1,#triggerables do
+      local obj = triggerables[i]
+      if obj and obj.clearAllEvents then
+          obj:clearAllEvents()
+      end
+    end
 end
