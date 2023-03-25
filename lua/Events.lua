@@ -7,6 +7,7 @@ function library.addEventHandlers(obj)
     return false
   end
 
+  -- Track objects that have event handler support for later use
   triggerables[#triggerables+1] = obj
 
   -- Some types, this will be minified and used later
@@ -71,7 +72,7 @@ function library.addEventHandlers(obj)
   end)
 
   -- Removes all events
-  obj.clearEvents = (function(self)
+  obj.clearAllEvents = (function(self)
     eventHandlers = {}
   end)
 
@@ -95,10 +96,11 @@ function library.addEventHandlers(obj)
 end
 
 -- Removes all events from registered event handlers
-library.clearEventsHandlers = function()
-    for _,obj in pairs(triggerables) do
-        if obj and obj.clearEvents then
-            obj:clearEvents()
-        end
+function library.clearAllEventHandlers()
+    for i=1,#triggerables do
+      local obj = triggerables[i]
+      if obj and obj.clearAllEvents then
+          obj:clearAllEvents()
+      end
     end
 end
