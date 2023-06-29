@@ -5477,11 +5477,6 @@ function FueledEngine.getWarmupTime() end
 function FueledEngine.getT50() end
 
 
----@class null
-local null = {}
-
-
-
 ---@class Gyro
 local Gyro = {}
 --- Show the element widget in the in-game widget stack
