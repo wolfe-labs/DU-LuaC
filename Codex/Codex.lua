@@ -41,6 +41,10 @@ function Adjustor.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Adjustor.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Adjustor.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Adjustor.getMass() end
@@ -48,6 +52,16 @@ function Adjustor.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Adjustor.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Adjustor.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Adjustor.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -112,6 +126,14 @@ function Adjustor.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function Adjustor.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Adjustor.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Adjustor.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -150,11 +172,12 @@ function Adjustor.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
----@param ignore boolean: True to ignore the default engine tags
+---@param ignore boolean True to ignore the default engine tags
+---@return boolean True if the tags have been applied, false if they have not
 function Adjustor.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
----@return integer if the engine ignores default engine tags
+---@return boolean True if the engine ignores default engine tags, false if not
 function Adjustor.isIgnoringTags() end
 
 --- Start the adjustor at full power (works only when run inside a piloting controller)
@@ -164,7 +187,7 @@ function Adjustor.activate() end
 function Adjustor.deactivate() end
 
 --- Checks if the adjustor is active
----@return integer The adjustor state, 1 if active
+---@return boolean True when the adjustor is on, false otherwise
 function Adjustor.isActive() end
 
 ---@deprecated Adjustor.getState() is deprecated, use Adjustor.isActive().
@@ -275,6 +298,10 @@ function Airbrake.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Airbrake.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Airbrake.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Airbrake.getMass() end
@@ -282,6 +309,16 @@ function Airbrake.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Airbrake.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Airbrake.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Airbrake.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -346,6 +383,14 @@ function Airbrake.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function Airbrake.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Airbrake.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Airbrake.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -384,11 +429,12 @@ function Airbrake.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
----@param ignore boolean: True to ignore the default engine tags
+---@param ignore boolean True to ignore the default engine tags
+---@return boolean True if the tags have been applied, false if they have not
 function Airbrake.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
----@return integer if the engine ignores default engine tags
+---@return boolean True if the engine ignores default engine tags, false if not
 function Airbrake.isIgnoringTags() end
 
 --- Start the brake at full power (works only when run inside a cockpit or under remote control)
@@ -398,7 +444,7 @@ function Airbrake.activate() end
 function Airbrake.deactivate() end
 
 --- Checks if the brake is active
----@return integer 
+---@return boolean True if the brake is on, false otherwise
 function Airbrake.isActive() end
 
 ---@deprecated BrakeEngine.getState() is deprecated, use BrakeEngine.isActive().
@@ -521,6 +567,10 @@ function Airfoil.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Airfoil.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Airfoil.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Airfoil.getMass() end
@@ -528,6 +578,16 @@ function Airfoil.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Airfoil.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Airfoil.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Airfoil.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -592,6 +652,14 @@ function Airfoil.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function Airfoil.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Airfoil.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Airfoil.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -630,11 +698,12 @@ function Airfoil.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
----@param ignore boolean: True to ignore the default engine tags
+---@param ignore boolean True to ignore the default engine tags
+---@return boolean True if the tags have been applied, false if they have not
 function Airfoil.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
----@return integer if the engine ignores default engine tags
+---@return boolean True if the engine ignores default engine tags, false if not
 function Airfoil.isIgnoringTags() end
 
 --- Returns the current lift of the airfoil
@@ -707,7 +776,7 @@ function Airfoil.getWorldTorqueAxis() end
 function Airfoil.torqueAxis() end
 
 --- Checks if the airfoil is stalled
----@return integer 1 if the airfoil is stalled
+---@return boolean True if the airfoil is stalled, false otherwise
 function Airfoil.isStalled() end
 
 --- Returns the airfoil stall angle
@@ -804,6 +873,10 @@ function AntiGravityGenerator.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function AntiGravityGenerator.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function AntiGravityGenerator.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function AntiGravityGenerator.getMass() end
@@ -811,6 +884,16 @@ function AntiGravityGenerator.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function AntiGravityGenerator.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function AntiGravityGenerator.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function AntiGravityGenerator.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -875,6 +958,14 @@ function AntiGravityGenerator.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function AntiGravityGenerator.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function AntiGravityGenerator.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function AntiGravityGenerator.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -909,7 +1000,7 @@ function AntiGravityGenerator.activate() end
 function AntiGravityGenerator.deactivate() end
 
 --- Returns the state of activation of the anti-gravity generator
----@return integer 1 when the anti-gravity generator is started, 0 otherwise
+---@return boolean True if the anti-gravity generator is started, false otherwise
 function AntiGravityGenerator.isActive() end
 
 ---@deprecated AntiGravityGenerator.getState() is deprecated, use AntiGravityGenerator.isActive() instead.
@@ -993,6 +1084,10 @@ function AtmosphericEngine.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function AtmosphericEngine.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function AtmosphericEngine.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function AtmosphericEngine.getMass() end
@@ -1000,6 +1095,16 @@ function AtmosphericEngine.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function AtmosphericEngine.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function AtmosphericEngine.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function AtmosphericEngine.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -1064,6 +1169,14 @@ function AtmosphericEngine.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function AtmosphericEngine.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function AtmosphericEngine.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function AtmosphericEngine.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -1102,11 +1215,12 @@ function AtmosphericEngine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
----@param ignore boolean: True to ignore the default engine tags
+---@param ignore boolean True to ignore the default engine tags
+---@return boolean True if the tags have been applied, false if they have not
 function AtmosphericEngine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
----@return integer if the engine ignores default engine tags
+---@return boolean True if the engine ignores default engine tags, false if not
 function AtmosphericEngine.isIgnoringTags() end
 
 --- Start the engine at full power (works only when run inside a cockpit or under remote control)
@@ -1116,7 +1230,7 @@ function AtmosphericEngine.activate() end
 function AtmosphericEngine.deactivate() end
 
 --- Checks if the engine is active
----@return integer 1 when the engine is on
+---@return boolean True if the engine is on, false otherwise
 function AtmosphericEngine.isActive() end
 
 ---@deprecated FueledEngine.getState() is deprecated, use FueledEngine.isActive().
@@ -1161,7 +1275,7 @@ function AtmosphericEngine.getCurrentMaxThrust() end
 function AtmosphericEngine.getMaxThrustEfficiency() end
 
 --- Checks if the torque generation is enabled on the engine
----@return integer 1 if the torque is enabled on the engine
+---@return boolean True if the torque is enabled on the engine, false otherwise
 function AtmosphericEngine.isTorqueEnabled() end
 
 --- Sets the torque generation state on the engine
@@ -1191,7 +1305,7 @@ function AtmosphericEngine.getWorldTorqueAxis() end
 function AtmosphericEngine.torqueAxis() end
 
 --- Checks if the engine out of fuel
----@return integer 1 when there is no fuel left, 0 otherwise
+---@return boolean True if the engine is out of fuel, false otherwise
 function AtmosphericEngine.isOutOfFuel() end
 
 --- Returns the item ID of the fuel currently used by the engine
@@ -1203,7 +1317,7 @@ function AtmosphericEngine.getFuelId() end
 function AtmosphericEngine.getFuelTankId() end
 
 --- Checks if the engine linked to a functional Fuel Tank (not broken or colliding)?
----@return integer 1 when the linked tank is functional, 0 otherwise
+---@return boolean True if the linked tank is functional, false otherwise
 function AtmosphericEngine.hasFunctionalFuelTank() end
 
 ---@deprecated FueledEngine.hasBrokenFuelTank() is deprecated, use FueledEngine.hasFunctionalFuelTank().
@@ -1277,6 +1391,10 @@ function BaseShieldGenerator.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function BaseShieldGenerator.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function BaseShieldGenerator.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function BaseShieldGenerator.getMass() end
@@ -1284,6 +1402,16 @@ function BaseShieldGenerator.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function BaseShieldGenerator.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function BaseShieldGenerator.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function BaseShieldGenerator.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -1348,6 +1476,14 @@ function BaseShieldGenerator.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function BaseShieldGenerator.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function BaseShieldGenerator.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function BaseShieldGenerator.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -1385,10 +1521,7 @@ function BaseShieldGenerator.deactivate() end
 function BaseShieldGenerator.toggle() end
 
 --- Returns the activation state of the shield
----@return integer The state of the shield; 1 when the shield is active, 0 otherwise
-function BaseShieldGenerator.isActive() end
-
----@deprecated BaseShieldGenerator.getState() is deprecated, use BaseShieldGenerator.isActive() instead.
+---@return integer True when the shield is active, false otherwise
 function BaseShieldGenerator.getState() end
 
 --- Returns the current hitpoints of the shield
@@ -1408,7 +1541,7 @@ function BaseShieldGenerator.getResistances() end
 ---@param electromagnetic number Electromagnetic damage resistance
 ---@param kinetic number Kinetic damage resistance
 ---@param thermic number Thermic damage resistance
----@return integer 1 if resistance was distributed, 0 if an error occurred
+---@return boolean True if resistance was distributed, false if an error occurred
 function BaseShieldGenerator.setResistances(antimatter, electromagnetic, kinetic, thermic) end
 
 --- Returns time after which adjusting resistances is possible again
@@ -1444,7 +1577,7 @@ function BaseShieldGenerator.getStressHitpoints() end
 function BaseShieldGenerator.getStressHitpointsRaw() end
 
 --- Returns whether the base shield is currently in lockdown
----@return integer The base shield lockdown state; 1 when the shield is in lockdown, 0 otherwise
+---@return boolean True if the base shield is in lockdown, false otherwise
 function BaseShieldGenerator.inLockdown() end
 
 --- Returns the remaining time of the base shield lockdown
@@ -1457,11 +1590,11 @@ function BaseShieldGenerator.getLockdownExitTime() end
 
 --- Set hour since midnight for the preferred lockdown exit
 ---@param hour integer Preferred lockdown exit hour UTC (0-23)
----@return integer 1 if lockdown exit was set, 0 if an error occurred
+---@return boolean True if lockdown exit was set, false if an error occurred
 function BaseShieldGenerator.setLockdownExitTime(hour) end
 
 --- Emitted when we started or stopped the shield generator
----@param active integer 1 if the element was activated, 0 otherwise
+---@param active boolean True if the element was activated, false otherwise
 ---@type Event
 BaseShieldGenerator.onToggled = Event:new()
 
@@ -1549,6 +1682,10 @@ function BrakeEngine.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function BrakeEngine.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function BrakeEngine.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function BrakeEngine.getMass() end
@@ -1556,6 +1693,16 @@ function BrakeEngine.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function BrakeEngine.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function BrakeEngine.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function BrakeEngine.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -1620,6 +1767,14 @@ function BrakeEngine.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function BrakeEngine.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function BrakeEngine.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function BrakeEngine.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -1658,11 +1813,12 @@ function BrakeEngine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
----@param ignore boolean: True to ignore the default engine tags
+---@param ignore boolean True to ignore the default engine tags
+---@return boolean True if the tags have been applied, false if they have not
 function BrakeEngine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
----@return integer if the engine ignores default engine tags
+---@return boolean True if the engine ignores default engine tags, false if not
 function BrakeEngine.isIgnoringTags() end
 
 --- Start the brake at full power (works only when run inside a cockpit or under remote control)
@@ -1672,7 +1828,7 @@ function BrakeEngine.activate() end
 function BrakeEngine.deactivate() end
 
 --- Checks if the brake is active
----@return integer 
+---@return boolean True if the brake is on, false otherwise
 function BrakeEngine.isActive() end
 
 ---@deprecated BrakeEngine.getState() is deprecated, use BrakeEngine.isActive().
@@ -1770,8 +1926,12 @@ function Construct.getOwner() end
 ---@return integer The owner entity table with fields {[int] id, [bool] isOrganization} describing the owner. Use system.getPlayerName(id) and system.getOrganization(id) to retrieve info about it
 function Construct.getCreator() end
 
+--- Returns the local id of the current active schematic container. nil if none has been declared
+---@return interger local id of the current active schematic container
+function Construct.getSchematicContainerId() end
+
 --- Checks if the construct is currently warping
----@return integer 
+---@return boolean True if the construct is currently warping, false otherwise
 function Construct.isWarping() end
 
 --- Returns the current warp state
@@ -1779,7 +1939,7 @@ function Construct.isWarping() end
 function Construct.getWarpState() end
 
 --- Checks if the construct is in PvP zone
----@return integer 
+---@return boolean True if the construct is in PVP zone, false otherwise
 function Construct.isInPvPZone() end
 
 --- Returns the distance between the construct and the nearest safe zone
@@ -1793,6 +1953,10 @@ function Construct.getPvPTimer() end
 --- Returns the mass of the construct
 ---@return number 
 function Construct.getMass() end
+
+--- Returns the total mass of the construct (voxels, elements, avatars and docked constructs)
+---@return number total mass of the construct in kilograms
+function Construct.getTotalMass() end
 
 --- Returns the inertial mass of the construct, calculated as 1/3 of the trace of the inertial tensor
 ---@return number 
@@ -2021,12 +2185,12 @@ function Construct.getPlayersOnBoardInVRStation() end
 
 --- Checks if the given player is on board in the construct
 ---@param id integer The player id
----@return integer 
+---@return boolean True if the given player is on board, false otherwise
 function Construct.isPlayerBoarded(id) end
 
 --- Returns 1 if the given player is boarded to the construct inside a VR Station
 ---@param id integer The player id
----@return integer 
+---@return boolean True if the given player is boarded to the construct, false otherwise
 function Construct.isPlayerBoardedInVRStation(id) end
 
 --- Returns the mass of the given player or surrogate if it is on board the construct
@@ -2045,7 +2209,7 @@ function Construct.getDockedConstructs() end
 
 --- Checks if the given construct is docked to the construct
 ---@param id integer The construct id
----@return integer 
+---@return boolean True if the given construct is docked, false otherwise
 function Construct.isConstructDocked(id) end
 
 --- Returns the mass of the given construct if it is docked to the construct
@@ -2055,7 +2219,7 @@ function Construct.getDockedConstructMass(id) end
 
 --- Sets the docking mode
 ---@param mode integer The docking mode (Manual = 1, Automatic = 2, Semi-automatic = 3)
----@return integer 
+---@return boolean True if the operation is a success, false otherwise
 function Construct.setDockingMode(mode) end
 
 --- Returns the current docking mode
@@ -2064,26 +2228,26 @@ function Construct.getDockingMode() end
 
 --- Sends a request to dock to the given construct. Limited to piloting controllers
 ---@param id integer The parent construct id
----@return integer 
+---@return boolean True if the operation is a success, false otherwise
 function Construct.dock(id) end
 
 --- Sends a request to undock the construct. Limited to piloting controllers
----@return integer 
+---@return boolean True if the operation is a success, false otherwise
 function Construct.undock() end
 
 --- Sends a request to deboard a player or surrogate with the given id
 ---@param id integer The player id
----@return integer 
+---@return boolean if the operation is a success, false otherwise
 function Construct.forceDeboard(id) end
 
 --- Sends a request to undock a construct with the given id
 ---@param id integer The construct id
----@return integer 
+---@return boolean if the operation is a success, false otherwise
 function Construct.forceUndock(id) end
 
 --- Sends a request to interrupt the surrogate session of a player with the given id
 ---@param id integer The player id
----@return integer 
+---@return boolean if the operation is a success, false otherwise
 function Construct.forceInterruptVRSession(id) end
 
 --- Emitted when the construct becomes docked
@@ -2112,7 +2276,7 @@ Construct.onVRStationEntered = Event:new()
 Construct.onConstructDocked = Event:new()
 
 --- Emitted when the PvP timer started or elapsed
----@param active boolean 1 if the timer started, false when the timer elapsed
+---@param active boolean True if the timer started, false when the timer elapsed
 ---@type Event
 Construct.onPvPTimer = Event:new()
 
@@ -2160,6 +2324,10 @@ function Container.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Container.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Container.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Container.getMass() end
@@ -2167,6 +2335,16 @@ function Container.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Container.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Container.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Container.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -2230,6 +2408,14 @@ function Container.getWorldRight() end
 --- Returns the forward direction vector of the element in world coordinates
 ---@return table Forward direction vector of the Element in world coordinates
 function Container.getWorldForward() end
+
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Container.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Container.getOutPlugs() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -2340,6 +2526,10 @@ function ControlUnit.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function ControlUnit.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function ControlUnit.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function ControlUnit.getMass() end
@@ -2347,6 +2537,16 @@ function ControlUnit.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function ControlUnit.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function ControlUnit.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function ControlUnit.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -2410,6 +2610,14 @@ function ControlUnit.getWorldRight() end
 --- Returns the forward direction vector of the element in world coordinates
 ---@return table Forward direction vector of the Element in world coordinates
 function ControlUnit.getWorldForward() end
+
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function ControlUnit.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function ControlUnit.getOutPlugs() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -2504,11 +2712,11 @@ function ControlUnit.getAtmosphereDensity() end
 function ControlUnit.getClosestPlanetInfluence() end
 
 --- Checks if the control unit is protected by DRM
----@return integer 1 if the control unit is protected by DRM
+---@return boolean True if the control unit is protected by DRM, false otherwise
 function ControlUnit.hasDRM() end
 
 --- Check if the construct is remote controlled
----@return integer 1 if the construct is remote controlled
+---@return boolean True if the construct is remote controlled, false otherwise
 function ControlUnit.isRemoteControlled() end
 
 --- Automatically assign the engines within the taglist
@@ -2520,8 +2728,8 @@ function ControlUnit.isRemoteControlled() end
 ---@param taglist string Comma (for union) or space (for intersection) separated list of tags. You can set tags directly on the engines in the right-click menu
 ---@param acceleration table The desired acceleration expressed in world coordinates in m/s2
 ---@param angularAcceleration table The desired angular acceleration expressed in world coordinates in rad/s2
----@param keepForceCollinearity boolean Forces the resulting acceleration vector to be collinear to the acceleration parameter
----@param keepTorqueCollinearity boolean Forces the resulting angular acceleration vector to be collinear to the angular acceleration parameter
+---@param keepForceCollinearity boolean True to force the resulting acceleration vector to be collinear to the acceleration parameter
+---@param keepTorqueCollinearity boolean True to force the resulting angular acceleration vector to be collinear to the angular acceleration parameter
 ---@param priority1SubTags string Comma (for union) or space (for intersection) separated list of tags of included engines to use as priority 1
 ---@param priority2SubTags string Comma (for union) or space (for intersection) separated list of tags of included engines to use as priority 2
 ---@param priority3SubTags string Comma (for union) or space (for intersection) separated list of tags of included engines to use as priority 3
@@ -2574,17 +2782,17 @@ function ControlUnit.cancelCurrentControlMasterMode() end
 
 --- Check if a mouse control scheme is selected
 --- This function must be used on a piloting controller
----@return integer 1 if a mouse control scheme is selected
+---@return boolean True if a mouse control scheme is selected, false otherwise
 function ControlUnit.isMouseControlActivated() end
 
 --- Check if the mouse control direct scheme is selected
 --- This function must be used on a piloting controller
----@return integer 1 if a mouse control direct scheme is selected
+---@return boolean True if a direct mouse control scheme is selected, false otherwise
 function ControlUnit.isMouseDirectControlActivated() end
 
 --- Check if the mouse control virtual joystick scheme is selected
 --- This function must be used on a piloting controller
----@return integer 1 if a mouse control virtual joystick scheme is selected
+---@return boolean True if a mouse control virtual joystick scheme is selected, false otherwise
 function ControlUnit.isMouseVirtualJoystickActivated() end
 
 --- The ground engines will stabilize to this altitude within their limits
@@ -2624,7 +2832,7 @@ function ControlUnit.setWidgetControlModeLabel(modeId, label) end
 function ControlUnit.setupControlMasterModeProperties() end
 
 --- Checks if any landing gear is deployed
----@return integer 0 or 1 1 if any landing gear is deployed
+---@return boolean True if any landing gear is deployed, false otherwise
 function ControlUnit.isAnyLandingGearDeployed() end
 
 ---@deprecated ControlUnit.isAnyLandingGearDeployed() is deprecated, use ControlUnit.isAnyLandingGearExtended() instead.
@@ -2640,7 +2848,7 @@ function ControlUnit.extendLandingGears() end
 function ControlUnit.retractLandingGears() end
 
 --- Check construct lights status
----@return integer 1 if any Headlight is switched on
+---@return boolean True if any Headlight is on, false otherwise
 function ControlUnit.isAnyHeadlightSwitchedOn() end
 
 --- Turn on the construct headlights
@@ -2701,6 +2909,10 @@ function CoreUnit.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function CoreUnit.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function CoreUnit.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function CoreUnit.getMass() end
@@ -2708,6 +2920,16 @@ function CoreUnit.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function CoreUnit.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function CoreUnit.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function CoreUnit.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -2772,6 +2994,14 @@ function CoreUnit.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function CoreUnit.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function CoreUnit.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function CoreUnit.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -2814,7 +3044,7 @@ function CoreUnit.getWorldAirFrictionAcceleration() end
 ---@deprecated CoreUnit.getWorldAirFrictionAngularAcceleration() is deprecated, use construct.getWorldAirFrictionAngularAcceleration() instead.
 function CoreUnit.getWorldAirFrictionAngularAcceleration() end
 
----@deprecated CoreUnit.getSchematicInfo(schematicId) is deprecated, use construct.getSchematic(id) instead.
+---@deprecated CoreUnit.getSchematicInfo(schematicId) is deprecated, use System.getSchematic(id) instead.
 function CoreUnit.getSchematicInfo() end
 
 ---@deprecated CoreUnit.getAngularVelocity() is deprecated, use construct.getAngularVelocity() instead.
@@ -2996,6 +3226,11 @@ function CoreUnit.getElementNameById(localId) end
 ---@return string The class of the Element
 function CoreUnit.getElementClassById(localId) end
 
+--- Returns the item id of the class of the Element, identified by its local ID
+---@param localId integer The local ID of the Element
+---@return integer The item ID of the item class
+function CoreUnit.getElementClassIdById(localId) end
+
 --- Returns the display name of the Element, identified by its local ID
 ---@param localId integer The local ID of the Element
 ---@return string The display name of the Element
@@ -3018,6 +3253,16 @@ function CoreUnit.getElementHitPointsById(localId) end
 ---@param localId integer The local ID of the Element
 ---@return number 
 function CoreUnit.getElementMaxHitPointsById(localId) end
+
+--- Returns the remaining restorations of the Element, identified by its local ID
+---@param localId integer The local ID of the Element
+---@return integer The restorations remaining for the Element
+function CoreUnit.getElementRestorationsById(localId) end
+
+--- Returns the maximum restorations of the Element, identified by its local ID
+---@param localId integer The local ID of the Element
+---@return integer The max restorations for the Element
+function CoreUnit.getElementMaxRestorationsById(localId) end
 
 --- Returns the mass of the Element, identified by its local ID
 ---@param localId integer The local ID of the Element
@@ -3046,16 +3291,51 @@ function CoreUnit.getElementForwardById(localId) end
 
 --- Returns the status of the Industry Unit Element, identified by its local ID
 ---@param localId integer The local ID of the Element
----@return table If the Element is an Industry Unit, a table with fields {[int] state, [bool] stopRequested, [int] schematicId (deprecated = 0), [int] schematicsRemaining, [int] unitsProduced, [int] remainingTime, [int] batchesRequested, [int] batchesRemaining, [float] maintainProductAmount, [int] currentProductAmount, [table] currentProducts:{{[int] id, [double] quantity},...}}
+---@return table If the Element is an Industry Unit, a table with fields {[int] state, [bool] stopRequested, [int] schematicId (deprecated = 0), [int] schematicsRemaining (deprecated = 0), [table] requiredSchematicIds {[int] id}, [int] requiredSchematicAmount, [int] unitsProduced, [int] remainingTime, [int] batchesRequested, [int] batchesRemaining, [float] maintainProductAmount, [int] currentProductAmount, [table] currentProducts:{{[int] id, [double] quantity},...}}
 function CoreUnit.getElementIndustryInfoById(localId) end
 
 ---@deprecated CoreUnit.getElementIndustryStatusById(localId) is deprecated, use CoreUnit.getElementIndustryInfoById(localId) instead.
 function CoreUnit.getElementIndustryStatusById() end
 
---- Returns the list of tags associated to the Element, identified by its local ID
+--- Returns the Element IN plug map, identified by its local ID
 ---@param localId integer The local ID of the Element
----@return string The tags as a JSON list
-function CoreUnit.getElementTagsById(localId) end
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function CoreUnit.getElementInPlugsById(localId) end
+
+--- Returns the Element OUT plug map, identified by its local ID
+---@param localId integer The local ID of the Element
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function CoreUnit.getElementOutPlugsById(localId) end
+
+--- Returns the list of engine tags for an Engine Element identified by its local ID
+---@param localId integer The local ID of the engine
+---@return string The CSV string of the tags
+function CoreUnit.getEngineTagsById(localId) end
+
+---@deprecated CoreUnit.getElementTagsById(localId) is deprecated, use CoreUnit.getEngineTagsById(localId) instead.
+function CoreUnit.getElementTagsById() end
+
+--- Sets the list of engine tags for an Engine Element, identified by its local ID
+---@param localId integer The local ID of the engine
+---@param tags string The CSV string of the tags
+---@param ignore boolean (optional) True to ignore the default engine tags
+---@return boolean True if the tags have been applied, false if they have not
+function CoreUnit.setEngineTagsById(localId, tags, ignore) end
+
+--- Sets the torque generation state for the Engine Element, identified by its local ID
+---@param localId integer The local ID of the engine
+---@param state boolean True to enable engine torque
+function CoreUnit.setEngineTorqueById(localId, state) end
+
+--- Returns the torque generation state for the Engine Element, identified by its local ID
+---@param localId integer The local ID of the engine
+---@return boolean True if the torque generation is enabled, false if it is not
+function CoreUnit.getEngineTorqueById(localId) end
+
+--- Checks if the engine element is ignoring default tags, identified by its local ID
+---@param localId integer The local ID of the engine
+---@return boolean True if the engine ignores default engine tags, false if not
+function CoreUnit.isEngineIgnoringTagsById(localId) end
 
 --- Returns the altitude above sea level, with respect to the closest planet (0 in space)
 ---@return number The altitude above sea level in meters
@@ -3111,7 +3391,7 @@ function CoreUnit.spawnArrowSticker(x, y, z, orientation) end
 
 --- Delete the referenced sticker
 ---@param index integer Index of the sticker to delete
----@return integer 1 in case of success, 0 otherwise
+---@return boolean True if the sticker has been successfuly deleted, false otherwise
 function CoreUnit.deleteSticker(index) end
 
 --- Move the referenced sticker
@@ -3119,7 +3399,7 @@ function CoreUnit.deleteSticker(index) end
 ---@param x number The x-coordinate in the construct in meters. 0 = center
 ---@param y number The y-coordinate in the construct in meters. 0 = center
 ---@param z number The z-coordinate in the construct in meters. 0 = center
----@return integer 1 in case of success, 0 otherwise
+---@return boolean True if the sticker has been successfuly moved, false otherwise
 function CoreUnit.moveSticker(index, x, y, z) end
 
 --- Rotate the referenced sticker.
@@ -3127,7 +3407,7 @@ function CoreUnit.moveSticker(index, x, y, z) end
 ---@param angle_x number Rotation along the x-axis in degrees
 ---@param angle_y number Rotation along the y-axis in degrees
 ---@param angle_z number Rotation along the z-axis in degrees
----@return integer 1 in case of success, 0 otherwise
+---@return boolean True if the sticker has been successfuly rotated, false otherwise
 function CoreUnit.rotateSticker(index, angle_x, angle_y, angle_z) end
 
 ---@type Event
@@ -3155,6 +3435,30 @@ CoreUnit.onStressChanged = Event:new()
 
 ---@type Event
 CoreUnit.stressChanged = Event:new()
+
+--- Emitted when an Element is broken
+---@param localId integer The local ID of the Element
+---@param restorations integer The restorations remaining for the Element
+---@type Event
+CoreUnit.onElementBroken = Event:new()
+
+--- Emitted when an Element is restored
+---@param localId integer The local ID of the Element
+---@param restorations integer The restorations remaining for the Element
+---@type Event
+CoreUnit.onElementRestored = Event:new()
+
+--- Emitted when an Element is damaged
+---@param localId integer The local ID of the Element
+---@param hitpoints integer The amount of hitpoints taken in damage
+---@type Event
+CoreUnit.onElementDamaged = Event:new()
+
+--- Emitted when an Element is repaired
+---@param localId integer The local ID of the Element
+---@param hitpoints integer The amount of hitpoints repaired
+---@type Event
+CoreUnit.onElementRepaired = Event:new()
 
 
 ---@class Counter
@@ -3200,6 +3504,10 @@ function Counter.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Counter.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Counter.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Counter.getMass() end
@@ -3207,6 +3515,16 @@ function Counter.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Counter.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Counter.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Counter.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -3270,6 +3588,14 @@ function Counter.getWorldRight() end
 --- Returns the forward direction vector of the element in world coordinates
 ---@return table Forward direction vector of the Element in world coordinates
 function Counter.getWorldForward() end
+
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Counter.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Counter.getOutPlugs() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -3363,6 +3689,10 @@ function Databank.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Databank.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Databank.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Databank.getMass() end
@@ -3370,6 +3700,16 @@ function Databank.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Databank.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Databank.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Databank.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -3434,6 +3774,14 @@ function Databank.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function Databank.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Databank.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Databank.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -3475,14 +3823,14 @@ function Databank.getKeyList() end
 ---@deprecated Databank.getKeys() is deprecated, use Databank.getKeyList().
 function Databank.getKeys() end
 
---- Returns 1 if the key is present in the Databank, 0 otherwise
+--- Checks if the key is present in the Databank
 ---@param key string The key used to store a value
----@return integer 1 if the key exists and 0 otherwise
+---@return boolean True if the key exists, false otherwise
 function Databank.hasKey(key) end
 
 --- Remove the given key if the key is present in the Databank
 ---@param key string The key used to store a value
----@return integer 1 if the key has been successfully removed, 0 otherwise
+---@return boolean True if the key has been successfully removed, false otherwise
 function Databank.clearValue(key) end
 
 --- Stores a string value at the given key
@@ -3559,6 +3907,10 @@ function DetectionZone.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function DetectionZone.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function DetectionZone.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function DetectionZone.getMass() end
@@ -3566,6 +3918,16 @@ function DetectionZone.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function DetectionZone.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function DetectionZone.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function DetectionZone.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -3629,6 +3991,14 @@ function DetectionZone.getWorldRight() end
 --- Returns the forward direction vector of the element in world coordinates
 ---@return table Forward direction vector of the Element in world coordinates
 function DetectionZone.getWorldForward() end
+
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function DetectionZone.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function DetectionZone.getOutPlugs() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -3725,6 +4095,10 @@ function Door.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Door.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Door.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Door.getMass() end
@@ -3732,6 +4106,16 @@ function Door.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Door.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Door.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Door.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -3796,6 +4180,14 @@ function Door.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function Door.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Door.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Door.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -3836,7 +4228,7 @@ function Door.close() end
 function Door.deactivate() end
 
 --- Return the opening status of the door
----@return integer 1 if the door is open
+---@return boolean True if the door is open, false otherwise
 function Door.isOpen() end
 
 ---@deprecated Door.getState() is deprecated, use Door.isOpen() instead.
@@ -3889,6 +4281,10 @@ function Element.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Element.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Element.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Element.getMass() end
@@ -3896,6 +4292,16 @@ function Element.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Element.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Element.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Element.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -3959,6 +4365,14 @@ function Element.getWorldRight() end
 --- Returns the forward direction vector of the element in world coordinates
 ---@return table Forward direction vector of the Element in world coordinates
 function Element.getWorldForward() end
+
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Element.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Element.getOutPlugs() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4031,6 +4445,10 @@ function Emitter.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Emitter.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Emitter.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Emitter.getMass() end
@@ -4038,6 +4456,16 @@ function Emitter.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Emitter.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Emitter.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Emitter.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -4101,6 +4529,14 @@ function Emitter.getWorldRight() end
 --- Returns the forward direction vector of the element in world coordinates
 ---@return table Forward direction vector of the Element in world coordinates
 function Emitter.getWorldForward() end
+
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Emitter.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Emitter.getOutPlugs() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4188,6 +4624,10 @@ function Engine.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Engine.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Engine.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Engine.getMass() end
@@ -4195,6 +4635,16 @@ function Engine.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Engine.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Engine.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Engine.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -4259,6 +4709,14 @@ function Engine.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function Engine.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Engine.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Engine.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -4297,11 +4755,12 @@ function Engine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
----@param ignore boolean: True to ignore the default engine tags
+---@param ignore boolean True to ignore the default engine tags
+---@return boolean True if the tags have been applied, false if they have not
 function Engine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
----@return integer if the engine ignores default engine tags
+---@return boolean True if the engine ignores default engine tags, false if not
 function Engine.isIgnoringTags() end
 
 
@@ -4348,6 +4807,10 @@ function Firework.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Firework.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Firework.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Firework.getMass() end
@@ -4355,6 +4818,16 @@ function Firework.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Firework.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Firework.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Firework.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -4418,6 +4891,14 @@ function Firework.getWorldRight() end
 --- Returns the forward direction vector of the element in world coordinates
 ---@return table Forward direction vector of the Element in world coordinates
 function Firework.getWorldForward() end
+
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Firework.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Firework.getOutPlugs() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -4532,6 +5013,10 @@ function ForceField.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function ForceField.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function ForceField.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function ForceField.getMass() end
@@ -4539,6 +5024,16 @@ function ForceField.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function ForceField.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function ForceField.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function ForceField.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -4603,6 +5098,14 @@ function ForceField.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function ForceField.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function ForceField.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function ForceField.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -4643,7 +5146,7 @@ function ForceField.retract() end
 function ForceField.deactivate() end
 
 --- Checks if the forcefield is deployed
----@return integer 1 if the forcefield is deployed
+---@return boolean True if the forcefield is deployed, false otherwise
 function ForceField.isDeployed() end
 
 ---@deprecated ForceField.getState() is deprecated, use ForceField.isDeployed() instead.
@@ -4651,6 +5154,23 @@ function ForceField.getState() end
 
 --- Toggle the forcefield
 function ForceField.toggle() end
+
+--- Returns the current length of the forcefield
+---@return number The current length of the forcefield
+function ForceField.getCurrentLength() end
+
+--- Returns the maximum length of the forcefield
+---@return number The maximum length of the forcefield (between 0 and the limit of the forcefield model)
+function ForceField.getMaxLength() end
+
+--- Sets the max length of the forcefield
+---@param maxLength integer Maximum length (between 0 and the length limit)
+---@return boolean True if the maximum length was set, false if an error occurred
+function ForceField.setMaxLength(maxLength) end
+
+--- Returns the length limit of this forcefield model
+---@return number The length limit of this forcefield model
+function ForceField.getLengthLimit() end
 
 
 ---@class FueledEngine
@@ -4696,6 +5216,10 @@ function FueledEngine.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function FueledEngine.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function FueledEngine.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function FueledEngine.getMass() end
@@ -4703,6 +5227,16 @@ function FueledEngine.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function FueledEngine.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function FueledEngine.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function FueledEngine.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -4767,6 +5301,14 @@ function FueledEngine.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function FueledEngine.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function FueledEngine.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function FueledEngine.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -4805,11 +5347,12 @@ function FueledEngine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
----@param ignore boolean: True to ignore the default engine tags
+---@param ignore boolean True to ignore the default engine tags
+---@return boolean True if the tags have been applied, false if they have not
 function FueledEngine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
----@return integer if the engine ignores default engine tags
+---@return boolean True if the engine ignores default engine tags, false if not
 function FueledEngine.isIgnoringTags() end
 
 --- Start the engine at full power (works only when run inside a cockpit or under remote control)
@@ -4819,7 +5362,7 @@ function FueledEngine.activate() end
 function FueledEngine.deactivate() end
 
 --- Checks if the engine is active
----@return integer 1 when the engine is on
+---@return boolean True if the engine is on, false otherwise
 function FueledEngine.isActive() end
 
 ---@deprecated FueledEngine.getState() is deprecated, use FueledEngine.isActive().
@@ -4864,7 +5407,7 @@ function FueledEngine.getCurrentMaxThrust() end
 function FueledEngine.getMaxThrustEfficiency() end
 
 --- Checks if the torque generation is enabled on the engine
----@return integer 1 if the torque is enabled on the engine
+---@return boolean True if the torque is enabled on the engine, false otherwise
 function FueledEngine.isTorqueEnabled() end
 
 --- Sets the torque generation state on the engine
@@ -4894,7 +5437,7 @@ function FueledEngine.getWorldTorqueAxis() end
 function FueledEngine.torqueAxis() end
 
 --- Checks if the engine out of fuel
----@return integer 1 when there is no fuel left, 0 otherwise
+---@return boolean True if the engine is out of fuel, false otherwise
 function FueledEngine.isOutOfFuel() end
 
 --- Returns the item ID of the fuel currently used by the engine
@@ -4906,7 +5449,7 @@ function FueledEngine.getFuelId() end
 function FueledEngine.getFuelTankId() end
 
 --- Checks if the engine linked to a functional Fuel Tank (not broken or colliding)?
----@return integer 1 when the linked tank is functional, 0 otherwise
+---@return boolean True if the linked tank is functional, false otherwise
 function FueledEngine.hasFunctionalFuelTank() end
 
 ---@deprecated FueledEngine.hasBrokenFuelTank() is deprecated, use FueledEngine.hasFunctionalFuelTank().
@@ -4932,6 +5475,11 @@ function FueledEngine.getWarmupTime() end
 
 ---@deprecated FueledEngine.getT50() is deprecated, use FueledEngine.getWarmupTime().
 function FueledEngine.getT50() end
+
+
+---@class null
+local null = {}
+
 
 
 ---@class Gyro
@@ -4977,6 +5525,10 @@ function Gyro.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Gyro.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Gyro.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Gyro.getMass() end
@@ -4984,6 +5536,16 @@ function Gyro.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Gyro.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Gyro.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Gyro.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -5048,6 +5610,14 @@ function Gyro.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function Gyro.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Gyro.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Gyro.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -5085,7 +5655,7 @@ function Gyro.deactivate() end
 function Gyro.toggle() end
 
 --- Returns the activation state of the gyro
----@return integer 1 when the gyro is the active ship orientation unit, 0 otherwise
+---@return boolean True if the gyro is the active ship orientation unit, false otherwise
 function Gyro.isActive() end
 
 ---@deprecated Gyro.getState() is deprecated, use Gyro.isActive() instead.
@@ -5161,6 +5731,10 @@ function HoverEngine.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function HoverEngine.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function HoverEngine.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function HoverEngine.getMass() end
@@ -5168,6 +5742,16 @@ function HoverEngine.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function HoverEngine.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function HoverEngine.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function HoverEngine.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -5232,6 +5816,14 @@ function HoverEngine.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function HoverEngine.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function HoverEngine.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function HoverEngine.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -5270,11 +5862,12 @@ function HoverEngine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
----@param ignore boolean: True to ignore the default engine tags
+---@param ignore boolean True to ignore the default engine tags
+---@return boolean True if the tags have been applied, false if they have not
 function HoverEngine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
----@return integer if the engine ignores default engine tags
+---@return boolean True if the engine ignores default engine tags, false if not
 function HoverEngine.isIgnoringTags() end
 
 --- Start the engine at full power (works only when run inside a cockpit or under remote control)
@@ -5284,7 +5877,7 @@ function HoverEngine.activate() end
 function HoverEngine.deactivate() end
 
 --- Checks if the engine is active
----@return integer 1 when the engine is on
+---@return boolean True if the engine is on, false otherwise
 function HoverEngine.isActive() end
 
 ---@deprecated FueledEngine.getState() is deprecated, use FueledEngine.isActive().
@@ -5329,7 +5922,7 @@ function HoverEngine.getCurrentMaxThrust() end
 function HoverEngine.getMaxThrustEfficiency() end
 
 --- Checks if the torque generation is enabled on the engine
----@return integer 1 if the torque is enabled on the engine
+---@return boolean True if the torque is enabled on the engine, false otherwise
 function HoverEngine.isTorqueEnabled() end
 
 --- Sets the torque generation state on the engine
@@ -5359,7 +5952,7 @@ function HoverEngine.getWorldTorqueAxis() end
 function HoverEngine.torqueAxis() end
 
 --- Checks if the engine out of fuel
----@return integer 1 when there is no fuel left, 0 otherwise
+---@return boolean True if the engine is out of fuel, false otherwise
 function HoverEngine.isOutOfFuel() end
 
 --- Returns the item ID of the fuel currently used by the engine
@@ -5371,7 +5964,7 @@ function HoverEngine.getFuelId() end
 function HoverEngine.getFuelTankId() end
 
 --- Checks if the engine linked to a functional Fuel Tank (not broken or colliding)?
----@return integer 1 when the linked tank is functional, 0 otherwise
+---@return boolean True if the linked tank is functional, false otherwise
 function HoverEngine.hasFunctionalFuelTank() end
 
 ---@deprecated FueledEngine.hasBrokenFuelTank() is deprecated, use FueledEngine.hasFunctionalFuelTank().
@@ -5450,6 +6043,10 @@ function Industry.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Industry.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Industry.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Industry.getMass() end
@@ -5457,6 +6054,16 @@ function Industry.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Industry.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Industry.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Industry.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -5521,6 +6128,14 @@ function Industry.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function Industry.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Industry.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Industry.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -5583,10 +6198,11 @@ function Industry.softStop() end
 ---@return integer (Stopped = 1, Running = 2, Jammed missing ingredient = 3, Jammed output full = 4, Jammed no output container = 5, Pending = 6, Jammed missing schematics = 7)
 function Industry.getState() end
 
+---@deprecated Industry.getStatus() is deprecated, use Industry.getState() instead.
 function Industry.getStatus() end
 
 --- Returns the complete information of the industry
----@return integer The complete state of the industry, a table with fields {[int] state, [bool] stopRequested, [int] schematicId (deprecated = 0), [int] schematicsRemaining, [int] unitsProduced, [int] remainingTime, [int] batchesRequested, [int] batchesRemaining, [float] maintainProductAmount, [int] currentProductAmount, [table] currentProducts:{{[int] id, [double] quantity},...}}
+---@return integer The complete state of the industry, a table with fields {[int] state, [bool] stopRequested, [int] schematicId (deprecated = 0), [int] schematicsRemaining (deprecated = 0), [table] requiredSchematicIds {[int] id}, [int] requiredSchematicAmount, [int] unitsProduced, [int] remainingTime, [int] batchesRequested, [int] batchesRemaining, [float] maintainProductAmount, [int] currentProductAmount, [table] currentProducts:{{[int] id, [double] quantity},...}}
 function Industry.getInfo() end
 
 --- Get the count of completed cycles since the player started the unit
@@ -5607,6 +6223,10 @@ function Industry.getUptime() end
 --- Returns the list of items required to run the selected output product.
 ---@return table Returns the list of products
 function Industry.getInputs() end
+
+--- Returns the list of item ids of the currently required schematics. Empty if there are no required schematic.
+---@return table the list of item ids of the currently required schematics
+function Industry.getRequiredSchematicIds() end
 
 --- Returns the list of id of the items currently produced.
 ---@return table The first entry in the table is always the main product produced
@@ -5702,6 +6322,10 @@ function LandingGear.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function LandingGear.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function LandingGear.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function LandingGear.getMass() end
@@ -5709,6 +6333,16 @@ function LandingGear.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function LandingGear.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function LandingGear.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function LandingGear.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -5773,6 +6407,14 @@ function LandingGear.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function LandingGear.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function LandingGear.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function LandingGear.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -5813,7 +6455,7 @@ function LandingGear.retract() end
 function LandingGear.deactivate() end
 
 --- Checks if the landing gear is deployed
----@return integer 1 if the landing gear is deployed
+---@return boolean True if the landing gear is deployed, false otherwise
 function LandingGear.isDeployed() end
 
 ---@deprecated LandingGear.getState() is deprecated, use LandingGear.isDeployed() instead.
@@ -5866,6 +6508,10 @@ function LaserDetector.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function LaserDetector.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function LaserDetector.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function LaserDetector.getMass() end
@@ -5873,6 +6519,16 @@ function LaserDetector.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function LaserDetector.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function LaserDetector.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function LaserDetector.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -5937,6 +6593,14 @@ function LaserDetector.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function LaserDetector.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function LaserDetector.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function LaserDetector.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -5965,7 +6629,7 @@ function LaserDetector.getSignalIn(plug) end
 function LaserDetector.getSignalOut(plug) end
 
 --- Checks if any laser is hitting the detector
----@return integer 1 if a laser is hitting the detector
+---@return boolean True if a laser is hitting the detector, false otherwise
 function LaserDetector.isHit() end
 
 ---@deprecated LaserDetector.getState() is deprecated, use LaserDetector.isHit() instead.
@@ -6029,6 +6693,10 @@ function LaserEmitter.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function LaserEmitter.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function LaserEmitter.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function LaserEmitter.getMass() end
@@ -6036,6 +6704,16 @@ function LaserEmitter.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function LaserEmitter.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function LaserEmitter.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function LaserEmitter.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -6100,6 +6778,14 @@ function LaserEmitter.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function LaserEmitter.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function LaserEmitter.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function LaserEmitter.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -6137,7 +6823,7 @@ function LaserEmitter.deactivate() end
 function LaserEmitter.toggle() end
 
 --- Checks if the laser emitter is active
----@return integer 1 if the laser emitter is active
+---@return boolean True if the laser emitter is active, false otherwise
 function LaserEmitter.isActive() end
 
 ---@deprecated LaserEmitter.getState() is deprecated, use LaserEmitter.isActive() instead.
@@ -6210,6 +6896,10 @@ function Light.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Light.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Light.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Light.getMass() end
@@ -6217,6 +6907,16 @@ function Light.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Light.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Light.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Light.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -6281,6 +6981,14 @@ function Light.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function Light.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Light.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Light.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -6315,7 +7023,7 @@ function Light.activate() end
 function Light.deactivate() end
 
 --- Checks if the light is on
----@return integer 1 if the light is on
+---@return boolean True if the light is on, false otherwise
 function Light.isActive() end
 
 ---@deprecated Light.getState() is deprecated, use Light.isActive() instead.
@@ -6345,7 +7053,7 @@ function Light.getRGBColor() end
 function Light.setBlinkingState(state) end
 
 --- Checks if the light blinking is enabled
----@return integer 1 if the light blinking is enabled
+---@return boolean True if the light blinking is enabled, false otherwise
 function Light.isBlinking() end
 
 --- Returns the light 'on' blinking duration
@@ -6416,6 +7124,10 @@ function ManualButton.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function ManualButton.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function ManualButton.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function ManualButton.getMass() end
@@ -6423,6 +7135,16 @@ function ManualButton.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function ManualButton.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function ManualButton.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function ManualButton.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -6487,6 +7209,14 @@ function ManualButton.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function ManualButton.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function ManualButton.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function ManualButton.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -6515,7 +7245,7 @@ function ManualButton.getSignalIn(plug) end
 function ManualButton.getSignalOut(plug) end
 
 --- Checks if the manual button is down
----@return integer 1 if the manual button is down
+---@return boolean True if the manual button is down, false otherwise
 function ManualButton.isDown() end
 
 ---@deprecated ManualButton.getState() is deprecated, use ManualButton.isDown() instead.
@@ -6579,6 +7309,10 @@ function ManualSwitch.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function ManualSwitch.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function ManualSwitch.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function ManualSwitch.getMass() end
@@ -6586,6 +7320,16 @@ function ManualSwitch.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function ManualSwitch.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function ManualSwitch.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function ManualSwitch.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -6650,6 +7394,14 @@ function ManualSwitch.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function ManualSwitch.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function ManualSwitch.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function ManualSwitch.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -6687,7 +7439,7 @@ function ManualSwitch.deactivate() end
 function ManualSwitch.toggle() end
 
 --- Checks if the switch is active
----@return integer 1 if the switch is active
+---@return boolean True if the switch is active, false otherwise
 function ManualSwitch.isActive() end
 
 ---@deprecated ManualSwitch.getState() is deprecated, use ManualSwitch.isActive() instead.
@@ -6751,6 +7503,10 @@ function MiningUnit.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function MiningUnit.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function MiningUnit.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function MiningUnit.getMass() end
@@ -6758,6 +7514,16 @@ function MiningUnit.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function MiningUnit.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function MiningUnit.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function MiningUnit.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -6821,6 +7587,14 @@ function MiningUnit.getWorldRight() end
 --- Returns the forward direction vector of the element in world coordinates
 ---@return table Forward direction vector of the Element in world coordinates
 function MiningUnit.getWorldForward() end
+
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function MiningUnit.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function MiningUnit.getOutPlugs() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -6992,6 +7766,10 @@ function PlasmaExtractor.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function PlasmaExtractor.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function PlasmaExtractor.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function PlasmaExtractor.getMass() end
@@ -6999,6 +7777,16 @@ function PlasmaExtractor.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function PlasmaExtractor.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function PlasmaExtractor.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function PlasmaExtractor.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -7062,6 +7850,14 @@ function PlasmaExtractor.getWorldRight() end
 --- Returns the forward direction vector of the element in world coordinates
 ---@return table Forward direction vector of the Element in world coordinates
 function PlasmaExtractor.getWorldForward() end
+
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function PlasmaExtractor.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function PlasmaExtractor.getOutPlugs() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -7211,7 +8007,7 @@ function Player.getPlanet() end
 function Player.getParent() end
 
 --- Checks if the player is seated
----@return integer 1 if the player is seated
+---@return boolean True if the player is seated, false otherwise
 function Player.isSeated() end
 
 --- Returns the local id of the seat on which the player is sitting
@@ -7220,36 +8016,36 @@ function Player.getSeatId() end
 
 --- Checks if the player is parented to the given construct
 ---@param id integer The construct id
----@return integer 1 if the player is parented to the given construct
+---@return boolean True if the player is parented to the given construct, false otherwise
 function Player.isParentedTo(id) end
 
 --- Checks if the player is currently sprinting
----@return integer 1 if the player is sprinting
+---@return boolean True if the player is sprinting, false otherwise
 function Player.isSprinting() end
 
 --- Checks if the player's jetpack is on
----@return integer 1 if the player's jetpack is on
+---@return boolean True if the player's jetpack is on, false otherwise
 function Player.isJetpackOn() end
 
 --- Returns the state of the headlight of the player
----@return integer if the player has his headlight on
+---@return boolean True if the player has his headlight on, false otherwise
 function Player.isHeadlightOn() end
 
 --- Set the state of the headlight of the player
----@param state boolean : True to turn on headlight
+---@param state boolean True to turn on headlight
 function Player.setHeadlightOn(state) end
 
 --- Freezes the player movements, liberating the associated movement keys to be used by the script.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal)
----@param state boolean 1 freeze the character, 0 unfreeze the character
+---@param state boolean True to freeze the player, false to unfreeze
 function Player.freeze(state) end
 
 --- Checks if the player movements are frozen
----@return integer 1 if the player is frozen, 0 otherwise
+---@return boolean True if the player is frozen, false otherwise
 function Player.isFrozen() end
 
 --- Checks if the player has DRM autorization to the control unit
----@return integer 1 if the player has DRM autorization on the control unit
+---@return boolean True if the player has DRM autorization on the control unit, false otherwise
 function Player.hasDRMAutorization() end
 
 --- Emitted when the player parent change
@@ -7302,6 +8098,10 @@ function PressureTile.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function PressureTile.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function PressureTile.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function PressureTile.getMass() end
@@ -7309,6 +8109,16 @@ function PressureTile.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function PressureTile.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function PressureTile.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function PressureTile.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -7373,6 +8183,14 @@ function PressureTile.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function PressureTile.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function PressureTile.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function PressureTile.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -7401,7 +8219,7 @@ function PressureTile.getSignalIn(plug) end
 function PressureTile.getSignalOut(plug) end
 
 --- Checks if the pressure tile is down
----@return integer 1 when the tile is down, 0 otherwise
+---@return boolean True when the tile is down, false otherwise
 function PressureTile.isDown() end
 
 ---@deprecated PressureTile.getState() is deprecated, use PressureTile.isDown() instead.
@@ -7465,6 +8283,10 @@ function Radar.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Radar.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Radar.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Radar.getMass() end
@@ -7472,6 +8294,16 @@ function Radar.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Radar.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Radar.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Radar.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -7536,6 +8368,14 @@ function Radar.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function Radar.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Radar.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Radar.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -7563,7 +8403,7 @@ function Radar.getSignalIn(plug) end
 ---@return integer The plug signal state
 function Radar.getSignalOut(plug) end
 
---- Returns 1 if the radar is not broken, works in the current environment and is not used by another control unit
+--- Checks if the radar is operational
 ---@return integer 1 if the radar is operational, otherwise: 0 = broken, -1 = bad environment, -2 = obstructed, -3 = already in use
 function Radar.getOperationalState() end
 
@@ -7588,7 +8428,7 @@ function Radar.getSortMethod() end
 
 --- Sets the sort method for construct data
 ---@param method integer The sort method (Distance Ascending = 1, Distance Descending = 2, Size Ascending = 3, Size Descending = 4, Threat Ascending = 5, Threat Descending = 6)
----@return integer 1 if the sort method was set successfully, 0 otherwise
+---@return boolean True if the sort method was set successfully, false otherwise
 function Radar.setSortMethod(method) end
 
 --- Returns the list of identified construct IDs
@@ -7598,8 +8438,13 @@ function Radar.getIdentifiedConstructIds() end
 --- Returns the list of constructs in a given range according to the current sort method
 ---@param offset integer Offset from the first entry
 ---@param size integer Total entries to return following the offset, 0 to return all entries
+---@param filter table (optional) The filters to be applied as a table {[bool] isMatching, [int] constructKind, [string] coreSize, [bool] isAbandoned}
+---@param isMatching boolean (optional) True to filter out constructs with a matching transponder, false otherwise
+---@param constructKind integer (optional) The construct kind id to filter out constructs (Universe = 1, Planet = 2, Asteroid = 3, Static = 4, Dynamic = 5, Space = 6, Alien = 7)
+---@param coreSize string (optional) The construct core unit size to filter out constructs ('XS', 'S', 'M', 'L', 'XL')
+---@param isAbandoned boolean (optional) True to filter out abandoned constructs, false otherwise
 ---@return table The list of constructs tables {[integer] constructId, [string] name, [string] size, [string] constructType, [number] mass, [int] isIdentified, [int] inIdentifyRange, [number] identificationDuration, [number] remainingIdentificationTime, [int] myThreatStateToTarget, [int] targetThreatState, [number] distance, [table] worldPosition, [number] speed, [number] radialSpeed, [number] angularSpeed, [table] info}
-function Radar.getConstructs(offset, size) end
+function Radar.getConstructs(offset, size, filter, isMatching, constructKind, coreSize, isAbandoned) end
 
 --- Returns the ID of the target construct
 ---@return integer The ID of the target construct
@@ -7612,12 +8457,12 @@ function Radar.getConstructDistance(id) end
 
 --- Returns 1 if the given construct is identified
 ---@param id integer The ID of the construct
----@return integer 1 if the construct is identified, 0 otherwise
+---@return boolean True if the construct is identified, false otherwise
 function Radar.isConstructIdentified(id) end
 
 --- Returns 1 if the given construct was abandoned
 ---@param id integer The ID of the construct
----@return integer 1 if the construct has no owner, 0 otherwise
+---@return boolean True if the construct has no owner, false otherwise
 function Radar.isConstructAbandoned(id) end
 
 --- Returns the core size of the given construct
@@ -7643,7 +8488,7 @@ function Radar.getThreatFrom() end
 
 --- Returns whether the target has an active Transponder with matching tags
 ---@param id integer The ID of the construct
----@return integer 
+---@return boolean True if your Construct and the target have active Transponders with at least one matching tag, false otherwise
 function Radar.hasMatchingTransponder(id) end
 
 --- Returns a table with id of the owner entity (player or organization) of the given construct, if in range and if active transponder tags match for owned dynamic constructs.
@@ -7661,7 +8506,7 @@ function Radar.getConstructSize(id) end
 
 --- Return the kind of the given construct
 ---@param id integer The ID of the construct
----@return integer The kind index of the construct (Universe = 1, Planet = 2,Asteroid = 3,Static = 4,Dynamic = 5,Space = 6,Alien = 7)
+---@return integer The kind index of the construct (Universe = 1, Planet = 2, Asteroid = 3, Static = 4, Dynamic = 5, Space = 6, Alien = 7)
 function Radar.getConstructKind(id) end
 
 ---@deprecated Radar.getConstructType(id) is deprecated, use Radar.getConstructKind(id) instead.
@@ -7782,6 +8627,10 @@ function Receiver.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Receiver.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Receiver.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Receiver.getMass() end
@@ -7789,6 +8638,16 @@ function Receiver.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Receiver.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Receiver.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Receiver.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -7853,6 +8712,14 @@ function Receiver.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function Receiver.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Receiver.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Receiver.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -7886,12 +8753,12 @@ function Receiver.getRange() end
 
 --- Checks if the given channel exists in the receiver channels list
 ---@param channel string The channels list as Lua table
----@return integer 1 if the channels list contains the given channel
+---@return boolean True if the channels list contains the given channel, false otherwise
 function Receiver.hasChannel(channel) end
 
 --- Set the channels list
 ---@param channels table The channels list as Lua table
----@return integer 1 if the channels list has been successfully set
+---@return boolean True if the channels list has been successfully set, false otherwise
 function Receiver.setChannelList(channels) end
 
 ---@deprecated Receiver.setChannels(channels) is deprecated, use Receiver.setChannelList(channels) instead.
@@ -8326,6 +9193,10 @@ function RocketEngine.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function RocketEngine.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function RocketEngine.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function RocketEngine.getMass() end
@@ -8333,6 +9204,16 @@ function RocketEngine.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function RocketEngine.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function RocketEngine.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function RocketEngine.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -8397,6 +9278,14 @@ function RocketEngine.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function RocketEngine.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function RocketEngine.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function RocketEngine.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -8435,11 +9324,12 @@ function RocketEngine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
----@param ignore boolean: True to ignore the default engine tags
+---@param ignore boolean True to ignore the default engine tags
+---@return boolean True if the tags have been applied, false if they have not
 function RocketEngine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
----@return integer if the engine ignores default engine tags
+---@return boolean True if the engine ignores default engine tags, false if not
 function RocketEngine.isIgnoringTags() end
 
 --- Start the engine at full power (works only when run inside a cockpit or under remote control)
@@ -8449,7 +9339,7 @@ function RocketEngine.activate() end
 function RocketEngine.deactivate() end
 
 --- Checks if the engine is active
----@return integer 1 when the engine is on
+---@return boolean True if the engine is on, false otherwise
 function RocketEngine.isActive() end
 
 ---@deprecated FueledEngine.getState() is deprecated, use FueledEngine.isActive().
@@ -8494,7 +9384,7 @@ function RocketEngine.getCurrentMaxThrust() end
 function RocketEngine.getMaxThrustEfficiency() end
 
 --- Checks if the torque generation is enabled on the engine
----@return integer 1 if the torque is enabled on the engine
+---@return boolean True if the torque is enabled on the engine, false otherwise
 function RocketEngine.isTorqueEnabled() end
 
 --- Sets the torque generation state on the engine
@@ -8524,7 +9414,7 @@ function RocketEngine.getWorldTorqueAxis() end
 function RocketEngine.torqueAxis() end
 
 --- Checks if the engine out of fuel
----@return integer 1 when there is no fuel left, 0 otherwise
+---@return boolean True if the engine is out of fuel, false otherwise
 function RocketEngine.isOutOfFuel() end
 
 --- Returns the item ID of the fuel currently used by the engine
@@ -8536,7 +9426,7 @@ function RocketEngine.getFuelId() end
 function RocketEngine.getFuelTankId() end
 
 --- Checks if the engine linked to a functional Fuel Tank (not broken or colliding)?
----@return integer 1 when the linked tank is functional, 0 otherwise
+---@return boolean True if the linked tank is functional, false otherwise
 function RocketEngine.hasFunctionalFuelTank() end
 
 ---@deprecated FueledEngine.hasBrokenFuelTank() is deprecated, use FueledEngine.hasFunctionalFuelTank().
@@ -8610,6 +9500,10 @@ function Screen.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Screen.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Screen.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Screen.getMass() end
@@ -8617,6 +9511,16 @@ function Screen.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Screen.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Screen.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Screen.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -8681,6 +9585,14 @@ function Screen.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function Screen.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Screen.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Screen.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -8715,7 +9627,7 @@ function Screen.activate() end
 function Screen.deactivate() end
 
 --- Checks if the screen is on
----@return integer if the screen is on
+---@return boolean True if the screen is on, false otherwise
 function Screen.isActive() end
 
 ---@deprecated Screen.getState() is deprecated, use Screen.isActive() instead.
@@ -8795,7 +9707,7 @@ function Screen.getMouseX() end
 function Screen.getMouseY() end
 
 --- Returns the state of the mouse click
----@return integer if the mouse is pressed, otherwise 0
+---@return boolean True if the mouse is pressed, false otherwise
 function Screen.getMouseState() end
 
 --- Clear the screen
@@ -8868,6 +9780,10 @@ function ShieldGenerator.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function ShieldGenerator.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function ShieldGenerator.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function ShieldGenerator.getMass() end
@@ -8875,6 +9791,16 @@ function ShieldGenerator.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function ShieldGenerator.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function ShieldGenerator.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function ShieldGenerator.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -8939,6 +9865,14 @@ function ShieldGenerator.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function ShieldGenerator.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function ShieldGenerator.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function ShieldGenerator.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -8976,7 +9910,7 @@ function ShieldGenerator.deactivate() end
 function ShieldGenerator.toggle() end
 
 --- Returns the activation state of the shield
----@return integer 1 when the shield is active, 0 otherwise
+---@return boolean True when the shield is active, false otherwise
 function ShieldGenerator.isActive() end
 
 ---@deprecated ShieldGenerator.getState() is deprecated, use ShieldGenerator.isActive() instead.
@@ -8991,15 +9925,15 @@ function ShieldGenerator.getShieldHitpoints() end
 function ShieldGenerator.getMaxShieldHitpoints() end
 
 --- Activate shield venting to restore hit points
----@return integer 1 if venting started, 0 if an error occurred
+---@return boolean True if venting started, false if an error occurred
 function ShieldGenerator.startVenting() end
 
 --- Stop shield venting
----@return integer 1 if venting stopped, 0 if an error occurred
+---@return boolean True if venting stopped, false if an error occurred
 function ShieldGenerator.stopVenting() end
 
 --- Check whether venting is in progress
----@return integer 1 if venting is ongoing, 0 otherwise
+---@return boolean True if venting is ongoing, false otherwise
 function ShieldGenerator.isVenting() end
 
 --- Returns time after which venting is possible again
@@ -9019,7 +9953,7 @@ function ShieldGenerator.getResistances() end
 ---@param electromagnetic number Electromagnetic damage resistance
 ---@param kinetic number Kinetic damage resistance
 ---@param thermic number Thermic damage resistance
----@return integer 1 if resistance was distributed, 0 if an error occurred
+---@return boolean True if resistance was distributed, false if an error occurred
 function ShieldGenerator.setResistances(antimatter, electromagnetic, kinetic, thermic) end
 
 --- Returns time after which adjusting resistances is possible again
@@ -9055,7 +9989,7 @@ function ShieldGenerator.getStressHitpoints() end
 function ShieldGenerator.getStressHitpointsRaw() end
 
 --- Emitted when we started or stopped the shield generator
----@param active integer 1 if the element was activated, 0 otherwise
+---@param active boolean True if the element was activated, false otherwise
 ---@type Event
 ShieldGenerator.onToggled = Event:new()
 
@@ -9072,7 +10006,7 @@ ShieldGenerator.onAbsorbed = Event:new()
 ShieldGenerator.absorbed = Event:new()
 
 --- Emitted when venting started, stopped or restored some hitpoints
----@param active integer 1 when venting is active, 0 otherwise
+---@param active boolean True when venting is active, false otherwise
 ---@param restoredHitpoints number Hitpoints restored since the last venting step
 ---@type Event
 ShieldGenerator.onVenting = Event:new()
@@ -9138,6 +10072,10 @@ function SpaceBrake.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function SpaceBrake.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function SpaceBrake.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function SpaceBrake.getMass() end
@@ -9145,6 +10083,16 @@ function SpaceBrake.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function SpaceBrake.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function SpaceBrake.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function SpaceBrake.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -9209,6 +10157,14 @@ function SpaceBrake.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function SpaceBrake.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function SpaceBrake.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function SpaceBrake.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -9247,11 +10203,12 @@ function SpaceBrake.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
----@param ignore boolean: True to ignore the default engine tags
+---@param ignore boolean True to ignore the default engine tags
+---@return boolean True if the tags have been applied, false if they have not
 function SpaceBrake.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
----@return integer if the engine ignores default engine tags
+---@return boolean True if the engine ignores default engine tags, false if not
 function SpaceBrake.isIgnoringTags() end
 
 --- Start the brake at full power (works only when run inside a cockpit or under remote control)
@@ -9261,7 +10218,7 @@ function SpaceBrake.activate() end
 function SpaceBrake.deactivate() end
 
 --- Checks if the brake is active
----@return integer 
+---@return boolean True if the brake is on, false otherwise
 function SpaceBrake.isActive() end
 
 ---@deprecated BrakeEngine.getState() is deprecated, use BrakeEngine.isActive().
@@ -9384,6 +10341,10 @@ function SpaceEngine.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function SpaceEngine.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function SpaceEngine.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function SpaceEngine.getMass() end
@@ -9391,6 +10352,16 @@ function SpaceEngine.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function SpaceEngine.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function SpaceEngine.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function SpaceEngine.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -9455,6 +10426,14 @@ function SpaceEngine.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function SpaceEngine.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function SpaceEngine.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function SpaceEngine.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -9493,11 +10472,12 @@ function SpaceEngine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
----@param ignore boolean: True to ignore the default engine tags
+---@param ignore boolean True to ignore the default engine tags
+---@return boolean True if the tags have been applied, false if they have not
 function SpaceEngine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
----@return integer if the engine ignores default engine tags
+---@return boolean True if the engine ignores default engine tags, false if not
 function SpaceEngine.isIgnoringTags() end
 
 --- Start the engine at full power (works only when run inside a cockpit or under remote control)
@@ -9507,7 +10487,7 @@ function SpaceEngine.activate() end
 function SpaceEngine.deactivate() end
 
 --- Checks if the engine is active
----@return integer 1 when the engine is on
+---@return boolean True if the engine is on, false otherwise
 function SpaceEngine.isActive() end
 
 ---@deprecated FueledEngine.getState() is deprecated, use FueledEngine.isActive().
@@ -9552,7 +10532,7 @@ function SpaceEngine.getCurrentMaxThrust() end
 function SpaceEngine.getMaxThrustEfficiency() end
 
 --- Checks if the torque generation is enabled on the engine
----@return integer 1 if the torque is enabled on the engine
+---@return boolean True if the torque is enabled on the engine, false otherwise
 function SpaceEngine.isTorqueEnabled() end
 
 --- Sets the torque generation state on the engine
@@ -9582,7 +10562,7 @@ function SpaceEngine.getWorldTorqueAxis() end
 function SpaceEngine.torqueAxis() end
 
 --- Checks if the engine out of fuel
----@return integer 1 when there is no fuel left, 0 otherwise
+---@return boolean True if the engine is out of fuel, false otherwise
 function SpaceEngine.isOutOfFuel() end
 
 --- Returns the item ID of the fuel currently used by the engine
@@ -9594,7 +10574,7 @@ function SpaceEngine.getFuelId() end
 function SpaceEngine.getFuelTankId() end
 
 --- Checks if the engine linked to a functional Fuel Tank (not broken or colliding)?
----@return integer 1 when the linked tank is functional, 0 otherwise
+---@return boolean True if the linked tank is functional, false otherwise
 function SpaceEngine.hasFunctionalFuelTank() end
 
 ---@deprecated FueledEngine.hasBrokenFuelTank() is deprecated, use FueledEngine.hasFunctionalFuelTank().
@@ -9668,6 +10648,10 @@ function SpaceMiningUnit.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function SpaceMiningUnit.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function SpaceMiningUnit.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function SpaceMiningUnit.getMass() end
@@ -9675,6 +10659,16 @@ function SpaceMiningUnit.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function SpaceMiningUnit.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function SpaceMiningUnit.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function SpaceMiningUnit.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -9738,6 +10732,14 @@ function SpaceMiningUnit.getWorldRight() end
 --- Returns the forward direction vector of the element in world coordinates
 ---@return table Forward direction vector of the Element in world coordinates
 function SpaceMiningUnit.getWorldForward() end
+
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function SpaceMiningUnit.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function SpaceMiningUnit.getOutPlugs() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -9875,6 +10877,10 @@ function SurfaceEngine.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function SurfaceEngine.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function SurfaceEngine.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function SurfaceEngine.getMass() end
@@ -9882,6 +10888,16 @@ function SurfaceEngine.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function SurfaceEngine.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function SurfaceEngine.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function SurfaceEngine.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -9946,6 +10962,14 @@ function SurfaceEngine.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function SurfaceEngine.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function SurfaceEngine.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function SurfaceEngine.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -9984,11 +11008,12 @@ function SurfaceEngine.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
----@param ignore boolean: True to ignore the default engine tags
+---@param ignore boolean True to ignore the default engine tags
+---@return boolean True if the tags have been applied, false if they have not
 function SurfaceEngine.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
----@return integer if the engine ignores default engine tags
+---@return boolean True if the engine ignores default engine tags, false if not
 function SurfaceEngine.isIgnoringTags() end
 
 --- Start the engine at full power (works only when run inside a cockpit or under remote control)
@@ -9998,7 +11023,7 @@ function SurfaceEngine.activate() end
 function SurfaceEngine.deactivate() end
 
 --- Checks if the engine is active
----@return integer 1 when the engine is on
+---@return boolean True if the engine is on, false otherwise
 function SurfaceEngine.isActive() end
 
 ---@deprecated FueledEngine.getState() is deprecated, use FueledEngine.isActive().
@@ -10043,7 +11068,7 @@ function SurfaceEngine.getCurrentMaxThrust() end
 function SurfaceEngine.getMaxThrustEfficiency() end
 
 --- Checks if the torque generation is enabled on the engine
----@return integer 1 if the torque is enabled on the engine
+---@return boolean True if the torque is enabled on the engine, false otherwise
 function SurfaceEngine.isTorqueEnabled() end
 
 --- Sets the torque generation state on the engine
@@ -10073,7 +11098,7 @@ function SurfaceEngine.getWorldTorqueAxis() end
 function SurfaceEngine.torqueAxis() end
 
 --- Checks if the engine out of fuel
----@return integer 1 when there is no fuel left, 0 otherwise
+---@return boolean True if the engine is out of fuel, false otherwise
 function SurfaceEngine.isOutOfFuel() end
 
 --- Returns the item ID of the fuel currently used by the engine
@@ -10085,7 +11110,7 @@ function SurfaceEngine.getFuelId() end
 function SurfaceEngine.getFuelTankId() end
 
 --- Checks if the engine linked to a functional Fuel Tank (not broken or colliding)?
----@return integer 1 when the linked tank is functional, 0 otherwise
+---@return boolean True if the linked tank is functional, false otherwise
 function SurfaceEngine.hasFunctionalFuelTank() end
 
 ---@deprecated FueledEngine.hasBrokenFuelTank() is deprecated, use FueledEngine.hasFunctionalFuelTank().
@@ -10147,7 +11172,7 @@ function System.createWidgetPanel(label) end
 --- Destroy the panel.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param panelId string The panel ID
----@return integer 1 on success, 0 on failure.
+---@return boolean True if the panel has been successfully destroyed, false otherwise
 function System.destroyWidgetPanel(panelId) end
 
 --- Create an empty widget and add it to a panel.
@@ -10160,7 +11185,7 @@ function System.createWidget(panelId, type) end
 --- Destroy the widget.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param widgetId string The widget ID
----@return integer 1 on success, 0 on failure.
+---@return boolean True if the widget has been successfully destroyed, false otherwise
 function System.destroyWidget(widgetId) end
 
 --- Create data.
@@ -10172,28 +11197,28 @@ function System.createData(dataJson) end
 --- Destroy the data.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param dataId string The data ID
----@return integer 1 on success, 0 on failure.
+---@return boolean True if the data has been successfully destroyed, false otherwise
 function System.destroyData(dataId) end
 
 --- Update JSON associated to data.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param dataId string The data ID
 ---@param dataJson string The data fields as JSON
----@return integer 1 on success, 0 on failure.
+---@return boolean True if the data has been successfully updated, false otherwise
 function System.updateData(dataId, dataJson) end
 
 --- Add data to widget.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param dataId string The data ID
 ---@param widgetId string The widget ID
----@return integer 1 on success, 0 on failure.
+---@return boolean True if the data has been successfully added to the widget, false otherwise
 function System.addDataToWidget(dataId, widgetId) end
 
 --- Remove data from widget.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param dataId string The data ID
 ---@param widgetId string The widget ID
----@return integer 1 on success, 0 on failure.
+---@return boolean True if the data has been successfully removed from the widget, false otherwise
 function System.removeDataFromWidget(dataId, widgetId) end
 
 --- Return the current value of the mouse wheel
@@ -10244,7 +11269,7 @@ function System.getCameraVerticalFov() end
 function System.getCameraMode() end
 
 --- Checks if the active camera is in first person view.
----@return integer 1 if the camera is in first person view.
+---@return boolean True if the camera is in first person view, false otherwise
 function System.isFirstPerson() end
 
 --- Returns the position of the camera, in construct local coordinates.
@@ -10301,11 +11326,11 @@ function System.getControlDeviceLeftRightInput() end
 
 --- Lock or unlock the mouse free look.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
----@param state boolean true to lock and false to unlock
+---@param state boolean True to lock the view, false to unlock
 function System.lockView(state) end
 
 --- Return the lock state of the mouse free look
----@return integer 1 when locked and 0 when unlocked
+---@return boolean True if the view is locked, false otherwise
 function System.isViewLocked() end
 
 ---@deprecated System.freeze() is deprecated, use Player.freeze().
@@ -10349,12 +11374,74 @@ function System.getPlayerWorldPos(id) end
 
 --- Return the item table corresponding to the given item ID.
 ---@param id integer The ID of the item
----@return table An item table with fields: {[int] id, [string] name, [string] displayName, [string] locDisplayName, [string] displayNameWithSize, [string] locDisplayNameWithSize, [string] description, [string] locDescription, [string] type, [number] unitMass, [number] unitVolume, [integer] tier, [string] scale, [string] iconPath, [table] schematics, [table] products}
+---@return table An item table with fields: {[int] id, [string] name, [string] displayName, [string] locDisplayName, [string] displayNameWithSize, [string] locDisplayNameWithSize, [string] description, [string] locDescription, [string] type, [number] unitMass, [number] unitVolume, [integer] tier, [string] size, [string] iconPath, [table] schematics, [table] products}
 function System.getItem(id) end
+
+--- Checks if the item is an item of the class identified by its item id
+---@param itemId integer The ID of the item
+---@param classId integer The item ID of the item class
+---@return boolean True if the item is an item of the given class, false otherwise
+function System.isItemInClassId(itemId, classId) end
+
+--- Checks if the given item is an item of the class given by its class name
+---@param itemId integer The ID of the item
+---@param className[string]: The name of the item class
+---@return boolean True if the item is an item of the given class, false otherwise
+function System.isItemInClass(itemId, className[string]:) end
+
+--- Checks if the given item is a class item
+---@param itemId integer The ID of the item
+---@return boolean True if the item is a class item, false otherwise
+function System.isClassItem(itemId) end
+
+--- Checks if the given item is an element
+---@param itemId integer The ID of the item
+---@return boolean True if the item is an element, false otherwise
+function System.isElementItem(itemId) end
+
+--- Checks if the given item is a material
+---@param itemId integer The ID of the item
+---@return boolean True if the item is a material, false otherwise
+function System.isMaterialItem(itemId) end
+
+--- Checks if the given item is a raw material
+---@param itemId integer The ID of the item
+---@return boolean True if the item is a raw material, false otherwise
+function System.isRawMaterialItem(itemId) end
+
+--- Checks if the given item is a blueprint
+---@param itemId integer The ID of the item
+---@return boolean True if the item is a blueprint, false otherwise
+function System.isBlueprintItem(itemId) end
+
+--- Checks if the given item is a scrap item
+---@param itemId integer The ID of the item
+---@return boolean True if the item is a scrap item, false otherwise
+function System.isScrapItem(itemId) end
+
+--- Checks if the given item is a part
+---@param itemId integer The ID of the item
+---@return boolean True if the item is a part, false otherwise
+function System.isPartItem(itemId) end
+
+--- Checks if the given item is an ammo item
+---@param itemId integer The ID of the item
+---@return boolean True if the item is an ammo item, false otherwise
+function System.isAmmoItem(itemId) end
+
+--- Checks if the given item is a package
+---@param itemId integer The ID of the item
+---@return boolean True if the item is a package, false otherwise
+function System.isPackageItem(itemId) end
+
+--- Checks if the given item is a schematic
+---@param itemId integer The ID of the item
+---@return boolean True if the item is a schematic, false otherwise
+function System.isSchematicItem(itemId) end
 
 --- Returns a list of recipes producing the given item from its id.
 ---@param itemId integer The ID of the item
----@return table A list of recipe table with field: {[int] id, [int] tier,[double] time, [bool] nanocraftable, [table] products:{{[int] id, [double] quantity},...}, [table] ingredients:{{[int] id, [double] quantity},...}}
+---@return table A list of recipe table with field: {[integer] id, [integer] tier,[number] time, [bool] nanocraftable, [table] producers, [table] products:{{[integer] id, [number] quantity},...}, [table] ingredients:{{[integer] id, [number] quantity},...}}
 function System.getRecipes(itemId) end
 
 ---@deprecated System.getSchematic(id) is deprecated, use System.getRecipes(itemId).tag.
@@ -10384,6 +11471,14 @@ function System.setWaypoint(waypointStr, notify) end
 ---@param notify boolean (Optional) True to display a notification about the waypoint's clearing
 function System.clearWaypoint(notify) end
 
+--- Returns the current instruction count during this tick
+---@return integer The current instruction count during this tick
+function System.getInstructionCount() end
+
+--- Returns the instruction limit before the CPU overload
+---@return integer The instruction limit per tick
+function System.getInstructionLimit() end
+
 --- Set the visibility of the helper top menu.
 --- Note that this function is disabled if the player is not running the script explicitly (pressing F on the Control Unit, vs. via a plug signal).
 ---@param show boolean True to show the top helper menu, false to hide the top helper menu
@@ -10394,7 +11489,7 @@ function System.showHelper(show) end
 function System.playSound(filePath) end
 
 --- Checks if a sound is playing
----@return integer 1 if a sound is playing
+---@return boolean True if a sound is playing, false otherwise
 function System.isPlayingSound() end
 
 --- Stop the current playing sound
@@ -10504,6 +11599,10 @@ function Telemeter.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Telemeter.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Telemeter.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Telemeter.getMass() end
@@ -10511,6 +11610,16 @@ function Telemeter.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Telemeter.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Telemeter.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Telemeter.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -10574,6 +11683,14 @@ function Telemeter.getWorldRight() end
 --- Returns the forward direction vector of the element in world coordinates
 ---@return table Forward direction vector of the Element in world coordinates
 function Telemeter.getWorldForward() end
+
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Telemeter.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Telemeter.getOutPlugs() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -10673,6 +11790,10 @@ function Transponder.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Transponder.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Transponder.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Transponder.getMass() end
@@ -10680,6 +11801,16 @@ function Transponder.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Transponder.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Transponder.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Transponder.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -10744,6 +11875,14 @@ function Transponder.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function Transponder.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Transponder.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Transponder.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -10781,16 +11920,15 @@ function Transponder.deactivate() end
 function Transponder.toggle() end
 
 --- Checks if the transponder is active
----@return integer 1 when the transponder is active, 0 otherwise
+---@return boolean True if the transponder is active, false otherwise
 function Transponder.isActive() end
 
 ---@deprecated Transponder.getState() is deprecated, use Transponder.isActive().
 function Transponder.getState() end
 
---- Set the tags list with up to 8 entries. Returns 1 if the application was successful, 0 if the tag
---- format is invalid.
+--- Set the tags list with up to 8 entries
 ---@param tags table List of up to 8 transponder tag strings
----@return integer 1 if transponder tags were set, 0 if an error occurred
+---@return boolean True if transponder tags were set, false if an error occurred
 function Transponder.setTags(tags) end
 
 --- Returns the tag list
@@ -10798,7 +11936,7 @@ function Transponder.setTags(tags) end
 function Transponder.getTags() end
 
 --- Emitted when the transponder is started or stopped
----@param active integer 1 if the element was activated, 0 otherwise
+---@param active boolean True if the element was activated, false otherwise
 ---@type Event
 Transponder.onToggled = Event:new()
 
@@ -10849,6 +11987,10 @@ function VerticalBooster.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function VerticalBooster.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function VerticalBooster.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function VerticalBooster.getMass() end
@@ -10856,6 +11998,16 @@ function VerticalBooster.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function VerticalBooster.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function VerticalBooster.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function VerticalBooster.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -10920,6 +12072,14 @@ function VerticalBooster.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function VerticalBooster.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function VerticalBooster.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function VerticalBooster.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -10958,11 +12118,12 @@ function VerticalBooster.getTags() end
 
 --- Set the tags of the engine
 ---@param tags string The CSV string of the tags
----@param ignore boolean: True to ignore the default engine tags
+---@param ignore boolean True to ignore the default engine tags
+---@return boolean True if the tags have been applied, false if they have not
 function VerticalBooster.setTags(tags, ignore) end
 
 --- Checks if the engine is ignoring default tags
----@return integer if the engine ignores default engine tags
+---@return boolean True if the engine ignores default engine tags, false if not
 function VerticalBooster.isIgnoringTags() end
 
 --- Start the engine at full power (works only when run inside a cockpit or under remote control)
@@ -10972,7 +12133,7 @@ function VerticalBooster.activate() end
 function VerticalBooster.deactivate() end
 
 --- Checks if the engine is active
----@return integer 1 when the engine is on
+---@return boolean True if the engine is on, false otherwise
 function VerticalBooster.isActive() end
 
 ---@deprecated FueledEngine.getState() is deprecated, use FueledEngine.isActive().
@@ -11017,7 +12178,7 @@ function VerticalBooster.getCurrentMaxThrust() end
 function VerticalBooster.getMaxThrustEfficiency() end
 
 --- Checks if the torque generation is enabled on the engine
----@return integer 1 if the torque is enabled on the engine
+---@return boolean True if the torque is enabled on the engine, false otherwise
 function VerticalBooster.isTorqueEnabled() end
 
 --- Sets the torque generation state on the engine
@@ -11047,7 +12208,7 @@ function VerticalBooster.getWorldTorqueAxis() end
 function VerticalBooster.torqueAxis() end
 
 --- Checks if the engine out of fuel
----@return integer 1 when there is no fuel left, 0 otherwise
+---@return boolean True if the engine is out of fuel, false otherwise
 function VerticalBooster.isOutOfFuel() end
 
 --- Returns the item ID of the fuel currently used by the engine
@@ -11059,7 +12220,7 @@ function VerticalBooster.getFuelId() end
 function VerticalBooster.getFuelTankId() end
 
 --- Checks if the engine linked to a functional Fuel Tank (not broken or colliding)?
----@return integer 1 when the linked tank is functional, 0 otherwise
+---@return boolean True if the linked tank is functional, false otherwise
 function VerticalBooster.hasFunctionalFuelTank() end
 
 ---@deprecated FueledEngine.hasBrokenFuelTank() is deprecated, use FueledEngine.hasFunctionalFuelTank().
@@ -11138,6 +12299,10 @@ function WarpDrive.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function WarpDrive.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function WarpDrive.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function WarpDrive.getMass() end
@@ -11145,6 +12310,16 @@ function WarpDrive.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function WarpDrive.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function WarpDrive.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function WarpDrive.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -11208,6 +12383,14 @@ function WarpDrive.getWorldRight() end
 --- Returns the forward direction vector of the element in world coordinates
 ---@return table Forward direction vector of the Element in world coordinates
 function WarpDrive.getWorldForward() end
+
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function WarpDrive.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function WarpDrive.getOutPlugs() end
 
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
@@ -11311,6 +12494,10 @@ function Weapon.getClass() end
 ---@deprecated Element.getElementClass() is deprecated, use Element.getClass() instead.
 function Weapon.getElementClass() end
 
+--- Returns the item id of the class of the Element
+---@param return integer The item ID of the item class
+function Weapon.getClassId(return) end
+
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
 function Weapon.getMass() end
@@ -11318,6 +12505,16 @@ function Weapon.getMass() end
 --- Returns the element item ID (to be used with system.getItem() function to get information about the element).
 ---@return integer The element item ID
 function Weapon.getItemId() end
+
+--- Checks if the element is an element of the class given by its item id
+---@param classId integer The item ID of the item class
+---@return boolean if the element is a valid element of the given class, false otherwise
+function Weapon.isInClassId(classId) end
+
+--- Checks if the element is an element of the class given by its class name
+---@param className string The name of the item class
+---@return boolean True if the element is a valid element of the given class, false otherwise
+function Weapon.isInClass(className) end
 
 --- Returns the unique local ID of the element
 ---@return integer The element local ID
@@ -11382,6 +12579,14 @@ function Weapon.getWorldRight() end
 ---@return table Forward direction vector of the Element in world coordinates
 function Weapon.getWorldForward() end
 
+--- Returns the Element IN plug map
+---@return table The IN plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Weapon.getInPlugs() end
+
+--- Returns the Element OUT plug map
+---@return table The OUT plug map of the Element as a table with fields per plug: {[int] type, [string] name, [int nullable] elementId, [bool] isRestricted, [list nullable] restrictedIds}
+function Weapon.getOutPlugs() end
+
 --- Set the value of a signal in the specified IN plug of the Element.
 --- Standard plug names are built with the following syntax: direction-type-index. 'Direction' can be IN or OUT.
 --- 'type' is one of the following: ITEM, FUEL, ELECTRICITY, SIGNAL, HEAT, FLUID, CONTROL, and 'index' is a number between 0 and
@@ -11422,10 +12627,10 @@ function Weapon.getAmmoCount() end
 function Weapon.getMaxAmmo() end
 
 --- Checks if the weapon is out of ammo
----@return integer 1 the weapon is out of ammo
+---@return boolean True if the weapon is out of ammo, false otherwise
 function Weapon.isOutOfAmmo() end
 
---- Returns 1 if the weapon is not broken and compatible with the construct size
+--- Checks if the weapon is operational
 ---@return integer 1 if the weapon is operational, otherwise 0 = broken, -1 = incompatible size
 function Weapon.getOperationalState() end
 
@@ -11433,7 +12638,7 @@ function Weapon.getOperationalState() end
 function Weapon.isOperational() end
 
 --- Returns the current weapon status
----@return integer The current status of the weapon (Idle = 1, Firing = 2, Reloading = 3, Unloading = 4)
+---@return integer The current status of the weapon (Idle = 1, Firing = 2, Stopping = 3, Reloading = 4, Unloading = 5, FiringBlocked = 6)
 function Weapon.getStatus() end
 
 --- Returns the local id of the container linked to the weapon
