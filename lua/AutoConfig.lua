@@ -1,4 +1,4 @@
-(function()
+;(function()
   ---@class Library
   local library = DULibrary or {}
 

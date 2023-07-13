@@ -1,4 +1,4 @@
-(function()
+;(function()
   local triggerables = {}
   local nTriggerables = 0
 
