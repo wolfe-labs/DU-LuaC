@@ -454,6 +454,19 @@ export class DULuaConfig {
   }
 
   /**
+   * Isolates a compiler internal into its own context
+   * @param code 
+   * @returns 
+   */
+  private static isolateCompilerInternal(code: string) {
+    return `;(function()\n${
+      Application.isDebugging()
+        ? compilerInternals.events
+        : this.runMinifier(compilerInternals.events)
+    }\nend)()`;
+  }
+
+  /**
    * Creates a config file from a compiler result
    * @param compilerResult 
    */
@@ -482,18 +495,14 @@ export class DULuaConfig {
       autoconf.addUnitConfigHandlerEntry(
         this.internalSlots.library,
         eventOnStart,
-        Application.isDebugging()
-          ? compilerInternals.events
-          : this.runMinifier(compilerInternals.events)
+        this.isolateCompilerInternal(compilerInternals.events)
       );
 
       // Linking helpers
       autoconf.addUnitConfigHandlerEntry(
         this.internalSlots.library,
         eventOnStart,
-        Application.isDebugging()
-          ? compilerInternals.linking
-          : this.runMinifier(compilerInternals.linking)
+        this.isolateCompilerInternal(compilerInternals.linking)
       );
 
       // Decompression helper, only for compressed builds
