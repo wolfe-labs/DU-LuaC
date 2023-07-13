@@ -14,6 +14,23 @@ export default class LuaDocBuilder {
   constructor(private codex: Codex) {}
 
   /**
+   * Fixes a parameter's name
+   * @param param The parameter being fixed
+   */
+  private fixFunctionParameterName(param: string): string {
+    // The RegEx that will cleanup
+    const regex = /([\w\d]+)/g;
+
+    // A table of things we're replacing
+    const replaces: Record<string, string> = {
+      'return': 'returns',
+    };
+
+    // Returns the fixed string
+    return regex.exec(replaces[param] || param)![1];
+  }
+
+  /**
    * Generates a class with all its inherited methods and events
    * @param className The class name being processed
    */
@@ -89,7 +106,10 @@ export default class LuaDocBuilder {
     // Finishes off with the method name
     const finalClassName = className || 'self';
     const finalSeparator = methodInfo.isMethodStatic ? '.' : ':';
-    const finalArguments = (methodInfo.params || []).map((param) => param.name).join(', ');
+    const finalArguments = (methodInfo.params || [])
+      .map((param) => param.name)
+      .map(this.fixFunctionParameterName)
+      .join(', ');
     lua.push(`function ${finalClassName}${finalSeparator}${methodName}(${finalArguments}) end`);
 
     // Merges everything

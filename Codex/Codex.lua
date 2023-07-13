@@ -43,7 +43,7 @@ function Adjustor.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Adjustor.getClassId(return) end
+function Adjustor.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -300,7 +300,7 @@ function Airbrake.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Airbrake.getClassId(return) end
+function Airbrake.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -569,7 +569,7 @@ function Airfoil.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Airfoil.getClassId(return) end
+function Airfoil.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -875,7 +875,7 @@ function AntiGravityGenerator.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function AntiGravityGenerator.getClassId(return) end
+function AntiGravityGenerator.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -1086,7 +1086,7 @@ function AtmosphericEngine.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function AtmosphericEngine.getClassId(return) end
+function AtmosphericEngine.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -1393,7 +1393,7 @@ function BaseShieldGenerator.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function BaseShieldGenerator.getClassId(return) end
+function BaseShieldGenerator.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -1684,7 +1684,7 @@ function BrakeEngine.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function BrakeEngine.getClassId(return) end
+function BrakeEngine.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -2326,7 +2326,7 @@ function Container.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Container.getClassId(return) end
+function Container.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -2528,7 +2528,7 @@ function ControlUnit.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function ControlUnit.getClassId(return) end
+function ControlUnit.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -2911,7 +2911,7 @@ function CoreUnit.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function CoreUnit.getClassId(return) end
+function CoreUnit.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -3506,7 +3506,7 @@ function Counter.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Counter.getClassId(return) end
+function Counter.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -3691,7 +3691,7 @@ function Databank.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Databank.getClassId(return) end
+function Databank.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -3909,7 +3909,7 @@ function DetectionZone.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function DetectionZone.getClassId(return) end
+function DetectionZone.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -4097,7 +4097,7 @@ function Door.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Door.getClassId(return) end
+function Door.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -4283,7 +4283,7 @@ function Element.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Element.getClassId(return) end
+function Element.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -4447,7 +4447,7 @@ function Emitter.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Emitter.getClassId(return) end
+function Emitter.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -4626,7 +4626,7 @@ function Engine.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Engine.getClassId(return) end
+function Engine.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -4809,7 +4809,7 @@ function Firework.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Firework.getClassId(return) end
+function Firework.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -5015,7 +5015,7 @@ function ForceField.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function ForceField.getClassId(return) end
+function ForceField.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -5218,7 +5218,7 @@ function FueledEngine.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function FueledEngine.getClassId(return) end
+function FueledEngine.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -5522,7 +5522,7 @@ function Gyro.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Gyro.getClassId(return) end
+function Gyro.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -5728,7 +5728,7 @@ function HoverEngine.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function HoverEngine.getClassId(return) end
+function HoverEngine.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -6040,7 +6040,7 @@ function Industry.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Industry.getClassId(return) end
+function Industry.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -6319,7 +6319,7 @@ function LandingGear.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function LandingGear.getClassId(return) end
+function LandingGear.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -6505,7 +6505,7 @@ function LaserDetector.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function LaserDetector.getClassId(return) end
+function LaserDetector.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -6690,7 +6690,7 @@ function LaserEmitter.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function LaserEmitter.getClassId(return) end
+function LaserEmitter.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -6893,7 +6893,7 @@ function Light.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Light.getClassId(return) end
+function Light.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -7121,7 +7121,7 @@ function ManualButton.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function ManualButton.getClassId(return) end
+function ManualButton.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -7306,7 +7306,7 @@ function ManualSwitch.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function ManualSwitch.getClassId(return) end
+function ManualSwitch.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -7500,7 +7500,7 @@ function MiningUnit.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function MiningUnit.getClassId(return) end
+function MiningUnit.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -7763,7 +7763,7 @@ function PlasmaExtractor.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function PlasmaExtractor.getClassId(return) end
+function PlasmaExtractor.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -8095,7 +8095,7 @@ function PressureTile.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function PressureTile.getClassId(return) end
+function PressureTile.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -8280,7 +8280,7 @@ function Radar.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Radar.getClassId(return) end
+function Radar.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -8624,7 +8624,7 @@ function Receiver.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Receiver.getClassId(return) end
+function Receiver.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -9190,7 +9190,7 @@ function RocketEngine.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function RocketEngine.getClassId(return) end
+function RocketEngine.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -9497,7 +9497,7 @@ function Screen.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Screen.getClassId(return) end
+function Screen.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -9777,7 +9777,7 @@ function ShieldGenerator.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function ShieldGenerator.getClassId(return) end
+function ShieldGenerator.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -10069,7 +10069,7 @@ function SpaceBrake.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function SpaceBrake.getClassId(return) end
+function SpaceBrake.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -10338,7 +10338,7 @@ function SpaceEngine.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function SpaceEngine.getClassId(return) end
+function SpaceEngine.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -10645,7 +10645,7 @@ function SpaceMiningUnit.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function SpaceMiningUnit.getClassId(return) end
+function SpaceMiningUnit.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -10874,7 +10874,7 @@ function SurfaceEngine.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function SurfaceEngine.getClassId(return) end
+function SurfaceEngine.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -11382,7 +11382,7 @@ function System.isItemInClassId(itemId, classId) end
 ---@param itemId integer The ID of the item
 ---@param className[string]: The name of the item class
 ---@return boolean True if the item is an item of the given class, false otherwise
-function System.isItemInClass(itemId, className[string]:) end
+function System.isItemInClass(itemId, className) end
 
 --- Checks if the given item is a class item
 ---@param itemId integer The ID of the item
@@ -11596,7 +11596,7 @@ function Telemeter.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Telemeter.getClassId(return) end
+function Telemeter.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -11787,7 +11787,7 @@ function Transponder.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Transponder.getClassId(return) end
+function Transponder.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -11984,7 +11984,7 @@ function VerticalBooster.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function VerticalBooster.getClassId(return) end
+function VerticalBooster.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -12296,7 +12296,7 @@ function WarpDrive.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function WarpDrive.getClassId(return) end
+function WarpDrive.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
@@ -12491,7 +12491,7 @@ function Weapon.getElementClass() end
 
 --- Returns the item id of the class of the Element
 ---@param return integer The item ID of the item class
-function Weapon.getClassId(return) end
+function Weapon.getClassId(returns) end
 
 --- Returns the mass of the element (includes the included items' mass when the Element is a Container)
 ---@return number The mass of the element
