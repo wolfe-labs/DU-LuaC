@@ -461,8 +461,8 @@ export class DULuaConfig {
   private static isolateCompilerInternal(code: string) {
     return `;(function()\n${
       Application.isDebugging()
-        ? compilerInternals.events
-        : this.runMinifier(compilerInternals.events)
+        ? code
+        : this.runMinifier(code)
     }\nend)()`;
   }
 
