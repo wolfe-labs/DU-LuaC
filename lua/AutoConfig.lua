@@ -14,31 +14,27 @@ function library.getLinks(filters, noLinkNames)
     filters = {}
   end
 
-  -- Current link number
-  local linkCount = 0
+  -- Let's use the Control Unit's OUT plugs to detect linked elements
+  for linkIndex, linkInfo in pairs(unit.getOutPlugs()) do
+    local linkedElement = unit[linkInfo.name]
 
-  -- Maps the found elements into the links list
-  for linkName, element in pairs(unit) do
-    if 'table' == type(element) and 'function' == type(element.getClass) then
-      local passed = true
-
+    if 'table' == type(linkedElement) and 'function' == type(linkedElement.getClass) then
       -- Runs filters of whether this slot is valid
+      local filterAllow = true
       for prop, value in pairs(filters) do
-        if not ('function' == type(element[prop]) and value == element[prop]():sub(1, #value)) then
-          passed = false
+        if not ('function' == type(linkedElement[prop]) and value == linkedElement[prop]():sub(1, #value)) then
+          filterAllow = false
+          break
         end
       end
 
-      -- If okay then add to results
-      if passed then
-        -- Skips link names?
-        linkCount = linkCount + 1
+      -- Adds element to results if passed filter
+      if filterAllow then
         if noLinkNames then
-          linkName = linkCount
+          table.insert(links, linkedElement)
+        else
+          links[linkInfo.name] = linkedElement
         end
-
-        -- Sets actual value
-        links[linkName] = element
       end
     end
   end
