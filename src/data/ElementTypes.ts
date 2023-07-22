@@ -4,7 +4,7 @@ import { ElementTypeOrCategoryList } from "../types/ElementType";
  * The list of known element types
  */
 const registeredElementTypes: ElementTypeOrCategoryList = {
-  other: {
+  element: {
     title: 'Generic Element',
     value: 'element',
     class: 'Element',
