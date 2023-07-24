@@ -103,15 +103,6 @@ const registeredElementTypes: ElementTypeOrCategoryList = {
     class: 'RocketFuelContainer',
     luaClass: 'Container',
   },
-  itemContainer: {
-    title: 'Item Container',
-    value: 'itemContainer',
-    class: 'ItemContainer',
-    luaClass: 'Container',
-    events: [
-      { signature: 'onContentUpdate()' },
-    ],
-  },
   gyro: {
     title: 'Gyroscope',
     value: 'gyro',
@@ -128,6 +119,15 @@ const registeredElementTypes: ElementTypeOrCategoryList = {
       { signature: 'onCompleted(id,quantity)' },
       { signature: 'onStatusChanged(status)' },
       { signature: 'onBankUpdate()' },
+    ],
+  },
+  itemContainer: {
+    title: 'Item Container',
+    value: 'itemContainer',
+    class: 'ItemContainer',
+    luaClass: 'Container',
+    events: [
+      { signature: 'onContentUpdate()' },
     ],
   },
   laserDetector: {
@@ -233,6 +233,12 @@ const registeredElementTypes: ElementTypeOrCategoryList = {
       { signature: 'onEnterLockdown()' },
       { signature: 'onLeaveLockdown()' },
     ],
+  },
+  telemeter: {
+    title: 'Telemeter',
+    value: 'telemeter',
+    class: 'TelemeterUnit',
+    luaClass: 'Telemeter',
   },
   transponder: {
     title: 'Transponder',
