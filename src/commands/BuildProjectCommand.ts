@@ -101,13 +101,16 @@ export default class BuildProjectCommand implements Command {
 
           // Measures output size when Render Script
           if (build.type == BuildType.RenderScript) {
-            this.printScriptUsage(this.getStringByteSize(output), 50000);
+            this.printScriptUsage(this.getStringByteSize(output), 50000, 'Render Script');
           }
         }
 
         // Exports our JSON file
         if (exportFormats.JSON) {
           fs.writeFileSync(`${buildOutputFile}.json`, JSON.stringify(configFile.toDUUnitConfig()));
+
+          // Measures output size
+          this.printScriptUsage(this.getStringByteSize(JSON.stringify(configFile.toDUUnitConfig(), null, 2)), 200000, 'JSON build');
         }
 
         // Exports our YAML file
@@ -122,7 +125,7 @@ export default class BuildProjectCommand implements Command {
           fs.writeFileSync(`${buildOutputFile}.conf`, output);
 
           // Measures output size
-          this.printScriptUsage(this.getStringByteSize(output), 180000);
+          this.printScriptUsage(this.getStringByteSize(output), 180000, 'CONF build');
         }
 
         // Copies our build to the clipboard
@@ -172,17 +175,17 @@ export default class BuildProjectCommand implements Command {
    * @param currentBytes The current size of script
    * @param maxBytes The max size of the script
    */
-  private printScriptUsage(currentBytes: number, maxBytes: number) {
+  private printScriptUsage(currentBytes: number, maxBytes: number, buildType: string = 'Build') {
     const percentage = 100 * currentBytes / maxBytes;
     const message = `${CLI.formatByteSize(currentBytes)} out of ${CLI.formatByteSize(maxBytes)} (${percentage.toFixed(2)}%)`;
     
     if (percentage > 100) {
-      CLI.error(`Build is too large! Using ${message}`);
-      CLI.error('Script contents might not persist in-game!');
+      CLI.warn(`${buildType} is too large! Using ${message}`);
+      CLI.warn(`${buildType} contents might not persist in-game!`);
     } else if (percentage > 90) {
-      CLI.warn(`Build size: ${message}`);
+      CLI.warn(`${buildType} size: ${message}`);
     } else {
-      CLI.status(this.CLITag, `Build size: ${message}`);
+      CLI.status(this.CLITag, `${buildType} size: ${message}`);
     }
   }
 }
