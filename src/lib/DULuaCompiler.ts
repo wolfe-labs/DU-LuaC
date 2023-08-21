@@ -357,7 +357,7 @@ export class DULuaCompiler {
     const compilerRegexes: SimpleMap<DULuaCompilerRegex> = {
       // Require statements
       require: {
-        expression: /require\s*\([\'\"](.*)[\'\"]\)/g,
+        expression: /require\s*\(\s*['"]([^'"]+)['"]\s*\)/g,
         handler: (fullMatch: string, file: string): string => {
           // Does the actual require on compiler-side, will return null if nothing is found
           const requireResult = this.requireFile(file);
