@@ -338,6 +338,14 @@ export class DULuaCompiler {
   }
 
   /**
+   * Escapes a string for use inside a regular expression
+   * @param str The string being escaped
+   */
+  private escapeForRegex(str: string): string {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  /**
    * Processes a piece of code
    * @param sourceCode The Lua source-code being processed
    */
@@ -357,8 +365,24 @@ export class DULuaCompiler {
     const compilerRegexes: SimpleMap<DULuaCompilerRegex> = {
       // Require statements
       require: {
-        expression: /require\s*\(\s*['"]([^'"]+)['"]\s*\)/g,
+        expression: /(?<!--)require\s*\(\s*['"]([^'"]+)['"]\s*\)/g,
         handler: (fullMatch: string, file: string): string => {
+          // Let's create a temporary version of the source-code without that require inside strings and comments
+          const empty = () => '';
+          const escapedRequire = this.escapeForRegex(fullMatch)
+          const tempSource = cleanSource
+            .replace(new RegExp(`\\[{2}(.|\\n)*?\\]{2}`, 'g'), empty) // Multi-line string literals and comments: [[ something here ]]
+            .replace(new RegExp(`-{2}.*`, 'g'), empty) // Single-line comments: -- something here
+            .replace(new RegExp(`\\'.*?${escapedRequire}.*?\\'`, 'g'), empty) // Single-quote strings: 'something here'
+            .replace(new RegExp(`\\".*?${escapedRequire}.*?\\"`, 'g'), empty); // Double-quote strings: "something here"
+
+          // Now, check if that require still exists, and if it doesn't, returns the original source code
+          if (
+            !(new RegExp(escapedRequire).test(tempSource))
+          ) {
+            return fullMatch;
+          }
+
           // Does the actual require on compiler-side, will return null if nothing is found
           const requireResult = this.requireFile(file);
 
