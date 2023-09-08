@@ -5,6 +5,8 @@ import Application from "../Application";
 import { CLI } from "../lib/CLI";
 import LuaDocBuilder from "../lib/LuaDocBuilder";
 import Codex from "../types/Codex";
+import Utils from "../lib/Utils";
+import path from "path";
 
 /**
  * A command that updates the codex
@@ -28,8 +30,16 @@ export default class UpdateCodexCommand implements Command {
     // Status update
     CLI.print('Building LuaDoc Codex...');
 
+    // Reads all extra Lua headers
+    const dirExtraHeaders = Application.getPath('lua/headers');
+    const extraHeaders = Utils.deepReadDirectory(dirExtraHeaders)
+      .filter((file) => file.endsWith('.lua'))
+      .map((file) => fs.readFileSync(path.join(dirExtraHeaders, file)).toString());
+
     // Builds LuaDoc Codex
-    const luaCodex = (new LuaDocBuilder(updatedCodex as Codex)).build();
+    const luaCodex = (new LuaDocBuilder(updatedCodex as Codex))
+      .withHeaders(...extraHeaders)
+      .build();
 
     // Writes the new Lua Codex
     fs.writeFileSync(Application.getPath('Codex/Codex.lua'), luaCodex);

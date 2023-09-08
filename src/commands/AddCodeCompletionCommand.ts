@@ -33,17 +33,8 @@ export default class AddCodeCompletionCommand implements Command {
     // Creates utility directory as needed
     if (!fs.existsSync(project.getUtilityDirectory())) fs.mkdirSync(project.getUtilityDirectory(), { recursive: true });
 
-    // Reads all extra Lua headers
-    const dirExtraHeaders = Application.getPath('lua/headers');
-    const extraHeaders = this.deepReadDirectory(dirExtraHeaders)
-      .filter((file) => file.endsWith('.lua'))
-      .map((file) => fs.readFileSync(path.join(dirExtraHeaders, file)).toString());
-
     // Prepares our project's Codex file
     const projectCodex = [
-      // Our extra Lua headers
-      ...extraHeaders,
-
       // The default Codex
       fs.readFileSync(Application.getPath('Codex/Codex.lua')).toString(),
 
@@ -90,29 +81,5 @@ export default class AddCodeCompletionCommand implements Command {
 
     // Status message
     CLI.success(`Codex added to .gitignore!`);
-  }
-
-  /**
-   * Reads a directory and all its subdirectories
-   * @param dir The directory we're reading
-   */
-  deepReadDirectory(dir: string): string[] {
-    // Reads directory recursively
-    const entries = fs.readdirSync(dir, { withFileTypes: true });
-    const files: string[] = [];
-
-    // Processes entries
-    entries.forEach((entry) => {
-      if (entry.isDirectory()) {
-        files.push(
-          ...this.deepReadDirectory(path.join(dir, entry.name)).map((file) => path.join(entry.name, file)),
-        );
-      } else {
-        files.push(entry.name);
-      }
-    });
-
-    // Done
-    return files;
   }
 }
