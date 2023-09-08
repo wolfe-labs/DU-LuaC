@@ -12717,6 +12717,340 @@ Weapon.onElementDestroyed = Event:new()
 Weapon.onHit = Event:new()
 
 
+--[[ Those are headers for DU's vec2 library ]]
+
+--- A vec2 represents a 2-dimensional vector and includes methods to manipulate it
+---@class vec2
+---@field zero vec3 A vector representing the origin point (0, 0) - Only available OUTSIDE instances
+---@field unit_x vec3 A vector representing the X axis (1, 0) - Only available OUTSIDE instances
+---@field unit_y vec3 A vector representing the Y axis (0, 1) - Only available OUTSIDE instances
+---@field x number The X component of the vector - Only available INSIDE instances
+---@field y number The Y component of the vector - Only available INSIDE instances
+vec2 = {}
+
+--- Calculates the distance between two points
+---@param a vec2 The first point
+---@param b vec2 The second point
+---@return number
+function vec2.dist(a, b) end
+
+--- Calculates the squared distance between two points
+---@param a vec2 The first point
+---@param b vec2 The second point
+---@return number
+function vec2.dist2(a, b) end
+
+--- Calculates the dot product of two vectors
+---@param a vec2 The first vector to dot with
+---@param b vec2 The second vector to dot with
+---@return number
+function vec2.dot(a, b) end
+
+--- Returns true when a valid vec3 is provided
+---@param vector any The value to test against
+---@return boolean
+function vec3.isvector(vector) end
+
+--- Calculates the linear interpolation between two points
+--- https://web.archive.org/web/20220115105703/https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
+---@param a vec2 The first point
+---@param b vec2 The second point
+---@param delta number A value between 0 and 1 indicating how much to interpolate towards the second point
+---@return vec2
+function vec2.lerp(a, b, delta) end
+
+--- TODO: Write documentation about this method
+---@param vector vec2
+---@return number
+function vec2:angle_to(vector) end
+
+--- Creates a new instance containing the same data
+---@return vec2
+function vec2:clone() end
+
+--- Crosses the current vector with another vector
+---@param vector vec2 The vector to cross with
+---@return vec2
+function vec2:cross(vector) end
+
+--- Calculates the vector's length
+---@return number
+function vec2:len() end
+
+--- Calculates the vector's squared length
+---@return number
+function vec2:len2() end
+
+--- TODO: Write documentation about this method
+---@param vector vec2
+---@return vec2
+function vec2:mirror_on(vector) end
+
+--- Normalizes the vector so that its length is 1 and returns a new copy
+---@return vec2
+function vec2:normalize() end
+
+--- Normalizes the vector in-place so that its length is 1
+---@return vec2
+function vec2:normalize_inplace() end
+
+--- Returns the vector perpendicular to the current
+---@return vec2
+function vec2:perpendicular() end
+
+--- Projects the current vector into another vector
+---@param vector vec2 The vector on which we are projecting the current vector
+---@return vec2
+function vec2:project_on(vector) end
+
+--- Rotates the vector in a certain angle
+---@param phi number Amount to be rotated, in radians
+---@return vec2
+function vec2:rotate(phi) end
+
+--- Rotates the vector in-place in a certain angle
+---@param phi number Amount to be rotated, in radians
+---@return vec2
+function vec2:rotate_inplace(phi) end
+
+--- Truncates (scales down) the vector if its length is larger than maxLen
+--- https://web.archive.org/web/20130512171728/http://blog.signalsondisplay.com/?p=336
+---@param maxLen number The maximum length of the vector
+---@return vec2
+function vec2:trim(vector) end
+
+--- Truncates (scales down) the vector in-place if its length is larger than maxLen
+--- https://web.archive.org/web/20130512171728/http://blog.signalsondisplay.com/?p=336
+---@param maxLen number The maximum length of the vector
+---@return vec2
+function vec2:trim_inplace(vector) end
+
+--- Unpacks the vector into its components
+---@return number, number
+function vec2:unpack() end
+
+--- Initializes a new 2D vector with its components in a table
+---@param components number[] A table in the { x, y } format
+---@return vec2
+function vec2(components) return setmetatable({}, { _index = vec2 }) end
+
+--[[ Those are headers for DU's vec3 library ]]
+
+--- A vec3 represents a 3-dimensional vector and includes methods to manipulate it
+---@class vec3
+---@field zero vec3 A vector representing the origin point (0, 0, 0) - Only available OUTSIDE instances
+---@field unit_x vec3 A vector representing the X axis (1, 0, 0) - Only available OUTSIDE instances
+---@field unit_y vec3 A vector representing the Y axis (0, 1, 0) - Only available OUTSIDE instances
+---@field unit_z vec3 A vector representing the Z axis (0, 0, 1) - Only available OUTSIDE instances
+---@field x number The X component of the vector - Only available INSIDE instances
+---@field y number The Y component of the vector - Only available INSIDE instances
+---@field z number The Z component of the vector - Only available INSIDE instances
+vec3 = {}
+
+--- Calculates the distance between two points
+---@param a vec3 The first point
+---@param b vec3 The second point
+---@return number
+function vec3.dist(a, b) end
+
+--- Calculates the squared distance between two points
+---@param a vec3 The first point
+---@param b vec3 The second point
+---@return number
+function vec3.dist2(a, b) end
+
+--- Calculates the dot product of two vectors
+---@param a vec3 The first vector to dot with
+---@param b vec3 The second vector to dot with
+---@return number
+function vec3.dot(a, b) end
+
+--- Returns true when a valid vec3 is provided
+---@param vector any The value to test against
+---@return boolean
+function vec3.isvector(vector) end
+
+--- Calculates the linear interpolation between two points
+--- https://web.archive.org/web/20220115105703/https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
+---@param a vec3 The first point
+---@param b vec3 The second point
+---@param delta number A value between 0 and 1 indicating how much to interpolate towards the second point
+---@return vec3
+function vec3.lerp(a, b, delta) end
+
+--- Calculates the angle between two different vectors
+---@param vector vec3 The second vector we are getting the angle between
+---@return number
+function vec3:angle_between(vector) end
+
+--- TODO: Write documentation about this method, but only seems to work on 2D vectors (why is this here?)
+---@param vector vec3
+---@return number
+function vec3:angle_to(vector) end
+
+--- Creates a new instance containing the same data
+---@return vec3
+function vec3:clone() end
+
+--- Crosses the current vector with another vector
+---@param vector vec3 The vector to cross with
+---@return vec3
+function vec3:cross(vector) end
+
+--- Calculates the vector's length
+---@return number
+function vec3:len() end
+
+--- Calculates the vector's squared length
+---@return number
+function vec3:len2() end
+
+--- TODO: Write documentation about this method
+---@param vector vec3
+---@return vec3
+function vec3:mirror_on(vector) end
+
+--- Normalizes the vector so that its length is 1 and returns a new copy
+---@return vec3
+function vec3:normalize() end
+
+--- Normalizes the vector in-place so that its length is 1
+---@return vec3
+function vec3:normalize_inplace() end
+
+--- TODO: Write documentation about this method
+---@param orientation vec3
+---@return vec3
+function vec3:orientation_to_direction(orientation) end
+
+--- Returns the vector perpendicular to the current
+---@return vec3
+function vec3:perpendicular() end
+
+--- TODO: Write documentation about this method
+---@param vector vec3
+---@return vec3
+function vec3:project_from(vector) end
+
+--- Projects the current vector into another vector
+---@param vector vec3 The vector on which we are projecting the current vector
+---@return vec3
+function vec3:project_on(vector) end
+
+--- Projects the current vector into a plane
+---@param plane_normal vec3 The normal of the plane on which we are projecting the current vector
+---@return vec3
+function vec3:project_on_plane(plane_normal) end
+
+--- Rotates the vector by an axis
+---@param phi number Amount to be rotated, in radians
+---@param axis vec3 Axis by which the vector will be rotated
+---@return vec3
+function vec3:rotate(phi, axis) end
+
+--- Truncates (scales down) the vector if its length is larger than maxLen
+--- https://web.archive.org/web/20130512171728/http://blog.signalsondisplay.com/?p=336
+---@param maxLen number The maximum length of the vector
+---@return vec3
+function vec3:trim(vector) end
+
+--- Truncates (scales down) the vector in-place if its length is larger than maxLen
+--- https://web.archive.org/web/20130512171728/http://blog.signalsondisplay.com/?p=336
+---@param maxLen number The maximum length of the vector
+---@return vec3
+function vec3:trim_inplace(vector) end
+
+--- Unpacks the vector into its components
+---@return number, number, number
+function vec3:unpack() end
+
+--- Initializes a new 3D vector with its components in a table
+---@param components number[] A table in the { x, y, z } format
+---@return vec3
+function vec3(components) return setmetatable({}, { _index = vec3 }) end
+
+--[[ Those are the DU-LuaC Helpers ]]
+
+--- Returns a list of elements linked to the current Control Unit
+---@param filters table<string, string> A list of filters where each key is a element function and the value is the desired value
+---@param noLinkNames boolean When true the results will be keyed by the linking order instead of link name
+---@return table<string|number, Element>
+function Library.getLinks(filters, noLinkNames) end
+
+--- Returns a list of elements linked to the current Control Unit of a specified class
+---@param className string The element class name you want to match against
+---@param noLinkNames boolean When true the results will be keyed by the linking order instead of link name
+---@return table<string|number, Element>
+function Library.getLinksByClass(className, noLinkNames) end
+
+--- Returns the first element linked to the current Control Unit of a specified class
+---@param className string The element class name you want to match against
+---@return Element
+function Library.getLinkByClass(className) end
+
+--- Returns the linked Core Unit
+---@return CoreUnit
+function Library.getCoreUnit() end
+
+--- Returns a linked element with matching name
+---@param elementName string The element name to be matched against
+---@return Element
+function Library.getLinkByName(elementName) end
+
+--- Adds event handling to an object's instance
+---@param obj table The object you are adding events to
+function Library.addEventHandlers(obj) end
+
+--- Clears all event handlers currently in use everywhere in the Lua context
+function Library.clearAllEventHandlers() end
+
+--- Embeds a local file (from your LuaC project) as a Lua string
+---@param file string The file you are embedding
+---@return string
+function Library.embedFile(file) end
+
+--- Represents the Dual Universe atlas
+---@alias DUAtlas table<number, DUAtlasSolarSystem>
+local DUAtlas = {}
+
+--- Represents a celestial body (planet, moon, moonlet, asteroid, etc) found in the Dual Universe atlas
+---@class DUAtlasCelestialBody
+---@field id number The unique ID of the celestial body
+---@field name DUMultiLanguageString The localized name of the celestial body
+---@field type DUMultiLanguageString The localized type of the celestial body
+---@field biosphere DUMultiLanguageString The localized biosphere of the celestial body
+---@field classification DUMultiLanguageString The localized classification of the celestial body
+---@field habitability DUMultiLanguageString The localized habitability of the celestial body
+---@field description DUMultiLanguageString The localized description of the celestial body
+---@field iconPath string The image path to the icon representing the celestial body
+---@field hasAtmosphere boolean Whether the celestial body has an atmosphere or not
+---@field isSanctuary boolean Whether the celestial body is a Sanctuary moon or not
+---@field isInSafeZone boolean Whether the celestial body is on the safe zone or not
+---@field systemId number The ID of the solar system the celestial body belongs to
+---@field positionInSystem number The position of the celestial body on the solar system
+---@field satellites number[] The IDs of each satellite belonging to the celestial body
+---@field center table The world coordinates of the center of the celestial body
+---@field gravity number The gravity of the celestial body, in m/s²
+---@field radius number The radius of the celestial body, in meters from its center, represents altitude 0m (sea level)
+---@field atmosphereRadius number The radius of the celestial body atmosphere, in meters from its center
+---@field atmosphereThickness number The thickness of the atmosphere, in meters (around the same as the atmosphereRadius - radius)
+---@field GM number The celestial body mass in units of the product of the gravitational constant (G) and the mass of the star (M), also known as the heliocentric gravitational constant
+---@field surfaceArea number The celestial body total surface area, in m²
+---@field surfaceAverageAltitude number The celestial body average surface altitude, in meters above sea level
+---@field surfaceMaxAltitude number The celestial body maximum surface altitude, in meters above sea level
+---@field surfaceMinAltitude number The celestial body minimum surface altitude, in meters above sea level
+---@field ores DUMultiLanguageString[] A list of all the ores that can be found on the celestial body
+---@field territories number How many territories the celestial body has in total
+local AtlasCelestialBody = {}
+
+--- Represents a solar system on the Dual Universe atlas
+---@alias DUAtlasSolarSystem table<number, DUAtlasCelestialBody>
+local DUAtlasSolarSystem = {}
+
+--- Describes a localized string in multiple languages
+---@class DUMultiLanguageString
+local DUMultiLanguageString = {}
+
 library = Library()
 
 system = System()

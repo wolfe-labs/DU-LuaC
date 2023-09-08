@@ -8,6 +8,11 @@ import ColorScheme from "./ColorScheme";
  */
 export default class LuaDocBuilder {
   /**
+   * A list of extra Lua headers to be added before globals and after the base Codex
+   */
+  private extraHeaders: string[] = [];
+
+  /**
    * Initializes our LuaDoc builder
    * @param codex The Codex structure
    */
@@ -155,6 +160,15 @@ export default class LuaDocBuilder {
   }
 
   /**
+   * Adds a series of Lua headers to the current builder, it will be positioned before the globals and after the base Codex
+   * @param headers The Lua code for that header
+   */
+  withHeaders(...headers: string[]): LuaDocBuilder {
+    this.extraHeaders.push(...headers);
+    return this;
+  }
+
+  /**
    * Builds the provided Codex into a LuaDoc .lua file
    */
   build(): string {
@@ -171,6 +185,12 @@ export default class LuaDocBuilder {
 
       // Builds the actual LuaDoc for that class
       lua.push(this.buildClassHeaders(className, processedClass));
+    }
+
+    // Adds DU-LuaC helper spec
+    if (this.extraHeaders.length > 0) {
+      CLI.print(`Adding helper headers...`);
+      lua.push(...this.extraHeaders);
     }
 
     // Builds globals
