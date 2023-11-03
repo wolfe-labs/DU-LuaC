@@ -362,9 +362,9 @@ export class DULuaCompiler {
    */
   private processDirectives(sourceCode: string): string {
     const directives = [
-      // #IF, #ELSE and #ENDIF
+      // @if, @else and @end
       {
-        regex: /--#IF (\w+)\w?(.*?)\n([\S\s]*?)\n--#ENDIF/gm,
+        regex: /---@if (\w+)\w?(.*?)\n([\S\s]*?)\n---@end/gm,
         action: (source: string, compareVariableName: string, compareValue: string, innerCode: string): string => {
           // We'll store our outputs here
           const blocks = {
@@ -373,8 +373,8 @@ export class DULuaCompiler {
           }
 
           // Checks if we have an else clause
-          if (innerCode.includes('--#ELSE')) {
-            const parts = innerCode.split('--#ELSE');
+          if (innerCode.includes('---@else')) {
+            const parts = innerCode.split('---@else');
             blocks['true'] = parts[0];
             blocks['false'] = parts[1];
           }
