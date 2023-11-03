@@ -56,7 +56,10 @@ export default class AddBuildTargetCommand implements Command {
     }
 
     // Creates our build target
-    const buildTarget: BuildTarget = targetOptions;
+    const buildTarget: BuildTarget = {
+      ...targetOptions,
+      variables: {},
+    };
 
     // Adds our target to the project
     project.registerBuildTarget(buildTarget);
