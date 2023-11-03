@@ -69,6 +69,34 @@ A great use case for HTML templates or any other kind of "large" content. You ca
 
 - File access is restricted only to the current project, due to security concerns
 
+### Compiler Variables and Directives
+
+In some larger-scale projects, you might want to be able to enable or disable things depending in a series of factors, such as your current build target or something specific to your build environment. With that in mind, the CLI has some basic support for compiler variables and directives.
+
+**Note:** due to the way directives are currently implemented, nesting of directives is not possible.
+
+#### Compiler Variables
+
+Compiler variables are defined in each of your project's build targets, inside the `variables` property. You can add as many variables you want, the only limitation is that only strings, numbers and booleans are supported.
+
+You can also override existing build target variables via the command-line, by adding options prefixed with `--var:`.
+
+For example, let's say you have a "debug" variable set somewhere and you want to force it to `false` in every build target, you can append the following to the build command and it should do the trick: `--var:debug=false`
+
+#### Conditional Directives (if/else)
+
+There's currently some basic support for conditional directives, you can use them as follows:
+
+```lua
+---@if variable_name compared_value
+system.print('something')
+---@else
+system.print('something else')
+---@end
+```
+
+You can also not include a value for comparison, in those cases, it will check if the value is either `true` or something not-falsey (not null, undefined, etc).
+
 ## Post-Mercury (0.30) Support
 
 As of the Mercury (0.30) update, all events now start with the prefix `on`. So, for example, the old `update` event is now `onUpdate`.
