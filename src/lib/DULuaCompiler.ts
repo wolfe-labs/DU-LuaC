@@ -154,7 +154,7 @@ export class DULuaCompiler {
       .filter(entry => entry.length > 0);
 
     // Loads our environment variables
-    this.buildVariables = Object.assign({}, buildTarget.variables, variables);
+    this.buildVariables = Object.assign({}, buildTarget.variables || {}, variables);
   }
 
   /**
