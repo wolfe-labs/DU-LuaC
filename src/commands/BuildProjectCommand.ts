@@ -8,6 +8,7 @@ import { DULuaConfig } from "../lib/DULuaConfig";
 import { BuildType } from "../types/Build";
 import Project from "../types/Project";
 import Command, { CommandData } from "./Command";
+import { CompilerVariableSet } from "../types/CompilerVariable";
 
 /**
  * A command that builds the project
@@ -34,13 +35,32 @@ export default class BuildProjectCommand implements Command {
     // Determines whether clipboard has been used or not
     let hasUsedClipboard = false;
 
+    // Gets a list of command-line vars
+    const variablePrefix = 'var:';
+    const variables: CompilerVariableSet = {};
+    for (const option in options) {
+      if (option.startsWith(variablePrefix)) {
+        // Sets variable
+        const variable = option.substring(variablePrefix.length);
+        const valueRaw = options[option];
+
+        // Here we try to convert the value into a JS value
+        let value = valueRaw;
+        try {
+          value = JSON.parse(valueRaw);
+        } catch (ex) {
+          // Nothing necessary
+        }
+        
+        // Assigns and cleans-up
+        variables[variable] = value;
+        delete options[option];
+      }
+    }
+
     // Builds each of the entry-points
     const builds = project.getProjectBuilds();
-    for (let iBuild in builds) {
-      // This is the current build, let's let the end-user know
-      const build = builds[iBuild];
-      CLI.status(this.CLITag, `Starting build ${ColorScheme.highlight(build.name)}`);
-
+    for (const build of builds) {
       // Those are the formats we're exporting to
       const exportFormats = {
         JSON: false,
@@ -69,17 +89,15 @@ export default class BuildProjectCommand implements Command {
           ].join('\n'));
       }
 
-      // Invokes our compiler step
-      const buildResult = await DULuaCompiler.compile(project, build);
-
       // Loops for every build target
       const buildTargets = project.getProjectBuildTargets();
-      for (let iBuildTarget in buildTargets) {
-        // Gets the said build target
-        const buildTarget = buildTargets[iBuildTarget];
+      for (const buildTarget of buildTargets) {
+        // Invokes our compiler step
+        CLI.status(this.CLITag, `Starting build ${ColorScheme.highlight(build.name)} for target ${ColorScheme.highlight(buildTarget.name)}...`);
+        const buildResult = await DULuaCompiler.compile(project, build, buildTarget, variables);
 
         // Generates the files
-        CLI.status(this.CLITag, `Generating files for build target ${ColorScheme.highlight(buildTarget.name)}...`);
+        CLI.status(this.CLITag, `Generating output files for target ${ColorScheme.highlight(buildTarget.name)}...`);
         const configFile = DULuaConfig.fromCompilerResult(buildResult, buildTarget);
 
         // Creates output directory

@@ -1,4 +1,4 @@
-import { SimpleMap } from "./SimpleMap";
+import { CompilerVariableSet } from "./CompilerVariable";
 
 export default class BuildTarget {
   /**
@@ -19,5 +19,5 @@ export default class BuildTarget {
   /**
    * Custom build-target specific compiler variables
    */
-  variables: SimpleMap<string | number | boolean> = {};
+  variables: CompilerVariableSet = {};
 }
