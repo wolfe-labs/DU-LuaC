@@ -16,11 +16,16 @@ import { CompilerVariableSet } from "../types/CompilerVariable";
 export default class BuildProjectCommand implements Command {
   // Sets the values we'll be using on the main CLI
   command = 'build';
-  description = `Builds the current project`;
+  description = `Builds the entire project or the provided build target`;
+  args = ['build-target'];
   options = {
     copy: {
       format: `target-name/${ColorScheme.highlightArgument('build-name')}`,
       description: `Copies the specified build's JSON into your clipboard. If no target is provided, the first is selected`,
+    },
+    'var:name': {
+      format: `true`,
+      description: 'Sets the compiler variable "name" to "true"',
     },
   };
 
