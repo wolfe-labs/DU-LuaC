@@ -16,11 +16,16 @@ import { CompilerVariableSet } from "../types/CompilerVariable";
 export default class BuildProjectCommand implements Command {
   // Sets the values we'll be using on the main CLI
   command = 'build';
-  description = `Builds the current project`;
+  description = `Builds the entire project or the provided build target`;
+  args = ['build-target'];
   options = {
     copy: {
       format: `target-name/${ColorScheme.highlightArgument('build-name')}`,
       description: `Copies the specified build's JSON into your clipboard. If no target is provided, the first is selected`,
+    },
+    'var:name': {
+      format: `true`,
+      description: 'Sets the compiler variable "name" to "true"',
     },
   };
 
@@ -31,6 +36,9 @@ export default class BuildProjectCommand implements Command {
   async run({ args, options }: CommandData) {
     // Gets current project
     const project = Project.load(process.cwd());
+
+    // Optionally build a single target
+    const specificBuildTarget = args[0] || null;
 
     // Determines whether clipboard has been used or not
     let hasUsedClipboard = false;
@@ -89,8 +97,19 @@ export default class BuildProjectCommand implements Command {
           ].join('\n'));
       }
 
+      // Fetches valid build targets
+      const buildTargets = specificBuildTarget
+        ? project.getProjectBuildTargets().filter(target => target.name == specificBuildTarget)
+        : project.getProjectBuildTargets();
+
+      // If we have specified a target, checks if it exists
+      if (specificBuildTarget && buildTargets.length == 0) {
+        CLI.error(`Build target ${ColorScheme.highlight(specificBuildTarget)} was not found on this project`)
+        CLI.error(`Available build targets: ${project.getProjectBuildTargets().map(target => ColorScheme.highlight(target.name)).join(', ')}`)
+        process.exit(1);
+      }
+
       // Loops for every build target
-      const buildTargets = project.getProjectBuildTargets();
       for (const buildTarget of buildTargets) {
         // Invokes our compiler step
         CLI.status(this.CLITag, `Starting build ${ColorScheme.highlight(build.name)} for target ${ColorScheme.highlight(buildTarget.name)}...`);
