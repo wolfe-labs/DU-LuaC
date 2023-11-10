@@ -1,3 +1,5 @@
+import { CompilerVariableSet } from "./CompilerVariable";
+
 export default class BuildTarget {
   /**
    * The build target name
@@ -13,4 +15,9 @@ export default class BuildTarget {
    * Whether we should minify the output
    */
   minify: boolean = false;
+
+  /**
+   * Custom build-target specific compiler variables
+   */
+  variables: CompilerVariableSet = {};
 }

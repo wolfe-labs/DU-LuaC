@@ -43,7 +43,7 @@ export default class Project {
   /**
    * The current project format
    */
-  private projectFormat: number = 3;
+  private projectFormat: number = 4;
 
   /**
    * The loaded libraries on the project
