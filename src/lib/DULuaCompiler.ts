@@ -293,7 +293,7 @@ export class DULuaCompiler {
     );
 
     // Searches for a matching file
-    let filepath!: string;
+    let filepath: string | undefined;
     for (let iFile in possibleFilePaths) {
       if (fs.existsSync(possibleFilePaths[iFile])) {
         filepath = possibleFilePaths[iFile];
