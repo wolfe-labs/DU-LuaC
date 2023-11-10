@@ -412,6 +412,9 @@ export class DULuaCompiler {
    * @param sourceCode The Lua source-code being processed
    */
   private processSourceCode(sourceCode: string): string {
+    // Replaces any \r\n with just \n for sanity reasons
+    sourceCode = sourceCode.replace(/\r\n/g, '\n');
+
     // Handles processor directives
     sourceCode = this.processDirectives(sourceCode);
 
