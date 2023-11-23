@@ -437,12 +437,15 @@ export class DULuaCompiler {
         handler: (fullMatch: string, file: string): string => {
           // Let's create a temporary version of the source-code without that require inside strings and comments
           const empty = () => '';
-          const escapedRequire = this.escapeForRegex(fullMatch)
+          const newRequire = `require([[${file}]])`;
+          const newEscapedRequire = this.escapeForRegex(newRequire);
+          const escapedRequire = this.escapeForRegex(fullMatch);
           const tempSource = cleanSource
+            .replace(escapedRequire, newRequire)
             .replace(new RegExp(`\\[{2}(.|\\n)*?\\]{2}`, 'g'), empty) // Multi-line string literals and comments: [[ something here ]]
             .replace(new RegExp(`-{2}.*`, 'g'), empty) // Single-line comments: -- something here
-            .replace(new RegExp(`\\'.*?${escapedRequire}.*?\\'`, 'g'), empty) // Single-quote strings: 'something here'
-            .replace(new RegExp(`\\".*?${escapedRequire}.*?\\"`, 'g'), empty); // Double-quote strings: "something here"
+            .replace(new RegExp(`\\'.*?${newEscapedRequire}.*?\\'`, 'g'), empty) // Single-quote strings: 'something here'
+            .replace(new RegExp(`\\".*?${newEscapedRequire}.*?\\"`, 'g'), empty); // Double-quote strings: "something here"
 
           // Now, check if that require still exists, and if it doesn't, returns the original source code
           if (
