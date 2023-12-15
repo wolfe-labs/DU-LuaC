@@ -22,7 +22,7 @@ export default abstract class CompilerFunction {
   /**
    * Invokes our function
    */
-  abstract invoke(compilerState: DULuaCompiler, ...args: any[]): string;
+  abstract invoke(compilerState: DULuaCompiler, ...args: any[]): Promise<string>;
 
   /**
    * Parses an argument

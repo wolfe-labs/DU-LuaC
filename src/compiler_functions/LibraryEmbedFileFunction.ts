@@ -9,7 +9,7 @@ export default class LibraryEmbedFileFunction extends CompilerFunction {
   readonly args = ['file'];
   readonly description = `Embeds the provided file into the resulting Lua code`;
 
-  invoke(compilerState: DULuaCompiler, file: string): string {
+  async invoke(compilerState: DULuaCompiler, file: string): Promise<string> {
     // Asserts our file is inside the project (should be)
     const currentProject = compilerState.getCurrentProject()
     if (!currentProject) {

@@ -25,4 +25,28 @@ export default class Utils {
     // Done
     return files;
   }
+
+  /**
+   * Replaces a regex pattern in async mode
+   * @param str 
+   * @param regex 
+   * @param replacer 
+   */
+  static async replaceAsync(str: string, regex: RegExp, replacer: (match: string, ...args: string[]) => Promise<string>): Promise<string> {
+    const promises: Promise<string>[] = [];
+
+    // Does first matching so we find all replacement strings
+    str.replace(regex, (match: string, ...args: string[]) => {
+      promises.push(
+        replacer(match, ...args)
+      );
+      return match;
+    });
+
+    // Gets all replacements
+    const data = await Promise.all(promises);
+
+    // Does actual replacement of data
+    return str.replace(regex, () => data.shift()!);
+  }
 }
