@@ -1,5 +1,6 @@
 import CompilerFunction from "../compiler_functions/CompilerFunction";
 import LibraryEmbedFileFunction from "../compiler_functions/LibraryEmbedFileFunction";
+import LibraryEmbedLuaFunction from "../compiler_functions/LibraryEmbedLuaFunction";
 import { SimpleMap } from "../types/SimpleMap";
 import { CLI } from "./CLI";
 import ColorScheme from "./ColorScheme";
@@ -21,6 +22,7 @@ export class DULuaCompilerFunctionParser {
     // Registers our functions
     [
       LibraryEmbedFileFunction,
+      LibraryEmbedLuaFunction,
     ].forEach((fn) => this.registerFunction(fn));
   }
 

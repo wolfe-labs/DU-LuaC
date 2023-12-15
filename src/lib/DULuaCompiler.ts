@@ -194,6 +194,13 @@ export class DULuaCompiler {
   }
 
   /**
+   * Gets all loaded libraries
+   */
+  getLoadedLibraries(): SimpleMap<Library> {
+    return { ...this.loadedLibraries };
+  }
+
+  /**
    * Gets the current project being processed
    */
   getCurrentProject(): Project | null {
@@ -492,19 +499,19 @@ export class DULuaCompiler {
     for (const idx in lines) {
       let line = lines[idx];
 
-          // Updates current line of code, in case something needs it
+      // Updates current line of code, in case something needs it
       this.currentLineOfCode[0] = parseInt(idx) + 1;
-  
-          // Handles --export statements
-          if (DULuaCompilerExport.codeHasExportStatement(line)) {
-            line = DULuaCompilerExport.encodeExportStatement(line);
-          }
-  
-          // Runs our regexes
-          for (const regex of Object.values(compilerRegexes)) {
-            line = await Utils.replaceAsync(line, regex.expression, regex.handler);
-          }
-  
+
+      // Handles --export statements
+      if (DULuaCompilerExport.codeHasExportStatement(line)) {
+        line = DULuaCompilerExport.encodeExportStatement(line);
+      }
+
+      // Runs our regexes
+      for (const regex of Object.values(compilerRegexes)) {
+        line = await Utils.replaceAsync(line, regex.expression, regex.handler);
+      }
+      
       // If we're in renderscript and this is an empty require, we don't need it anymore
       if (!this.build.options.preload && line.match(new RegExp(`^\\s*${DULuaCompiler.globalInlineRequire}\\['.*?'\\]\\s*$`))) {
         return '';
@@ -610,12 +617,12 @@ export class DULuaCompiler {
   /**
    * Runs the actual compilation step
    */
-  private async startBuild(): Promise<DULuaCompilerResult> {
+  private async startBuild(requireName?: string): Promise<DULuaCompilerResult> {
     // Prepares our ground
     this.currentLibraries = [Library.loadFromProject(this.project)];
 
     // Loads our main file via a virtual "require" statement
-    const outputLua = await this.requireFile(`${this.project.name}:${this.build.name}`);
+    const outputLua = await this.requireFile(requireName || `${this.project.name}:${this.build.name}`);
 
     // Handles compiler fail
     if (!outputLua) {
@@ -647,5 +654,14 @@ export class DULuaCompiler {
    */
   static async compile(project: Project, build: Build, buildTarget: BuildTarget, variables: CompilerVariableSet = {}) {
     return await (new this(project, build, buildTarget, variables)).startBuild();
+  }
+
+  /**
+   * Starts a compilation of an required file
+   * @param project The project hosting our file
+   * @param build The file being compiled
+   */
+  static async compileRequire(project: Project, build: Build, requireName: string, buildTarget: BuildTarget, variables: CompilerVariableSet = {}) {
+    return await (new this(project, build, buildTarget, variables)).startBuild(requireName);
   }
 }
