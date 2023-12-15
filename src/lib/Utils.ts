@@ -25,4 +25,11 @@ export default class Utils {
     // Done
     return files;
   }
+
+  /**
+   * Returns a deep copy of a certain object
+   */
+  static deepCopy<T>(object: T): T {
+    return JSON.parse(JSON.stringify(object));
+  }
 }

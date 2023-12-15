@@ -40,6 +40,11 @@ export default class Build {
   type: BuildType = BuildType.ControlUnit;
 
   /**
+   * A list of events allowed for internal slots
+   */
+  events: SimpleMap<string[]> = {};
+
+  /**
    * The linked elements on that script
    */
   private linkedElements: SimpleMap<BuildLinkedElement> = {};
@@ -86,6 +91,7 @@ export default class Build {
     this.name = data.name;
     this.title = data.title;
     this.type = data.type || BuildType.ControlUnit;
+    this.events = data.events || {};
 
     // Parses slots
     (Array.isArray(data.slots) ? data.slots : Object.values(data.slots || {})).forEach((slot: any) => {
