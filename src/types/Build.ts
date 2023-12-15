@@ -88,8 +88,9 @@ export default class Build {
     this.type = data.type || BuildType.ControlUnit;
 
     // Parses slots
-    Object.keys(data.slots || {}).forEach((slotName) => {
-      this.linkedElements[slotName] = data.slots[slotName] as BuildLinkedElement;
+    (Array.isArray(data.slots) ? data.slots : Object.values(data.slots || {})).forEach((slot: any) => {
+      const linkedElement = new BuildLinkedElement(slot);
+      this.linkedElements[linkedElement.name] = linkedElement;
     });
 
     // Build options
@@ -128,18 +129,11 @@ export default class Build {
    * Converts our build definition into a JSON object
    */
   toJSON(): object {
-    // Serializes our slots
-    const slots: SimpleMap<object> = {};
-    Object.keys(this.linkedElements || {}).forEach((slotName) => {
-      const slot = this.linkedElements[slotName];
-      slots[slotName] = slot;
-    });
-
     // Our completed element
     return {
       name: this.name,
       type: this.type,
-      slots,
+      slots: Object.values(this.linkedElements || {}),
     };
   }
   
@@ -155,9 +149,9 @@ export default class Build {
     }
 
     // Creates the linked element
-    this.linkedElements[name] = {
+    this.linkedElements[name] = new BuildLinkedElement({
       name: name,
       type: type,
-    };
+    });
   }
 }
