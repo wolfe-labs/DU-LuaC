@@ -43,6 +43,9 @@ export default class LibraryEmbedFileFunction implements CompilerFunction {
       // Escapes our single quotes
       .replace(/\'/g, '\\\'')
 
+      // Escapes out any \r
+      .replace(/\r/g, '\\r')
+
       // Replaces new lines
       .replace(/\n/g, '\\n');
 
