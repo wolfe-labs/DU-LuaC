@@ -322,7 +322,7 @@ export class DULuaConfig {
       result[linkedElement.name] = {
         name: linkedElement.name,
         slotId,
-        events: slotType.events || [],
+        events: linkedElement.getElementEvents(),
         class: slotType.class || undefined,
         select: linkedElement.select,
       };

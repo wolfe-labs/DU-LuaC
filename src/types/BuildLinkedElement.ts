@@ -1,4 +1,4 @@
-import ElementTypes from "./ElementType";
+import ElementTypes, { ElementType, ElementTypeEvent } from "./ElementType";
 
 export default class BuildLinkedElement {
   /**
@@ -15,6 +15,11 @@ export default class BuildLinkedElement {
    * Slot selection mode ("all" or "manual")
    */
   select?: string;
+
+  /**
+   * Slots events to be registered
+   */
+  events?: string[];
 
   /**
    * Hydrates our linked element
@@ -42,5 +47,32 @@ export default class BuildLinkedElement {
    */
   getElementType(): ElementType {
     return ElementTypes.getElementByType(this.type)!;
+  }
+
+  /**
+   * Gets the list of events for this element
+   */
+  getElementEvents(): ElementTypeEvent[] {
+    const baseEvents = this.getElementType().events || [];
+    
+    // Returns base list of events if we don't have anything custom set
+    if (!this.events) {
+      return baseEvents;
+    }
+
+    // This is our list of allowed events
+    const allowedEvents = new Set(this.events);
+
+    // Builds our final list of events
+    const finalEvents: ElementTypeEvent[] = [];
+    for (const event of baseEvents) {
+      const eventName = event.signature.split('(').shift()!;
+
+      if (allowedEvents.has(eventName)) {
+        finalEvents.push(event);
+      }
+    }
+
+    return finalEvents;
   }
 }
