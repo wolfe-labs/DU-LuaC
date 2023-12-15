@@ -79,9 +79,13 @@ export default class Build {
    * @param data The data for our build
    */
   constructor(data: any) {
+    if (!data.name) {
+      throw new Error(`Can't initialize a Build without a name! Data: ${JSON.stringify(data)}`);
+    }
+
     this.name = data.name;
     this.title = data.title;
-    this.type = data.type;
+    this.type = data.type || BuildType.ControlUnit;
 
     // Parses slots
     Object.keys(data.slots || {}).forEach((slotName) => {
