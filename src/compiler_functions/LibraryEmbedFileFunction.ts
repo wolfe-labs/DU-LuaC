@@ -4,7 +4,7 @@ import ColorScheme from "../lib/ColorScheme";
 import { DULuaCompiler } from "../lib/DULuaCompiler";
 import CompilerFunction from "./CompilerFunction";
 
-export default class LibraryEmbedFileFunction implements CompilerFunction {
+export default class LibraryEmbedFileFunction extends CompilerFunction {
   readonly name = 'library.embedFile';
   readonly args = ['file'];
   readonly description = `Embeds the provided file into the resulting Lua code`;
