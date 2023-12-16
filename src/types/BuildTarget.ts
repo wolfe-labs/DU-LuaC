@@ -17,6 +17,11 @@ export default class BuildTarget {
   minify: boolean = false;
 
   /**
+   * Whether we should we strip comments
+   */
+  stripComments: boolean = false;
+
+  /**
    * Custom build-target specific compiler variables
    */
   variables: CompilerVariableSet = {};
@@ -33,6 +38,7 @@ export default class BuildTarget {
     this.name = data.name;
     this.minify = data.minify || false;
     this.handleErrors = data.handleErrors || false;
+    this.stripComments = data.stripComments || false;
     this.variables = data.variables || {};
   }
 }
