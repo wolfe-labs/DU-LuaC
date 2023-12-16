@@ -215,6 +215,13 @@ export class DULuaCompiler {
   }
 
   /**
+   * Gets the current build target
+   */
+  getCurrentBuildTarget(): BuildTarget {
+    return this.buildTarget;
+  }
+
+  /**
    * Adjusts all variables for when we start processing a file
    * @param file The file we're starting processing
    */

@@ -13012,7 +13012,7 @@ function Library.embedFile(file) end
 --- Embeds a Lua file (from local project, imported library or your Lua path) as a Lua string, optionally compiling and minifying it
 ---@param file string The Lua file you are embedding
 ---@param compile boolean Whether the Lua file should be compiled or not (defaults to false)
----@param minify boolean Whether the Lua file should be minified or not (defaults to false, requires compile to be true)
+---@param minify boolean Whether the Lua file should be minified or not (defaults to build target setting, requires compile)
 ---@return string
 function Library.embedLua(file, compile, minify) end
 

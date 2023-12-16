@@ -18,7 +18,7 @@ export default class LibraryEmbedLuaFunction extends CompilerFunction {
 
     // Parses our parameters
     const shouldCompile = this.parseArgument(compile, false);
-    const shouldMinify = this.parseArgument(minify, false);
+    const shouldMinify = this.parseArgument(minify, compilerState.getCurrentBuildTarget().minify || false);
 
     // Asserts our file is inside the project (should be)
     const currentProject = compilerState.getCurrentProject()
