@@ -53,8 +53,7 @@ export default class LibraryEmbedLuaFunction extends CompilerFunction {
       });
 
       // Generates a build target
-      const buildTarget = new BuildTarget();
-      buildTarget.name = 'memory';
+      const buildTarget = new BuildTarget({ name: 'memory' });
       buildTarget.minify = shouldMinify;
 
       // Compiles
