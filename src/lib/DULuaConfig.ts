@@ -632,11 +632,26 @@ export class DULuaConfig {
       });
     }
 
+    // Those are the code "parts"
+    const mainCodeParts = [compilerResult.output];
+    if (mainPrepend.length > 0) {
+      mainCodeParts.unshift(mainPrepend.join('\n'));
+    }
+
     // This is our base code
-    let mainCode = [
-      mainPrepend.join('\n'),
-      compilerResult.output,
-    ].join('\n\n');
+    let mainCode = mainCodeParts.join('\n\n');
+
+    // Strips comments if necessary
+    if (buildTarget.stripComments) {
+      // Strips multi-line comments
+      mainCode = mainCode.replace(/--\[\[[\s\S]*?\]\]\s*?\n/g, '');
+
+      // Strips single-line comments, except --export ones
+      mainCode = mainCode.replace(/(--[\s\S]*?)\n/g, (match) => match.startsWith('--export') ? match : '');
+
+      // Removes whitespace around the code
+      mainCode = mainCode.trim();
+    }
 
     // Compresses code if needed
     if (compilerResult.build.options.compress) {
