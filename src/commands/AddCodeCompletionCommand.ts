@@ -123,7 +123,9 @@ export default class AddCodeCompletionCommand implements Command {
     fs.writeFileSync(path.join(project.getUtilityDirectory(), 'Codex.lua'), projectCodex);
 
     // Status message
-    CLI.success(`Codex file generated successfully!`);
+    if (!options.quiet) {
+      CLI.success(`Codex file generated successfully!`);
+    }
 
     // Creates EmmyLua config file
     const emmyLuaConfig = fs.readFileSync(Application.getPath('templates/emmy.config.json')).toString()
@@ -133,7 +135,9 @@ export default class AddCodeCompletionCommand implements Command {
     fs.writeFileSync(path.join(project.getProjectDirectory(), 'emmy.config.json'), emmyLuaConfig);
 
     // Status message
-    CLI.success(`Code completion config generated successfully!`);
+    if (!options.quiet) {
+      CLI.success(`Code completion config generated successfully!`);
+    }
 
     // Reads our .gitignore
     const gitignorePath = path.join(project.getProjectDirectory(), '.gitignore');
@@ -146,6 +150,8 @@ export default class AddCodeCompletionCommand implements Command {
     gitignore.save(project.getProjectDirectory());
 
     // Status message
-    CLI.success(`Codex added to .gitignore!`);
+    if (!options.quiet) {
+      CLI.success(`Codex added to .gitignore!`);
+    }
   }
 }

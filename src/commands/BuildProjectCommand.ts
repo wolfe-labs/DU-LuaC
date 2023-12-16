@@ -9,6 +9,7 @@ import { BuildType } from "../types/Build";
 import Project from "../types/Project";
 import Command, { CommandData } from "./Command";
 import { CompilerVariableSet } from "../types/CompilerVariable";
+import CommandManager from "../lib/CommandManager";
 
 /**
  * A command that builds the project
@@ -217,6 +218,9 @@ export default class BuildProjectCommand implements Command {
       // Empty line for visibility
       CLI.skip();
     }
+
+    // Silently rebuild local Codex for autocomplete
+    await CommandManager.execute('add-code-completion', '--quiet');
 
     // Done
     CLI.success('Build completed successfully!');
