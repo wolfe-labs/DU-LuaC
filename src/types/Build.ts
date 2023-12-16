@@ -148,7 +148,7 @@ export default class Build {
    * @param name The link name
    * @param type The link type
    */
-  addLinkedElement(name: string, type: string) {
+  addLinkedElement(name: string, type: string, options: any = {}) {
     // Checks if the type actually exists
     if (!Object.keys(ElementTypes.getAllTypes()).includes(type)) {
       throw new Error(`Invalid element type: ${ColorScheme.highlight(type)}`);
@@ -156,6 +156,7 @@ export default class Build {
 
     // Creates the linked element
     this.linkedElements[name] = new BuildLinkedElement({
+      ...options,
       name: name,
       type: type,
     });

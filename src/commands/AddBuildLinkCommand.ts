@@ -83,9 +83,35 @@ export default class AddBuildLinkCommand implements Command {
     if (!linkData || !linkData.name || !linkData.type) {
       CLI.panic('Cancelled by the user!');
     }
+
+    // Gets events
+    const selectedElementType = ElementTypes.getElementByType(linkData.type)!;
+    const availableEventsOptions = (selectedElementType.events || []).map(event => Object.assign({
+      title: event.signature,
+      value: event.signature.split('(').shift()!,
+      selected: true,
+    }));
+    let events: any = undefined;
+    if (availableEventsOptions.length > 0) {
+      const eventResults = await prompts({
+        type: 'multiselect',
+        name: 'events',
+        message: 'Which events would you like to use from this element?',
+        choices: availableEventsOptions,
+      });
+
+      // Sanity check
+      if (!eventResults || !eventResults.events) {
+        CLI.panic('Cancelled by the user!');
+      }
+
+      events = eventResults.events;
+    }
     
     // Adds to list
-    build.addLinkedElement(linkData.name, linkData.type);
+    build.addLinkedElement(linkData.name, linkData.type, {
+      events: events,
+    });
 
     // Saves project
     project.save();
