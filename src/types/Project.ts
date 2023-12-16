@@ -43,7 +43,7 @@ export default class Project {
   /**
    * The current project format
    */
-  private projectFormat: number = 4;
+  private projectFormat: number = 5;
 
   /**
    * The loaded libraries on the project
@@ -93,13 +93,13 @@ export default class Project {
     });
 
     // Parses builds
-    Object.keys(projectJSON.builds as any || {}).forEach((buildName) => {
-      project.registerBuild(new Build(projectJSON.builds[buildName]));
+    (Array.isArray(projectJSON.builds) ? projectJSON.builds : Object.values(projectJSON.builds)).forEach((build: any) => {
+      project.registerBuild(new Build(build));
     });
 
     // Parses build targets
-    Object.keys(projectJSON.targets as any || {}).forEach((buildTargetName) => {
-      project.registerBuildTarget(projectJSON.targets[buildTargetName] as BuildTarget);
+    (Array.isArray(projectJSON.targets) ? projectJSON.targets : Object.values(projectJSON.targets)).forEach((buildTarget: any) => {
+      project.registerBuildTarget(new BuildTarget(buildTarget));
     });
 
     // Returns our instance
@@ -163,8 +163,8 @@ export default class Project {
       sourcePath: this.sourcePath,
       outputPath: this.outputPath,
       libs: Object.values(this.projectLibs).map((lib) => lib.toJSON()),
-      builds: this.projectBuilds,
-      targets: this.projectBuildTargets,
+      builds: Object.values(this.projectBuilds),
+      targets: Object.values(this.projectBuildTargets),
       internalPaths: this.internalPaths,
     };
   }

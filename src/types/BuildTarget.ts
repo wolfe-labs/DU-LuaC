@@ -20,4 +20,19 @@ export default class BuildTarget {
    * Custom build-target specific compiler variables
    */
   variables: CompilerVariableSet = {};
+
+  /**
+   * Hydrates our build target
+   * @param data The data for our build target
+   */
+  constructor(data: any = {}) {
+    if (!data.name) {
+      throw new Error(`Can't initialize a Build Target without a name! Data: ${JSON.stringify(data)}`);
+    }
+
+    this.name = data.name;
+    this.minify = data.minify || false;
+    this.handleErrors = data.handleErrors || false;
+    this.variables = data.variables || {};
+  }
 }

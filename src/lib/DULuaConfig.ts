@@ -13,6 +13,7 @@ import { DULuaCompressor } from "./DULuaCompressor";
 import luamin from "@wolfe-labs/luamin";
 import { CLI } from "./CLI";
 import { DULuaCompilerExport } from "./DULuaCompilerExport";
+import Utils from "./Utils";
 
 export type DULuaConfigSlot = {
   name: string,
@@ -268,6 +269,33 @@ export class DULuaConfig {
   };
 
   /**
+   * Returns the internal slots but with filtered events
+   */
+  private static getInternalSlotsWithFilteredEvents(events: SimpleMap<string[]>): SimpleMap<DULuaConfigSlot> {
+    const slots = Utils.deepCopy(this.internalSlots);
+
+    for (const slotName in slots) {
+      const slot = slots[slotName];
+      if (events[slotName]) {
+        const allowedEvents = new Set(events[slotName]);
+        const finalEvents = [];
+
+        for (const event of slot.events || []) {
+          const eventName = event.signature.split('(').shift()!;
+          
+          if (allowedEvents.has(eventName)) {
+            finalEvents.push(event);
+          }
+        }
+
+        slots[slotName].events = finalEvents;
+      }
+    }
+
+    return slots;
+  }
+
+  /**
    * Processes a build into a slot list
    * @param build The build being processed
    */
@@ -322,7 +350,7 @@ export class DULuaConfig {
       result[linkedElement.name] = {
         name: linkedElement.name,
         slotId,
-        events: slotType.events || [],
+        events: linkedElement.getElementEvents(),
         class: slotType.class || undefined,
         select: linkedElement.select,
       };
@@ -476,7 +504,7 @@ export class DULuaConfig {
     
     // This is all our slots
     const slots = {
-      ...this.internalSlots,
+      ...this.getInternalSlotsWithFilteredEvents(compilerResult.build.events),
       ...this.getSlotListFromLinkedElements(compilerResult.build),
     };
 

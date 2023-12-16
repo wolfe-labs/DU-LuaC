@@ -27,6 +27,13 @@ export default class Utils {
   }
 
   /**
+   * Returns a deep copy of a certain object
+   */
+  static deepCopy<T>(object: T): T {
+    return JSON.parse(JSON.stringify(object));
+  }
+
+  /**
    * Replaces a regex pattern in async mode
    * @param str 
    * @param regex 
