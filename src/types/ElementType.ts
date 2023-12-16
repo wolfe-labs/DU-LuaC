@@ -86,4 +86,18 @@ export default class ElementTypes {
   static getAllTypesForSelection(): ElementTypeOrCategoryList {
     return AllElementTypes;
   }
+
+  /**
+   * Gets an element type by id
+   */
+  static getElementByType(type: string): ElementType | null {
+    return this.getAllTypes()[type] || null;
+  }
+
+  /**
+   * Gets whether an element type exists or not
+   */
+  static elementTypeExists(type: string): boolean {
+    return !!this.getElementByType(type);
+  }
 }

@@ -40,6 +40,11 @@ export default class Build {
   type: BuildType = BuildType.ControlUnit;
 
   /**
+   * A list of events allowed for internal slots
+   */
+  events: SimpleMap<string[]> = {};
+
+  /**
    * The linked elements on that script
    */
   private linkedElements: SimpleMap<BuildLinkedElement> = {};
@@ -79,13 +84,19 @@ export default class Build {
    * @param data The data for our build
    */
   constructor(data: any) {
+    if (!data.name) {
+      throw new Error(`Can't initialize a Build without a name! Data: ${JSON.stringify(data)}`);
+    }
+
     this.name = data.name;
     this.title = data.title;
-    this.type = data.type;
+    this.type = data.type || BuildType.ControlUnit;
+    this.events = data.events || {};
 
     // Parses slots
-    Object.keys(data.slots || {}).forEach((slotName) => {
-      this.linkedElements[slotName] = data.slots[slotName] as BuildLinkedElement;
+    (Array.isArray(data.slots) ? data.slots : Object.values(data.slots || {})).forEach((slot: any) => {
+      const linkedElement = new BuildLinkedElement(slot);
+      this.linkedElements[linkedElement.name] = linkedElement;
     });
 
     // Build options
@@ -124,18 +135,11 @@ export default class Build {
    * Converts our build definition into a JSON object
    */
   toJSON(): object {
-    // Serializes our slots
-    const slots: SimpleMap<object> = {};
-    Object.keys(this.linkedElements || {}).forEach((slotName) => {
-      const slot = this.linkedElements[slotName];
-      slots[slotName] = slot;
-    });
-
     // Our completed element
     return {
       name: this.name,
       type: this.type,
-      slots,
+      slots: Object.values(this.linkedElements || {}),
     };
   }
   
@@ -144,16 +148,17 @@ export default class Build {
    * @param name The link name
    * @param type The link type
    */
-  addLinkedElement(name: string, type: string) {
+  addLinkedElement(name: string, type: string, options: any = {}) {
     // Checks if the type actually exists
     if (!Object.keys(ElementTypes.getAllTypes()).includes(type)) {
       throw new Error(`Invalid element type: ${ColorScheme.highlight(type)}`);
     }
 
     // Creates the linked element
-    this.linkedElements[name] = {
+    this.linkedElements[name] = new BuildLinkedElement({
+      ...options,
       name: name,
       type: type,
-    };
+    });
   }
 }
