@@ -508,12 +508,12 @@ export class DULuaConfig {
         .map(line => `${line}\n`)
         .map(line => {
           // Avoid matching strings with a sequence of dashes
-          if (line.match(/'--[\s\S]*?'/g) || line.match(/"--[\s\S]*?"/g)) {
+          if (line.match(/'.*?--.*?'/g) || line.match(/"--.*?.*?"/g)) {
             return line;
           }
 
           // Cleans-up the comments
-          return line.replace(/(--[\s\S]*?)$/g, (match) => match.startsWith('--export') ? match : '');
+          return line.replace(/(--.*?\n)/g, (match) => match.startsWith('--export') ? match : '');
         })
         .join('');
 
