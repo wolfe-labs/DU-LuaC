@@ -1,5 +1,6 @@
 import CompilerFunction from "../compiler_functions/CompilerFunction";
 import LibraryEmbedFileFunction from "../compiler_functions/LibraryEmbedFileFunction";
+import LibraryEmbedLuaFunction from "../compiler_functions/LibraryEmbedLuaFunction";
 import { SimpleMap } from "../types/SimpleMap";
 import { CLI } from "./CLI";
 import ColorScheme from "./ColorScheme";
@@ -21,6 +22,7 @@ export class DULuaCompilerFunctionParser {
     // Registers our functions
     [
       LibraryEmbedFileFunction,
+      LibraryEmbedLuaFunction,
     ].forEach((fn) => this.registerFunction(fn));
   }
 
@@ -82,7 +84,7 @@ export class DULuaCompilerFunctionParser {
       const regex = new RegExp(`${functionName}[\\s]*\\((.*?)\\)`, 'g');
 
       // Creates our handler code
-      const handler = (fullMatch: string, rawArguments: string): string => {
+      const handler = async (fullMatch: string, rawArguments: string): Promise<string> => {
         // Parses Lua arguments
         const args: any[] = rawArguments.split(',')
 
@@ -100,7 +102,7 @@ export class DULuaCompilerFunctionParser {
           });
 
         // Pipes data into our function
-        return fn.invoke(compilerState, ...args);
+        return await fn.invoke(compilerState, ...args);
       };
 
       // Done with this function

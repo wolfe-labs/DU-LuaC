@@ -4,12 +4,12 @@ import ColorScheme from "../lib/ColorScheme";
 import { DULuaCompiler } from "../lib/DULuaCompiler";
 import CompilerFunction from "./CompilerFunction";
 
-export default class LibraryEmbedFileFunction implements CompilerFunction {
+export default class LibraryEmbedFileFunction extends CompilerFunction {
   readonly name = 'library.embedFile';
   readonly args = ['file'];
   readonly description = `Embeds the provided file into the resulting Lua code`;
 
-  invoke(compilerState: DULuaCompiler, file: string): string {
+  async invoke(compilerState: DULuaCompiler, file: string): Promise<string> {
     // Asserts our file is inside the project (should be)
     const currentProject = compilerState.getCurrentProject()
     if (!currentProject) {
@@ -42,6 +42,9 @@ export default class LibraryEmbedFileFunction implements CompilerFunction {
 
       // Escapes our single quotes
       .replace(/\'/g, '\\\'')
+
+      // Escapes out any \r
+      .replace(/\r/g, '\\r')
 
       // Replaces new lines
       .replace(/\n/g, '\\n');
