@@ -504,7 +504,18 @@ export class DULuaConfig {
       code = code.replace(/--\[\[[\s\S]*?\]\]\s*?\n/g, '');
 
       // Strips single-line comments, except --export ones
-      code = code.replace(/(--[\s\S]*?)\n/g, (match) => match.startsWith('--export') ? match : '');
+      code = code.split('\n')
+        .map(line => `${line}\n`)
+        .map(line => {
+          // Avoid matching strings with a sequence of dashes
+          if (line.match(/'--[\s\S]*?'/g) || line.match(/"--[\s\S]*?"/g)) {
+            return line;
+          }
+
+          // Cleans-up the comments
+          return line.replace(/(--[\s\S]*?)$/g, (match) => match.startsWith('--export') ? match : '');
+        })
+        .join('');
 
       // Removes whitespace around the code
       code = code.trim();
