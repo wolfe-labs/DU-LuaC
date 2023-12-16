@@ -16,8 +16,8 @@ import { CompilerVariableSet } from "../types/CompilerVariable";
 export default class BuildProjectCommand implements Command {
   // Sets the values we'll be using on the main CLI
   command = 'build';
-  description = `Builds the entire project or the provided build target`;
-  args = ['build-target'];
+  description = `Builds the entire project or the provided build target (and single build name)`;
+  args = ['build-target/build-name'];
   options = {
     copy: {
       format: `target-name/${ColorScheme.highlightArgument('build-name')}`,
@@ -38,7 +38,14 @@ export default class BuildProjectCommand implements Command {
     const project = Project.load(process.cwd());
 
     // Optionally build a single target
-    const specificBuildTarget = args[0] || null;
+    const specificBuildArg = args[0] || null;
+    let specificBuildTarget: string | null = null;
+    let specificBuildName: string | null = null;
+    if (specificBuildArg) {
+      const parsed = specificBuildArg.split('/');
+      specificBuildTarget = parsed.shift();
+      specificBuildName = parsed.length > 0 ? parsed.join('/') : null;
+    }
 
     // Determines whether clipboard has been used or not
     let hasUsedClipboard = false;
@@ -66,8 +73,19 @@ export default class BuildProjectCommand implements Command {
       }
     }
 
+    // Fetches list of builds
+    const builds = specificBuildName
+      ? project.getProjectBuilds().filter(build => build.name == specificBuildName)
+      : project.getProjectBuilds();
+
+    // If we have specified a build name, checks if it exists
+    if (specificBuildName && builds.length == 0) {
+      CLI.error(`Build ${ColorScheme.highlight(specificBuildName)} was not found on this project`)
+      CLI.error(`Available builds: ${project.getProjectBuilds().map(build => ColorScheme.highlight(build.name)).join(', ')}`)
+      process.exit(1);
+    }
+
     // Builds each of the entry-points
-    const builds = project.getProjectBuilds();
     for (const build of builds) {
       // Those are the formats we're exporting to
       const exportFormats = {
@@ -167,6 +185,11 @@ export default class BuildProjectCommand implements Command {
 
         // Copies our build to the clipboard
         if (options.copy && !hasUsedClipboard) {
+          // When passing a specific build and --copy, use that build name
+          if (specificBuildName) {
+            options.copy = specificBuildName;
+          }
+
           // Checks for matching build and target
           if (build.name == options.copy || build.getFullName(buildTarget) == options.copy) {
             // Marks clipboard as used
