@@ -40,18 +40,21 @@ export default class Utils {
    * @param replacer 
    */
   static async replaceAsync(str: string, regex: RegExp, replacer: (match: string, ...args: string[]) => Promise<string>): Promise<string> {
-    const promises: Promise<string>[] = [];
+    const replacers: (() => Promise<string>)[] = [];
 
     // Does first matching so we find all replacement strings
     str.replace(regex, (match: string, ...args: string[]) => {
-      promises.push(
-        replacer(match, ...args)
+      replacers.push(
+        () => replacer(match, ...args)
       );
       return match;
     });
 
     // Gets all replacements
-    const data = await Promise.all(promises);
+    const data: string[] = [];
+    for (const replacer of replacers) {
+      data.push(await replacer());
+    }
 
     // Does actual replacement of data
     return str.replace(regex, () => data.shift()!);
