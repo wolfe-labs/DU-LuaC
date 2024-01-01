@@ -244,7 +244,7 @@ export class DULuaCompiler {
    * Are we currently working on the root file?
    */
   private isRootFile(): boolean {
-    return !this.currentFiles[0];
+    return this.currentFiles.length == 0;
   }
 
   /**
