@@ -95,6 +95,8 @@ system.print('something else')
 ---@end
 ```
 
+**Note:** For string values, your value must be surrounded by double quotes to be properly parsed.
+
 You can also not include a value for comparison, in those cases, it will check if the value is either `true` or something not-falsey (not null, undefined, etc).
 
 ## Post-Mercury (0.30) Support
