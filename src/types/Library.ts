@@ -1,4 +1,5 @@
 import fs from "fs";
+import { moveSync } from "fs-extra";
 import path from "path";
 import crypto from "crypto";
 import Application from "../Application";
@@ -191,7 +192,7 @@ export default class Library {
     // Finally, let's move it to a local directory
     const finalDirParent = path.dirname(finalDir);
     if (!fs.existsSync(finalDirParent)) fs.mkdirSync(finalDirParent, { recursive: true });
-    fs.renameSync(tempDir, finalDir);
+    moveSync(tempDir, finalDir);
 
     // Initializes our library
     return new Library(project, {
