@@ -1,6 +1,20 @@
 import path from "path";
+import fs from "fs";
 
 export default class Application {
+  /**
+   * Returns the current version string
+   */
+  static getVersionString(): string {
+    const latestBuildFile = this.getPath('.latestbuild');
+
+    if (fs.existsSync(latestBuildFile)) {
+      return fs.readFileSync(latestBuildFile).toString();
+    }
+
+    return `v${require(this.getPath('package.json')).version}`;
+  }
+
   /**
    * Detects debug mode
    */

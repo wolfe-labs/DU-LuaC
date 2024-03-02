@@ -16,10 +16,11 @@
     "du-lua": "dist/index.js"
   },
   "scripts": {
+    "prebuild": "node prebuild.js",
     "build": "npx tsc",
-    "watch": "npx tsc --watch",
-    "start": "npx tsc && node dist/index.js",
-    "pre-release": "npx tsc && node dist/index.js update-codex"
+    "watch": "npm run prebuild && npx tsc --watch",
+    "start": "npm run build && node dist/index.js",
+    "pre-release": "npm run build && node dist/index.js update-codex"
   },
   "homepage": "https://github.com/wolfe-labs/DU-LuaC#readme",
   "dependencies": {

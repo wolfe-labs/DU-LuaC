@@ -26,11 +26,8 @@ import BuildProjectCommand from './commands/BuildProjectCommand';
  * @param args The arguments for our main function
  */
 async function main(args: string[]) {
-  // Reads our current CLI package
-  const currentPackage = require(Application.getPath('package.json'));
-
   // Welcome message
-  CLI.print(`Lua CLI Utility for Dual Universe v${currentPackage.version} by Wolfe Labs @ Node ${process.version}`);
+  CLI.print(`Lua CLI Utility for Dual Universe ${Application.getVersionString()} by Wolfe Labs @ Node ${process.version}`);
 
   // Checks for updates
   await CommandManager.runUnregistered(CheckForUpdatesCommand, {
