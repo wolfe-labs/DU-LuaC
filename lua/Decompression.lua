@@ -22,12 +22,11 @@ function __EXPAND (source, symbols)
   end
 
   -- De-escapes values from compiler, removes comments too
-  source = source:gsub('%[@%[', '[[')
-  source = source:gsub('%]@%]', ']]')
-  source = source:gsub('@@', '@')
-  source = source:gsub('%%%%', '%%')
-  source = source:gsub('%-%-.-\n', '')
-  source = source:gsub('%)', ')\n')
+  source = source
+    :gsub('%[@%[', '[[')
+    :gsub('%]@%]', ']]')
+    :gsub('@@', '@')
+    :gsub('%%%%', '%%')
 
   -- Passes down env and links
   local env = { system = system, library = library, unit = unit }

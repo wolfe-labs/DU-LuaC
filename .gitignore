@@ -2,6 +2,7 @@ out/
 keys/
 temp/
 cache.json
+.latestbuild
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,lua
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,lua

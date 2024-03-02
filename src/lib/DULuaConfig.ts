@@ -14,6 +14,7 @@ import luamin from "@wolfe-labs/luamin";
 import { CLI } from "./CLI";
 import { DULuaCompilerExport } from "./DULuaCompilerExport";
 import Utils from "./Utils";
+import SourceCodeProcessor from "./SourceCodeProcessor";
 
 export type DULuaConfigSlot = {
   name: string,
@@ -498,6 +499,9 @@ export class DULuaConfig {
    * Does post-processing accordingly to build target options
    */
   private static applyCodePostProcessing(code: string, buildTarget: BuildTarget, minify: boolean = false): string {
+    // Post-processes output code
+    code = SourceCodeProcessor.prepareLuaOutputCode(code);
+    
     // Strips comments if necessary
     if (buildTarget.stripComments) {
       // Strips multi-line comments
@@ -583,13 +587,10 @@ export class DULuaConfig {
     // Restores preloads
     const preloads = compilerResult.preloads.map(
       (preload) => {
-        // This is our main code, we returns the --export statements along with minifying it
-        const code = this.restoreExports(
-          buildTarget.minify
+        // Runs the minification
+        const code = buildTarget.minify
             ? this.runMinifier(preload.source)
-            : preload.source,
-          buildTarget.minify
-        );
+            : preload.source;
 
         // Now we generate a new preload string
         return {
@@ -678,6 +679,9 @@ export class DULuaConfig {
 
     // Does initial post-processing
     mainCode = this.applyCodePostProcessing(mainCode, buildTarget, buildTarget.minify || compilerResult.build.options.compress);
+
+    // Applies the variable exports on top
+    mainCode = SourceCodeProcessor.getCompilerResultOutput(compilerResult, mainCode);
 
     // Compresses main code if needed
     if (compilerResult.build.options.compress) {

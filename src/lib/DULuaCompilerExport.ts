@@ -35,7 +35,7 @@ export class DULuaCompilerExport {
    */
   static parseExportStatement(code: string): DULuaCompilerExportInfo | null {
     // Tries to match everything
-    const match = /(.*?)=(.*?)--[ ]*export:?(.*)?/g.exec(code);
+    const match = /([A-z0-9_]+)\s*=\s*(.*?)\s*--export:?(.*)?/g.exec(code);
 
     // Stop if no matches
     if (!match) return null;
@@ -75,7 +75,17 @@ export class DULuaCompilerExport {
     const parsedExport = JSON.parse(rawExport[1]) as DULuaCompilerExportInfo;
 
     // Now we can rebuild our --export
-    return `${parsedExport.name}=${parsedExport.default}--export: ${parsedExport.comment}`;
+    return this.convertToLuaCode(parsedExport);
+  }
+
+  /**
+   * Converts the specified export info to Lua code
+   * @param exportInfo The export info object
+   */
+  static convertToLuaCode(exportInfo: DULuaCompilerExportInfo): string {
+    return (exportInfo.comment.trim().length > 0)
+      ? `${exportInfo.name}=${exportInfo.default} --export: ${exportInfo.comment}`
+      : `${exportInfo.name}=${exportInfo.default} --export`;
   }
 
   /**

@@ -1,5 +1,6 @@
 import { CLI } from "./CLI";
 import { DULuaCompilerExport } from "./DULuaCompilerExport"
+import SourceCodeProcessor from "./SourceCodeProcessor";
 
 /**
  * This class is an almost direct port from the old compression code, it should work, but I don't recall exactly how
@@ -16,8 +17,8 @@ export class DULuaCompressor {
    * @param helperCompressed The Lua template for compressed files
    */
   static compress(source: string, helperCompressed: string): string {
-    // Decodes all --export entries
-    const initialLua = DULuaCompilerExport.decodeAllExportStatements(source, true);
+    // Prepares the Lua code
+    const initialLua = SourceCodeProcessor.prepareLuaOutputCode(source);
 
     // Extracts any exports
     const params: {
@@ -152,7 +153,7 @@ export class DULuaCompressor {
 
     // Create a Lua table maping these statements
     const statementTable = bestStatements
-      .map((statement) => `_${statement[1]}='${statement[0].replace(/\'/g, () => '\\\'')}'`)
+      .map((statement) => `_${statement[1]}='${statement[0].replace(/\\/g, '\\\\').replace(/\'/g, () => '\\\'')}'`)
       .join(',');
 
     // Now we write the Lua to inflate stuff back
