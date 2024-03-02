@@ -7,6 +7,7 @@ import { CLI } from "../lib/CLI";
 import Build, { BuildType } from "../types/Build";
 import BuildTarget from "../types/BuildTarget";
 import { DULuaConfig } from "../lib/DULuaConfig";
+import SourceCodeProcessor from "../lib/SourceCodeProcessor";
 
 export default class LibraryEmbedLuaFunction extends CompilerFunction {
   readonly name = 'library.embedLua';
@@ -64,10 +65,7 @@ export default class LibraryEmbedLuaFunction extends CompilerFunction {
     }
 
     // Does the actual embedding
-    const embedContent = luaOutput
-      // Escapes out any \r
-      .replace(/\r/g, '')
-
+    const embedContent = SourceCodeProcessor.prepareLuaInputCode(luaOutput)
       // Escapes our back slashes
       .replace(/\\/g, '\\\\')
 

@@ -14,6 +14,7 @@ import luamin from "@wolfe-labs/luamin";
 import { CLI } from "./CLI";
 import { DULuaCompilerExport } from "./DULuaCompilerExport";
 import Utils from "./Utils";
+import SourceCodeProcessor from "./SourceCodeProcessor";
 
 export type DULuaConfigSlot = {
   name: string,
@@ -498,6 +499,9 @@ export class DULuaConfig {
    * Does post-processing accordingly to build target options
    */
   private static applyCodePostProcessing(code: string, buildTarget: BuildTarget, minify: boolean = false): string {
+    // Post-processes output code
+    code = SourceCodeProcessor.prepareLuaOutputCode(code);
+    
     // Strips comments if necessary
     if (buildTarget.stripComments) {
       // Strips multi-line comments
