@@ -35,7 +35,7 @@ export class DULuaCompilerExport {
    */
   static parseExportStatement(code: string): DULuaCompilerExportInfo | null {
     // Tries to match everything
-    const match = /(.*?)=(.*?)--[ ]*export:?(.*)?/g.exec(code);
+    const match = /([A-z0-9_]+)\s*=\s*(.*?)\s*--export:?(.*)?/g.exec(code);
 
     // Stop if no matches
     if (!match) return null;
