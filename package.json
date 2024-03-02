@@ -20,7 +20,8 @@
     "build": "npx tsc",
     "watch": "npm run prebuild && npx tsc --watch",
     "start": "npm run build && node dist/index.js",
-    "pre-release": "npm run build && node dist/index.js update-codex"
+    "pre-release": "npm run build && node dist/index.js update-codex",
+    "update-dev": "git pull && npm run build"
   },
   "homepage": "https://github.com/wolfe-labs/DU-LuaC#readme",
   "dependencies": {
