@@ -9,7 +9,7 @@ import { SimpleMap } from "../types/SimpleMap";
 import { CLI } from "./CLI";
 import ColorScheme from "./ColorScheme";
 import { DULuaCompilerFunctionParser } from "./DULuaCompilerFunctionParser";
-import { DULuaCompilerExport } from "./DULuaCompilerExport";
+import { DULuaCompilerExport, DULuaCompilerExportInfo } from "./DULuaCompilerExport";
 import BuildTarget from "../types/BuildTarget";
 import { CompilerVariable, CompilerVariableSet } from "../types/CompilerVariable";
 import Utils from "./Utils";
@@ -32,6 +32,7 @@ export type DULuaCompilerResult = {
   build: Build,
   output: string,
   preloads: DULuaCompilerPreload[],
+  exports: DULuaCompilerExportInfo[],
 };
 
 /**
@@ -84,6 +85,12 @@ export class DULuaCompiler {
    * Those are files loaded by the compiler during build time, via require statements
    */
   private requiredFiles: DULuaCompilerRequire[] = [];
+
+  /**
+   * Those are the exported global variables from the source-code
+   */
+  private exportedGlobals: DULuaCompilerExportInfo[] = [];
+  private exportedGlobalNames: Set<string> = new Set<string>();
 
   /**
    * The current value of LUA_PATH
@@ -271,6 +278,17 @@ export class DULuaCompiler {
       project: parsedFilename[0],
       filename: parsedFilename[1],
     }
+  }
+
+  private registerExportedGlobal(variable: DULuaCompilerExportInfo): string {
+    if (this.exportedGlobalNames.has(variable.name)) {
+      CLI.warn(`Exported variable has already been defined before, skipping: ${ColorScheme.highlight(variable.name)}`);
+      return '';
+    }
+
+    this.exportedGlobalNames.add(variable.name);
+    this.exportedGlobals.push(variable);
+    return '';
   }
 
   /**
@@ -508,7 +526,12 @@ export class DULuaCompiler {
 
       // Handles --export statements
       if (DULuaCompilerExport.codeHasExportStatement(line)) {
-        line = DULuaCompilerExport.encodeExportStatement(line);
+        const exportedGlobal = DULuaCompilerExport.parseExportStatement(line);
+        if (exportedGlobal) {
+          line = this.registerExportedGlobal(exportedGlobal);
+        } else {
+          CLI.warn(`Failed to parse export: ${ColorScheme.highlight(line)}`);
+        }
       }
 
       // Runs our regexes
@@ -648,6 +671,7 @@ export class DULuaCompiler {
       build: this.build,
       output: outputLua!.sourceCode,
       preloads: outputPreloads,
+      exports: this.exportedGlobals,
     };
   }
 
