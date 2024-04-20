@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import Application from "../Application";
-import Build from "../types/Build";
+import Build, { BuildType } from "../types/Build";
 import BuildTarget from "../types/BuildTarget";
 import ElementTypes, { ElementType, ElementTypeEvent } from "../types/ElementType";
 import { SimpleMap } from "../types/SimpleMap";
@@ -11,6 +11,8 @@ import { DULuaCompressor } from "./DULuaCompressor";
 
 // @ts-ignore
 import luamin from "@wolfe-labs/luamin";
+// @ts-ignore
+import luamin2 from 'lua-format';
 import { CLI } from "./CLI";
 import { DULuaCompilerExport } from "./DULuaCompilerExport";
 import Utils from "./Utils";
@@ -443,16 +445,155 @@ export class DULuaConfig {
   }
 
   /**
-   * Runs the minifier on a piece of code
+   * Builds a string that represents some globals converted into locals for minification
+   */
+  static buildMinifierGlobalsListForType(code: string, buildType: BuildType) {
+    // Those are some known DU globals we'll want to convert into locals for minification
+    const globalsToMinifyPerType = {
+      [BuildType.ControlUnit]: {
+        'DUPlayer': ['DUPlayer', 'player'],
+        'DUConstruct': ['DUConstruct', 'construct'],
+        'DULibrary': ['DULibrary', 'library'],
+        'DUSystem': ['DUSystem', 'system'],
+      },
+      [BuildType.RenderScript]: {
+
+      },
+    };
+
+    return this.buildMinifierGlobalsList(code, globalsToMinifyPerType[buildType]);
+  }
+
+  /**
+   * Builds a string that represents some globals converted into locals for minification
+   */
+  static buildMinifierGlobalsList(code: string, globalsToMinify: Record<string, string[]> = {}) {
+    // Counts those globals, to tell whether it's worth it or not
+    const localGlobals = [];
+    for (const globalValue in globalsToMinify) {
+      for (const globalName of globalsToMinify[globalValue]) {
+        // Counts how many times this global has appeared
+        const count = code.match(
+          new RegExp(globalName, 'g')
+        )?.length || 0;
+
+        // If we have at least 3 repetitions, we should be able to minify it properly
+        if (count >= 3) {
+          localGlobals.push({ globalValue, globalName });
+        }
+      }
+    }
+
+    // Now, let's extract global members the same way as above
+    const localGlobalMembers = [];
+    for (const { globalName } of localGlobals) {
+      // Counts how many times this global has appeared
+      const matchedMembers = code.match(
+        new RegExp(`(${globalName}[.][a-zA-Z_{1}][a-zA-Z0-9_]+)`, 'g')
+      ) || [];
+
+      // Gets the member count
+      const matchedMemberCounts = matchedMembers.reduce((count: any, memberName: string) => Object.assign(count, {
+        ...count,
+        [memberName]: (count[memberName] || 0) + 1,
+      }), {}) as Record<string, number>;
+
+      // Saves our global members as needed
+      for (const memberName in matchedMemberCounts) {
+        const count = matchedMemberCounts[memberName];
+        if (count >= 2) {
+          const newName = `__GLOBAL_MEMBER__${memberName.replace(/\./g, '_')}`;
+          code = code.replace(new RegExp(memberName, 'g'), newName);
+          localGlobalMembers.push({ memberName: newName, memberValue: memberName });
+        }
+      }
+    }
+
+    // Builds our locals
+    const locals = [];
+    if (localGlobals.length > 0) {
+      locals.push(
+        `${localGlobals.map(globalPair => globalPair.globalName).join(', ')} = ${localGlobals.map(globalPair => globalPair.globalValue).map(globalName => `_G['${globalName}']`).join(', ')}`
+      );
+      
+      // Processes the members
+      if (localGlobalMembers.length > 0) {
+        locals.push(
+          `${localGlobalMembers.map(memberPair => memberPair.memberName).join(', ')} = ${localGlobalMembers.map(memberPair => memberPair.memberValue).join(', ')}`
+        );
+      }
+    }
+
+    // Builds the string that will trigger the minification
+    const localsString = locals.map(localString => `local ${localString}`)
+      .join('\n')
+      .trim();
+    return {
+      code: `${localsString}\n${code}`.trim(),
+      locals: locals,
+      localsString: localsString,
+    };
+  }
+
+  /**
+   * Runs the right minifier with optiuonal global to local conversion
+   */
+  static runMinifierWithOptionalGlobalConversion(code: string, buildTarget: BuildTarget, buildType: BuildType): string {
+    // Invokes the minifier
+    return (buildTarget.minifyOptions)
+      ? this.runMinifier(
+        this.buildMinifierGlobalsListForType(code, buildType).code,
+        buildTarget
+      )
+      : this.runMinifier(code, buildTarget);
+  }
+
+  /**
+   * Runs the right minifier based on the build target settings
+   */
+  static runMinifier(code: string, buildTarget: BuildTarget): string {
+    return (
+      this.applyMinificationViaLuamin(code)
+      // buildTarget.minifyOptions
+      //   ? this.applyMinificationViaLuaFormat(code, buildTarget.minifyOptions)
+      //   : this.applyMinificationViaLuamin(code)
+    ).trim()
+      .replace(/\r/gi, '')
+      .replace(/[\n\s]{2,}/gi, ' ')
+  }
+
+  /**
+   * Runs the minifier on a piece of code using the luamin package
    * @param code 
    */
-  static runMinifier(code: string): string {
+  private static applyMinificationViaLuamin(code: string): string {
     let minified: string = code;
     try {
       // Minifies code
-      minified = luamin.minify(code)
-        .replace(/\r/gi, '')
-        .replace(/[\n\s]{2,}/gi, ' ');
+      minified = luamin.minify(code);
+
+      // We need to do some processing on the code here
+    } catch (err) {
+      // Panics
+      CLI.error('Error during minification:', err);
+      CLI.code(code);
+      CLI.panic();
+    }
+    return minified;
+  }
+
+  /**
+   * Runs the minifier on a piece of code using the lua-format package
+   * @param code 
+   */
+  private static applyMinificationViaLuaFormat(code: string, options: any = {}): string {
+    let minified: string = code;
+    try {
+      // Minifies code
+      minified = luamin2.Minify(code, options)
+        .split('\n')
+        .slice(1)
+        .join('\n');
 
       // We need to do some processing on the code here
     } catch (err) {
@@ -487,11 +628,11 @@ export class DULuaConfig {
    * @param code 
    * @returns 
    */
-  private static isolateCompilerInternal(code: string) {
+  private static isolateCompilerInternal(code: string, buildTarget: BuildTarget) {
     return `;(function()\n${
       Application.isDebugging()
         ? code
-        : this.runMinifier(code)
+        : this.runMinifier(code, buildTarget)
     }\nend)()`;
   }
 
@@ -527,7 +668,7 @@ export class DULuaConfig {
 
     // Handles minification
     if (minify) {
-      code = this.runMinifier(code);
+      code = this.runMinifier(code, buildTarget);
     }
 
     return code;
@@ -562,14 +703,14 @@ export class DULuaConfig {
       autoconf.addUnitConfigHandlerEntry(
         this.internalSlots.library,
         eventOnStart,
-        this.isolateCompilerInternal(compilerInternals.events)
+        this.isolateCompilerInternal(compilerInternals.events, buildTarget)
       );
 
       // Linking helpers
       autoconf.addUnitConfigHandlerEntry(
         this.internalSlots.library,
         eventOnStart,
-        this.isolateCompilerInternal(compilerInternals.linking)
+        this.isolateCompilerInternal(compilerInternals.linking, buildTarget)
       );
 
       // Decompression helper, only for compressed builds
@@ -579,7 +720,7 @@ export class DULuaConfig {
           eventOnStart,
           Application.isDebugging()
             ? compilerInternals.decompression
-            : this.runMinifier(compilerInternals.decompression)
+            : this.runMinifier(compilerInternals.decompression, buildTarget)
         );
       }
     }
@@ -589,7 +730,7 @@ export class DULuaConfig {
       (preload) => {
         // Runs the minification
         const code = buildTarget.minify
-            ? this.runMinifier(preload.source)
+            ? this.runMinifier(preload.source, buildTarget)
             : preload.source;
 
         // Now we generate a new preload string
@@ -607,12 +748,16 @@ export class DULuaConfig {
         (preload) => `package.preload['${preload.path}']=(function()\n${this.applyCodePostProcessing(preload.code, buildTarget, buildTarget.minify)}\nend)`
       ).join('\n');
 
-      // Adds the preloads
-      autoconf.addUnitConfigHandlerEntry(
-        this.internalSlots.library,
-        eventOnStart,
-        preloadCode,
-      );
+      if (buildTarget.minifyOptions && this.buildMinifierGlobalsListForType(preloadCode, compilerResult.build.type).locals.length > 0) {
+        mainPrepend.push(preloadCode);
+      } else {
+        // Adds the preloads
+        autoconf.addUnitConfigHandlerEntry(
+          this.internalSlots.library,
+          eventOnStart,
+          preloadCode,
+        );
+      }
     } else {
       // Inlines code at beginning of the main code as Lua preloads, but we invoke that function too, since Lua requires won't be used
       if (preloads.length > 0) {
@@ -677,6 +822,11 @@ export class DULuaConfig {
     // This is our base code
     let mainCode = mainCodeParts.join('\n\n');
 
+    // Creates the global -> local conversion
+    if (buildTarget.minifyOptions) {
+      mainCode = this.buildMinifierGlobalsListForType(mainCode, compilerResult.build.type).code;
+    }
+
     // Does initial post-processing
     mainCode = this.applyCodePostProcessing(mainCode, buildTarget, buildTarget.minify || compilerResult.build.options.compress);
 
@@ -687,7 +837,7 @@ export class DULuaConfig {
     if (compilerResult.build.options.compress) {
       mainCode = DULuaCompressor.compress(
         mainCode,
-        this.runMinifier(compilerInternals.compressedTemplate)
+        this.runMinifier(compilerInternals.compressedTemplate, buildTarget)
       );
     }
 

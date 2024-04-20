@@ -1,6 +1,8 @@
 local triggerables = {}
 local nTriggerables = 0
 
+local library = DULibrary or {}
+
 -- Adds event handling to an object's instance
 function library.addEventHandlers(obj)
   -- Does nothing when obj is null or already has events

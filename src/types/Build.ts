@@ -102,9 +102,9 @@ export default class Build {
     // Build options
     const defaultOptions = this.getDefaultOptions(this.type);
     this.options = {
-      events: (undefined !== data.noEvents && !data.noEvents) || defaultOptions.events,
-      preload: (undefined !== data.noPreload && !data.noPreload) || defaultOptions.preload,
-      helpers: (undefined !== data.noHelpers && !data.noHelpers) || defaultOptions.helpers,
+      events: (undefined !== data.noEvents) ? !data.noEvents : defaultOptions.events,
+      preload: (undefined !== data.noPreload) ? !data.noPreload : defaultOptions.preload,
+      helpers: (undefined !== data.noHelpers) ? !data.noHelpers : defaultOptions.helpers,
       compress: (undefined !== data.compress && data.compress) || defaultOptions.compress,
     };
   }

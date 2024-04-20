@@ -17,6 +17,11 @@ export default class BuildTarget {
   minify: boolean = false;
 
   /**
+   * Whether we should minify DU's globals (system, unit, etc)
+   */
+  minifyOptions: any = {};
+
+  /**
    * Whether we should we strip comments
    */
   stripComments: boolean = false;
@@ -37,6 +42,7 @@ export default class BuildTarget {
 
     this.name = data.name;
     this.minify = data.minify || false;
+    this.minifyOptions = data.minifyOptions || null;
     this.handleErrors = data.handleErrors || false;
     this.stripComments = data.stripComments || false;
     this.variables = data.variables || {};
