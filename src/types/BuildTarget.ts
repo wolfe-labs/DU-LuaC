@@ -58,13 +58,13 @@ export default class BuildTarget {
    * Are we allowed to minify globals?
    */
   public isAllowedToMinifyGlobals(): boolean {
-    return this.minifyGlobalsCount !== null;
+    return this.minify && this.minifyGlobalsCount !== null;
   }
 
   /**
    * Are we allowed to minify global members?
    */
   public isAllowedToMinifyGlobalMembers(): boolean {
-    return this.minifyGlobalMembersCount !== null;
+    return this.isAllowedToMinifyGlobals() && this.minifyGlobalMembersCount !== null;
   }
 }
