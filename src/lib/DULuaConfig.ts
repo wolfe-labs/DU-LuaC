@@ -447,7 +447,7 @@ export class DULuaConfig {
   /**
    * Builds a string that represents some globals converted into locals for minification
    */
-  static buildMinifierGlobalsListForType(code: string, buildType: BuildType) {
+  static buildMinifierGlobalsListForType(code: string, buildTarget: BuildTarget, buildType: BuildType) {
     // Those are some known DU globals we'll want to convert into locals for minification
     const globalsToMinifyPerType = {
       [BuildType.ControlUnit]: {
@@ -461,50 +461,54 @@ export class DULuaConfig {
       },
     };
 
-    return this.buildMinifierGlobalsList(code, globalsToMinifyPerType[buildType]);
+    return this.buildMinifierGlobalsList(code, buildTarget, globalsToMinifyPerType[buildType]);
   }
 
   /**
    * Builds a string that represents some globals converted into locals for minification
    */
-  static buildMinifierGlobalsList(code: string, globalsToMinify: Record<string, string[]> = {}) {
+  static buildMinifierGlobalsList(code: string, buildTarget: BuildTarget, globalsToMinify: Record<string, string[]> = {}) {
     // Counts those globals, to tell whether it's worth it or not
     const localGlobals = [];
-    for (const globalValue in globalsToMinify) {
-      for (const globalName of globalsToMinify[globalValue]) {
-        // Counts how many times this global has appeared
-        const count = code.match(
-          new RegExp(globalName, 'g')
-        )?.length || 0;
+    if (buildTarget.isAllowedToMinifyGlobals()) {
+      for (const globalValue in globalsToMinify) {
+        for (const globalName of globalsToMinify[globalValue]) {
+          // Counts how many times this global has appeared
+          const count = code.match(
+            new RegExp(globalName, 'g')
+          )?.length || 0;
 
-        // If we have at least 3 repetitions, we should be able to minify it properly
-        if (count >= 3) {
-          localGlobals.push({ globalValue, globalName });
+          // If we have at least 3 repetitions, we should be able to minify it properly
+          if (count >= buildTarget.minifyGlobalsCount!) {
+            localGlobals.push({ globalValue, globalName });
+          }
         }
       }
     }
 
     // Now, let's extract global members the same way as above
     const localGlobalMembers = [];
-    for (const { globalName } of localGlobals) {
-      // Counts how many times this global has appeared
-      const matchedMembers = code.match(
-        new RegExp(`(${globalName}[.][a-zA-Z_{1}][a-zA-Z0-9_]+)`, 'g')
-      ) || [];
+    if (buildTarget.isAllowedToMinifyGlobalMembers()) {
+      for (const { globalName } of localGlobals) {
+        // Counts how many times this global has appeared
+        const matchedMembers = code.match(
+          new RegExp(`(${globalName}[.][a-zA-Z_{1}][a-zA-Z0-9_]+)`, 'g')
+        ) || [];
 
-      // Gets the member count
-      const matchedMemberCounts = matchedMembers.reduce((count: any, memberName: string) => Object.assign(count, {
-        ...count,
-        [memberName]: (count[memberName] || 0) + 1,
-      }), {}) as Record<string, number>;
+        // Gets the member count
+        const matchedMemberCounts = matchedMembers.reduce((count: any, memberName: string) => Object.assign(count, {
+          ...count,
+          [memberName]: (count[memberName] || 0) + 1,
+        }), {}) as Record<string, number>;
 
-      // Saves our global members as needed
-      for (const memberName in matchedMemberCounts) {
-        const count = matchedMemberCounts[memberName];
-        if (count >= 2) {
-          const newName = `__GLOBAL_MEMBER__${memberName.replace(/\./g, '_')}`;
-          code = code.replace(new RegExp(memberName, 'g'), newName);
-          localGlobalMembers.push({ memberName: newName, memberValue: memberName });
+        // Saves our global members as needed
+        for (const memberName in matchedMemberCounts) {
+          const count = matchedMemberCounts[memberName];
+          if (count >= buildTarget.minifyGlobalMembersCount!) {
+            const newName = `__GLOBAL_MEMBER__${memberName.replace(/\./g, '_')}`;
+            code = code.replace(new RegExp(memberName, 'g'), newName);
+            localGlobalMembers.push({ memberName: newName, memberValue: memberName });
+          }
         }
       }
     }
@@ -540,9 +544,9 @@ export class DULuaConfig {
    */
   static runMinifierWithOptionalGlobalConversion(code: string, buildTarget: BuildTarget, buildType: BuildType): string {
     // Invokes the minifier
-    return (buildTarget.minifyOptions)
+    return (buildTarget.isAllowedToMinifyGlobals())
       ? this.runMinifier(
-        this.buildMinifierGlobalsListForType(code, buildType).code,
+        this.buildMinifierGlobalsListForType(code, buildTarget, buildType).code,
         buildTarget
       )
       : this.runMinifier(code, buildTarget);
@@ -748,7 +752,7 @@ export class DULuaConfig {
         (preload) => `package.preload['${preload.path}']=(function()\n${this.applyCodePostProcessing(preload.code, buildTarget, buildTarget.minify)}\nend)`
       ).join('\n');
 
-      if (buildTarget.minifyOptions && this.buildMinifierGlobalsListForType(preloadCode, compilerResult.build.type).locals.length > 0) {
+      if (buildTarget.isAllowedToMinifyGlobals() && this.buildMinifierGlobalsListForType(preloadCode, buildTarget, compilerResult.build.type).locals.length > 0) {
         mainPrepend.push(preloadCode);
       } else {
         // Adds the preloads
@@ -823,8 +827,8 @@ export class DULuaConfig {
     let mainCode = mainCodeParts.join('\n\n');
 
     // Creates the global -> local conversion
-    if (buildTarget.minifyOptions) {
-      mainCode = this.buildMinifierGlobalsListForType(mainCode, compilerResult.build.type).code;
+    if (buildTarget.isAllowedToMinifyGlobals()) {
+      mainCode = this.buildMinifierGlobalsListForType(mainCode, buildTarget, compilerResult.build.type).code;
     }
 
     // Does initial post-processing

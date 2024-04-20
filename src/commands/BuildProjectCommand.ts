@@ -105,7 +105,6 @@ export default class BuildProjectCommand implements Command {
           exportFormats.CONF = true;
           exportFormats.JSON = true;
           exportFormats.YAML = true;
-          exportFormats.LUA = true;
           break;
         case BuildType.RenderScript:
           exportFormats.LUA = true;

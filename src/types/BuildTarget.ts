@@ -17,9 +17,14 @@ export default class BuildTarget {
   minify: boolean = false;
 
   /**
-   * Whether we should minify DU's globals (system, unit, etc)
+   * After how many repetitions should we minify DU's globals (system, unit, etc)
    */
-  minifyOptions: any = {};
+  minifyGlobalsCount: number|null = null;
+
+  /**
+   * After how many repetitions should we minify DU's global members (system.print, etc)
+   */
+  minifyGlobalMembersCount: number|null = null;
 
   /**
    * Whether we should we strip comments
@@ -42,9 +47,24 @@ export default class BuildTarget {
 
     this.name = data.name;
     this.minify = data.minify || false;
-    this.minifyOptions = data.minifyOptions || null;
+    this.minifyGlobalsCount = (true === data.minifyGlobals || 'number' == typeof(data.minifyGlobals)) ? (data.minifyGlobals === true) ? 3 : data.minifyGlobals : null;
+    this.minifyGlobalMembersCount = (true === data.minifyGlobalMembers || 'number' == typeof(data.minifyGlobalMembers)) ? (data.minifyGlobalMembers === true) ? 3 : data.minifyGlobalMembers : null;
     this.handleErrors = data.handleErrors || false;
     this.stripComments = data.stripComments || false;
     this.variables = data.variables || {};
+  }
+
+  /**
+   * Are we allowed to minify globals?
+   */
+  public isAllowedToMinifyGlobals(): boolean {
+    return this.minifyGlobalsCount !== null;
+  }
+
+  /**
+   * Are we allowed to minify global members?
+   */
+  public isAllowedToMinifyGlobalMembers(): boolean {
+    return this.minifyGlobalMembersCount !== null;
   }
 }
