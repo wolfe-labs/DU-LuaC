@@ -493,7 +493,7 @@ export class DULuaConfig {
         // Counts how many times this global has appeared
         const matchedMembers = code.match(
           new RegExp(`(${globalName}[.][a-zA-Z_{1}][a-zA-Z0-9_]+)`, 'g')
-        ) || [];
+        ) || ([] as string[]);
 
         // Gets the member count
         const matchedMemberCounts = matchedMembers.reduce((count: any, memberName: string) => Object.assign(count, {
