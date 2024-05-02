@@ -1,3 +1,5 @@
+![DU-Lua Banner](.github/Banner.png)
+
 # Lua CLI for Dual Universe
 
 This is a very simple compiler for Dual Universe scripts that will not only combine your Lua source files and generate proper autoconfig files, but also includes improved event handling out of the box.
